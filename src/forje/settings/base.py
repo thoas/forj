@@ -36,6 +36,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+SESSION_COOKIE_NAME = 'fj_session'
+SESSION_COOKIE_DOMAIN = '.forje.com'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+CSRF_COOKIE_DOMAIN = '.forje.com'
+
+DEFAULT_FROM_EMAIL = 'contact@forje.com'
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
 ROOT_URLCONF = 'forje.urls'
 
 TEMPLATES = [
@@ -130,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'UTC'
 
@@ -139,6 +149,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+TIME_ZONE = 'Europe/Paris'
 
 
 # Static files (CSS, JavaScript, Images)
