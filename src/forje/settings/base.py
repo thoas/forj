@@ -20,6 +20,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'forje',
     'django_extensions',
+    'easy_thumbnails',
+    'django_jinja',
+    'django_jinja.contrib._easy_thumbnails',
+    'django_jinja.contrib._humanize',
 ]
 
 MIDDLEWARE = [
@@ -48,9 +52,48 @@ TEMPLATES = [
             ],
         },
     },
-]
+    {
+        "BACKEND": "django_jinja.backend.Jinja2",
+        "APP_DIRS": True,
+        "OPTIONS": {
+            # Match the template names ending in .html but not the ones in the admin folder.
+            "match_extension": ".html",
+            "match_regex": r"^(?!admin/).*",
+            "app_dirname": "templates",
 
-WSGI_APPLICATION = 'forje.wsgi.application'
+            # Can be set to "jinja2.Undefined" or any other subclass.
+            "undefined": None,
+            "newstyle_gettext": True,
+            "filters": {
+            },
+            "globals": {
+            },
+            "constants": {
+            },
+            "extensions": [
+                "jinja2.ext.do",
+                "jinja2.ext.loopcontrols",
+                "jinja2.ext.with_",
+                "jinja2.ext.i18n",
+                "jinja2.ext.autoescape",
+                "django_jinja.builtins.extensions.CsrfExtension",
+                "django_jinja.builtins.extensions.CacheExtension",
+                "django_jinja.builtins.extensions.TimezoneExtension",
+                "django_jinja.builtins.extensions.UrlsExtension",
+                "django_jinja.builtins.extensions.StaticFilesExtension",
+                "django_jinja.builtins.extensions.DjangoFiltersExtension",
+            ],
+            "bytecode_cache": {
+                "name": "default",
+                "backend": "django_jinja.cache.BytecodeCache",
+                "enabled": False,
+            },
+            "autoescape": True,
+            "auto_reload": True,
+            "translation_engine": "django.utils.translation",
+        }
+    },
+]
 
 DATABASES = {
     'default': {

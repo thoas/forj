@@ -13,5 +13,8 @@ simplejson==3.11.1
 six==1.10.0
 ipython==6.1.0
 alembic==0.9.3
+django-jinja==2.3.1
+easy-thumbnails==2.4.1
+exam==0.10.6
 
 -e git://github.com/ulule/python-mangopay.git@de0845ff4a8d87791bab24ad3cb8030b7b2934e5#egg=mangopay
