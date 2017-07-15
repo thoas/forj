@@ -13,3 +13,6 @@ syncdb:
 test:
 	DJANGO_SETTINGS_MODULE=forje.settings.test python manage.py check
 	py.test tests/ -v
+
+bootstrap:
+	alembic upgrade 314d04a46009
