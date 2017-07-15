@@ -46,6 +46,15 @@ def upgrade():
     op.create_index('auth_group__name__idx', 'auth_group', ['name'])
 
     op.create_table(
+        "auth_user_groups",
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('user_id', sa.Integer, sa.ForeignKey('auth_user.id', ondelete="SET NULL")),
+        sa.Column('group_id', sa.Integer, sa.ForeignKey('auth_group.id', ondelete="SET NULL")),
+    )
+
+    op.create_unique_constraint('auth_user_groups__user_id__group_id__uniq', 'auth_user_groups', ['user_id', 'group_id'])
+
+    op.create_table(
         "django_content_type",
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('app_label', sa.String(100)),
@@ -64,6 +73,15 @@ def upgrade():
 
     op.create_unique_constraint('auth_permission__content_type_id__codename__uniq', 'auth_permission', ['content_type_id', 'codename'])
     op.create_index('auth_permission__content_type_id__idx', 'auth_permission', ['content_type_id'])
+
+    op.create_table(
+        "auth_user_user_permissions",
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('user_id', sa.Integer, sa.ForeignKey('auth_user.id', ondelete="SET NULL")),
+        sa.Column('permission_id', sa.Integer, sa.ForeignKey('auth_permission.id', ondelete="SET NULL")),
+    )
+
+    op.create_unique_constraint('auth_user_user_permissions__user_id__permission_id__uniq', 'auth_user_user_permissions', ['user_id', 'permission_id'])
 
     op.create_table(
         "auth_group_permissions",

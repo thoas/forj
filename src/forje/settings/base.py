@@ -9,7 +9,9 @@ SECRET_KEY = 'pn442e6ha)cvkme3mz^$5e(3f0y=8@cdlg-k&0onv2$t@i*68j'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.forje.com',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
