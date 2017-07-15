@@ -1,7 +1,7 @@
 forje
 =====
 
-forje is the personal project of Michel Berrard.
+forje is the personal project of Michel Berard.
 
 Installation
 ------------
