@@ -16,3 +16,4 @@ test:
 
 bootstrap:
 	alembic upgrade 314d04a46009
+	DJANGO_SETTINGS_MODULE=forje.settings.local python manage.py createsuperuser
