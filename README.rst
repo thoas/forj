@@ -1,7 +1,7 @@
-forje
-=====
+forj
+====
 
-forje is the personal project of Michel Berard.
+forj is the personal project of Michel Berard.
 
 Installation
 ------------
@@ -11,7 +11,7 @@ Hosts
 
 Add this lines in your ``/etc/hosts``::
 
-    127.0.0.1       local.forje.com
+    127.0.0.1       local.forj.com
 
 Bootstrap
 .........
@@ -39,11 +39,11 @@ Install the database
 
 Then create the user ::
 
-    create user forje with password 'forje';
+    create user forj with password 'forj';
 
 Then create the database ::
 
-    create database forje with owner forje;
+    create database forj with owner forj;
 
 Setup project (models + initial fixtures + index) ::
 

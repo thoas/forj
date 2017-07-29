@@ -3,10 +3,22 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Forje - {% block title %}{% endblock %}</title>
+        {% block extend_meta %}
+        {% endblock %}
+
+        <title>Forj - {% block title %}{% endblock %}</title>
+
+        {% block extend_css %}
+        {% endblock %}
     </head>
-    <body>
+
+
+    <body{% block body_inner %}{% endblock %}>
         {% block body %}
+            
+        {% endblock %}
+
+        {% block extend_js %}
             
         {% endblock %}
     </body>
