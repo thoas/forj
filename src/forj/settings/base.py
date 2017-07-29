@@ -10,7 +10,7 @@ SECRET_KEY = 'pn442e6ha)cvkme3mz^$5e(3f0y=8@cdlg-k&0onv2$t@i*68j'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '.forje.com',
+    '.forj.com',
 ]
 
 INSTALLED_APPS = [
@@ -19,7 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'forje',
+    'forj',
     'django_extensions',
     'easy_thumbnails',
     'django_jinja',
@@ -39,15 +39,15 @@ MIDDLEWARE = [
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 SESSION_COOKIE_NAME = 'fj_session'
-SESSION_COOKIE_DOMAIN = '.forje.com'
+SESSION_COOKIE_DOMAIN = '.forj.com'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-CSRF_COOKIE_DOMAIN = '.forje.com'
+CSRF_COOKIE_DOMAIN = '.forj.com'
 
-DEFAULT_FROM_EMAIL = 'contact@forje.com'
+DEFAULT_FROM_EMAIL = 'contact@forj.com'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-ROOT_URLCONF = 'forje.urls'
+ROOT_URLCONF = 'forj.urls'
 
 TEMPLATES = [
     {
@@ -116,12 +116,12 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'forje',
-        'USER': 'forje',
-        'PASSWORD': 'forje',
+        'NAME': 'forj',
+        'USER': 'forj',
+        'PASSWORD': 'forj',
         'HOST': '127.0.0.1',
         'PORT': '',
-        'TEST_NAME': 'forje_test'
+        'TEST_NAME': 'forj_test'
     }
 }
 

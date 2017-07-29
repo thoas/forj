@@ -1,5 +1,5 @@
 """
-WSGI config for forje project.
+WSGI config for forj project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -14,6 +14,6 @@ from django.core.wsgi import get_wsgi_application
 
 sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(__file__), 'src')))
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "forje.settings.prod")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "forj.settings.prod")
 
 application = get_wsgi_application()

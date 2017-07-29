@@ -8,11 +8,11 @@ SILENCED_SYSTEM_CHECKS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'forje_test',
-        'USER': 'forje',
-        'PASSWORD': 'forje',
+        'NAME': 'forj_test',
+        'USER': 'forj',
+        'PASSWORD': 'forj',
         'HOST': '127.0.0.1',
         'PORT': '',
-        'TEST_NAME': 'forje_test'
+        'TEST_NAME': 'forj_test'
     }
 }
