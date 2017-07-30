@@ -1,14 +1,14 @@
 """initial
 
 Revision ID: 314d04a46009
-Revises: 
+Revises:
 Create Date: 2017-07-15 20:10:14.338960
 
 """
 from alembic import op
 import sqlalchemy as sa
 
-from sqlalchemy.sql import column, func
+from sqlalchemy.sql import column
 
 
 # revision identifiers, used by Alembic.
@@ -27,7 +27,7 @@ def upgrade():
         sa.Column('is_superuser', sa.Boolean),
         sa.Column('username', sa.String(150)),
         sa.Column('first_name', sa.String(30)),
-        sa.Column('last_name', sa.String(30)),
+        sa.Column('last_name', sa.String(150)),
         sa.Column('email', sa.String(254)),
         sa.Column('is_staff', sa.Boolean),
         sa.Column('is_active', sa.Boolean),
@@ -48,8 +48,8 @@ def upgrade():
     op.create_table(
         "auth_user_groups",
         sa.Column('id', sa.Integer, primary_key=True),
-        sa.Column('user_id', sa.Integer, sa.ForeignKey('auth_user.id', ondelete="SET NULL")),
-        sa.Column('group_id', sa.Integer, sa.ForeignKey('auth_group.id', ondelete="SET NULL")),
+        sa.Column('user_id', sa.Integer, sa.ForeignKey('auth_user.id')),
+        sa.Column('group_id', sa.Integer, sa.ForeignKey('auth_group.id')),
     )
 
     op.create_unique_constraint('auth_user_groups__user_id__group_id__uniq', 'auth_user_groups', ['user_id', 'group_id'])
@@ -67,7 +67,7 @@ def upgrade():
         "auth_permission",
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('name', sa.String(255)),
-        sa.Column('content_type_id', sa.Integer, sa.ForeignKey('django_content_type.id', ondelete="SET NULL")),
+        sa.Column('content_type_id', sa.Integer, sa.ForeignKey('django_content_type.id')),
         sa.Column('codename', sa.String(100)),
     )
 
@@ -77,8 +77,8 @@ def upgrade():
     op.create_table(
         "auth_user_user_permissions",
         sa.Column('id', sa.Integer, primary_key=True),
-        sa.Column('user_id', sa.Integer, sa.ForeignKey('auth_user.id', ondelete="SET NULL")),
-        sa.Column('permission_id', sa.Integer, sa.ForeignKey('auth_permission.id', ondelete="SET NULL")),
+        sa.Column('user_id', sa.Integer, sa.ForeignKey('auth_user.id')),
+        sa.Column('permission_id', sa.Integer, sa.ForeignKey('auth_permission.id')),
     )
 
     op.create_unique_constraint('auth_user_user_permissions__user_id__permission_id__uniq', 'auth_user_user_permissions', ['user_id', 'permission_id'])
@@ -86,8 +86,8 @@ def upgrade():
     op.create_table(
         "auth_group_permissions",
         sa.Column('id', sa.Integer, primary_key=True),
-        sa.Column('group_id', sa.Integer, sa.ForeignKey('auth_group.id', ondelete="SET NULL")),
-        sa.Column('permission_id', sa.Integer, sa.ForeignKey('auth_permission.id', ondelete="SET NULL")),
+        sa.Column('group_id', sa.Integer, sa.ForeignKey('auth_group.id')),
+        sa.Column('permission_id', sa.Integer, sa.ForeignKey('auth_permission.id')),
     )
 
     op.create_unique_constraint('auth_group_permissions__group_id__permission_id__uniq', 'auth_group_permissions', ['group_id', 'permission_id'])
@@ -102,8 +102,8 @@ def upgrade():
         sa.Column('object_repr', sa.String(200)),
         sa.Column('action_flag', sa.SmallInteger),
         sa.Column('change_message', sa.Text),
-        sa.Column('content_type_id', sa.Integer, sa.ForeignKey('django_content_type.id', ondelete="SET NULL"), nullable=True),
-        sa.Column('user_id', sa.Integer, sa.ForeignKey('auth_user.id', ondelete="SET NULL")),
+        sa.Column('content_type_id', sa.Integer, sa.ForeignKey('django_content_type.id'), nullable=True),
+        sa.Column('user_id', sa.Integer, sa.ForeignKey('auth_user.id')),
     )
 
     op.create_index('django_admin_log__content_type_id__idx', 'django_admin_log', ['content_type_id'])
@@ -133,7 +133,7 @@ def upgrade():
         sa.Column('name', sa.String(255)),
         sa.Column('storage_hash', sa.String(40)),
         sa.Column('modified', sa.DateTime(timezone=True)),
-        sa.Column('source_id', sa.Integer, sa.ForeignKey('easy_thumbnails_source.id', ondelete="SET NULL")),
+        sa.Column('source_id', sa.Integer, sa.ForeignKey('easy_thumbnails_source.id')),
     )
 
     op.create_unique_constraint('easy_thumbnails_thumbnail__storage_hash__name__source_id__uniq', 'easy_thumbnails_thumbnail', ['storage_hash', 'name', 'source_id'])
@@ -144,7 +144,7 @@ def upgrade():
     op.create_table(
         "easy_thumbnails_thumbnaildimensions",
         sa.Column('id', sa.Integer, primary_key=True),
-        sa.Column('thumbnail_id', sa.Integer, sa.ForeignKey('easy_thumbnails_thumbnail.id', ondelete="SET NULL")),
+        sa.Column('thumbnail_id', sa.Integer, sa.ForeignKey('easy_thumbnails_thumbnail.id')),
         sa.Column('width', sa.Integer),
         sa.Column('height', sa.Integer),
     )
