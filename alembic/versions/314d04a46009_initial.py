@@ -44,6 +44,7 @@ def upgrade():
         sa.Column('reference', sa.String(50)),
         sa.Column('description', sa.Text, nullable=True),
         sa.Column('price', sa.Integer),
+        sa.Column('currency', sa.String(3)),
         sa.Column('shipping_cost', sa.Integer),
         sa.Column('created_at', sa.DateTime(timezone=True)),
         sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
@@ -55,13 +56,28 @@ def upgrade():
         "forj_order",
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('amount', sa.Integer),
-        sa.Column('shipping_cost', sa.Integer),
+        sa.Column('currency', sa.String(3)),
+        sa.Column('status', sa.SmallInteger, nullable=False),
+        sa.Column('shipping_status', sa.SmallInteger, nullable=False),
+        sa.Column('shipping_cost', sa.Integer, server_default="0"),
         sa.Column('user_id', sa.Integer, sa.ForeignKey('forj_user.id')),
         sa.Column('created_at', sa.DateTime(timezone=True)),
         sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
     )
 
     op.create_index('forj_order__user_id__idx', 'forj_order', ['user_id'])
+
+    op.create_table(
+        "forj_orderitem",
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('quantity', sa.Integer, server_default="0"),
+        sa.Column('order_id', sa.Integer, sa.ForeignKey('forj_order.id')),
+        sa.Column('product_id', sa.Integer, sa.ForeignKey('forj_product.id')),
+        sa.Column('created_at', sa.DateTime(timezone=True)),
+        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+    )
+
+    op.create_index('forj_orderitem__product_id__idx', 'forj_orderitem', ['product_id'])
 
     op.create_table(
         "auth_group",
@@ -72,13 +88,13 @@ def upgrade():
     op.create_index('auth_group__name__idx', 'auth_group', ['name'])
 
     op.create_table(
-        "auth_user_groups",
+        "forj_user_groups",
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('user_id', sa.Integer, sa.ForeignKey('forj_user.id')),
         sa.Column('group_id', sa.Integer, sa.ForeignKey('auth_group.id')),
     )
 
-    op.create_unique_constraint('auth_user_groups__user_id__group_id__uniq', 'auth_user_groups', ['user_id', 'group_id'])
+    op.create_unique_constraint('forj_user_groups__user_id__group_id__uniq', 'forj_user_groups', ['user_id', 'group_id'])
 
     op.create_table(
         "django_content_type",
@@ -101,13 +117,13 @@ def upgrade():
     op.create_index('auth_permission__content_type_id__idx', 'auth_permission', ['content_type_id'])
 
     op.create_table(
-        "auth_user_user_permissions",
+        "forj_user_user_permissions",
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('user_id', sa.Integer, sa.ForeignKey('forj_user.id')),
         sa.Column('permission_id', sa.Integer, sa.ForeignKey('auth_permission.id')),
     )
 
-    op.create_unique_constraint('auth_user_user_permissions__user_id__permission_id__uniq', 'auth_user_user_permissions', ['user_id', 'permission_id'])
+    op.create_unique_constraint('forj_user_user_permissions__user_id__permission_id__uniq', 'forj_user_user_permissions', ['user_id', 'permission_id'])
 
     op.create_table(
         "auth_group_permissions",

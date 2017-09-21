@@ -17,5 +17,15 @@ test:
 bootstrap-db:
 	alembic upgrade 314d04a46009
 
-bootstrap: bootstrap-db syncdb
+bootstrap: bootstrap-db syncdb initial-data
+
+initial-data:
+	DJANGO_SETTINGS_MODULE=forj.settings.local python manage.py loaddata src/forj/fixtures/initial.json
+
+createsuperuser:
 	DJANGO_SETTINGS_MODULE=forj.settings.local python manage.py createsuperuser
+
+destruct-db:
+	psql -d postgres -c "drop database forj;" && psql -d postgres -c "create database forj with owner forj;"
+
+rebuild: destruct-db bootstrap
