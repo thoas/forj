@@ -1,6 +1,11 @@
 forj
 ====
 
+.. image:: https://secure.travis-ci.org/thoas/forj.png?branch=master
+    :alt: Build Status
+    :target: http://travis-ci.org/thoas/forj
+
+
 forj is the personal project of Michel Berard.
 
 Installation
@@ -37,13 +42,9 @@ Install the database
 
     sudo -u postgres psql
 
-Then create the user ::
+Then setup the database ::
 
-    create user forj with password 'forj';
-
-Then create the database ::
-
-    create database forj with owner forj;
+    make setup-db
 
 Setup project (models + initial fixtures + index) ::
 
