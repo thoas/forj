@@ -1,4 +1,4 @@
-from forje.utils.test import TestCase
+from forj.utils.test import TestCase
 
 from django.urls import reverse
 
