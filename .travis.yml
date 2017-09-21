@@ -1,0 +1,11 @@
+language: python
+services:
+  - postgresql
+before_script:
+  - make setup-db
+python:
+  - "3.6"
+install:
+  - make dependencies
+script:
+  - make test

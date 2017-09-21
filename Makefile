@@ -25,7 +25,13 @@ initial-data:
 createsuperuser:
 	DJANGO_SETTINGS_MODULE=forj.settings.local python manage.py createsuperuser
 
+setup-db:
+	psql -U postgres -c "create user forj with password 'forj';"
+	psql -U postgres -c "alter role forj with superuser;"
+	psql -U postgres -c "create database forj with owner forj;"
+
 destruct-db:
-	psql -d postgres -c "drop database forj;" && psql -d postgres -c "create database forj with owner forj;"
+	psql -U postgres -c "drop database forj;"
+	psql -d postgres -c "create database forj with owner forj;"
 
 rebuild: destruct-db bootstrap
