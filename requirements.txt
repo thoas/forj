@@ -1,21 +1,22 @@
-psycopg2==2.7.3
-django-storages==1.6.4
+psycopg2==2.7.3.1
 Pillow==4.2.1
 django-debug-toolbar==1.8
-pytest==3.1.3
+pytest==3.2.2
 pytest-django==3.1.2
 gunicorn==19.7.1
 boto==2.48.0
 Jinja2==2.9.6
-django-extensions==1.8.1
+django-extensions==1.9.1
 simplejson==3.11.1
 six==1.10.0
-ipython==6.1.0
-alembic==0.9.3
-django-jinja==2.3.1
-easy-thumbnails==2.4.1
+ipython==6.2.0
+alembic==0.9.5
+django-jinja==2.4.0
+easy-thumbnails==2.4.2
 exam==0.10.6
-django-model-utils==3.0.0
+django-extended-choices==1.1.2
+requests==2.18.4
+SQLAlchemy==1.1.14
 
 -e git://github.com/ulule/python-mangopay.git@de0845ff4a8d87791bab24ad3cb8030b7b2934e5#egg=mangopay
 -e git://github.com/django/django.git@38988f289f7f5708f5ea85de2d5dfe0d86b23106#egg=django

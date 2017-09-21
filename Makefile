@@ -1,7 +1,7 @@
 dependencies:
 	pip install -r requirements.txt
 
-runserver:
+run-server:
 	DJANGO_SETTINGS_MODULE=forj.settings.local python manage.py runserver 127.0.0.1:8181
 
 shell-plus:

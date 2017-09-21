@@ -10,6 +10,8 @@ ALLOWED_HOSTS = [
     '.forj.com',
 ]
 
+AUTH_USER_MODEL = 'forj.User'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
