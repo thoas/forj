@@ -38,6 +38,26 @@ def upgrade():
     op.create_index('forj_user__email__idx', 'forj_user', ['email'])
 
     op.create_table(
+        "forj_address",
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('status', sa.SmallInteger, nullable=False),
+        sa.Column('first_name', sa.String(250), nullable=True),
+        sa.Column('last_name', sa.String(250), nullable=True),
+        sa.Column('business_name', sa.String(250), nullable=True),
+        sa.Column('line1', sa.Text, nullable=True),
+        sa.Column('line2', sa.Text, nullable=True),
+        sa.Column('postal_code', sa.String(140), nullable=True),
+        sa.Column('city', sa.String(140), nullable=True),
+        sa.Column('country', sa.String(2), nullable=True),
+        sa.Column('user_id', sa.Integer, sa.ForeignKey('forj_user.id')),
+        sa.Column('created_at', sa.DateTime(timezone=True)),
+        sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+    )
+
+    op.create_index('forj_address__user_id__idx', 'forj_address', ['user_id'])
+
+
+    op.create_table(
         "forj_product",
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('name', sa.String(100)),
@@ -61,6 +81,8 @@ def upgrade():
         sa.Column('shipping_status', sa.SmallInteger, nullable=False),
         sa.Column('shipping_cost', sa.Integer, server_default="0"),
         sa.Column('user_id', sa.Integer, sa.ForeignKey('forj_user.id')),
+        sa.Column('shipping_adress_id', sa.Integer, sa.ForeignKey('forj_address.id'), nullable=True),
+        sa.Column('billing_adress_id', sa.Integer, sa.ForeignKey('forj_address.id'), nullable=True),
         sa.Column('created_at', sa.DateTime(timezone=True)),
         sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
     )

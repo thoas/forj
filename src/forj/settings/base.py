@@ -11,6 +11,7 @@ ALLOWED_HOSTS = [
 ]
 
 AUTH_USER_MODEL = 'forj.User'
+DEFAULT_COUNTRY = 'FR'
 
 INSTALLED_APPS = [
     'django.contrib.admin',

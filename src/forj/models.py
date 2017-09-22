@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+
+from django_countries.fields import CountryField
 
 from forj.db.models import base
 from forj.db.models.fields import AmountField
@@ -39,12 +42,21 @@ class Order(base.Model):
     currency = models.CharField(max_length=3,
                                 choices=constants.CURRENCY_CHOICES,
                                 default=constants.CURRENCY_CHOICES.EURO)
-    status = models.SmallIntegerField(choices=STATUS_CHOICES,
-                                      default=STATUS_CHOICES.WAITING)
-    shipping_status = models.SmallIntegerField(choices=SHIPPING_STATUS_CHOICES,
-                                               default=SHIPPING_STATUS_CHOICES.WAITING)
+    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES,
+                                              default=STATUS_CHOICES.WAITING)
+    shipping_status = models.PositiveSmallIntegerField(choices=SHIPPING_STATUS_CHOICES,
+                                                       default=SHIPPING_STATUS_CHOICES.WAITING)
     shipping_cost = AmountField(verbose_name='Shipping cost', default=0)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+    shipping_address = models.ForeignKey('forj.Address',
+                                         on_delete=models.SET_NULL,
+                                         related_name='shipping_orders',
+                                         null=True)
+    billing_address = models.ForeignKey('forj.Address',
+                                        on_delete=models.SET_NULL,
+                                        related_name='billing_orders',
+                                        null=True)
 
     class Meta:
         abstract = False
@@ -62,3 +74,39 @@ class OrderItem(base.Model):
     class Meta:
         abstract = False
         db_table = 'forj_orderitem'
+
+
+class Address(base.Model):
+    TYPE_CHOICES = constants.ADDRESS_TYPE_CHOICES
+
+    type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES,
+                                            default=TYPE_CHOICES.INDIVIDUAL,
+                                            null=True)
+
+    first_name = models.CharField(max_length=250, verbose_name='First name',
+                                  null=True,
+                                  blank=True)
+    last_name = models.CharField(max_length=250,
+                                 verbose_name='Last name',
+                                 null=True, blank=True)
+    business_name = models.CharField(max_length=250,
+                                     verbose_name='Entity name',
+                                     null=True, blank=True)
+    line1 = models.TextField(verbose_name='Address', null=True)
+    line2 = models.TextField(verbose_name='Address 2', null=True, blank=True)
+    postal_code = models.CharField(max_length=140,
+                                   verbose_name='Postal code',
+                                   null=True)
+    city = models.CharField(max_length=140,
+                            verbose_name='City',
+                            null=True)
+    country = CountryField(blank=True, null=True,
+                           verbose_name='Country',
+                           default=settings.DEFAULT_COUNTRY)
+
+    user = models.ForeignKey(User, related_name='addresses',
+                             on_delete=models.PROTECT)
+
+    class Meta:
+        abstract = False
+        db_table = 'forj_address'

@@ -17,6 +17,7 @@ exam==0.10.6
 django-extended-choices==1.1.2
 requests==2.18.4
 SQLAlchemy==1.1.14
+django-countries==4.6.2
 
 -e git://github.com/ulule/python-mangopay.git@de0845ff4a8d87791bab24ad3cb8030b7b2934e5#egg=mangopay
 -e git://github.com/django/django.git@38988f289f7f5708f5ea85de2d5dfe0d86b23106#egg=django

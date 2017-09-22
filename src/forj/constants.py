@@ -1,6 +1,5 @@
 from extended_choices import Choices
 
-
 ORDER_STATUS_CHOICES = Choices(
     ('WAITING', 1, 'Waiting'),
     ('SUCCEEDED', 2, 'Succeeded'),
@@ -15,4 +14,9 @@ ORDER_SHIPPING_STATUS_CHOICES = Choices(
     ('WAITING', 1, 'Waiting'),
     ('PROCESSING', 2, 'Processing'),
     ('DELIVERED', 3, 'Delivered'),
+)
+
+ADDRESS_TYPE_CHOICES = Choices(
+    ('INDIVIDUAL', 1, 'Individual'),
+    ('BUSINESS', 2, 'Business'),
 )

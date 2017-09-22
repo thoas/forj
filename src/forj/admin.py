@@ -63,3 +63,6 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(User, UserAdmin)
+
+admin.site.site_title = 'Site admin'
+admin.site.site_header = 'Forj administration'
