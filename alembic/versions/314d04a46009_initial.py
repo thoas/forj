@@ -40,6 +40,7 @@ def upgrade():
     op.create_table(
         "forj_address",
         sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('type', sa.SmallInteger, nullable=False),
         sa.Column('status', sa.SmallInteger, nullable=False),
         sa.Column('first_name', sa.String(250), nullable=True),
         sa.Column('last_name', sa.String(250), nullable=True),
