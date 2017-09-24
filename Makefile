@@ -12,7 +12,7 @@ syncdb:
 
 test:
 	DJANGO_SETTINGS_MODULE=forj.settings.test python manage.py check
-	py.test tests/ -v
+	py.test tests/ -v -s
 
 bootstrap-db:
 	alembic upgrade 314d04a46009

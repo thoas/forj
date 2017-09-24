@@ -9,18 +9,27 @@ from forj.db.models.fields import AmountField
 from forj import constants
 
 
+class ProductManager(base.Manager):
+    def from_reference(self, reference):
+        pass
+
+
 class Product(base.Model):
     name = models.CharField(max_length=100, verbose_name='Name')
-    reference = models.CharField(max_length=50, verbose_name='Reference',
+    reference = models.CharField(max_length=100, verbose_name='Reference',
                                  db_index=True)
     description = models.TextField(null=True, verbose_name='Description',
                                    blank=True)
-    price = AmountField(verbose_name='Price')
+    price = AmountField(verbose_name='Price', null=True, blank=True)
+    formula = models.CharField(max_length=100, verbose_name='Formula',
+                               null=True, blank=True)
     currency = models.CharField(max_length=3,
                                 choices=constants.CURRENCY_CHOICES,
                                 default=constants.CURRENCY_CHOICES.EURO)
     shipping_cost = AmountField(null=True, verbose_name='Shipping cost',
                                 default=0)
+
+    objects = ProductManager()
 
     class Meta:
         db_table = 'forj_product'
