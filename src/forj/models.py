@@ -53,8 +53,9 @@ class Order(base.Model):
                                 default=constants.CURRENCY_CHOICES.EURO)
     status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES,
                                               default=STATUS_CHOICES.WAITING)
-    shipping_status = models.PositiveSmallIntegerField(choices=SHIPPING_STATUS_CHOICES,
-                                                       default=SHIPPING_STATUS_CHOICES.WAITING)
+    shipping_status = models.PositiveSmallIntegerField(
+        choices=SHIPPING_STATUS_CHOICES,
+        default=SHIPPING_STATUS_CHOICES.WAITING)
     shipping_cost = AmountField(verbose_name='Shipping cost', default=0)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
