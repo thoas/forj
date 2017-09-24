@@ -1,17 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from django.utils.functional import cached_property
 
 from django_countries.fields import CountryField
 
 from forj.db.models import base
 from forj.db.models.fields import AmountField
 from forj import constants
+from forj.criteria import CriteriaSet
 
 
 class ProductManager(base.Manager):
     def from_reference(self, reference):
-        pass
+        criteria_set = CriteriaSet.from_reference(reference)
+
+        for product in self.all():
+            if (criteria_set in product.criteria_set and
+                    len(criteria_set) == len(product.criteria_set)):
+                return product
+
+        return None
 
 
 class Product(base.Model):
@@ -34,6 +43,10 @@ class Product(base.Model):
     class Meta:
         db_table = 'forj_product'
         abstract = False
+
+    @cached_property
+    def criteria_set(self):
+        return CriteriaSet.from_reference(self.reference)
 
 
 class User(AbstractUser):
