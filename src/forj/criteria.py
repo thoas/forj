@@ -9,7 +9,9 @@ criteria_regex = re.compile(r'(?P<name>\w+)\((?P<value>[\w\{}\{}]+)\)'.format(RA
 
 class CriteriaSet(object):
     def __init__(self, criterias):
-        self.criterias = criterias
+        self.criterias = sorted(criterias,
+                                key=lambda criteria: criteria.name,
+                                reverse=True)
 
     @classmethod
     def from_reference(cls, reference,
@@ -22,6 +24,19 @@ class CriteriaSet(object):
 
     def __len__(self):
         return len(self.criterias)
+
+    def __repr__(self):
+        value = '{}'.format(CRITERIA_SEPARATOR).join([
+            '{}'.format(criteria)
+            for criteria in self.criterias
+        ])
+
+        return '<{}: {}>'.format(self.__class__.__name__,
+                                 value)
+
+    def __contains__(self, value):
+        return all([criteria in self.criterias[i]
+                    for i, criteria in enumerate(value.criterias)])
 
 
 class Criteria(object):
@@ -49,6 +64,9 @@ class Criteria(object):
 
     def __contains__(self, value):
         return self == value
+
+    def __str__(self):
+        return '{}: {}'.format(self.name, self.value)
 
 
 class RangeCriteria(Criteria):

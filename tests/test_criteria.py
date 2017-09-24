@@ -64,3 +64,10 @@ def test_criteria_set_from_reference():
     criteria_set = CriteriaSet.from_reference(reference)
 
     assert len(criteria_set) == 5
+
+
+def test_criteria_set_contains():
+    c1 = CriteriaSet.from_reference('LA(50)-LO(25)-P(AGLO)-H(40)-R(0000)')
+    c2 = CriteriaSet.from_reference('LA(25/100)-LO(25/100)-P(AGLO)-H(40/120)-R(0000)')
+
+    assert c1 in c2
