@@ -38,10 +38,6 @@ Install dependencies
 Install the database
 ....................
 
-::
-
-    sudo -u postgres psql
-
 Then setup the database ::
 
     make setup-db
