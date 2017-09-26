@@ -19,8 +19,10 @@ class CriteriaSet(object):
 
         segments = reference.split(separator)
 
-        return cls([get_criteria_class(segment).from_segment(segment)
-                    for segment in segments])
+        criterias = [get_criteria_class(segment).from_segment(segment)
+                    for segment in segments]
+
+        return cls(criterias)
 
     def __len__(self):
         return len(self.criterias)
