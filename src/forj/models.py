@@ -93,6 +93,8 @@ class OrderItem(base.Model):
     product = models.ForeignKey(Product, related_name='items',
                                 verbose_name='Product',
                                 on_delete=models.CASCADE)
+    product_reference = models.CharField(max_length=100,
+                                         verbose_name='Product reference')
 
     class Meta:
         abstract = False
