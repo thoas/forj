@@ -1,0 +1,2 @@
+class InvalidProductRef(Exception):
+    pass

@@ -1,3 +1,5 @@
+import shortuuid
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
@@ -7,7 +9,7 @@ from django_countries.fields import CountryField
 
 from forj.db.models import base
 from forj.db.models.fields import AmountField
-from forj import constants
+from forj import constants, exceptions
 from forj.criteria import CriteriaSet
 
 
@@ -20,7 +22,7 @@ class ProductManager(base.Manager):
                     len(criteria_set) == len(product.criteria_set)):
                 return product
 
-        return None
+        raise exceptions.InvalidProductRef('Product ref {} is not available'.format(reference))
 
 
 class Product(base.Model):
@@ -66,6 +68,7 @@ class Order(base.Model):
                                 default=constants.CURRENCY_CHOICES.EURO)
     status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES,
                                               default=STATUS_CHOICES.WAITING)
+    reference = models.CharField(max_length=30, verbose_name='Reference')
     shipping_status = models.PositiveSmallIntegerField(
         choices=SHIPPING_STATUS_CHOICES,
         default=SHIPPING_STATUS_CHOICES.WAITING)
@@ -84,6 +87,12 @@ class Order(base.Model):
     class Meta:
         abstract = False
         db_table = 'forj_order'
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.reference = shortuuid.uuid()
+
+        super().__init__(*args, **kwargs)
 
 
 class OrderItem(base.Model):
