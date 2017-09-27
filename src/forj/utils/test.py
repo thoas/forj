@@ -4,6 +4,7 @@ from django import test
 from django.utils.lru_cache import lru_cache
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
+from django.test import RequestFactory
 
 from exam import Exam, fixture, before
 
@@ -28,6 +29,10 @@ class TestCase(Exam, test.TestCase):
     @fixture
     def session_store(self):
         return get_session_store()
+
+    @fixture
+    def factory(self):
+        return RequestFactory()
 
     @before
     def init_products(self):

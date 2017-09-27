@@ -21,10 +21,10 @@ class Cart(object):
         if product.pk not in self.products:
             self.products[product.pk] = {
                 'obj': product,
-                'references': defaultdict(int),
+                'refs': defaultdict(int),
             }
 
-        self.products[product.pk]['references'][reference] += quantity
+        self.products[product.pk]['refs'][reference] += quantity
 
         self.update()
 
@@ -41,7 +41,7 @@ class Cart(object):
         self.shipping_cost = 0
 
         for product_id, result in self.products.items():
-            quantity = sum(result['references'].values())
+            quantity = sum(result['refs'].values())
 
             self.amount += quantity * result['obj'].price
             self.shipping_cost += quantity * result['obj'].shipping_cost
@@ -50,7 +50,7 @@ class Cart(object):
     def data(self):
         data = {}
         for product_id, result in self.products.items():
-            data.update(result['references'])
+            data.update(result['refs'])
 
         return data
 
@@ -64,14 +64,19 @@ class Cart(object):
 
     @classmethod
     def from_data(cls, data):
-        return cls()
+        cart = cls()
+
+        for reference, quantity in data.items():
+            cart.add_product(reference, quantity)
+
+        return cart
 
     @classmethod
     def from_request(cls, request):
         return cls.from_serialized_data(request.session.get(CART_SESSION_KEY))
 
     def to_request(self, request):
-        request.session.set(CART_SESSION_KEY, self.serialized_data)
+        request.session[CART_SESSION_KEY] = self.serialized_data
 
     @transaction.atomic
     def save(self):
