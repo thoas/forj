@@ -79,6 +79,7 @@ def upgrade():
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('amount', sa.Integer),
         sa.Column('currency', sa.String(3)),
+        sa.Column('reference', sa.String(30)),
         sa.Column('status', sa.SmallInteger, nullable=False),
         sa.Column('shipping_status', sa.SmallInteger, nullable=False),
         sa.Column('shipping_cost', sa.Integer, server_default="0"),
