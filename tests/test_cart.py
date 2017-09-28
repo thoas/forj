@@ -59,3 +59,20 @@ class CartTest(TestCase):
 
         cart = Cart.from_request(request)
         assert cart.serialized_data == '{"LA(37)-LO(122)-H(67)": 1, "LA(37)-LO(50)-H(50)": 1}'
+
+    def test_save(self):
+        self.cart.add_product('LA(37)-LO(122)-H(67)', 1)
+        self.cart.add_product('LA(37)-LO(50)-H(50)', 1)
+
+        order = self.cart.save(self.user)
+
+        assert order.items.count() == 2
+
+        items = order.items.all()
+
+        assert sum([item.quantity for item in items]) == 2
+        assert items[0].product_reference == 'LA(37)-LO(50)-H(50)'
+        assert items[0].quantity == 1
+
+        assert items[1].product_reference == 'LA(37)-LO(122)-H(67)'
+        assert items[1].quantity == 1

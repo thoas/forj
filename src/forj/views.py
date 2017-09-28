@@ -14,5 +14,9 @@ def checkout(request, template_name='checkout.html'):
     return render(request, template_name)
 
 
+def register(request, template_name='register.html'):
+    return render(request, template_name)
+
+
 def cart(request):
     return HttpResponse('Ok')

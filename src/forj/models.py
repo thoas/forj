@@ -92,7 +92,7 @@ class Order(base.Model):
         if not self.pk:
             self.reference = shortuuid.uuid()
 
-        super().__init__(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class OrderItem(base.Model):
@@ -102,6 +102,8 @@ class OrderItem(base.Model):
     product = models.ForeignKey(Product, related_name='items',
                                 verbose_name='Product',
                                 on_delete=models.CASCADE)
+    shipping_cost = AmountField(verbose_name='Shipping cost', default=0)
+    amount = AmountField(verbose_name='Total amount')
     product_reference = models.CharField(max_length=100,
                                          verbose_name='Product reference')
 

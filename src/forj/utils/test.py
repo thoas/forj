@@ -8,7 +8,7 @@ from django.test import RequestFactory
 
 from exam import Exam, fixture, before
 
-from forj.models import Product
+from forj.models import Product, User
 
 
 @lru_cache()
@@ -25,6 +25,12 @@ class TestCase(Exam, test.TestCase):
     @fixture
     def anonymous(self):
         return AnonymousUser()
+
+    @fixture
+    def user(self):
+        return User.objects.create_user('newbie',
+                                        'newbie@example.com',
+                                        '$ecret')
 
     @fixture
     def session_store(self):

@@ -79,5 +79,36 @@ class Cart(object):
         request.session[CART_SESSION_KEY] = self.serialized_data
 
     @transaction.atomic
-    def save(self):
-        pass
+    def save(self, user, commit=True, defaults=None):
+        defaults = defaults or {}
+
+        self.update()
+
+        order = Order(user=user,
+                      amount=self.amount,
+                      shipping_cost=self.shipping_cost,
+                      **defaults)
+
+        order_items = []
+
+        for product_id, result in self.products.items():
+            product = result['obj']
+
+            for ref, quantity in result['refs'].items():
+                order_item = OrderItem(order=order,
+                                       quantity=quantity,
+                                       amount=quantity * product.price,
+                                       product_reference=ref,
+                                       shipping_cost=quantity * product.shipping_cost,
+                                       product=product)
+                order_items.append(order_item)
+
+        if commit is True:
+            order.save()
+
+            for order_item in order_items:
+                order_item.order = order
+
+            OrderItem.objects.bulk_create(order_items)
+
+        return order
