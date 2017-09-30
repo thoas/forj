@@ -1,7 +1,7 @@
 from django.contrib import admin  # noqa
 from django.contrib.auth.admin import UserAdmin
 
-from forj.models import Order, Product, User
+from forj.models import Order, Product, User, OrderItem
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -11,10 +11,12 @@ class ProductAdmin(admin.ModelAdmin):
         'currency', 'created_at', 'updated_at'
     )
 
+    change_form_template = 'forj/admin/product/change_form.html'
+
     def _price(self, instance):
         return '{}{}'.format(
             instance.get_currency_display(),
-            instance.amount_converted)
+            instance.price_converted)
 
     def _shipping_cost(self, instance):
         return '{}{}'.format(
@@ -22,14 +24,31 @@ class ProductAdmin(admin.ModelAdmin):
             instance.shipping_cost_converted)
 
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 1
+
+    fields = (
+        'product',
+        'product_reference',
+        'quantity',
+        'shipping_cost',
+        'amount'
+    )
+
+
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', '_amount',
                     'status', 'user',
                     'created_at', 'updated_at')
 
+    list_filter = ('status', 'shipping_status', 'created_at')
+
     readonly_fields = (
         'currency', 'created_at', 'updated_at'
     )
+
+    inlines = (OrderItemInline, )
 
     fieldsets = (
         (None, {

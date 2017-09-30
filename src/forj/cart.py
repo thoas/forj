@@ -95,11 +95,13 @@ class Cart(object):
             product = result['obj']
 
             for ref, quantity in result['refs'].items():
+                shipping_cost = quantity * product.shipping_cost
+
                 order_item = OrderItem(order=order,
                                        quantity=quantity,
                                        amount=quantity * product.price,
                                        product_reference=ref,
-                                       shipping_cost=quantity * product.shipping_cost,
+                                       shipping_cost=shipping_cost,
                                        product=product)
                 order_items.append(order_item)
 

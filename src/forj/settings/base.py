@@ -1,6 +1,7 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+path = lambda *a: os.path.join(BASE_DIR, *a)  # noqa
 
 SECRET_KEY = 'pn442e6ha)cvkme3mz^$5e(3f0y=8@cdlg-k&0onv2$t@i*68j'
 
@@ -52,7 +53,9 @@ ROOT_URLCONF = 'forj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            path('djtemplates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -84,8 +84,8 @@ def upgrade():
         sa.Column('shipping_status', sa.SmallInteger, nullable=False),
         sa.Column('shipping_cost', sa.Integer, server_default="0"),
         sa.Column('user_id', sa.Integer, sa.ForeignKey('forj_user.id')),
-        sa.Column('shipping_adress_id', sa.Integer, sa.ForeignKey('forj_address.id'), nullable=True),
-        sa.Column('billing_adress_id', sa.Integer, sa.ForeignKey('forj_address.id'), nullable=True),
+        sa.Column('shipping_address_id', sa.Integer, sa.ForeignKey('forj_address.id'), nullable=True),
+        sa.Column('billing_address_id', sa.Integer, sa.ForeignKey('forj_address.id'), nullable=True),
         sa.Column('created_at', sa.DateTime(timezone=True)),
         sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
     )

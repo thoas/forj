@@ -4,7 +4,10 @@ CRITERIA_SEPARATOR = '-'
 RANGE_CRITERIA_SEPARATOR = '/'
 CHOICE_CRITERIA_SEPARATOR = '|'
 
-criteria_regex = re.compile(r'(?P<name>\w+)\((?P<value>[\w\{}\{}]+)\)'.format(RANGE_CRITERIA_SEPARATOR, CHOICE_CRITERIA_SEPARATOR))
+criteria_regex = re.compile(r'(?P<name>\w+)\((?P<value>[\w\{}\{}]+)\)'.format(
+    RANGE_CRITERIA_SEPARATOR,
+    CHOICE_CRITERIA_SEPARATOR
+))
 
 
 class CriteriaSet(object):
@@ -20,7 +23,7 @@ class CriteriaSet(object):
         segments = reference.split(separator)
 
         criterias = [get_criteria_class(segment).from_segment(segment)
-                    for segment in segments]
+                     for segment in segments]
 
         return cls(criterias)
 

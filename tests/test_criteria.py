@@ -67,6 +67,7 @@ def test_criteria_set_from_reference():
 
 
 def test_criteria_set_contains():
+    c0 = CriteriaSet.from_reference('LO(25)-LA(50)-H(40)-R(0000)-P(AGLO)')
     c1 = CriteriaSet.from_reference('LA(50)-LO(25)-P(AGLO)-H(40)-R(0000)')
     c2 = CriteriaSet.from_reference('LA(50)-LO(25)-P(AGLO)-H(40)-R(0001)')
     c3 = CriteriaSet.from_reference('LA(101)-LO(25)-P(AGLO)-H(40)-R(0001)')
@@ -74,6 +75,7 @@ def test_criteria_set_contains():
     c5 = CriteriaSet.from_reference('LA(100)-LO(25)-P(AGLO)-H(40)-R(0001)')
     crange = CriteriaSet.from_reference('LA(25/100)-LO(25/100)-P(AGLO)-H(40/120)-R(0000|0001)')
 
+    assert c0 in crange
     assert c1 in crange
     assert c2 in crange
     assert c5 in crange

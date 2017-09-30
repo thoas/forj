@@ -45,3 +45,32 @@ Then setup the database ::
 Setup project (models + initial fixtures + index) ::
 
     make bootstrap
+
+TODO
+....
+
+- [x] Data models
+  - [x] Order
+  - [x] Product
+  - [x] Address
+  - [x] OrderItem
+  - [x] User
+  - [ ] Homepage content
+  - [ ] Invoice
+- [x] Orders admin
+- [x] Products admin
+- [x] Users admin
+- [x] Criteria engine for static reference
+- [x] Retrieve product in database from criteria
+- [x] Cart engine
+- [x] Order generation from Cart
+- [ ] Invoice generation
+- [ ] Formula engine
+- [ ] Cart view
+- [ ] Checkout view
+  - [ ] Order creation from Cart
+  - [ ] User registration
+  - [ ] Address registration
+- [ ] Payment view
+- [ ] Done view
+- [ ] Success mail

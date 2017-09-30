@@ -46,6 +46,9 @@ class Product(base.Model):
         db_table = 'forj_product'
         abstract = False
 
+    def __str__(self):
+        return '{}: {}'.format(self.name, self.reference)
+
     @cached_property
     def criteria_set(self):
         return CriteriaSet.from_reference(self.reference)
@@ -87,6 +90,11 @@ class Order(base.Model):
     class Meta:
         abstract = False
         db_table = 'forj_order'
+
+    def __str__(self):
+        return '{}{}/{}'.format(self.get_currency_display(),
+                                self.amount_converted,
+                                self.get_status_display())
 
     def save(self, *args, **kwargs):
         if not self.pk:
