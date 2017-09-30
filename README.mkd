@@ -1,55 +1,54 @@
-forj
-====
+# forj
 
-.. image:: https://secure.travis-ci.org/thoas/forj.png?branch=master
-    :alt: Build Status
-    :target: http://travis-ci.org/thoas/forj
-
+[travis](https://travis-ci.org/thoas/forj.svg?branch=master)
 
 forj is the personal project of Michel Berard.
 
-Installation
-------------
+## Installation
 
-Hosts
-.....
+### Hosts
 
-Add this lines in your ``/etc/hosts``::
+Add this lines in your ``/etc/hosts``
 
-    127.0.0.1       local.forj.com
+```
+127.0.0.1       local.forj.com
+```
 
-Bootstrap
-.........
+## Bootstrap
 
 Install the virtualenv
 
-::
 
+```console
     pip install virtualenv
     virtualenv .env
     source .env/bin/activate
+```
 
 Install dependencies
 
-::
+```console
+    make dependencies
+```
 
-    $ make dependencies
+## Install the database
 
-Install the database
-....................
+Then setup the database
 
-Then setup the database ::
-
+```console
     make setup-db
+```
 
 Setup project (models + initial fixtures + index) ::
 
+```console
     make bootstrap
+```
 
-TODO
-....
+## TODO
 
 - [x] Data models
+
   - [x] Order
   - [x] Product
   - [x] Address
@@ -68,6 +67,7 @@ TODO
 - [ ] Formula engine
 - [ ] Cart view
 - [ ] Checkout view
+
   - [ ] Order creation from Cart
   - [ ] User registration
   - [ ] Address registration
