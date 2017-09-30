@@ -1,6 +1,6 @@
 # forj
 
-[travis](https://travis-ci.org/thoas/forj.svg?branch=master)
+![travis](https://travis-ci.org/thoas/forj.svg?branch=master)
 
 forj is the personal project of Michel Berard.
 
@@ -20,15 +20,15 @@ Install the virtualenv
 
 
 ```console
-    pip install virtualenv
-    virtualenv .env
-    source .env/bin/activate
+pip install virtualenv
+virtualenv .env
+source .env/bin/activate
 ```
 
 Install dependencies
 
 ```console
-    make dependencies
+make dependencies
 ```
 
 ## Install the database
@@ -36,13 +36,13 @@ Install dependencies
 Then setup the database
 
 ```console
-    make setup-db
+make setup-db
 ```
 
 Setup project (models + initial fixtures + index) ::
 
 ```console
-    make bootstrap
+make bootstrap
 ```
 
 ## TODO
