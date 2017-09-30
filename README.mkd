@@ -39,7 +39,7 @@ Then setup the database
 make setup-db
 ```
 
-Setup project (models + initial fixtures + index) ::
+Setup project (models + initial fixtures + index)
 
 ```console
 make bootstrap
