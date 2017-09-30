@@ -74,3 +74,6 @@ make bootstrap
 - [ ] Payment view
 - [ ] Done view
 - [ ] Success mail
+- [ ] FTP access for landing page
+- [ ] Remove delete button on order item admin
+- [ ] Internal field for Product (note)
