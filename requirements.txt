@@ -1,26 +1,27 @@
-psycopg2==2.7.3.1
-Pillow==4.2.1
+psycopg2==2.7.3.2
+Pillow==4.3.0
 django-debug-toolbar==1.8
-pytest==3.2.2
+pytest==3.2.3
 pytest-django==3.1.2
 gunicorn==19.7.1
 boto==2.48.0
 Jinja2==2.9.6
-django-extensions==1.9.1
+django-extensions==1.9.6
 simplejson==3.11.1
 six==1.10.0
-ipython==6.2.0
-alembic==0.9.5
+ipython==6.2.1
+alembic==0.9.6
 django-jinja==2.4.0
 easy-thumbnails==2.4.2
 exam==0.10.6
 django-extended-choices==1.1.2
 requests==2.18.4
 SQLAlchemy==1.1.14
-django-countries==4.6.2
+django-countries==5.0
 
--e git://github.com/django/django.git@771e06af2aacff5d544c3004fa6548749ed81a2a#egg=django
+-e git://github.com/django/django.git@2.0b1#egg=django
 
-mangopaysdk==3.2.1
+stripe==1.70.0
+
 shortuuid==0.5.0
 simplejson==3.11.1
