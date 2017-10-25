@@ -1,3 +1,6 @@
+outdated:
+	pip list -o --format=columns
+
 dependencies:
 	pip install -r requirements.txt
 
