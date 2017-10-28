@@ -26,9 +26,11 @@ INSTALLED_APPS = [
     'django_jinja',
     'django_jinja.contrib._easy_thumbnails',
     'django_jinja.contrib._humanize',
+    'django_hosts',
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -36,7 +38,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
+
+ROOT_HOSTCONF = 'forj.hosts'
+DEFAULT_HOST = 'www'
+PARENT_HOST = 'local.forj.com'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 SESSION_COOKIE_NAME = 'fj_session'
@@ -48,7 +55,7 @@ CSRF_COOKIE_DOMAIN = '.forj.com'
 DEFAULT_FROM_EMAIL = 'contact@forj.com'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-ROOT_URLCONF = 'forj.urls'
+ROOT_URLCONF = 'forj.web.frontend.urls'
 
 TEMPLATES = [
     {

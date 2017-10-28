@@ -8,7 +8,7 @@ boto==2.48.0
 Jinja2==2.9.6
 django-extensions==1.9.6
 simplejson==3.11.1
-six==1.10.0
+six==1.11.0
 ipython==6.2.1
 alembic==0.9.6
 django-jinja==2.4.0
@@ -20,8 +20,12 @@ SQLAlchemy==1.1.14
 django-countries==5.0
 
 -e git://github.com/django/django.git@2.0b1#egg=django
+-e git://github.com/ulule/django-multiform.git@d2f2988004cc535381ac9ef86af7f659624d641c#egg=multiform
+-e git://github.com/jazzband/django-hosts@05ada773adc9333ecc7e34a0a77decff2b908fef#egg=django_hosts
 
-stripe==1.70.0
+django-mail-factory==0.20
+
+stripe==1.71.1
 
 shortuuid==0.5.0
 simplejson==3.11.1

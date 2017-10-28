@@ -11,7 +11,8 @@ forj is the personal project of Michel Berard.
 Add this lines in your ``/etc/hosts``
 
 ```
-127.0.0.1       local.forj.com
+127.0.0.1       www.local.forj.com
+127.0.0.1       admin.local.forj.com
 ```
 
 ## Bootstrap
