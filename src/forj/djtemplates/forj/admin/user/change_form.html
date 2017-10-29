@@ -1,0 +1,16 @@
+{% extends "admin/change_form.html" %}
+
+{% block content %}
+    {% with instance=adminform.form.instance %}
+        {% if instance.pk %}
+            <ul class="object-tools">
+                <li><a href="{% url 'admin:forj_order_changelist' %}?user_id={{ instance.pk }}" class="viewsitelink">See orders</a></li>
+            </ul>
+
+            <br />
+            <br />
+        {% endif %}
+    {% endwith %}
+
+    {{ block.super }}
+{% endblock %}
