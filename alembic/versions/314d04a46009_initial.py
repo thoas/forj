@@ -25,16 +25,14 @@ def upgrade():
         sa.Column('password', sa.String(128)),
         sa.Column('last_login', sa.DateTime(timezone=True), nullable=True),
         sa.Column('is_superuser', sa.Boolean),
-        sa.Column('username', sa.String(150)),
         sa.Column('first_name', sa.String(30)),
         sa.Column('last_name', sa.String(150)),
-        sa.Column('email', sa.String(254)),
+        sa.Column('email', sa.String(254), unique=True),
         sa.Column('is_staff', sa.Boolean),
         sa.Column('is_active', sa.Boolean),
         sa.Column('date_joined', sa.DateTime(timezone=True)),
     )
 
-    op.create_index('forj_user__username__idx', 'forj_user', ['username'])
     op.create_index('forj_user__email__idx', 'forj_user', ['email'])
 
     op.create_table(

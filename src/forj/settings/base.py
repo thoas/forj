@@ -180,3 +180,7 @@ class DisableMigrations(object):
 
 
 MIGRATION_MODULES = DisableMigrations()
+
+AUTHENTIFICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]

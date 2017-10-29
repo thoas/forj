@@ -28,8 +28,7 @@ class TestCase(Exam, test.TestCase):
 
     @fixture
     def user(self):
-        return User.objects.create_user('newbie',
-                                        'newbie@example.com',
+        return User.objects.create_user('newbie@example.com',
                                         '$ecret')
 
     @fixture
