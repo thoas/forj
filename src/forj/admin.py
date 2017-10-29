@@ -6,6 +6,8 @@ from forj.models import Order, Product, User, OrderItem
 
 
 class UserAdmin(BaseUserAdmin):
+    change_form_template = 'forj/admin/user/change_form.html'
+
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', )}),

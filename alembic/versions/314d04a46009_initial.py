@@ -48,13 +48,13 @@ def upgrade():
         sa.Column('postal_code', sa.String(140), nullable=True),
         sa.Column('city', sa.String(140), nullable=True),
         sa.Column('country', sa.String(2), nullable=True),
+        sa.Column('phone_number', sa.String(20), nullable=True),
         sa.Column('user_id', sa.Integer, sa.ForeignKey('forj_user.id')),
         sa.Column('created_at', sa.DateTime(timezone=True)),
         sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
     )
 
     op.create_index('forj_address__user_id__idx', 'forj_address', ['user_id'])
-
 
     op.create_table(
         "forj_product",

@@ -24,6 +24,7 @@ django-countries==5.0
 -e git://github.com/jazzband/django-hosts@05ada773adc9333ecc7e34a0a77decff2b908fef#egg=django_hosts
 
 django-mail-factory==0.20
+phonenumberslite==8.8.4
 
 stripe==1.71.1
 

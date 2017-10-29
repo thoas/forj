@@ -193,6 +193,7 @@ class Address(base.Model):
     postal_code = models.CharField(max_length=140,
                                    verbose_name='Postal code',
                                    null=True)
+    phone_number = models.CharField(max_length=20, verbose_name='Phone number', null=True)
     city = models.CharField(max_length=140,
                             verbose_name='City',
                             null=True)
