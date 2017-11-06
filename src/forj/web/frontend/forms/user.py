@@ -7,9 +7,15 @@ from forj.models import User
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name')
+        fields = ('email', 'first_name', 'last_name', 'password')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['password'].required = False
 
     def save(self, *args, **kwargs):
-        self.instance.password = get_random_string()
+        if not self.instance.password:
+            self.instance.password = get_random_string()
 
         return super().save(*args, **kwargs)
