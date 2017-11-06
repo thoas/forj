@@ -6,13 +6,13 @@ pytest-django==3.1.2
 gunicorn==19.7.1
 boto==2.48.0
 Jinja2==2.9.6
-django-extensions==1.9.6
+django-extensions==1.9.7
 simplejson==3.11.1
 six==1.11.0
 ipython==6.2.1
 alembic==0.9.6
 django-jinja==2.4.0
-easy-thumbnails==2.4.2
+easy-thumbnails==2.5
 exam==0.10.6
 django-extended-choices==1.1.2
 requests==2.18.4
@@ -24,9 +24,9 @@ django-countries==5.0
 -e git://github.com/jazzband/django-hosts@05ada773adc9333ecc7e34a0a77decff2b908fef#egg=django_hosts
 
 django-mail-factory==0.20
-phonenumberslite==8.8.4
+phonenumberslite==8.8.5
 
-stripe==1.71.1
+stripe==1.73.0
 
 shortuuid==0.5.0
 simplejson==3.11.1
