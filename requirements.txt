@@ -15,6 +15,7 @@ django-jinja==2.4.0
 easy-thumbnails==2.5
 exam==0.10.6
 django-extended-choices==1.1.2
+responses==0.8.1
 requests==2.18.4
 SQLAlchemy==1.1.14
 django-countries==5.0

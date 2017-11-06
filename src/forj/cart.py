@@ -73,7 +73,11 @@ class Cart(object):
 
     @classmethod
     def from_request(cls, request):
-        return cls.from_serialized_data(request.session.get(CART_SESSION_KEY))
+        result = request.session.get(CART_SESSION_KEY)
+        if result is None:
+            return None
+
+        return cls.from_serialized_data(result)
 
     def to_request(self, request):
         request.session[CART_SESSION_KEY] = self.serialized_data

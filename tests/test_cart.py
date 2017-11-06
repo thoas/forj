@@ -9,9 +9,6 @@ class CartTest(TestCase):
     def cart(self):
         return Cart()
 
-    def test_to_request(self):
-        pass
-
     def test_add_product(self):
         self.cart.add_product('LA(37)-LO(122)-H(67)', 2)
 
@@ -54,6 +51,9 @@ class CartTest(TestCase):
 
         request = self.factory.get('/')
         request.session = self.session_store
+
+        cart = Cart.from_request(request)
+        assert cart is None
 
         self.cart.to_request(request)
 
