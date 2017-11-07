@@ -29,7 +29,10 @@ class AddressForm(forms.ModelForm):
 
     def clean_phone_number(self):
         value = self.cleaned_data['phone_number']
-        country = self.initial['country']
+        country = self.initial.get('country')
+
+        if country is None:
+            return value
 
         try:
             ph = phonenumbers.parse(value, country)
