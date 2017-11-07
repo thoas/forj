@@ -1,0 +1,15 @@
+FROM node:8.9.0
+
+RUN mkdir -p /app
+
+COPY package.json /app/package.json
+
+WORKDIR /app
+
+RUN npm install
+
+COPY . /app
+
+VOLUME ["/app/src/forj/static/site/build"]
+
+CMD NODE_ENV=production npm run build
