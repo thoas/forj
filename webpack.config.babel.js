@@ -16,7 +16,7 @@ module.exports = {
   output: {
     path: `${baseDir}/build`,
     filename: 'javascript/[name].js',
-    publicPath: '/',
+    publicPath: '../',
   },
   module: {
     rules: [
@@ -30,6 +30,7 @@ module.exports = {
         loader: 'file-loader?name=[path][name].[ext]',
         include: [
           `${baseDir}/src/assets/font`,
+          `${baseDir}/src/assets/images`,
         ]
       },
       {
