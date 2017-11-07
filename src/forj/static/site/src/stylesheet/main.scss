@@ -1,0 +1,46 @@
+
+// Général
+@import "./components/general/reset.scss";
+@import "./components/general/fonts.scss";
+@import "./components/general/utils.scss";
+@import "./components/general/buttons.scss";
+
+// Navigation
+@import "./components/navigation/layout.scss";
+@import "./components/navigation/responsive.scss";
+
+// Slider
+@import "./components/slider/layout.scss";
+@import "./components/slider/responsive.scss";
+
+// Builder
+@import "./components/builder/layout.scss";
+@import "./components/builder/small_screen.scss";
+@import "./components/builder/responsive.scss";
+
+// Infos
+@import "./components/infos/layout.scss";
+
+// Content
+@import "./components/content/layout.scss";
+@import "./components/content/responsive.scss";
+
+// Footer
+@import "./components/footer/layout.scss";
+@import "./components/footer/responsive.scss";
+
+// Gallery
+@import "./components/gallery/layout.scss";
+
+// Popin
+@import "./components/popin/layout.scss";
+
+// Checkout
+@import "./components/checkout/layout.scss";
+@import "./components/checkout/responsive.scss";
+
+// Collection
+@import "./components/collection/layout.scss";
+
+// Success
+@import "./components/success/layout.scss";

@@ -1,0 +1,74 @@
+body.success {
+
+    background-color: $light_grey;
+    position: relative;
+
+    nav .logo {
+        background-image: url(/assets/images/Logo_square.svg)
+    }
+
+    h1 {
+        font-family: "Avenir Black";
+        font-size: 3em;
+        margin-bottom: 10px;
+    }
+
+    p {
+        line-height: 1.6em;
+    }
+
+    a {
+        text-decoration: none;
+        color: $blue;
+    }
+
+    .links {
+        margin-top: 30px;
+        >* {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 15px;
+        }
+
+        .facebook , .instagram {
+            border-color: black;
+            width: 10px;
+            padding: 14px 15px 12px 15px;
+            margin: 0 5px;
+            i {
+                color: black;
+            }
+        }
+    }
+
+    .socials-wrapper{
+        white-space: nowrap;
+    }
+
+    .wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+}
+
+@media (max-width: 980px) {
+    body.success {
+        .wrapper {
+            top: 55%;
+        }
+        h1 {
+           font-size: 1.5em;
+        }
+   
+        p {
+           font-size: .8em;
+        }
+        .intro-socials{
+            margin: 10px 0;
+        }
+    }
+}

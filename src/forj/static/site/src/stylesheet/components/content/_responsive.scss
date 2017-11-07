@@ -1,0 +1,26 @@
+@media (max-width: 1180px) {
+    section.content {
+        article {
+            .text-wrapper {
+                width: 100%;
+                margin: 0;
+                min-width: 0;
+                padding: 0 30px;
+                box-sizing: border-box;
+                margin-bottom: 100px;
+            }
+
+            .cover {
+                position: relative;
+                width: 100%;
+                height: 300px;
+            }
+
+            .legendary {
+                bottom: -50px;
+                left: 30px;
+                right: auto;
+            }
+        }
+    }
+}

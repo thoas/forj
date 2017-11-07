@@ -1,0 +1,126 @@
+section.infos {
+    position: relative;
+    .gid-container {
+      display: flex;
+    }
+    .wrapper {
+        display: inline-block;
+        height: 120px;
+        box-sizing: border-box;
+        flex-grow: 1;
+        padding: 30px 60px;
+        line-height: 1.3em;
+        position: relative;
+        font-size: .8em;
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 60px;
+            transform: translate(0, -50%);
+            width: calc(100% - 120px);
+        }
+
+        &.contact{
+            border-bottom: 1px solid $grey;
+            background-color: white;
+            .content {
+                left: 75px;
+            }
+            a {
+                color: $blue;
+                text-decoration: none;
+            }
+        }
+
+        &.recap {
+            border-left: 1px solid $grey;
+            border-bottom: 1px solid $grey;
+            background-color: white;
+
+            span {
+                margin-right: 10px;
+                font-family: "Avenir Heavy";
+                color: black;
+                text-transform: capitalize;
+            }
+        }
+
+        &.price {
+            background-color: $yellow;
+            color: black;
+            border-bottom: 1px solid $grey;
+            max-width: 401px;
+            min-width: 401px;
+
+            .value {
+                font-size: 1.8em;
+                line-height: 1.3em;
+                font-family: "Avenir Black";
+            }
+        }
+
+    }
+
+    #add-to-basket {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 120px;
+        width: 100%;
+        // line-height: 120px;
+        vertical-align: middle;
+        padding-right: 30px;
+        color: black;
+        text-decoration: none;
+        font-family: "Avenir Black";
+        text-transform: uppercase;
+        font-size: .8em;
+        transition: color .3s ease;
+
+        span {
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+            right: 0;
+            margin-right: 15px
+        }
+
+        span.label {
+            display: block;
+            margin-right: 65px;
+            width: 25%;
+            max-width: 150px;
+            line-height: 1.2em;
+        }
+        
+        span.button {
+            margin-top: -1px;
+            margin-left: 10px;
+            border-color: black;
+
+            &:before {
+                background-image: url("/assets/images/arrow_black.svg")
+            }
+
+            &:after {
+                background-color: white
+            }
+        }
+
+        &:hover {
+            // color: transparentize(white, .3);
+
+            span {
+                &:after {
+                    transform: translate3d(-50%, -50%, 0 );
+                }
+            }
+
+            &:after {
+              transform: translate3d(2px, 0, 0) scale(1.05);
+            }
+        }
+    }
+}

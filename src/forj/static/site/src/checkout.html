@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Forje | Mon panier</title>
+
+  <!-- Webpack Magic -->
+  <link rel="stylesheet" href="stylesheet/main.css">
+</head>
+<body class="checkout">
+
+    <div class="main-wrapper">
+      <nav>
+        <a href="/" class="logo">Forje</a>
+        <ul>
+          <li><a class="" href="/">Retourner à mes achats</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="main-wrapper">
+    <main>
+        <p class="error-label">Certains champs sont incorrects ou incomplets</p>
+        <form class="main" action="">
+            <h1>Mes informations</h1>
+            <h2>(tous les champs sont obligatoires)</h2>
+
+            <input type="hidden" id="basket_content" name="basket_content" value="">
+            <input type="hidden" id="total_price" name="total_price" value="">
+
+            <div class="radio-container">
+              <p>
+                <input id="male" type="radio" name="gender" value="male" checked>
+                <label class="gender" for="male"><span>Monsieur</span></label>
+              </p>
+              <p>
+                <input id="female" type="radio" name="gender" value="female" >
+                <label class="gender" for="female"><span>Madame</span></label>
+              </p>
+              <p>
+                <input id="society" type="radio" name="gender" value="society" >
+                <label class="gender" for="society"><span>Société</span></label>
+              </p>
+            </div>
+
+            <div class="inputs-container">
+              <div class="input-wrapper">
+                <label class="last_name" for="last_name">Nom <span class="error">format incorect</span></label>
+                <input id="last_name" class="first required" type="text">
+              </div>
+              <div class="input-wrapper">
+                <label class="name" for="name">Prénom <span class="error">format incorect</span></label>
+                <input id="name" class=" required" type="text">
+              </div>
+              <div class="input-wrapper mail">
+                <label class="mail" for="mail">Adresse mail <span class="error">format incorect</span></label>
+                <input id="mail" class=" required" type="text">
+              </div>
+              <div class="input-wrapper confirmeMail">
+                <label class="confirmeMail" for="confirmeMail">Confirmer adresse mail <span class="error">format incorect</span></label>
+                <input id="confirmeMail" class=" required" type="text">
+              </div>
+              <div class="input-wrapper">
+                <label class="phone" for="phone">Téléphone <span class="error">format incorect</span></label>
+                <input id="phone" class="last required" type="text">
+              </div>
+            </div>
+
+            <div class="facturation-container">
+              <input type="checkbox" id="facturation" />
+              <label for="facturation"><span>Mon adresse de livraison est différente <br>de celle de facturation</span></label>
+            </div>
+
+            <div class="separation"></div>
+
+            <h1>Votre adresse (France métropolitaine)</h1>
+            <h2>(tous les champs sont obligatoires)</h2>
+            <div class="inputs-container">
+              <div class="input-wrapper">
+                <label class="street" for="street">Voie, rue <span class="error">format incorect</span></label>
+                <input id="street" class="first required" type="text">
+              </div>
+            </div>
+            <div class="inputs-container">
+              <div class="input-wrapper">
+                <label class="zipcode" for="zipcode">Code postal <span class="error">format incorect</span></label>
+                <input id="zipcode" class="zip required" type="text">
+              </div>
+            </div>
+            <div class="inputs-container">
+              <div class="input-wrapper">
+                <label class="city" for="city">Ville <span class="error">format incorect</span></label>
+                <input id="city" class="last required" type="text">
+              </div>
+            </div>
+
+            <div class="separation"></div>
+
+            <div style="display: none" class="facturation-wrapper">
+              <h1>Adresse de facturation</h1>
+              <h2>(tous les champs sont obligatoires)</h2>
+              <div class="inputs-container">
+                <div class="input-wrapper">
+                  <label class="billing-street" for="billing-street">Voie, rue <span class="error">format incorect</span></label>
+                  <input id="billing-street" class="first" type="text">
+                </div>
+              </div>
+              <div class="inputs-container">
+                <div class="input-wrapper">
+                  <label class="billing-zipcode" for="billing-zipcode">Code postal <span class="error">format incorect</span></label>
+                  <input id="billing-zipcode" class="zip" type="text">
+                </div>
+              </div>
+              <div class="inputs-container">
+                <div class="input-wrapper">
+                  <label class="billing-city" for="billing-city">Ville <span class="error">format incorect</span></label>
+                  <input id="billing-city" class="last" type="text">
+                </div>
+              </div>
+              <div class="separation"></div>
+            </div>
+
+
+            <div class="comments-wrapper">
+                <h1>Informations complémentaires</h1>
+                <h2>(difficultés d’accès, codes d’entrée, interphone...)</h2>
+                <div class="textarea-wrapper">
+                  <textarea class="" id="comment" type="text"></textarea>
+                </div>
+            </div>
+
+            <section class="basket-container">
+              <div class="article-container"></div>
+              <div class="infos">
+                <h2>Livraison</h2<>
+                <p class="legal">Gratuite en France métropolitaine sous 5 semaines. Une foie votre commande validée, nous vous appelons sous une semaine pour choisir votre date de livraison</p>
+
+                <div class="separation"></div>>
+
+                <div class="price-container">
+                  <p>Total TTC</p>
+                  <p id="total" class="price">000</p>
+                </div>
+
+                <div class="separation"></div>
+
+                <div class="check-cgu-container">
+                  <input type="checkbox" id="check-cgu" />
+                  <label for="check-cgu"><span>J’accepete les <span class="cgu-basket-launcher">conditions générales de ventes</span></span></label>
+                </div>
+              </div>
+              <div class="button arrow right submit-arrow"><span></span></div>
+              <input type="submit" name="" value="Valider et payer">
+            </section>
+        </form>
+
+    </main>
+  </div>
+
+
+    <footer>
+        <div class="main-wrapper">
+            <h3>Paiement sécurisé</h3>
+            <img src="/assets/images/visa.jpg" width="60px" alt="">
+            <img src="/assets/images/mastercard.jpg" width="60px" alt="">
+            <img src="/assets/images/maestro.jpg" width="60px" alt="">
+            <img src="/assets/images/american-express.jpg" width="60px" alt="">
+            <div class="links">
+                <p>
+                  <a class="disabled cgu-button" href="">CGV, Mentions légles et livraison</a>
+                  <a class="disabled a-propos-button" href="">A propos</a>
+                  <a class="social" style="margin-left: 20px;" href=""><i style="padding: 0 3px;" class="demo-icon icon-facebook"></i></a>
+                  <a class="social" href=""><i class="demo-icon icon-instagram"></i></a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="popin-background"></div>
+
+    <div class="popin contact-popin hidden">
+        <div class="cross">
+          <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 167.5 167.6" style="enable-background:new 0 0 167.5 167.6;" xml:space="preserve">
+            <g>
+              <rect x="-27" y="76" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -34.6378 83.6231)" width="221.3" height="15.2"/>
+              <rect x="-26.8" y="76.4" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 83.8375 202.6933)" width="221.3" height="15.2"/>
+            </g>
+          </svg>
+        </div>
+        <h2>Vous avez une question, une demande plus spécifique ?</h2>
+        <p>Laissez-nous vos coordonnées et dites-nous tout, nous vous recontacterons dans les plus brefs délais.</p>
+        <form action="#">
+          <div class="input-wrapper">
+            <label class="mail" for="contact-mail">Adresse mail</label>
+            <input id="contact-mail" class="first" type="text">
+          </div>
+          <div class="input-wrapper">
+            <label class="phone" for="contact-phone">Téléphone</label>
+            <input id="contact-phone" type="text">
+          </div>
+          <div class="input-wrapper">
+            <label class="message" for="contact-asking">Votre demande</label>
+            <textarea class="last" id="contact-asking" name="asking" rows="8" cols="80"></textarea>
+          </div>
+          <div class="sumbit-wrapper">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+            <input class="submit" type="submit" name="" value="ENVOYER">
+          </div>
+        </form>
+    </div>
+
+    <div class="popin cgu hidden">
+        <div class="cross cgu-cross">
+          <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 167.5 167.6" style="enable-background:new 0 0 167.5 167.6;" xml:space="preserve">
+            <g>
+              <rect x="-27" y="76" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -34.6378 83.6231)" width="221.3" height="15.2"/>
+              <rect x="-26.8" y="76.4" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 83.8375 202.6933)" width="221.3" height="15.2"/>
+            </g>
+          </svg>
+        </div>
+        <h2>Conditions générales de vente, mentions
+        légales, livraison</h2>
+        <div class="wrapper">Chargement</div>
+    </div>
+
+    <script type="text/javascript">
+        window.SETTINGS = {
+            cgu_url: 'assets/CGU.html',
+            contact_ajax_url: 'assets/contact_response.json',
+            checkout_url: 'foo'
+        }
+    </script>
+
+    <!-- Webpack Magic -->
+    <script src="javascript/bundle.js"></script>
+</body>
+</html>

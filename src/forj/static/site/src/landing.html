@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Forj</title>
+
+  <noscript>
+    <style type="text/css">
+      section.module {
+        display: none !important;
+      }
+    </style>
+  </noscript>
+
+  <!-- Webpack Magic -->
+  <link rel="stylesheet" href="stylesheet/main.css">
+</head>
+<body class="landing">
+    <nav>
+      <a href="" class="logo">Forj</a>
+      <ul>
+        <li><a class="link active" href="">Table sur-mesure</a></li>
+        <li><a class="link" href="/collection.html">Collection</a></li>
+        <li><a class="button disabled checkout" href="/checkout.html">Panier (<span id="items-numbers">0</span>)</a></li>
+      </ul>
+    </nav>
+    <div class="hamburger">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <div class="mobile-nav">
+      <a href="/" class="logo">Forje</a>
+      <a href="/checkout.html" class="basket-icon"><span>(0)</span></a>
+    </div>
+    <header class="slider">
+        <div class="wrapper">
+          <h1>Forges, 4 pieds et 1 cadre entièrement modulables</h1>
+          <p>Nous construisons la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
+          <div class="buttons-wrapper">
+            <span class="button inverted scroll-to">Construire ma table</span>
+            <div class="social">
+              <a href="https://www.facebook.com/forjmobilier/" class="button facebook"><i class="demo-icon icon-facebook"></i></a>
+              <a href="https://www.instagram.com/forj_mobilier/" class="button instagram"><i class="demo-icon icon-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="slider-container">
+          <div class="button arrow left"><span></span></div>
+          <ul>
+            <li class="text-slider active">
+              <p>Table d’intérieur noir en chêne à partir de 650€</p>
+            </li>
+            <li class="text-slider">
+              <p>Table d’intérieur noir en chêne à partir de 650€</p>
+            </li>
+            <li class="text-slider">
+              <p>Table d’intérieur noir en chêne à partir de 650€</p>
+            </li>
+          </ul>
+          <div class="button arrow right"><span></span></div>
+          <div class="progress"></div>
+          <div class="progress-bar"></div>
+        </div>
+        <div class="cover active" style="background-image: url(assets/images/Cover_02.png)"></div>
+        <div class="cover" style="background-image: url(assets/images/Cover_01.png)"></div>
+        <div class="cover" style="background-image: url(assets/images/Cover_01.png)"></div>
+    </header>
+
+    <section class="gallery">
+      <ul>
+        <li>
+          <h3>Table de bar noir plateau chêne</h3>
+          <img src="assets/images/Cover_01.png" alt="">
+        </li>
+        <li>
+          <h3>Table de bar noir plateau chêne</h3>
+          <img src="assets/images/Cover_01.png" alt="">
+        </li>
+        <li>
+          <h3>Table de bar noir plateau chêne</h3>
+          <img src="assets/images/Cover_01.png" alt="">
+        </li>
+        <li>
+          <h3>Table de bar noir plateau chêne</h3>
+          <img src="assets/images/Cover_01.png" alt="">
+        </li>
+      </ul>
+      <div class="button arrow left"><span></span></div>
+      <div class="button arrow right"><span></span></div>
+      <div class="background"></div>
+    </section>
+    <section class="infos">
+        <div class="gid-container">
+            <div class="wrapper contact">
+              <div class="content">
+                <p>Une demande spéciale ?  <a class="popin_contact_launcher" href="#">Contactez&#8209;nous</a></p>
+              </div>
+            </div>
+            <div class="wrapper recap">
+              <div class="content">
+                <p>Dimensions (cm)</p>
+                <p style="color: #606060;">Lar.&nbsp;:&nbsp;<span class="depth"></span>Long.&nbsp;:&nbsp;<span class="width"></span> Haut.&nbsp;:&nbsp;<span class="height"></span> Plateau&nbsp;:&nbsp;<span class="desk"></span> Couleur&nbsp;:&nbsp;<span class="color"></span> Bancs&nbsp;:&nbsp;<span class="bancs"></span> <span class="outside"></span></p>
+              </div>
+            </div>
+            <div class="wrapper price">
+              <div class="content">
+                <p>Total TTC</p>
+                <p class="value"><span id="price-value">0.00</span>€</p>
+              </div>
+            </div>
+        </div>
+        <a id="add-to-basket" href="#"> <span class="label">Ajouter au panier</span> <span class="button arrow right"></span></a>
+    </section>
+
+    <section class="content">
+        <article>
+          <div class="text-wrapper">
+            <h2>Les tables Forges sont des produits artisanaux concus et fabriqués sur-mesure en France dans un atelier de métalerie.</h2>
+            <p>
+              <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
+              <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
+            </p>
+          </div>
+          <div class="cover" style="background-image: url(assets/images/Cover_01.png)"></div>
+          <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
+        </article>
+        <article>
+          <div class="text-wrapper">
+            <p>
+              <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
+              <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
+            </p>
+          </div>
+          <div class="cover" style="background-image: url(assets/images/Cover_01.png)"></div>
+          <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
+        </article>
+        <article>
+          <div class="text-wrapper">
+            <p>
+              <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
+              <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
+            </p>
+          </div>
+          <div class="cover" style="background-image: url(assets/images/Cover_01.png)"></div>
+          <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
+        </article>
+    </section>
+
+    <section class="slider">
+        <div class="wrapper">
+          <h1>Forges, 4 pieds et 1 cadre entièrement modulables</h1>
+          <div class="buttons-wrapper">
+            <span class="button inverted scroll-to">Construire ma table</span>
+          </div>
+        </div>
+        <div class="slider-container">
+          <div class="button arrow left"><span></span></div>
+          <ul>
+            <li class="text-slider active">
+              <p>Table d’intérieur noir en chêne à partir de 650€</p>
+            </li>
+            <li class="text-slider">
+              <p>Table d’intérieur noir en chêne à partir de 650€</p>
+            </li>
+            <li class="text-slider">
+              <p>Table d’intérieur noir en chêne à partir de 650€</p>
+            </li>
+          </ul>
+          <div class="button arrow right"><span></span></div>
+          <div class="progress"></div>
+          <div class="progress-bar"></div>
+        </div>
+
+
+        <div class="cover active" style="background-image: url(assets/images/Cover_02.png)"></div>
+        <div class="cover" style="background-image: url(assets/images/Cover_01.png)"></div>
+        <div class="cover" style="background-image: url(assets/images/Cover_01.png)"></div>
+
+    </section>
+
+    <footer>
+        <h3>Paiement sécurisé</h3>
+        <img src="/assets/images/visa.jpg" width="60px" alt="">
+        <img src="/assets/images/mastercard.jpg" width="60px" alt="">
+        <img src="/assets/images/maestro.jpg" width="60px" alt="">
+        <img src="/assets/images/american-express.jpg" width="60px" alt="">
+        <div class="links">
+            <p>
+              <a class="disabled cgu-button" href="">CGV, Mentions légles et livraison</a>
+              <a class="disabled a-propos-button" href="">A propos</a>
+              <!-- <a class="" target="_blank" href="http://dorianlods.fr">Réalisation : <img class="logo-dorian" width="15" src="http://dorianlods.fr/Ressources/logo.svg" alt=""></a> -->
+              <a class="social" style="margin-left: 20px;" href="https://www.facebook.com/forjmobilier/"><i style="padding: 0 3px;" class="demo-icon icon-facebook"></i></a>
+              <a class="social" href="https://www.instagram.com/forj_mobilier/"><i class="demo-icon icon-instagram"></i></a>
+            </p>
+        </div>
+    </footer>
+
+    <div class="popin-background"></div>
+
+    <div class="popin contact-popin hidden">
+        <div class="cross">
+          <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 167.5 167.6" style="enable-background:new 0 0 167.5 167.6;" xml:space="preserve">
+            <g>
+              <rect x="-27" y="76" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -34.6378 83.6231)" width="221.3" height="15.2"/>
+              <rect x="-26.8" y="76.4" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 83.8375 202.6933)" width="221.3" height="15.2"/>
+            </g>
+          </svg>
+        </div>
+        <h2>Vous avez une question, une demande plus spécifique ?</h2>
+        <p>Laissez-nous vos coordonnées et dites-nous tout, nous vous recontacterons dans les plus brefs délais.</p>
+        <form action="#">
+          <div class="input-wrapper">
+            <label class="mail" for="contact-mail">Adresse mail</label>
+            <input id="contact-mail" class="first" type="text">
+          </div>
+          <div class="input-wrapper">
+            <label class="phone" for="contact-phone">Téléphone</label>
+            <input id="contact-phone" type="text">
+          </div>
+          <div class="input-wrapper">
+            <label class="message" for="contact-asking">Votre demande</label>
+            <textarea class="last" id="contact-asking" name="asking" rows="8" cols="80"></textarea>
+          </div>
+          <div class="sumbit-wrapper">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+            <input class="submit" type="submit" name="" value="ENVOYER">
+          </div>
+        </form>
+    </div>
+
+    <div class="popin thank-you hidden">
+        <h2>Merci !</h2>
+        <p>Votre demande a bien été envoyée.</p>
+    </div>
+
+    <div class="popin cgu hidden">
+        <div class="cross cgu-cross">
+          <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 167.5 167.6" style="enable-background:new 0 0 167.5 167.6;" xml:space="preserve">
+            <g>
+              <rect x="-27" y="76" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -34.6378 83.6231)" width="221.3" height="15.2"/>
+              <rect x="-26.8" y="76.4" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 83.8375 202.6933)" width="221.3" height="15.2"/>
+            </g>
+          </svg>
+        </div>
+        <h2>Conditions générales de vente, mentions
+        légales, livraison</h2>
+        <div class="wrapper">Chargement</div>
+    </div>
+
+    <div class="popin basket hidden">
+        <h2>Bravo !</h2>
+        <p>La table que vous avez crée a bien été ajoutée à votre panier</p>
+        <div class="content">
+          <p>Dimensions (cm) :</p>
+          <p style="color: #606060;">Lar.&nbsp;:&nbsp;<span class="depth"></span>Long.&nbsp;:&nbsp;<span class="width"></span> Haut.&nbsp;:&nbsp;<span class="height"></span> Plateau&nbsp;:&nbsp;<span class="desk"></span> Couleur&nbsp;:&nbsp;<span class="color"></span> Bancs&nbsp;:&nbsp;<span class="bancs"></span> <span class="outside"></span></p>
+        </div>
+        <div class="sumbit-wrapper">
+          <p class="return">CONTINUER MES ACHATS</p>
+          <a class="checkout" href="#">VOIR MON PANIER</a>
+        </div>
+    </div>
+
+    <!-- params -->
+    <script type="text/javascript">
+        window.SETTINGS = {
+            cgu_url: 'assets/CGU.html',
+            a_propos_url: 'assets/CGU.html',
+            contact_ajax_url: 'assets/contact_response.json',
+            checkout_url: '/checkout.html',
+            prices : {
+                sans_plateau: 0,
+                chene_plateau: 133,
+                douglas: 60,
+                metal: 60,
+                traitement_exterieur: 250,
+                main_d_oeuvre: 104,
+                vernis: 15,
+                acier: 40
+            }
+        }
+    </script>
+
+    <!-- Webpack Magic -->
+    <script src="javascript/bundle.js"></script>
+</body>
+</html>

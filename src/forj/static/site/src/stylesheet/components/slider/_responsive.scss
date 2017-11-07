@@ -1,0 +1,39 @@
+@media (max-width: 960px) {
+  .slider {
+
+      .wrapper {
+          width: 100%;
+          padding: 30px;
+          box-sizing: border-box;
+
+          h1 {
+              font-size: 2.3em;
+          }
+          > p {
+            display: none;
+          }
+
+          .social {
+            display: none;
+          }
+      }
+
+      .progress, .progress-bar {
+          display: none;
+      }
+
+      .slider-container {
+          font-size: 0;
+
+          .button {
+              display: none;
+          }
+      }
+
+      .text-slider{
+          display: none
+      }
+
+
+  }
+}

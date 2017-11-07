@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Forje | Mon panier</title>
+
+  <!-- Webpack Magic -->
+  <link rel="stylesheet" href="stylesheet/main.css">
+</head>
+<body class="payment">
+
+    <div class="main-wrapper">
+      <nav>
+        <a href="/" class="logo">Forje</a>
+        <ul>
+          <li><a class="" href="/">Revenir aux informations</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="main-wrapper">
+    <main>
+        <p class="error-label">Certains champs sont incorrects ou incomplets</p>
+
+        
+        <form class="main" action="">
+          <h1>Mes informations de paiement</h1>
+          <h2>(tous les champs sont obligatoires)</h2>
+          <p class="intro">Les cartes banquaires suivantes sont autorisées&nbsp; 
+          <img src="/assets/images/visa.jpg" width="45px" alt="">
+          <img src="/assets/images/mastercard.jpg" width="45px" alt="">
+          <img src="/assets/images/maestro.jpg" width="45px" alt=""></p>
+          
+            <input type="hidden" id="basket_content" name="basket_content" value="">
+            <input type="hidden" id="total_price" name="total_price" value="">
+
+            <div class="inputs-container">
+              <div class="input-wrapper">
+                <label class="number" for="number">Numéro <span class="error">format incorect</span></label>
+                <input id="number" class="first required" type="text">
+              </div>
+              <div class="select-date-wrapper">
+                <div class="select-wrapper">
+                  <span>Date de validité</span>
+                  <div class="select">
+                    <p class="yearFeedBack selectFeedback">Année</p>
+                    <select name="year" id="year">
+                      <option value="2017">2017</option>
+                      <option value="2018">2018</option>
+                      <option value="2019">2019</option>
+                      <option value="2020">2020</option>
+                      <option value="2021">2021</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                      <option value="2028">2028</option>
+                      <option value="2029">2029</option>
+                      <option value="2030">2030</option>
+                      <option value="2031">2031</option>
+                      <option value="2031">2032</option>
+                      <option value="2031">2033</option>
+                      <option value="2031">2034</option>
+                      <option value="2031">2035</option>
+                    </select>
+                  </div>
+                  <div style="margin-right: 100px" class="select">
+                    <p class="mounthFeedBack selectFeedback">Mois</p>
+                    <select name="mounth" id="mounth">
+                      <option value="01">01</option>
+                      <option value="02">02</option>
+                      <option value="03">03</option>
+                      <option value="04">04</option>
+                      <option value="05">05</option>
+                      <option value="06">06</option>
+                      <option value="07">07</option>
+                      <option value="08">08</option>
+                      <option value="09">09</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="input-wrapper">
+                <label class="crypto" for="crypto">Cryptogramme <span class="error">format incorect</span></label>
+                <input id="crypto" class="last required" type="text">
+              </div>
+            </div>
+
+            <section class="basket-container">
+              <div class="article-container"></div>
+              <div class="infos">
+                <!-- <h2>Livraison</h2> -->
+                <!-- <p class="legal">Gratuite en France métropolitaine sous 5 semaines. Une foie votre commande validée, nous vous appelons sous une semaine pour choisir votre date de livraison</p> -->
+
+                <!-- <div class="separation"></div> -->
+
+                <div style="margin-top: 7px" class="price-container">
+                  <p>Total TTC</p>
+                  <p id="total" class="price">000</p>
+                </div>
+
+                <!-- <div class="separation"></div>
+
+                <div class="check-cgu-container">
+                  <input type="checkbox" id="check-cgu" />
+                  <label for="check-cgu"><span>J’accepete les <span class="cgu-basket-launcher">conditions générales de ventes</span></span></label>
+                </div> -->
+              </div>
+              <div class="button arrow right submit-arrow"><span></span></div>
+              <input type="submit" name="" value="Valider et payer">
+            </section>
+        </form>
+
+    </main>
+  </div>
+
+
+    <footer>
+        <div class="main-wrapper">
+            <h3>Paiement sécurisé</h3>
+            <img src="/assets/images/visa.jpg" width="60px" alt="">
+            <img src="/assets/images/mastercard.jpg" width="60px" alt="">
+            <img src="/assets/images/maestro.jpg" width="60px" alt="">
+            <img src="/assets/images/american-express.jpg" width="60px" alt="">
+            <div class="links">
+                <p>
+                  <a class="disabled cgu-button" href="">CGV, Mentions légles et livraison</a>
+                  <a class="disabled a-propos-button" href="">A propos</a>
+                  <a class="social" style="margin-left: 20px;" href=""><i style="padding: 0 3px;" class="demo-icon icon-facebook"></i></a>
+                  <a class="social" href=""><i class="demo-icon icon-instagram"></i></a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="popin-background"></div>
+
+    <div class="popin contact-popin hidden">
+        <div class="cross">
+          <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 167.5 167.6" style="enable-background:new 0 0 167.5 167.6;" xml:space="preserve">
+            <g>
+              <rect x="-27" y="76" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -34.6378 83.6231)" width="221.3" height="15.2"/>
+              <rect x="-26.8" y="76.4" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 83.8375 202.6933)" width="221.3" height="15.2"/>
+            </g>
+          </svg>
+        </div>
+        <h2>Vous avez une question, une demande plus spécifique ?</h2>
+        <p>Laissez-nous vos coordonnées et dites-nous tout, nous vous recontacterons dans les plus brefs délais.</p>
+        <form action="#">
+          <div class="input-wrapper">
+            <label class="mail" for="contact-mail">Adresse mail</label>
+            <input id="contact-mail" class="first" type="text">
+          </div>
+          <div class="input-wrapper">
+            <label class="phone" for="contact-phone">Téléphone</label>
+            <input id="contact-phone" type="text">
+          </div>
+          <div class="input-wrapper">
+            <label class="message" for="contact-asking">Votre demande</label>
+            <textarea class="last" id="contact-asking" name="asking" rows="8" cols="80"></textarea>
+          </div>
+          <div class="sumbit-wrapper">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+            <input class="submit" type="submit" name="" value="ENVOYER">
+          </div>
+        </form>
+    </div>
+
+    <div class="popin cgu hidden">
+        <div class="cross cgu-cross">
+          <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 167.5 167.6" style="enable-background:new 0 0 167.5 167.6;" xml:space="preserve">
+            <g>
+              <rect x="-27" y="76" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -34.6378 83.6231)" width="221.3" height="15.2"/>
+              <rect x="-26.8" y="76.4" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 83.8375 202.6933)" width="221.3" height="15.2"/>
+            </g>
+          </svg>
+        </div>
+        <h2>Conditions générales de vente, mentions
+        légales, livraison</h2>
+        <div class="wrapper">Chargement</div>
+    </div>
+
+    <script type="text/javascript">
+        window.SETTINGS = {
+            cgu_url: 'assets/CGU.html',
+            contact_ajax_url: 'assets/contact_response.json',
+            checkout_url: 'foo'
+        }
+    </script>
+
+    <!-- Webpack Magic -->
+    <script src="javascript/bundle.js"></script>
+</body>
+</html>

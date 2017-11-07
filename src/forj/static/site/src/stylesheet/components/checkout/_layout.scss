@@ -1,0 +1,466 @@
+body.checkout, body.payment {
+
+    nav .logo {
+        background-image: url(/assets/images/Logo_square.svg)
+    }
+
+    background-color: $light-grey;
+
+    h1 {
+        font-family: "Avenir Black";
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: .8em;
+        margin-bottom: 30px;
+    }
+
+    .main-wrapper {
+        max-width: 980px;
+        margin: 0 auto;
+        position: relative;
+        padding: 0 60px;
+    }
+
+    nav {
+        padding-top: 0;
+        margin-top: -120px;
+        ul li a {
+          color: black;
+        }
+    }
+
+    footer {
+        margin: 0;
+    }
+
+    main {
+        margin-top: 180px;
+        padding-bottom: 150px;
+        position: relative;
+
+        .error-label {
+            display: block;
+            position: absolute;
+            right: 0;
+            font-weight: bold;
+            color: #d43e1b;
+            visibility: hidden;
+
+            &.active {
+                visibility: visible;
+            }
+        }
+
+        form {
+            width: 50%;
+        }
+
+        .separation {
+            display: block;
+            width: 100%;
+            height: 30px;
+        }
+
+        .radio-container {
+
+            p {
+                display: inline-block;
+                margin-right: 20px;
+                padding-left: 30px;
+                position: relative;
+                margin-bottom: 15px;
+            }
+
+            input[type="radio"] {
+              display: none;
+            }
+
+            input[type="radio"]:checked + label span:after{
+                transform: scale(.65);
+            }
+
+            label {
+              cursor: pointer;
+            }
+
+            span {
+
+                &:before, &:after {
+                    content: "";
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    margin-top: -4px;
+                    background-color: white;
+                    border-radius: 100px;
+                    border: 1px solid $grey;
+                }
+
+                &:after {
+                    background-color: $yellow;
+                    transform-origin: center center;
+                    transform: scale(0);
+                    transition: all .2s ease;
+                }
+            }
+
+            margin-bottom: 30px;
+        }
+
+        .input-wrapper, .textarea-wrapper, .select-date-wrapper {
+            position: relative;
+            overflow: hidden;
+
+            &:after {
+                content: "";
+                display: block;
+                position: relative;
+                width: 100%;
+                height: 3px;
+                left: 0;
+                bottom: 0;
+                margin-top: -3px;
+                background-color: $yellow;
+                transition: all .4s ease;
+                transform: translate3d(0, 100%, 0);
+                overflow: hidden;
+            }
+
+            &.active, &.error {
+                label {
+                    transform: translate3d(0, -25px, 0);
+                    font-size: .7em;
+                    color: #adadad;
+                }
+                &:after {
+                  transform: translate3d(0, 0, 0);
+                }
+            }
+
+            &.filled {
+                &:after {
+                  transform: translate3d(0, 100%, 0);
+                }
+            }
+
+            &.error {
+                label .error {
+                    display: inline-block
+                }
+                &:after {
+                    background-color: #d43e1b;
+                }
+            }
+
+            label {
+                position: absolute;
+                top : 30px;
+                left: 25px;
+                margin-top: 3px;
+                transform: translate3d(0, -50%, 0);
+                transition: all .4s ease;
+                font-size: 16px;
+                font-family: "Avenir Medium";
+
+                .error {
+                    margin-left: 5px;
+                    display: none;
+                    color: #d43e1b;
+                }
+            }
+
+            input, textarea, .select-wrapper {
+              display: block;
+              width: 100%;
+              box-sizing: border-box;
+              height: 60px;
+              padding: 5px 23px 0 23px;
+              font-size: 1.2em;
+              font-family: "Avenir Black";
+              color: black;
+              border: none;
+              border-right: 1px solid $grey;
+              border-left: 1px solid $grey;
+              border-top: 1px solid $grey;
+              transition: all .4s ease;
+              background: white;
+
+              &.first{
+                border-top: 1px solid $grey;
+                border-radius: 6px 6px 0 0;
+              }
+
+              &.last{
+                border-bottom: 1px solid $grey;
+                border-radius: 0 0 6px 6px;
+              }
+
+              &:focus{
+                outline: none;
+              }
+            }
+
+            textarea {
+                width: 100%;
+                height: 130px;
+                padding: 15px;
+                resize: none;
+                border-radius: 6px;
+                border-bottom: 1px solid $grey;
+            }
+
+            .select-wrapper {
+                span {
+                    position: absolute;
+                    top : 30px;
+                    left: 25px;
+                    width: 20%;
+                    margin-top: 3px;
+                    transform: translate3d(0, -50%, 0);
+                    transition: all .4s ease;
+                    font-size: 16px;
+                    font-family: "Avenir Medium";
+                }
+
+                .selectFeedback{
+                    &.error {
+                        color: #d43e1b;
+                    }
+                }
+            }
+
+            .select {
+                position: absolute;
+                right: 0;
+                top: 0;
+                display: block;
+                height: 100%;
+                width: 100px;
+                cursor: pointer;
+                border-left: 1px solid $grey;
+                
+                p {
+                    font-size: 16px;
+                    font-family: "Avenir Medium";
+                    position: absolute;
+                    left: 45%;
+                    top: 50%;
+                    transform: translate(-50%, -45%);
+                    display: inline-block;
+                    position: relative;
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        width: 20px;
+                        height: 20px;
+                        top: -3px;
+                        right: -20px;
+                        display: block;
+                        transform: rotate(90deg);
+                        background-image: url("/assets/images/arrow_black.svg");
+                        background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    }
+                }
+
+                select {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    opacity: 0;
+                    cursor: pointer;
+                    position: absolute;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                }
+            }
+        }
+
+        .facturation-container {
+            margin: 30px 0;
+            label span {
+                display: inline-block;
+                margin-left: 10px;
+                transform: translate(0, 15px);
+                line-height: 1.3em;
+            }
+        }
+
+        .basket-container {
+            position: absolute;
+            top: 129px;
+            right: 0;
+            width: 45%;
+            min-height: 100px;
+            background-color: white;
+            border: 1px solid $grey;
+            border-radius: 6px 6px 0 0;
+
+            .article {
+                padding: 25px;
+                border-bottom: 1px solid $grey;
+                position: relative;
+                transition: all .4s ease;
+                opacity: 1;
+                overflow: hidden;
+
+                &.disapering {
+                    opacity: 0;
+                }
+
+                &.hidden {
+                    height: 0;
+                    padding: 0;
+                    border: none;
+                }
+
+                .detail {
+                    font-size: .9em;
+                    line-height: 1.3em;
+                }
+
+                p {
+                    font-size: .9em;
+                    font-family: "Avenir Black";
+                }
+
+                p.delete {
+                    position: absolute;
+                    top: 28px;
+                    right: 25px;
+                    cursor: pointer;
+                    transition: all .2s ease;
+                    font-size: 12px;
+
+                    &:hover {
+                        color: $yellow;
+                    }
+                }
+
+                p.price {
+                    position: absolute;
+                    right: 24px;
+                    bottom: 25px;
+                    font-size: 1.3em;
+                }
+
+            }
+
+            .infos {
+                padding: 25px;
+
+                h2 {
+                    font-size: 1em;
+                    margin-bottom: 10px;
+                }
+
+                p.legal {
+                    font-size: .7em;
+                    line-height: 1.3em;
+                }
+
+                .separation {
+                    width: 100%;
+                    height: 1px;
+                    background-color: $grey;
+                    margin: 25px 0;
+                }
+
+                .price-container {
+                    position: relative;
+                    margin-top: 30px;
+                    .price {
+                        position: absolute;
+                        top: -4px;
+                        right: 0;
+                        color: $yellow;
+                        font-family: "Avenir Black";
+                        font-size: 1.5em;
+                    }
+                }
+
+                .check-cgu-container {
+                    margin-bottom: 10px;
+
+                    label.error-cgu > span {
+                        color: #d43e1b;
+                    }
+
+                    label > span {
+                        display: inline-block;
+                        margin-left: 5px;
+                        transform: translate(0, 3px);
+                        font-size: .7em;
+                        span.cgu-basket-launcher {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+
+            input[type=submit] {
+                position: absolute;
+                bottom: -120px;
+                left: -1px;
+                width: calc(100% + 2px );
+                height: 120px;
+                background-color: $yellow;
+                border: 0;
+                border-radius: 0;
+                padding: 25px;
+                text-align: left;
+                cursor: pointer;
+                font-family: "Avenir Black";
+                text-transform: uppercase;
+                color: white;
+                font-size: .9em;
+
+                &:focus {
+                  outline: none;
+                }
+            }
+            .submit-arrow {
+                position: absolute;
+                bottom: -60px;
+                right: 30px;
+                z-index: 1;
+                color: white;
+                transform: translate(0, 50%);
+
+                &:hover {
+                    color: black;
+                }
+            }
+        }
+    }
+}
+
+
+body.payment {
+    main {
+        min-height: 80vh;
+        .basket-container {
+            top: 68px;
+        }
+
+        p.intro {
+            margin-top: -12px;
+            margin-bottom: 30px;
+            color: #959595;
+            display: inline-block;
+            font-size: .8em;
+            img {
+                transform: translate(0, 12px);
+                border-radius: 3px;
+                border: 1px #e0e0e0 solid;
+                margin: 0 3px;
+            }
+        }
+    }
+}

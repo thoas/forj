@@ -1,0 +1,43 @@
+@media (max-width: 1180px) {
+
+    body.checkout, body.payment {
+
+        nav {
+            padding: 0 30px 0 30px;
+        }
+
+        .error-label {
+            margin-top: -58px;
+            width: 60%;
+        }
+
+        .main-wrapper {
+            padding: 0 30px;
+        }
+
+        form.main {
+            width: 100%;
+
+            .detail {
+                width: 60%
+            }
+        }
+
+        section.basket-container {
+            position: relative;
+            width: 100%;
+            top: 30px;
+            margin-bottom: 100px;
+        }
+
+        footer {
+            padding-bottom: 120px;
+            padding: 40px 30px 120px 30px;
+            .main-wrapper {
+                padding: 0;
+            }
+        }
+
+    }
+
+}

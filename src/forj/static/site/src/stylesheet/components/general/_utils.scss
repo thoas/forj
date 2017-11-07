@@ -1,0 +1,21 @@
+.fps {
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+    transform: scale(.4);
+}
+
+$yellow : #fed147;
+$light-grey : #f6f8f9;
+$grey : #d3d5d6;
+$blue : #3682e0;
+
+body.fixed {
+    overflow: hidden;
+}
+
+@media (max-width: 960px) {
+    .mobileHidden {
+        display: none
+    } 
+}

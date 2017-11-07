@@ -1,0 +1,36 @@
+footer {
+    height: 60px;
+    background-color: white;
+    padding: 40px 60px;
+    position: relative;
+    h3 {
+        margin-left: 5px
+    }
+
+    .links {
+        float: right;
+        margin-top: -5px;
+        a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+        .logo-dorian {
+            display: inline-block;
+            transform: translate(0, 4px);
+        }
+        a.social {
+            display: inline-block;
+            border: 1px solid $grey;
+            padding: 10px;
+            border-radius: 20px;
+        }
+    }
+}
+
+body.main {
+    footer {
+        margin-bottom: 120px;
+    }
+}

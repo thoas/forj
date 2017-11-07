@@ -1,0 +1,27 @@
+@media (max-width: 1180px) {
+      footer {
+          padding: 20px;
+          margin-bottom: 30px;
+          padding-top: 40px;
+          padding-bottom: 30px;
+            font-size: .8em;
+            .links {
+                margin-top: 10px;
+                transform: translate(-10px, 0);
+                float: none;
+                margin-left: 10px;
+                a {
+                    font-size: .8em;
+                }
+                a.social {
+                    display: none;
+                }
+          }
+      }
+}
+
+@media (max-width: 960px) {
+      footer {
+          padding-bottom: 60px;
+      }
+}
