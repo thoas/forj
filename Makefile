@@ -1,3 +1,6 @@
+ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+BUILD_DIR = $(ROOT_DIR)/src/forj/static/site/build
+
 outdated:
 	pip list -o --format=columns
 
@@ -16,6 +19,11 @@ syncdb:
 test:
 	DJANGO_SETTINGS_MODULE=forj.settings.test python manage.py check
 	py.test tests/ -v -s
+
+docker-prebuild:
+	docker build -t forj-prebuilder -f Dockerfile.build .
+	mkdir -p $(BUILD_DIR)
+	docker run --rm -v $(BUILD_DIR):/app/src/forj/static/site/build forj-prebuilder
 
 bootstrap-db:
 	alembic upgrade 314d04a46009
