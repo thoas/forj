@@ -12,6 +12,9 @@ module.exports = {
       './stylesheet/styles.js',
       './javascript/index.js'
     ],
+    styles: [
+      './javascript/styles.js',
+    ],
   },
   output: {
     path: `${baseDir}/build`,
@@ -26,11 +29,11 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2|otf|png|gif|jpg)$/,
+        test: /\.(eot|svg|ttf|woff|woff2|otf|png|gif|jpg|frag)$/,
         loader: 'file-loader?name=[path][name].[ext]',
         include: [
-          `${baseDir}/src/assets/font`,
-          `${baseDir}/src/assets/images`,
+          `${baseDir}/src/assets`,
+          `${baseDir}/src/shaders`,
         ]
       },
       {
