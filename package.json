@@ -2,7 +2,8 @@
   "name": "forj",
   "version": "0.2.0",
   "scripts": {
-    "build": "webpack --progress --config webpack.config.babel.js --optimize-minimize"
+    "build": "webpack --progress --config webpack.config.babel.js --optimize-minimize",
+    "watch": "webpack --progress --colors --watch --config webpack.config.babel.js"
   },
   "dependencies": {
     "babel-core": "^6.23.1",
