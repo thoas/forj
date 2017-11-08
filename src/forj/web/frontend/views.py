@@ -10,7 +10,11 @@ def collection(request, template_name='collection.html'):
     return render(request, template_name)
 
 
-def checkout(request, template_name='checkout.html'):
+def checkout(request, template_name='checkout/home.html'):
+    return render(request, template_name)
+
+
+def payment(request, reference, template_name='checkout/payment.html'):
     return render(request, template_name)
 
 

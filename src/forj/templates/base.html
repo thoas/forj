@@ -9,11 +9,12 @@
         <title>Forj - {% block title %}{% endblock %}</title>
 
         {% block extend_css %}
+            <link rel="stylesheet" href="{{ static("site/build/stylesheet/main.css") }}">
         {% endblock %}
     </head>
 
 
-    <body{% block body_inner %}{% endblock %}>
+    <body{% block body_inner %} class="{% block body_class %}{% endblock %}"{% endblock %}>
         {% block body %}
             
         {% endblock %}

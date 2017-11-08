@@ -1,7 +1,7 @@
 body.checkout, body.payment {
 
     nav .logo {
-        background-image: url(/assets/images/Logo_square.svg)
+        background-image: url(../assets/images/Logo_square.svg)
     }
 
     background-color: $light-grey;
@@ -262,7 +262,7 @@ body.checkout, body.payment {
                         right: -20px;
                         display: block;
                         transform: rotate(90deg);
-                        background-image: url("/assets/images/arrow_black.svg");
+                        background-image: url("../assets/images/arrow_black.svg");
                         background-position: center;
                         background-size: contain;
                         background-repeat: no-repeat;

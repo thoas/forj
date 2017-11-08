@@ -91,7 +91,7 @@
             top: calc(200vh + 250px);
 
             .logo {
-                background-image: url(/assets/images/Logo_square.svg);
+                background-image: url(../assets/images/Logo_square.svg);
             }
 
             .hamburger .bar {
@@ -99,7 +99,7 @@
             }
 
             .basket-icon {
-                background-image: url(/assets/images/panier_black.svg);
+                background-image: url(../assets/images/panier_black.svg);
                 span {
                     color: black;
                 }
@@ -113,7 +113,7 @@
             right: 95px;
             width: 30px;
             height: 30px;
-            background-image: url(/assets/images/panier.svg);
+            background-image: url(../assets/images/panier.svg);
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center center;

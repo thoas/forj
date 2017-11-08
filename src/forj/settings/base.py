@@ -1,7 +1,9 @@
 import os
+import jinja2
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 path = lambda *a: os.path.join(BASE_DIR, *a)  # noqa
+DEPENDENCY_PATH = os.path.join(os.path.dirname(jinja2.__file__), os.pardir)
 
 SECRET_KEY = 'pn442e6ha)cvkme3mz^$5e(3f0y=8@cdlg-k&0onv2$t@i*68j'
 
@@ -61,9 +63,12 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
+            os.path.join(DEPENDENCY_PATH, 'debug_toolbar', 'templates'),
+            os.path.join(DEPENDENCY_PATH, 'django', 'contrib', 'admin', 'templates'),
+            os.path.join(DEPENDENCY_PATH, 'django', 'contrib', 'auth', 'templates'),
+            os.path.join(DEPENDENCY_PATH, 'django', 'forms', 'templates'),
             path('djtemplates'),
         ],
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -75,7 +80,10 @@ TEMPLATES = [
     },
     {
         "BACKEND": "django_jinja.backend.Jinja2",
-        "APP_DIRS": True,
+        'DIRS': [
+            path('templates'),
+            os.path.join(DEPENDENCY_PATH, 'django', 'forms', 'jinja2'),
+        ],
         "OPTIONS": {
             'context_processors': [
                 'django.template.context_processors.debug',
