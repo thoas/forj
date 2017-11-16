@@ -5,7 +5,7 @@
         <nav>
             <a href="{{ url("home") }}" class="logo">Forje</a>
             {% block nav %}
-                
+
             {% endblock %}
         </nav>
     </div>
@@ -14,28 +14,28 @@
         <main>
             <p class="error-label active">Certains champs sont incorrects ou incomplets</p>
             {% block main %}
-                
+
             {% endblock %}
         </main>
-
-        {% block footer %}
-            <footer>
-                <div class="main-wrapper">
-                    <h3>Paiement sécurisé</h3>
-                    <img src="{{ static("site/build/assets/images/visa.jpg") }}" width="60px" alt="">
-                    <img src="{{ static("site/build/assets/images/mastercard.jpg") }}" width="60px" alt="">
-                    <img src="{{ static("site/build/assets/images/maestro.jpg") }}" width="60px" alt="">
-                    <img src="{{ static("site/build/assets/images/american-express.jpg") }}" width="60px" alt="">
-                    <div class="links">
-                        <p>
-                            <a class="disabled cgu-button" href="">CGV, Mentions légles et livraison</a>
-                            <a class="disabled a-propos-button" href="">A propos</a>
-                            <a class="social" style="margin-left: 20px;" href=""><i style="padding: 0 3px;" class="demo-icon icon-facebook"></i></a>
-                            <a class="social" href=""><i class="demo-icon icon-instagram"></i></a>
-                        </p>
-                    </div>
-                </div>
-            </footer>
-        {% endblock %}
     </div>
+
+    {% block footer %}
+        <footer>
+            <div class="main-wrapper">
+                <h3>Paiement sécurisé</h3>
+                <img src="{{ static("site/build/assets/images/visa.jpg") }}" width="60px" alt="">
+                <img src="{{ static("site/build/assets/images/mastercard.jpg") }}" width="60px" alt="">
+                <img src="{{ static("site/build/assets/images/maestro.jpg") }}" width="60px" alt="">
+                <img src="{{ static("site/build/assets/images/american-express.jpg") }}" width="60px" alt="">
+                <div class="links">
+                    <p>
+                        <a class="disabled cgu-button" href="">CGV, Mentions légles et livraison</a>
+                        <a class="disabled a-propos-button" href="">A propos</a>
+                        <a class="social" style="margin-left: 20px;" href=""><i style="padding: 0 3px;" class="demo-icon icon-facebook"></i></a>
+                        <a class="social" href=""><i class="demo-icon icon-instagram"></i></a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    {% endblock %}
 {% endblock %} 
