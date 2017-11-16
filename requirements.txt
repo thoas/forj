@@ -1,11 +1,12 @@
 psycopg2==2.7.3.2
 Pillow==4.3.0
-django-debug-toolbar==1.8
-pytest==3.2.3
+django-debug-toolbar==1.9.1
+pytest==3.2.5
 pytest-django==3.1.2
+pytz==2017.3
 gunicorn==19.7.1
 boto==2.48.0
-Jinja2==2.9.6
+Jinja2==2.10
 django-extensions==1.9.7
 simplejson==3.12.0
 six==1.11.0
@@ -20,13 +21,13 @@ requests==2.18.4
 SQLAlchemy==1.1.14
 django-countries==5.0
 
--e git://github.com/django/django.git@2.0b1#egg=django
+-e git://github.com/django/django.git@2.0rc1#egg=django
 -e git://github.com/ulule/django-multiform.git@d2f2988004cc535381ac9ef86af7f659624d641c#egg=multiform
 -e git://github.com/jazzband/django-hosts@05ada773adc9333ecc7e34a0a77decff2b908fef#egg=django_hosts
 
 django-mail-factory==0.20
-phonenumberslite==8.8.5
+phonenumberslite==8.8.6
 
-stripe==1.74.0
+stripe==1.75.0
 
 shortuuid==0.5.0
