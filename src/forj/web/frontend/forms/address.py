@@ -22,6 +22,10 @@ class AddressForm(forms.ModelForm):
             'country',
         )
 
+        widgets = {
+            'line1': forms.TextInput
+        }
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
 
