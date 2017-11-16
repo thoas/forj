@@ -1,0 +1,103 @@
+{% extends "forj/checkout/base.html" %}
+
+{% import 'forj/forms.html' as forms %}
+
+{% block title %}Mon panier{% endblock %}
+{% block body_class %}checkout{% endblock %}
+
+{% block nav %}
+    <ul>
+        <li><a class="" href="{{ url("home") }}">Retourner à mes achats</a></li>
+    </ul>
+{% endblock %}
+
+{% block main %}
+    <form class="main" action="" method="post">
+        <h1>Mes informations</h1>
+        <h2>(tous les champs sont obligatoires)</h2>
+
+        <div class="radio-container">
+            <p>
+                <input id="male" type="radio" name="gender" value="male" checked>
+                <label class="gender" for="male"><span>Monsieur</span></label>
+            </p>
+            <p>
+                <input id="female" type="radio" name="gender" value="female" >
+                <label class="gender" for="female"><span>Madame</span></label>
+            </p>
+            <p>
+                <input id="society" type="radio" name="gender" value="society" >
+                <label class="gender" for="society"><span>Société</span></label>
+            </p>
+        </div>
+
+        <div class="inputs-container">
+            {{ forms.input(form.user.last_name, label="Nom") }}
+
+            {{ forms.input(form.user.first_name, label="Prénom") }}
+
+            {{ forms.input(form.user.email, label="Adresse mail") }}
+
+            {{ forms.input(form.shipping_address.phone_number, label="Téléphone") }}
+        </div>
+
+        <div class="facturation-container">
+            <input type="checkbox" id="facturation" />
+            <label for="facturation"><span>Mon adresse de livraison est différente <br>de celle de facturation</span></label>
+        </div>
+
+        <div class="separation"></div>
+        <h1>Votre adresse (France métropolitaine)</h1>
+        <h2>(tous les champs sont obligatoires)</h2>
+
+        <div class="inputs-container">
+            {{ forms.input(form.shipping_address.line1, label="Voie, rue") }}
+            {{ forms.input(form.shipping_address.postal_code, label="Code postal") }}
+            {{ forms.input(form.shipping_address.city, label="Ville") }}
+        </div>
+
+        <div class="separation"></div>
+
+        <div style="display: none" class="facturation-wrapper">
+            <h1>Adresse de facturation</h1>
+            <h2>(tous les champs sont obligatoires)</h2>
+            <div class="inputs-container">
+                {{ forms.input(form.billing_address.line1, label="Voie, rue") }}
+                {{ forms.input(form.billing_address.postal_code, label="Code postal") }}
+                {{ forms.input(form.billing_address.city, label="Ville") }}
+            </div>
+            <div class="separation"></div>
+        </div>
+
+        <div class="comments-wrapper">
+            <h1>Informations complémentaires</h1>
+            <h2>(difficultés d’accès, codes d’entrée, interphone...)</h2>
+
+            {{ forms.textarea(form.shipping_address.line2) }}
+        </div>
+
+        <section class="basket-container">
+            <div class="article-container"></div>
+            <div class="infos">
+                <h2>Livraison</h2>
+                <p class="legal">Gratuite en France métropolitaine sous 5 semaines. Une foie votre commande validée, nous vous appelons sous une semaine pour choisir votre date de livraison</p>
+
+                <div class="separation"></div>
+
+                <div class="price-container">
+                    <p>Total TTC</p>
+                    <p id="total" class="price">000</p>
+                </div>
+
+                <div class="separation"></div>
+
+                <div class="check-cgu-container">
+                    <input type="checkbox" id="check-cgu" />
+                    <label for="check-cgu"><span>J’accepte les <span class="cgu-basket-launcher">conditions générales de ventes</span></span></label>
+                </div>
+            </div>
+            <div class="button arrow right submit-arrow"><span></span></div>
+            <input type="submit" name="" value="Valider et payer"/>
+        </section>
+    </form>
+{% endblock %} 

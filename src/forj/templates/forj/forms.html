@@ -1,0 +1,17 @@
+{% macro input(field, label) -%}
+<div class="input-wrapper">
+    {% if label %}
+        <label for="{{ field.id_for_label }}">{{ label }} {% if field.errors %}<span class="error">format incorect</span>{% endif %}</label>
+    {% endif %}
+    {{ field }}
+</div>
+{%- endmacro %}
+
+{% macro textarea(field, label) -%}
+<div class="textarea-wrapper">
+    {% if label %}
+        <label for="{{ field.id_for_label }}">{{ label }} {% if field.errors %}<span class="error">format incorect</span>{% endif %}</label>
+    {% endif %}
+    {{ field }}
+</div>
+{%- endmacro %}
