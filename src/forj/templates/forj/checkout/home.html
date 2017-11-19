@@ -12,16 +12,18 @@
 {% endblock %}
 
 {% block main %}
-    <form class="main" action="" method="post">
+    <form class="main" action="" method="post" novalidate>
+        {% csrf_token %}
+
         <h1>Mes informations</h1>
         <h2>(tous les champs sont obligatoires)</h2>
 
         {{ form.shipping_address.type }}
 
         <div class="inputs-container">
-            {{ forms.input(form.user.last_name, label="Nom") }}
+            {{ forms.input(form.shipping_address.last_name, label="Nom") }}
 
-            {{ forms.input(form.user.first_name, label="Prénom") }}
+            {{ forms.input(form.shipping_address.first_name, label="Prénom") }}
 
             {{ forms.input(form.user.email, label="Adresse mail") }}
 
@@ -45,7 +47,7 @@
 
         <div class="separation"></div>
 
-        <div style="display: none" class="facturation-wrapper">
+        <div style="display: none" id="billing-wrapper">
             <h1>Adresse de facturation</h1>
             <h2>(tous les champs sont obligatoires)</h2>
             <div class="inputs-container">
@@ -88,3 +90,20 @@
         </section>
     </form>
 {% endblock %} 
+
+{% block extend_js %}
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(e) {
+            var diff = document.querySelector('#diff');
+            var billingWrapper = document.querySelector('#billing-wrapper');
+
+            diff.addEventListener('change', function(e) {
+                if (this.checked) {
+                    billingWrapper.style.display = "block";
+                } else {
+                    billingWrapper.style.display = "none";
+                }
+            })
+        });
+    </script>
+{% endblock %}

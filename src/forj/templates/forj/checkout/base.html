@@ -12,7 +12,9 @@
 
     <div class="main-wrapper">
         <main>
-            <p class="error-label active">Certains champs sont incorrects ou incomplets</p>
+            {% if form and form.errors %}
+                <p class="error-label active">Certains champs sont incorrects ou incomplets</p>
+            {% endif %}
             {% block main %}
 
             {% endblock %}

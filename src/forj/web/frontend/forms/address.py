@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from forj.models import Address
 from forj.forms import widgets
+from forj import constants
 
 import phonenumbers
 
@@ -54,7 +55,7 @@ class AddressForm(forms.ModelForm):
         return value
 
     def save(self, *args, **kwargs):
-        self.user = kwargs.get('user', self.user)
+        self.user = kwargs.pop('user', self.user)
         self.instance.user = self.user
 
         if self.user:
@@ -62,3 +63,28 @@ class AddressForm(forms.ModelForm):
             self.instance.last_name = self.instance.last_name or self.user.last_name
 
         return super().save(*args, **kwargs)
+
+
+class ShippingAddressForm(AddressForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['type'].required = True
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+
+        if self.data and self.data.get('type') == constants.ADDRESS_TYPE_CHOICES.BUSINESS:
+            self.fields['business_name'].required = True
+        else:
+            self.fields['business_name'].required = False
+
+        self.fields['line1'].required = True
+        self.fields['line2'].required = False
+        self.fields['city'].required = True
+        self.fields['country'].required = True
+        self.fields['phone_number'].required = True
+
+
+class BillingAddressForm(ShippingAddressForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

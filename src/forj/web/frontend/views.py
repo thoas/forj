@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic.edit import FormView
 
 from forj.web.frontend.forms import RegistrationForm
 
@@ -12,12 +13,9 @@ def collection(request, template_name='forj/collection.html'):
     return render(request, template_name)
 
 
-def checkout(request, template_name='forj/checkout/home.html'):
-    form = RegistrationForm()
-
-    return render(request, template_name, {
-        'form': form
-    })
+class CheckoutView(FormView):
+    template_name = 'forj/checkout/home.html'
+    form_class = RegistrationForm
 
 
 def payment(request, reference, template_name='forj/checkout/payment.html'):
