@@ -65,7 +65,7 @@ class AddressForm(forms.ModelForm):
         return super().save(*args, **kwargs)
 
 
-class ShippingAddressForm(AddressForm):
+class RequiredAddressForm(AddressForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -73,18 +73,36 @@ class ShippingAddressForm(AddressForm):
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
 
-        if self.data and self.data.get('type') == constants.ADDRESS_TYPE_CHOICES.BUSINESS:
-            self.fields['business_name'].required = True
+        if self.data:
+            if self.prefix:
+                type_value = self.data.get('{}-type'.format(self.prefix))
+            else:
+                type_value = self.data.get('type')
+
+            if type_value is not None and int(type_value) == constants.ADDRESS_TYPE_CHOICES.BUSINESS:
+                self.fields['business_name'].required = True
         else:
             self.fields['business_name'].required = False
 
         self.fields['line1'].required = True
         self.fields['line2'].required = False
         self.fields['city'].required = True
+        self.fields['postal_code'].required = True
         self.fields['country'].required = True
         self.fields['phone_number'].required = True
 
 
-class BillingAddressForm(ShippingAddressForm):
+class OptionalAddressForm(AddressForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.fields['type'].required = False
+        self.fields['first_name'].required = False
+        self.fields['last_name'].required = False
+        self.fields['business_name'].required = False
+        self.fields['line1'].required = False
+        self.fields['line2'].required = False
+        self.fields['city'].required = False
+        self.fields['country'].required = False
+        self.fields['phone_number'].required = False
+        self.fields['postal_code'].required = False

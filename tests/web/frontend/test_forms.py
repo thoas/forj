@@ -1,7 +1,7 @@
 from django.conf import settings
 
 from forj.utils.test import TestCase
-from forj.web.frontend.forms import UserForm, AddressForm, RegistrationForm
+from forj.web.frontend.forms import UserForm, AddressForm, RegistrationForm, RequiredAddressForm
 from forj.models import Address, User
 from forj import constants
 
@@ -59,6 +59,37 @@ class AddressFormTestCase(TestCase):
 
         assert form.is_valid() is False
         assert 'phone_number' in form.errors
+
+
+class RequiredAddressFormTestCase(TestCase):
+    def test_complete_business(self):
+        form = RequiredAddressForm(data={
+            'line1': '8 rue saint fiacre',
+            'postal_code': '75002',
+            'city': 'Paris',
+            'country': 'FR',
+            'phone_number': '0183629075',
+            'type': Address.TYPE_CHOICES.BUSINESS,
+        }, user=self.user)
+
+        assert form.is_valid() is False
+        assert 'first_name' in form.errors
+        assert 'last_name' in form.errors
+        assert 'business_name' in form.errors
+
+    def test_complete(self):
+        form = RequiredAddressForm(data={
+            'line1': '8 rue saint fiacre',
+            'postal_code': '75002',
+            'city': 'Paris',
+            'first_name': 'Florent',
+            'last_name': 'Messa',
+            'country': 'FR',
+            'phone_number': '0183629075',
+            'type': Address.TYPE_CHOICES.INDIVIDUAL,
+        }, user=self.user)
+
+        assert form.is_valid() is True
 
 
 class RegistrationFormTestCase(TestCase):

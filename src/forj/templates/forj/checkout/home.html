@@ -25,6 +25,8 @@
 
             {{ forms.input(form.shipping_address.first_name, label="Prénom") }}
 
+            {{ forms.input(form.shipping_address.business_name, label="Nom d'entreprise") }}
+
             {{ forms.input(form.user.email, label="Adresse mail") }}
 
             {{ forms.input(form.shipping_address.phone_number, label="Téléphone") }}
@@ -50,7 +52,12 @@
         <div style="display: none" id="billing-wrapper">
             <h1>Adresse de facturation</h1>
             <h2>(tous les champs sont obligatoires)</h2>
+            {{ form.billing_address.type }}
+
             <div class="inputs-container">
+                {{ forms.input(form.billing_address.first_name, label="Prénom") }}
+                {{ forms.input(form.billing_address.last_name, label="Nom") }}
+                {{ forms.input(form.billing_address.business_name, label="Nom d'entreprise") }}
                 {{ forms.input(form.billing_address.line1, label="Voie, rue") }}
                 {{ forms.input(form.billing_address.postal_code, label="Code postal") }}
                 {{ forms.input(form.billing_address.city, label="Ville") }}
@@ -104,6 +111,31 @@
                     billingWrapper.style.display = "none";
                 }
             })
+
+            function addressTypeChange(radios, typeInput) {
+                Array.prototype.forEach.call(radios, function(radio) {
+                    radio.addEventListener('change', function(e) {
+                        if (radio.value == 1) {
+                            typeInput.style.display = 'none';
+                        } else {
+                            typeInput.style.display = 'block';
+                        }
+                    });
+                });
+            }
+
+            addressTypeChange(
+                document.querySelectorAll('input[name=shipping-address-type]'),
+                document.querySelector('#id_shipping-address-business_name')
+            );
+
+            addressTypeChange(
+                document.querySelectorAll('input[name=billing-address-type]'),
+                document.querySelector('#id_billing-address-business_name')
+            );
+
+            document.querySelector('input[name=shipping-address-type]:checked').dispatchEvent(new Event('change'));
+            document.querySelector('input[name=billing-address-type]:checked').dispatchEvent(new Event('change'));
         });
     </script>
 {% endblock %}

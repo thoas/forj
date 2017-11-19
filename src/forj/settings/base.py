@@ -194,5 +194,7 @@ class DisableMigrations(object):
 MIGRATION_MODULES = DisableMigrations()
 
 AUTHENTIFICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
 ]
+
+DEFAULT_AUTHENTICATION_BACKEND = 'django.contrib.auth.backends.AllowAllUsersModelBackend'
