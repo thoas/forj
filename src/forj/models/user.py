@@ -51,6 +51,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
+    stripe_customer_id = models.CharField(max_length=100, null=True)
+
     objects = UserManager()
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'

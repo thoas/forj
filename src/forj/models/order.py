@@ -1,6 +1,7 @@
 import shortuuid
 
 from django.db import models
+from django.urls import reverse
 
 from forj import constants
 from forj.db.models import base
@@ -44,6 +45,9 @@ class Order(base.Model):
                                         related_name='billing_orders',
                                         null=True)
 
+    stripe_card_id = models.CharField(max_length=100, null=True)
+    stripe_charge_id = models.CharField(max_length=100, null=True)
+
     objects = OrderManager()
 
     class Meta:
@@ -63,6 +67,12 @@ class Order(base.Model):
 
     def to_request(self, request):
         request.session[ORDER_SESSION_KEY] = self.pk
+
+    def is_status_succeeded(self):
+        return self.status == self.STATUS_CHOICES.SUCCEEDED
+
+    def get_payment_url(self):
+        return reverse('payment', args=[self.reference, ])
 
     def mark_as_succeeded(self, commit=True):
         self.status = self.STATUS_CHOICES.SUCCEEDED

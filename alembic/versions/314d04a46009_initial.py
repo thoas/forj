@@ -27,6 +27,7 @@ def upgrade():
         sa.Column('is_superuser', sa.Boolean),
         sa.Column('first_name', sa.String(30)),
         sa.Column('last_name', sa.String(150)),
+        sa.Column('stripe_customer_id', sa.String(100), nullable=True),
         sa.Column('email', sa.String(254), unique=True),
         sa.Column('is_staff', sa.Boolean),
         sa.Column('is_active', sa.Boolean),
@@ -86,6 +87,8 @@ def upgrade():
         sa.Column('billing_address_id', sa.Integer, sa.ForeignKey('forj_address.id'), nullable=True),
         sa.Column('created_at', sa.DateTime(timezone=True)),
         sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
+        sa.Column('stripe_card_id', sa.String(100), nullable=True),
+        sa.Column('stripe_charge_id', sa.String(100), nullable=True),
     )
 
     op.create_index('forj_order__user_id__idx', 'forj_order', ['user_id'])
