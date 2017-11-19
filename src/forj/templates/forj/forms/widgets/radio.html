@@ -1,0 +1,3 @@
+{% set id = widget.attrs.id %}<div{% if id %} id="{{ id }}"{% endif %} class="{% if widget.attrs.class %}{{ widget.attrs.class }}{% else %}radio-container{% endif %}">{% for group, options, index in widget.optgroups %}{% for widget in options %}
+    <p>{% include widget.template_name %}</p>{% endfor %}{% endfor %}
+</div>

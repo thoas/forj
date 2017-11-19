@@ -61,30 +61,14 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 ROOT_URLCONF = 'forj.web.frontend.urls'
 
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+
 TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(DEPENDENCY_PATH, 'debug_toolbar', 'templates'),
-            os.path.join(DJANGO_PATH, 'django', 'contrib', 'admin', 'templates'),
-            os.path.join(DJANGO_PATH, 'django', 'contrib', 'auth', 'templates'),
-            os.path.join(DJANGO_PATH, 'django', 'forms', 'templates'),
-            path('djtemplates'),
-        ],
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
     {
         "BACKEND": "django_jinja.backend.Jinja2",
         'DIRS': [
             path('templates'),
-            os.path.join(DEPENDENCY_PATH, 'django', 'forms', 'jinja2'),
+            os.path.join(DJANGO_PATH, 'django', 'forms', 'jinja2'),
         ],
         "OPTIONS": {
             'context_processors': [
@@ -130,6 +114,24 @@ TEMPLATES = [
             "auto_reload": True,
             "translation_engine": "django.utils.translation",
         }
+    },
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(DEPENDENCY_PATH, 'debug_toolbar', 'templates'),
+            os.path.join(DJANGO_PATH, 'django', 'contrib', 'admin', 'templates'),
+            os.path.join(DJANGO_PATH, 'django', 'contrib', 'auth', 'templates'),
+            os.path.join(DJANGO_PATH, 'django', 'forms', 'templates'),
+            path('djtemplates'),
+        ],
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
     },
 ]
 

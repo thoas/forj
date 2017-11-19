@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from forj.models import Address
+from forj.forms import widgets
 
 import phonenumbers
 
@@ -23,7 +24,8 @@ class AddressForm(forms.ModelForm):
         )
 
         widgets = {
-            'line1': forms.TextInput
+            'line1': forms.TextInput,
+            'type': widgets.Radio,
         }
 
     def __init__(self, *args, **kwargs):

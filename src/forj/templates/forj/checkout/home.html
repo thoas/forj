@@ -16,20 +16,7 @@
         <h1>Mes informations</h1>
         <h2>(tous les champs sont obligatoires)</h2>
 
-        <div class="radio-container">
-            <p>
-                <input id="male" type="radio" name="gender" value="male" checked>
-                <label class="gender" for="male"><span>Monsieur</span></label>
-            </p>
-            <p>
-                <input id="female" type="radio" name="gender" value="female" >
-                <label class="gender" for="female"><span>Madame</span></label>
-            </p>
-            <p>
-                <input id="society" type="radio" name="gender" value="society" >
-                <label class="gender" for="society"><span>Société</span></label>
-            </p>
-        </div>
+        {{ form.shipping_address.type }}
 
         <div class="inputs-container">
             {{ forms.input(form.user.last_name, label="Nom") }}
@@ -42,8 +29,8 @@
         </div>
 
         <div class="facturation-container">
-            <input type="checkbox" id="facturation" />
-            <label for="facturation"><span>Mon adresse de livraison est différente <br>de celle de facturation</span></label>
+            <input type="checkbox" id="diff" name="diff" />
+            <label for="diff"><span>Mon adresse de livraison est différente <br>de celle de facturation</span></label>
         </div>
 
         <div class="separation"></div>
@@ -80,7 +67,7 @@
             <div class="article-container"></div>
             <div class="infos">
                 <h2>Livraison</h2>
-                <p class="legal">Gratuite en France métropolitaine sous 5 semaines. Une foie votre commande validée, nous vous appelons sous une semaine pour choisir votre date de livraison</p>
+                <p class="legal">Gratuite en France métropolitaine sous 5 semaines. Une fois votre commande validée, nous vous appelons sous une semaine pour choisir votre date de livraison</p>
 
                 <div class="separation"></div>
 
