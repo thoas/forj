@@ -9,6 +9,7 @@ from django.test import RequestFactory
 from exam import Exam, fixture, before
 
 from forj.models import Product, User
+from forj.cart import Cart
 
 
 @lru_cache()
@@ -25,6 +26,10 @@ class TestCase(Exam, test.TestCase):
     @fixture
     def anonymous(self):
         return AnonymousUser()
+
+    @fixture
+    def cart(self):
+        return Cart()
 
     @fixture
     def user(self):
@@ -130,3 +135,10 @@ class TestCase(Exam, test.TestCase):
             reference='LA(25/50)-LO(100/200)-H(40/120)',
             price=36200 * 1.5
         )
+
+    @fixture
+    def order(self):
+        self.cart.add_product('LA(37)-LO(122)-H(67)', 1)
+        self.cart.add_product('LA(37)-LO(50)-H(50)', 1)
+
+        return self.cart.save(self.user)

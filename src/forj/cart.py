@@ -83,15 +83,16 @@ class Cart(object):
         request.session[CART_SESSION_KEY] = self.serialized_data
 
     @transaction.atomic
-    def save(self, user, commit=True, defaults=None):
+    def save(self, user, commit=True, order=None, defaults=None):
         defaults = defaults or {}
 
         self.update()
 
-        order = Order(user=user,
-                      amount=self.amount,
-                      shipping_cost=self.shipping_cost,
-                      **defaults)
+        if order is None:
+            order = Order(user=user, **defaults)
+
+        order.amount = self.amount
+        order.shipping_cost = self.shipping_cost
 
         order_items = []
 
@@ -110,6 +111,9 @@ class Cart(object):
                 order_items.append(order_item)
 
         if commit is True:
+            if order.pk:
+                order.items.all().delete()
+
             order.save()
 
             for order_item in order_items:

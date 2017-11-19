@@ -6,6 +6,17 @@ from forj import constants
 from forj.db.models import base
 from forj.db.models.fields import AmountField
 
+ORDER_SESSION_KEY = 'cart_id'
+
+
+class OrderManager(base.Manager):
+    def from_request(self, request):
+        result = request.session.get(ORDER_SESSION_KEY)
+        if result is None:
+            return None
+
+        return self.filter(pk=result).first()
+
 
 class Order(base.Model):
     STATUS_CHOICES = constants.ORDER_STATUS_CHOICES
@@ -33,6 +44,8 @@ class Order(base.Model):
                                         related_name='billing_orders',
                                         null=True)
 
+    objects = OrderManager()
+
     class Meta:
         abstract = False
         db_table = 'forj_order'
@@ -47,6 +60,15 @@ class Order(base.Model):
             self.reference = shortuuid.uuid()
 
         super().save(*args, **kwargs)
+
+    def to_request(self, request):
+        request.session[ORDER_SESSION_KEY] = self.pk
+
+    def mark_as_succeeded(self, commit=True):
+        self.status = self.STATUS_CHOICES.SUCCEEDED
+
+        if commit:
+            self.save(update_fields=('status',))
 
 
 class OrderItem(base.Model):

@@ -34,6 +34,7 @@ class RegistrationForm(MultiModelForm):
         self.forms['user'] = UserForm(self.data or None,
                                       self.files or None,
                                       initial=self.initial,
+                                      instance=self._user,
                                       prefix='user')
 
         self.forms['shipping_address'] = RequiredAddressForm(self.data or None,

@@ -1,14 +1,8 @@
 from forj.utils.test import TestCase
 from forj.cart import Cart
 
-from exam import fixture
-
 
 class CartTest(TestCase):
-    @fixture
-    def cart(self):
-        return Cart()
-
     def test_add_product(self):
         self.cart.add_product('LA(37)-LO(122)-H(67)', 2)
 

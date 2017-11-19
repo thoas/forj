@@ -21,9 +21,12 @@ class UserForm(forms.ModelForm):
     def clean_email(self):
         value = self.cleaned_data['email']
 
-        exists = User.objects.filter(email=value).exists()
+        qs = User.objects.filter(email=value)
 
-        if exists:
+        if self.instance:
+            qs = qs.exclude(pk=self.instance.pk)
+
+        if qs.exists():
             raise forms.ValidationError(_('This email already exists'))
 
         return value
