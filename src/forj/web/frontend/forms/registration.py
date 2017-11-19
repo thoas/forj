@@ -14,6 +14,17 @@ class RegistrationForm(MultiModelForm):
 
         self._user = kwargs.pop('user', None)
         self._diff = kwargs.pop('diff', None)
+        self._order = kwargs.pop('order', None)
+
+        shipping_address = None
+        billing_address = None
+
+        if self._order:
+            if self._order.shipping_address_id:
+                shipping_address = self._order.shipping_address
+
+            if self._order.billing_address_id:
+                billing_address = self._order.billing_address
 
         country = kwargs.pop('country', None)
 
@@ -40,6 +51,7 @@ class RegistrationForm(MultiModelForm):
         self.forms['shipping_address'] = RequiredAddressForm(self.data or None,
                                                              self.files or None,
                                                              initial=self.initial,
+                                                             instance=shipping_address,
                                                              prefix='shipping-address')
 
         billing_address_form_class = OptionalAddressForm
@@ -48,6 +60,7 @@ class RegistrationForm(MultiModelForm):
 
         self.forms['billing_address'] = billing_address_form_class(self.data or None,
                                                                    self.files or None,
+                                                                   instance=billing_address,
                                                                    initial=self.initial,
                                                                    prefix='billing-address')
 

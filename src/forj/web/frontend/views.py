@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
 from django.conf import settings
@@ -63,6 +63,16 @@ class OrderView(generic.DetailView):
 
 class PaymentView(OrderView):
     template_name = 'forj/checkout/payment.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        if self.object.is_status_succeeded():
+            return redirect(self.object.get_payment_url())
+
+        context = self.get_context_data(object=self.object)
+
+        return self.render_to_response(context)
 
 
 class SuccessView(OrderView):
