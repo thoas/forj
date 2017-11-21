@@ -126,6 +126,16 @@ def upgrade():
     op.create_unique_constraint('forj_user_groups__user_id__group_id__uniq', 'forj_user_groups', ['user_id', 'group_id'])
 
     op.create_table(
+        "django_session",
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('session_key', sa.String(40)),
+        sa.Column('session_data', sa.Text),
+        sa.Column('expire_date', sa.DateTime(timezone=True)),
+    )
+
+    op.create_unique_constraint('django_session__expire_date__idx', 'django_session', ['expire_date'])
+
+    op.create_table(
         "django_content_type",
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('app_label', sa.String(100)),

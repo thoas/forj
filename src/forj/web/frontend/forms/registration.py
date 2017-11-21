@@ -1,5 +1,3 @@
-from django.db import transaction
-
 from forj.forms import MultiModelForm
 
 from .address import RequiredAddressForm, OptionalAddressForm
@@ -16,15 +14,15 @@ class RegistrationForm(MultiModelForm):
         self._diff = kwargs.pop('diff', None)
         self._order = kwargs.pop('order', None)
 
-        shipping_address = None
-        billing_address = None
+        self.shipping_address = None
+        self.billing_address = None
 
         if self._order:
             if self._order.shipping_address_id:
-                shipping_address = self._order.shipping_address
+                self.shipping_address = self._order.shipping_address
 
             if self._order.billing_address_id:
-                billing_address = self._order.billing_address
+                self.billing_address = self._order.billing_address
 
         country = kwargs.pop('country', None)
 
@@ -51,7 +49,7 @@ class RegistrationForm(MultiModelForm):
         self.forms['shipping_address'] = RequiredAddressForm(self.data or None,
                                                              self.files or None,
                                                              initial=self.initial,
-                                                             instance=shipping_address,
+                                                             instance=self.shipping_address,
                                                              prefix='shipping-address')
 
         billing_address_form_class = OptionalAddressForm
@@ -60,16 +58,15 @@ class RegistrationForm(MultiModelForm):
 
         self.forms['billing_address'] = billing_address_form_class(self.data or None,
                                                                    self.files or None,
-                                                                   instance=billing_address,
+                                                                   instance=self.billing_address,
                                                                    initial=self.initial,
                                                                    prefix='billing-address')
 
     def save(self, *args, **kwargs):
-        with transaction.atomic():
-            user = self.forms['user'].save()
-            self.forms['shipping_address'].save(user=user)
+        user = self.forms['user'].save()
+        self.shipping_address = self.forms['shipping_address'].save(user=user)
 
-            if self._diff:
-                self.forms['billing_address'].save(user=user)
+        if self._diff:
+            self.billing_address = self.forms['billing_address'].save(user=user)
 
-            return user
+        return user

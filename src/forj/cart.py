@@ -39,12 +39,14 @@ class Cart(object):
     def update(self):
         self.amount = 0
         self.shipping_cost = 0
+        self.total = 0
 
         for product_id, result in self.products.items():
             quantity = sum(result['refs'].values())
 
             self.amount += quantity * result['obj'].price
             self.shipping_cost += quantity * result['obj'].shipping_cost
+            self.total += self.amount + self.shipping_cost
 
     @property
     def data(self):
@@ -80,7 +82,9 @@ class Cart(object):
         return cls.from_serialized_data(result)
 
     def to_request(self, request):
-        request.session[CART_SESSION_KEY] = self.serialized_data
+        session = request.session
+        session[CART_SESSION_KEY] = self.serialized_data
+        session.save()
 
     @transaction.atomic
     def save(self, user, commit=True, order=None, defaults=None):
@@ -89,10 +93,13 @@ class Cart(object):
         self.update()
 
         if order is None:
-            order = Order(user=user, **defaults)
+            order = Order(user=user)
 
         order.amount = self.amount
         order.shipping_cost = self.shipping_cost
+
+        for k, v in defaults.items():
+            setattr(order, k, v)
 
         order_items = []
 

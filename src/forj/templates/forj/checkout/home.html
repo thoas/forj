@@ -18,18 +18,18 @@
         <h1>Mes informations</h1>
         <h2>(tous les champs sont obligatoires)</h2>
 
-        {{ form.shipping_address.type }}
+        {{ form.forms.shipping_address.type }}
 
         <div class="inputs-container">
-            {{ forms.input(form.shipping_address.last_name, label="Nom") }}
+            {{ forms.input(form.forms.shipping_address.last_name, label="Nom") }}
 
-            {{ forms.input(form.shipping_address.first_name, label="Prénom") }}
+            {{ forms.input(form.forms.shipping_address.first_name, label="Prénom") }}
 
-            {{ forms.input(form.shipping_address.business_name, label="Nom d'entreprise") }}
+            {{ forms.input(form.forms.shipping_address.business_name, label="Nom d'entreprise") }}
 
-            {{ forms.input(form.user.email, label="Adresse mail") }}
+            {{ forms.input(form.forms.user.email, label="Adresse mail") }}
 
-            {{ forms.input(form.shipping_address.phone_number, label="Téléphone") }}
+            {{ forms.input(form.forms.shipping_address.phone_number, label="Téléphone") }}
         </div>
 
         <div class="facturation-container">
@@ -42,9 +42,9 @@
         <h2>(tous les champs sont obligatoires)</h2>
 
         <div class="inputs-container">
-            {{ forms.input(form.shipping_address.line1, label="Voie, rue") }}
-            {{ forms.input(form.shipping_address.postal_code, label="Code postal") }}
-            {{ forms.input(form.shipping_address.city, label="Ville") }}
+            {{ forms.input(form.forms.shipping_address.line1, label="Voie, rue") }}
+            {{ forms.input(form.forms.shipping_address.postal_code, label="Code postal") }}
+            {{ forms.input(form.forms.shipping_address.city, label="Ville") }}
         </div>
 
         <div class="separation"></div>
@@ -52,15 +52,15 @@
         <div style="display: none" id="billing-wrapper">
             <h1>Adresse de facturation</h1>
             <h2>(tous les champs sont obligatoires)</h2>
-            {{ form.billing_address.type }}
+            {{ form.forms.billing_address.type }}
 
             <div class="inputs-container">
-                {{ forms.input(form.billing_address.first_name, label="Prénom") }}
-                {{ forms.input(form.billing_address.last_name, label="Nom") }}
-                {{ forms.input(form.billing_address.business_name, label="Nom d'entreprise") }}
-                {{ forms.input(form.billing_address.line1, label="Voie, rue") }}
-                {{ forms.input(form.billing_address.postal_code, label="Code postal") }}
-                {{ forms.input(form.billing_address.city, label="Ville") }}
+                {{ forms.input(form.forms.billing_address.first_name, label="Prénom") }}
+                {{ forms.input(form.forms.billing_address.last_name, label="Nom") }}
+                {{ forms.input(form.forms.billing_address.business_name, label="Nom d'entreprise") }}
+                {{ forms.input(form.forms.billing_address.line1, label="Voie, rue") }}
+                {{ forms.input(form.forms.billing_address.postal_code, label="Code postal") }}
+                {{ forms.input(form.forms.billing_address.city, label="Ville") }}
             </div>
             <div class="separation"></div>
         </div>
@@ -69,7 +69,7 @@
             <h1>Informations complémentaires</h1>
             <h2>(difficultés d’accès, codes d’entrée, interphone...)</h2>
 
-            {{ forms.textarea(form.shipping_address.line2) }}
+            {{ forms.textarea(form.forms.shipping_address.line2) }}
         </div>
 
         <section class="basket-container">
@@ -80,12 +80,14 @@
 
                 <div class="separation"></div>
 
-                <div class="price-container">
-                    <p>Total TTC</p>
-                    <p id="total" class="price">000</p>
-                </div>
+                {% if cart %}
+                    <div class="price-container">
+                        <p>Total TTC</p>
+                        <p id="total" class="price">{{ cart.total }}</p>
+                    </div>
+                    <div class="separation"></div>
+                {% endif %}
 
-                <div class="separation"></div>
 
                 <div class="check-cgu-container">
                     <input type="checkbox" id="check-cgu" />

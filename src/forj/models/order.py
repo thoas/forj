@@ -34,7 +34,8 @@ class Order(base.Model):
         choices=SHIPPING_STATUS_CHOICES,
         default=SHIPPING_STATUS_CHOICES.WAITING)
     shipping_cost = AmountField(verbose_name='Shipping cost', default=0)
-    user = models.ForeignKey('forj.User', on_delete=models.PROTECT)
+    user = models.ForeignKey('forj.User', on_delete=models.PROTECT,
+                             related_name='orders')
 
     shipping_address = models.ForeignKey('forj.Address',
                                          on_delete=models.SET_NULL,
@@ -73,6 +74,9 @@ class Order(base.Model):
 
     def get_payment_url(self):
         return reverse('payment', args=[self.reference, ])
+
+    def get_checkout_url(self):
+        return reverse('checkout', args=[self.reference, ])
 
     def mark_as_succeeded(self, commit=True):
         self.status = self.STATUS_CHOICES.SUCCEEDED

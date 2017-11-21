@@ -45,7 +45,6 @@ MIDDLEWARE = [
     'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
-LOGIN_URL = '/'
 ROOT_HOSTCONF = 'forj.hosts'
 DEFAULT_HOST = 'www'
 PARENT_HOST = 'local.forj.com'
