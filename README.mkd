@@ -66,6 +66,8 @@ make bootstrap
 - [x] Order generation from Cart
 - [ ] Invoice generation
 - [ ] Formula engine
+  - [x] Static with range
+  - [ ] Dynamic with formula based on criterion
 - [ ] Cart view
 - [x] Checkout view
 
