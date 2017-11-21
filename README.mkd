@@ -67,11 +67,11 @@ make bootstrap
 - [ ] Invoice generation
 - [ ] Formula engine
 - [ ] Cart view
-- [ ] Checkout view
+- [x] Checkout view
 
-  - [ ] Order creation from Cart
-  - [ ] User registration
-  - [ ] Address registration
+  - [x] Order creation from Cart
+  - [x] User registration
+  - [x] Address registration
 - [ ] Payment view
 - [ ] Done view
 - [ ] Success mail
