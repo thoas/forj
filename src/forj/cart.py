@@ -14,6 +14,7 @@ class Cart(object):
         self.products = {}
         self.amount = 0
         self.shipping_cost = 0
+        self.total = 0
 
     def add_product(self, reference, quantity=1):
         product = Product.objects.from_reference(reference)
@@ -57,6 +58,27 @@ class Cart(object):
         return data
 
     @property
+    def response(self):
+        products = []
+
+        for product_id, entry in self.products.items():
+            product = entry['obj']
+
+            for ref, quantity in entry['refs'].items():
+                products.append({
+                    'quantity': quantity,
+                    'reference': ref,
+                    'product': product.serialized_data,
+                })
+
+        return {
+            'products': products,
+            'total': self.total,
+            'amount': self.amount,
+            'shipping_cost': self.shipping_cost,
+        }
+
+    @property
     def serialized_data(self):
         return json.dumps(self.data)
 
@@ -80,6 +102,15 @@ class Cart(object):
             return None
 
         return cls.from_serialized_data(result)
+
+    @classmethod
+    def flush(cls, request):
+        if CART_SESSION_KEY not in request.session:
+            return
+
+        del request.session[CART_SESSION_KEY]
+
+        return cls()
 
     def to_request(self, request):
         session = request.session

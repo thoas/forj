@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.views import generic
 from django.conf import settings
 from django.contrib.auth import login
@@ -7,8 +7,9 @@ from django.db import transaction
 from django.utils.functional import cached_property
 
 from forj.web.frontend.forms import RegistrationForm
-from forj.models import Order
+from forj.models import Order, Product
 from forj.cart import Cart
+from forj import exceptions
 
 
 def home(request, template_name='forj/home.html'):
@@ -108,4 +109,43 @@ class SuccessView(OrderView):
 
 
 def cart(request):
-    return HttpResponse('Ok')
+    params = getattr(request, request.method)
+
+    action = params.get('action')
+
+    cart = Cart.from_request(request)
+    if cart is None:
+        cart = Cart()
+
+    product_id = params.get('product_id')
+
+    if action is not None:
+        if action == 'detail':
+            if product_id is None:
+                return HttpResponseBadRequest('Missing `product_id` parameter')
+
+            try:
+                product = Product.objects.from_reference(product_id)
+            except exceptions.InvalidProductRef as e:
+                return HttpResponseBadRequest(e.message)
+
+            return JsonResponse(product.serialized_data)
+        elif action in ('add', 'remove'):
+            if product_id is None:
+                return HttpResponseBadRequest('Missing `product_id` parameter')
+
+            try:
+                if action == 'add':
+                    cart.add_product(product_id, params.get('quantity') or 1)
+                elif action == 'remove':
+                    cart.remove_product(product_id)
+            except exceptions.InvalidProductRef as e:
+                return HttpResponseBadRequest(e.message)
+        elif action == 'flush':
+            cart = Cart.flush(request)
+
+            return JsonResponse(cart.response)
+
+        cart.to_request(request)
+
+    return JsonResponse(cart.response)

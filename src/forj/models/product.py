@@ -46,3 +46,14 @@ class Product(base.Model):
     @cached_property
     def criteria_set(self):
         return CriteriaSet.from_reference(self.reference)
+
+    @property
+    def serialized_data(self):
+        return {
+            'id': self.pk,
+            'price': self.price,
+            'shipping_cost': self.shipping_cost,
+            'description': self.description,
+            'name': self.name,
+            'currency': self.currency
+        }
