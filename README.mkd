@@ -68,7 +68,7 @@ make bootstrap
 - [ ] Formula engine
   - [x] Static with range
   - [ ] Dynamic with formula based on criterion
-- [ ] Cart view
+- [x] Cart view
 - [x] Checkout view
 
   - [x] Order creation from Cart
