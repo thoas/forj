@@ -83,7 +83,7 @@
                 {% if cart %}
                     <div class="price-container">
                         <p>Total TTC</p>
-                        <p id="total" class="price">{{ cart.total }}</p>
+                        <p id="total" class="price">{{ cart.total|amountformat(-2) }}</p>
                     </div>
                     <div class="separation"></div>
                 {% endif %}
