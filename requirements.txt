@@ -20,10 +20,10 @@ responses==0.8.1
 requests==2.18.4
 SQLAlchemy==1.1.14
 django-countries==5.0
+django-hosts==3.0
 
 -e git://github.com/django/django.git@2.0rc1#egg=django
 -e git://github.com/ulule/django-multiform.git@d2f2988004cc535381ac9ef86af7f659624d641c#egg=multiform
--e git://github.com/jazzband/django-hosts@05ada773adc9333ecc7e34a0a77decff2b908fef#egg=django_hosts
 
 django-mail-factory==0.20
 phonenumberslite==8.8.6
