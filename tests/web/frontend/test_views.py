@@ -175,6 +175,69 @@ class CartTest(TestCase):
 
         assert response.status_code == 200
 
+    def test_add(self):
+        response = self.client.post(self.path, data={
+            'product_id': 'LA(37)-LO(122)-H(67)',
+            'action': 'add'
+        })
+
+        assert response.status_code == 200
+        assert response.content is not None
+
+        content = response.json()
+
+        assert len(content['products']) == 1
+
+        entry = content['products'][0]
+
+        assert entry['quantity'] == 1
+        assert entry['reference'] == 'LA(37)-LO(122)-H(67)'
+        assert content['total'] == 54300
+        assert content['amount'] == 54300
+        assert content['shipping_cost'] == 0
+
+        response = self.client.post(self.path, data={
+            'product_id': 'LA(37)-LO(122)-H(67)',
+            'action': 'add'
+        })
+
+        content = response.json()
+
+        assert len(content['products']) == 1
+
+        entry = content['products'][0]
+
+        assert entry['quantity'] == 2
+
+    def test_remove(self):
+        self.cart.add_product('LA(37)-LO(122)-H(67)', 1)
+
+        self.cart.to_request(self.client)
+
+        response = self.client.get(self.path)
+
+        assert response.status_code == 200
+
+        content = response.json()
+
+        assert len(content['products']) == 1
+        entry = content['products'][0]
+        assert entry['quantity'] == 1
+
+        response = self.client.post(self.path, data={
+            'product_id': 'LA(37)-LO(122)-H(67)',
+            'action': 'remove',
+        })
+
+        assert response.status_code == 200
+
+        content = response.json()
+
+        assert len(content['products']) == 0
+        assert content['amount'] == 0
+        assert content['total'] == 0
+        assert content['shipping_cost'] == 0
+
 
 class CollectionTest(TestCase):
     @fixture
