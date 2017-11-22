@@ -104,6 +104,7 @@ TEMPLATES = [
                 "django_jinja.builtins.extensions.UrlsExtension",
                 "django_jinja.builtins.extensions.StaticFilesExtension",
                 "django_jinja.builtins.extensions.DjangoFiltersExtension",
+                "forj.builtins.extensions.ForjExtension",
             ],
             "bytecode_cache": {
                 "name": "default",
