@@ -5,4 +5,4 @@ from . import filters
 
 class ForjExtension(Extension):
     def __init__(self, environment):
-        environment.filters['amount'] = filters.amount
+        environment.filters['amountformat'] = filters.amountformat
