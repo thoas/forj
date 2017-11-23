@@ -175,7 +175,7 @@ class CartTest(TestCase):
 
         assert response.status_code == 200
 
-        response = self.client.get(self.path)
+        response = self.client.get('{}?next=checkout'.format(self.path))
 
         assert response.status_code == 302
         assert response['Location'] == reverse('checkout')

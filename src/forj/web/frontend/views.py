@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.views import generic
 from django.conf import settings
 from django.contrib.auth import login
 from django.db import transaction
 from django.utils.functional import cached_property
+from django.urls import NoReverseMatch
 
 from forj.web.frontend.forms import RegistrationForm
 from forj.models import Order, Product
@@ -109,6 +111,7 @@ class SuccessView(OrderView):
         return super().get_queryset().filter(status=Order.STATUS_CHOICES.SUCCEEDED)
 
 
+@csrf_exempt
 def cart(request):
     params = getattr(request, request.method)
 
@@ -147,7 +150,11 @@ def cart(request):
 
         cart.to_request(request)
 
-    if request.is_ajax():
-        return JsonResponse(cart.response, encoder=JSONEncoder)
+    next_value = params.get('next')
+    if next_value:
+        try:
+            return redirect(next_value)
+        except NoReverseMatch:
+            return HttpResponseBadRequest()
 
-    return redirect(params.get('next') or 'checkout')
+    return JsonResponse(cart.response, encoder=JSONEncoder)

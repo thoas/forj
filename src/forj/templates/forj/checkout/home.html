@@ -82,7 +82,7 @@
                             <div class="detail">Quantité : {{ item.quantity }}</div>
                             <p class="index" style="display: none;">0</p>
                             <p class="delete">
-                                <a href="{{ url('cart') }}?reference={{ item.reference }}&action=remove">
+                                <a href="{{ url('cart') }}" data-reference="{{ item.reference }}" data-action="remove">
                                     SUPPRIMER
                                 </a>
                             </p>
@@ -100,7 +100,7 @@
                 {% if cart %}
                     <div class="price-container">
                         <p>Total TTC</p>
-                        <p id="total" class="price">{{ cart.total|amountformat(2) }} {{ CURRENCY_DISPLAY }}</p>
+                        <p id="total" class="price"><span id="total-container">{{ cart.total|amountformat(2) }}</span> {{ CURRENCY_DISPLAY }}</p>
                     </div>
                     <div class="separation"></div>
                 {% endif %}

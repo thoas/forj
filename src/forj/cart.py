@@ -5,6 +5,7 @@ from django.db import transaction
 from collections import defaultdict
 
 from forj.models import Product, Order, OrderItem
+from forj.builtins.filters import amountformat
 
 CART_SESSION_KEY = 'cart_id'
 
@@ -78,8 +79,11 @@ class Cart(object):
         return {
             'items': self.items,
             'total': self.total,
+            'total_formatted': amountformat(self.total, 2),
             'amount': self.amount,
+            'amount_formatted': amountformat(self.amount, 2),
             'shipping_cost': self.shipping_cost,
+            'shipping_cost_formatted': amountformat(self.shipping_cost, 2),
         }
 
     @property
