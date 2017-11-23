@@ -63,6 +63,7 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 ROOT_URLCONF = 'forj.web.frontend.urls'
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+AMOUNT_PRECISION = 2
 
 TEMPLATES = [
     {

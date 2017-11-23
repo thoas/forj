@@ -54,8 +54,8 @@ class Product(base.Model):
         return {
             'id': self.pk,
             'price': self.price,
-            'price_formatted': amountformat(self.price, 2),
-            'shipping_cost_formatted': amountformat(self.shipping_cost, 2),
+            'price_formatted': amountformat(self.price, settings.AMOUNT_PRECISION),
+            'shipping_cost_formatted': amountformat(self.shipping_cost, settings.AMOUNT_PRECISION),
             'shipping_cost': self.shipping_cost,
             'description': self.description,
             'name': self.name,

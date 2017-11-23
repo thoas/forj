@@ -1,6 +1,7 @@
 import simplejson as json
 
 from django.db import transaction
+from django.conf import settings
 
 from collections import defaultdict
 
@@ -79,11 +80,11 @@ class Cart(object):
         return {
             'items': self.items,
             'total': self.total,
-            'total_formatted': amountformat(self.total, 2),
+            'total_formatted': amountformat(self.total, settings.AMOUNT_PRECISION),
             'amount': self.amount,
-            'amount_formatted': amountformat(self.amount, 2),
+            'amount_formatted': amountformat(self.amount, settings.AMOUNT_PRECISION),
             'shipping_cost': self.shipping_cost,
-            'shipping_cost_formatted': amountformat(self.shipping_cost, 2),
+            'shipping_cost_formatted': amountformat(self.shipping_cost, settings.AMOUNT_PRECISION),
         }
 
     @property

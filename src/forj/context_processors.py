@@ -10,5 +10,6 @@ def base(request):
 
     return {
         'CURRENCY': default_currency,
-        'CURRENCY_DISPLAY': value
+        'CURRENCY_DISPLAY': value,
+        'AMOUNT_PRECISION': settings.AMOUNT_PRECISION,
     }

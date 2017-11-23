@@ -86,7 +86,7 @@
                                     SUPPRIMER
                                 </a>
                             </p>
-                            <p class="price">{{ item.product.price_converted|floatformat(2) }} {{ CURRENCY_DISPLAY }}</p>
+                            <p class="price">{{ item.product.price_converted|floatformat(AMOUNT_PRECISION) }} {{ CURRENCY_DISPLAY }}</p>
                         </div>
                     {% endfor %}
                 </div>
@@ -100,7 +100,7 @@
                 {% if cart %}
                     <div class="price-container">
                         <p>Total TTC</p>
-                        <p id="total" class="price"><span id="total-container">{{ cart.total|amountformat(2) }}</span> {{ CURRENCY_DISPLAY }}</p>
+                        <p id="total" class="price"><span id="total-container">{{ cart.total|amountformat }}</span> {{ CURRENCY_DISPLAY }}</p>
                     </div>
                     <div class="separation"></div>
                 {% endif %}
