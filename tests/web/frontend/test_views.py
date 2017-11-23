@@ -52,10 +52,12 @@ class CheckoutTest(TestCase):
         response = self.client.post(self.path, data=data)
 
         assert response.status_code == 302
+        assert '_auth_user_id' in self.client.session
 
         user = User.objects.filter(email='flo@ulule.com').first()
         assert user is not None
         assert user.orders.count() == 1
+        assert int(self.client.session['_auth_user_id']) == user.pk
 
         order = user.orders.first()
         assert order.items.count() == 2
@@ -82,6 +84,7 @@ class CheckoutUpdateTest(TestCase):
 
     def test_update(self):
         self.cart.to_request(self.client)
+        self.client.force_login(self.user)
 
         data = {
             'shipping-address-type': constants.ADDRESS_TYPE_CHOICES.INDIVIDUAL,
@@ -97,6 +100,8 @@ class CheckoutUpdateTest(TestCase):
         response = self.client.post(self.path, data=data)
 
         assert response.status_code == 302
+        assert '_auth_user_id' in self.client.session
+        assert int(self.client.session['_auth_user_id']) == self.user.pk
 
         data = {
             'shipping-address-type': constants.ADDRESS_TYPE_CHOICES.INDIVIDUAL,

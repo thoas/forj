@@ -58,6 +58,10 @@ class CheckoutView(CheckoutMixin, generic.FormView):
 
         kwargs['order'] = self.order
 
+        user = self.request.user
+        if user.is_authenticated:
+            kwargs['user'] = user
+
         return kwargs
 
     def dispatch(self, *args, **kwargs):
@@ -66,14 +70,18 @@ class CheckoutView(CheckoutMixin, generic.FormView):
     def form_valid(self, form):
         with transaction.atomic():
             user = form.save()
-            user.backend = settings.DEFAULT_AUTHENTICATION_BACKEND
 
             self.order = self.cart.save(user, order=self.order, defaults={
                 'shipping_address': form.shipping_address,
                 'billing_address': form.billing_address,
             })
 
-        login(self.request, user)
+        if not self.request.user.is_authenticated:
+            user.backend = settings.DEFAULT_AUTHENTICATION_BACKEND
+
+            login(self.request, user)
+
+            self.cart.to_request(self.request)
 
         return super().form_valid(form)
 

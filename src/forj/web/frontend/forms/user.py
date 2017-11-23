@@ -8,13 +8,12 @@ from forj.models import User
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'password')
+        fields = ('email', 'first_name', 'last_name')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields['email'].required = True
-        self.fields['password'].required = False
         self.fields['first_name'].required = False
         self.fields['last_name'].required = False
 
@@ -33,6 +32,6 @@ class UserForm(forms.ModelForm):
 
     def save(self, *args, **kwargs):
         if not self.instance.password:
-            self.instance.password = get_random_string()
+            self.instance.set_password(get_random_string())
 
         return super().save(*args, **kwargs)

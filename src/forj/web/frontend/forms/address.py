@@ -41,6 +41,8 @@ class AddressForm(forms.ModelForm):
         if country is None:
             return value
 
+        country = '{}'.format(country)
+
         try:
             ph = phonenumbers.parse(value, country)
 

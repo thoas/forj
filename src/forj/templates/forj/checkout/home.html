@@ -21,9 +21,9 @@
         {{ form.forms.shipping_address.type }}
 
         <div class="inputs-container">
-            {{ forms.input(form.forms.shipping_address.last_name, label="Nom") }}
-
             {{ forms.input(form.forms.shipping_address.first_name, label="Prénom") }}
+
+            {{ forms.input(form.forms.shipping_address.last_name, label="Nom") }}
 
             {{ forms.input(form.forms.shipping_address.business_name, label="Nom d'entreprise") }}
 
@@ -72,48 +72,9 @@
             {{ forms.textarea(form.forms.shipping_address.line2) }}
         </div>
 
-        <section class="basket-container">
-            {% if cart %}
-                <div class="article-container">
-                    {% for item in cart.items %}
-                        <div class="article">
-                            <div class="detail">Nom : {{ item.product.name }}</div>
-                            <div class="detail">Dimensions : {{ item.reference }}</div>
-                            <div class="detail">Quantité : {{ item.quantity }}</div>
-                            <p class="index" style="display: none;">0</p>
-                            <p class="delete">
-                                <a href="{{ url('cart') }}" data-reference="{{ item.reference }}" data-action="remove">
-                                    SUPPRIMER
-                                </a>
-                            </p>
-                            <p class="price">{{ item.product.price_converted|floatformat(AMOUNT_PRECISION) }} {{ CURRENCY_DISPLAY }}</p>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            <div class="infos">
-                <h2>Livraison</h2>
-                <p class="legal">Gratuite en France métropolitaine sous 5 semaines. Une fois votre commande validée, nous vous appelons sous une semaine pour choisir votre date de livraison</p>
-
-                <div class="separation"></div>
-
-                {% if cart %}
-                    <div class="price-container">
-                        <p>Total TTC</p>
-                        <p id="total" class="price"><span id="total-container">{{ cart.total|amountformat }}</span> {{ CURRENCY_DISPLAY }}</p>
-                    </div>
-                    <div class="separation"></div>
-                {% endif %}
-
-
-                <div class="check-cgu-container">
-                    <input type="checkbox" id="check-cgu" />
-                    <label for="check-cgu"><span>J’accepte les <span class="cgu-basket-launcher">conditions générales de ventes</span></span></label>
-                </div>
-            </div>
-            <div class="button arrow right submit-arrow"><span></span></div>
-            <input type="submit" name="" value="Valider et payer"/>
-        </section>
+        {% with enable_cgu=True, enable_delete=True %}
+            {% include "forj/checkout/_cart.html" %}
+        {% endwith %}
     </form>
 {% endblock %} 
 
