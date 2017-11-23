@@ -12,6 +12,7 @@ module.exports = {
       './javascript/index.js'
     ],
     checkout: [
+      './javascript/forms.js',
       './javascript/checkout.js'
     ],
     styles: [

@@ -1,5 +1,5 @@
 {% macro input(field, label) -%}
-<div class="input-wrapper{% if field.errors %} error{% endif %}">
+<div class="input-wrapper{% if field.errors %} error{% endif %}{% if field.value() %} filled active{% endif %}">
     {% if label %}
         <label for="{{ field.id_for_label }}">{{ label }} {% if field.errors %}<span class="error">{% for error in field.errors %}{{ error }}{% endfor %}</span>{% endif %}</label>
     {% endif %}
