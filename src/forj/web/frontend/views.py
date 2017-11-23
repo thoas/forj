@@ -118,35 +118,36 @@ def cart(request):
     if cart is None:
         cart = Cart()
 
-    product_id = params.get('product_id')
+    reference = params.get('reference')
 
     if action is not None:
         if action == 'detail':
-            if product_id is None:
-                return HttpResponseBadRequest('Missing `product_id` parameter')
+            if reference is None:
+                return HttpResponseBadRequest('Missing `reference` parameter')
 
             try:
-                product = Product.objects.from_reference(product_id)
+                product = Product.objects.from_reference(reference)
             except exceptions.InvalidProductRef as e:
                 return HttpResponseBadRequest(e.message)
 
             return JsonResponse(product, encoder=JSONEncoder)
         elif action in ('add', 'remove'):
-            if product_id is None:
-                return HttpResponseBadRequest('Missing `product_id` parameter')
+            if reference is None:
+                return HttpResponseBadRequest('Missing `reference` parameter')
 
             try:
                 if action == 'add':
-                    cart.add_product(product_id, params.get('quantity') or 1)
+                    cart.add_product(reference, params.get('quantity') or 1)
                 elif action == 'remove':
-                    cart.remove_product(product_id)
+                    cart.remove_product(reference)
             except exceptions.InvalidProductRef as e:
                 return HttpResponseBadRequest(e.message)
         elif action == 'flush':
             cart = Cart.flush(request)
 
-            return JsonResponse(cart.response, encoder=JSONEncoder)
-
         cart.to_request(request)
 
-    return JsonResponse(cart.response, encoder=JSONEncoder)
+    if request.is_ajax():
+        return JsonResponse(cart.response, encoder=JSONEncoder)
+
+    return redirect(params.get('next') or 'checkout')

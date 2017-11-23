@@ -171,15 +171,20 @@ class CartTest(TestCase):
         return reverse('cart')
 
     def test_view(self):
-        response = self.client.get(self.path)
+        response = self.client.get(self.path, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         assert response.status_code == 200
 
+        response = self.client.get(self.path)
+
+        assert response.status_code == 302
+        assert response['Location'] == reverse('checkout')
+
     def test_add(self):
         response = self.client.post(self.path, data={
-            'product_id': 'LA(37)-LO(122)-H(67)',
+            'reference': 'LA(37)-LO(122)-H(67)',
             'action': 'add'
-        })
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         assert response.status_code == 200
         assert response.content is not None
@@ -197,9 +202,9 @@ class CartTest(TestCase):
         assert content['shipping_cost'] == 0
 
         response = self.client.post(self.path, data={
-            'product_id': 'LA(37)-LO(122)-H(67)',
+            'reference': 'LA(37)-LO(122)-H(67)',
             'action': 'add'
-        })
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         content = response.json()
 
@@ -214,7 +219,7 @@ class CartTest(TestCase):
 
         self.cart.to_request(self.client)
 
-        response = self.client.get(self.path)
+        response = self.client.get(self.path, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         assert response.status_code == 200
 
@@ -225,9 +230,9 @@ class CartTest(TestCase):
         assert entry['quantity'] == 1
 
         response = self.client.post(self.path, data={
-            'product_id': 'LA(37)-LO(122)-H(67)',
+            'reference': 'LA(37)-LO(122)-H(67)',
             'action': 'remove',
-        })
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         assert response.status_code == 200
 
