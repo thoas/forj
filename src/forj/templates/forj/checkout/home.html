@@ -77,11 +77,15 @@
                 <div class="article-container">
                     {% for item in cart.items %}
                         <div class="article">
+                            <div class="detail">Nom : {{ item.product.name }}</div>
                             <div class="detail">Dimensions : {{ item.reference }}</div>
-                            <div class="detail">&nbsp;</div>
-                            <div class="detail">&nbsp;</div>
+                            <div class="detail">Quantité : {{ item.quantity }}</div>
                             <p class="index" style="display: none;">0</p>
-                            <p class="delete">SUPPRIMER</p>
+                            <p class="delete">
+                                <a href="{{ url('cart') }}?reference={{ item.reference }}&action=remove">
+                                    SUPPRIMER
+                                </a>
+                            </p>
                             <p class="price">{{ item.product.price_converted|floatformat(2) }} {{ CURRENCY_DISPLAY }}</p>
                         </div>
                     {% endfor %}
@@ -114,43 +118,5 @@
 {% endblock %} 
 
 {% block extend_js %}
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function(e) {
-            var diff = document.querySelector('#diff');
-            var billingWrapper = document.querySelector('#billing-wrapper');
-
-            diff.addEventListener('change', function(e) {
-                if (this.checked) {
-                    billingWrapper.style.display = "block";
-                } else {
-                    billingWrapper.style.display = "none";
-                }
-            })
-
-            function addressTypeChange(radios, typeInput) {
-                Array.prototype.forEach.call(radios, function(radio) {
-                    radio.addEventListener('change', function(e) {
-                        if (radio.value == 1) {
-                            typeInput.style.display = 'none';
-                        } else {
-                            typeInput.style.display = 'block';
-                        }
-                    });
-                });
-            }
-
-            addressTypeChange(
-                document.querySelectorAll('input[name=shipping-address-type]'),
-                document.querySelector('#id_shipping-address-business_name')
-            );
-
-            addressTypeChange(
-                document.querySelectorAll('input[name=billing-address-type]'),
-                document.querySelector('#id_billing-address-business_name')
-            );
-
-            document.querySelector('input[name=shipping-address-type]:checked').dispatchEvent(new Event('change'));
-            document.querySelector('input[name=billing-address-type]:checked').dispatchEvent(new Event('change'));
-        });
-    </script>
+    <script type="text/javascript" src="{{ static('site/build/javascript/checkout.js') }}"></script>
 {% endblock %}
