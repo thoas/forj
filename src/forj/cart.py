@@ -11,7 +11,7 @@ CART_SESSION_KEY = 'cart_id'
 
 class Cart(object):
     def __init__(self):
-        self.products = {}
+        self._products = {}
         self.amount = 0
         self.shipping_cost = 0
         self.total = 0
@@ -19,21 +19,21 @@ class Cart(object):
     def add_product(self, reference, quantity=1):
         product = Product.objects.from_reference(reference)
 
-        if product.pk not in self.products:
-            self.products[product.pk] = {
+        if product.pk not in self._products:
+            self._products[product.pk] = {
                 'obj': product,
                 'refs': defaultdict(int),
             }
 
-        self.products[product.pk]['refs'][reference] += quantity
+        self._products[product.pk]['refs'][reference] += quantity
 
         self.update()
 
     def remove_product(self, reference):
         product = Product.objects.from_reference(reference)
 
-        if product.pk in self.products:
-            del self.products[product.pk]
+        if product.pk in self._products:
+            del self._products[product.pk]
 
         self.update()
 
@@ -42,7 +42,7 @@ class Cart(object):
         self.shipping_cost = 0
         self.total = 0
 
-        for product_id, result in self.products.items():
+        for product_id, result in self._products.items():
             quantity = sum(result['refs'].values())
 
             self.amount += quantity * result['obj'].price
@@ -52,16 +52,16 @@ class Cart(object):
     @property
     def data(self):
         data = {}
-        for product_id, result in self.products.items():
+        for product_id, result in self._products.items():
             data.update(result['refs'])
 
         return data
 
     @property
-    def response(self):
+    def items(self):
         products = []
 
-        for product_id, entry in self.products.items():
+        for product_id, entry in self._products.items():
             product = entry['obj']
 
             for ref, quantity in entry['refs'].items():
@@ -71,8 +71,12 @@ class Cart(object):
                     'product': product,
                 })
 
+        return products
+
+    @property
+    def response(self):
         return {
-            'products': products,
+            'items': self.items,
             'total': self.total,
             'amount': self.amount,
             'shipping_cost': self.shipping_cost,
@@ -134,7 +138,7 @@ class Cart(object):
 
         order_items = []
 
-        for product_id, result in self.products.items():
+        for product_id, result in self._products.items():
             product = result['obj']
 
             for ref, quantity in result['refs'].items():

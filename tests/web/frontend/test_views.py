@@ -186,9 +186,9 @@ class CartTest(TestCase):
 
         content = response.json()
 
-        assert len(content['products']) == 1
+        assert len(content['items']) == 1
 
-        entry = content['products'][0]
+        entry = content['items'][0]
 
         assert entry['quantity'] == 1
         assert entry['reference'] == 'LA(37)-LO(122)-H(67)'
@@ -203,9 +203,9 @@ class CartTest(TestCase):
 
         content = response.json()
 
-        assert len(content['products']) == 1
+        assert len(content['items']) == 1
 
-        entry = content['products'][0]
+        entry = content['items'][0]
 
         assert entry['quantity'] == 2
 
@@ -220,8 +220,8 @@ class CartTest(TestCase):
 
         content = response.json()
 
-        assert len(content['products']) == 1
-        entry = content['products'][0]
+        assert len(content['items']) == 1
+        entry = content['items'][0]
         assert entry['quantity'] == 1
 
         response = self.client.post(self.path, data={
@@ -233,7 +233,7 @@ class CartTest(TestCase):
 
         content = response.json()
 
-        assert len(content['products']) == 0
+        assert len(content['items']) == 0
         assert content['amount'] == 0
         assert content['total'] == 0
         assert content['shipping_cost'] == 0

@@ -75,14 +75,16 @@
         <section class="basket-container">
             {% if cart %}
                 <div class="article-container">
-                    <div class="article">
-                        <div class="detail">Dimensions : L.140 P.80 H.74</div>
-                        <div class="detail">Plateau : douglas</div>
-                        <div class="detail">Couleur : brut</div>
-                        <p class="index" style="display: none;">0</p>
-                        <p class="delete">SUPPRIMER</p>
-                        <p class="price">518,00 €</p>
-                    </div>
+                    {% for item in cart.items %}
+                        <div class="article">
+                            <div class="detail">Dimensions : {{ item.reference }}</div>
+                            <div class="detail">&nbsp;</div>
+                            <div class="detail">&nbsp;</div>
+                            <p class="index" style="display: none;">0</p>
+                            <p class="delete">SUPPRIMER</p>
+                            <p class="price">{{ item.product.price_converted|floatformat(2) }} {{ CURRENCY_DISPLAY }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
             {% endif %}
             <div class="infos">
@@ -94,7 +96,7 @@
                 {% if cart %}
                     <div class="price-container">
                         <p>Total TTC</p>
-                        <p id="total" class="price">{{ cart.total|amountformat(-2) }} {{ CURRENCY_DISPLAY }}</p>
+                        <p id="total" class="price">{{ cart.total|amountformat(2) }} {{ CURRENCY_DISPLAY }}</p>
                     </div>
                     <div class="separation"></div>
                 {% endif %}
