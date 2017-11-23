@@ -17,6 +17,7 @@ ALLOWED_HOSTS = [
 
 AUTH_USER_MODEL = 'forj.User'
 DEFAULT_COUNTRY = 'FR'
+DEFAULT_CURRENCY = 'EUR'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -76,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'forj.context_processors.base',
             ],
 
             # Match the template names ending in .html but not the ones in the admin folder.

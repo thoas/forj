@@ -68,7 +68,7 @@ class Cart(object):
                 products.append({
                     'quantity': quantity,
                     'reference': ref,
-                    'product': product.serialized_data,
+                    'product': product,
                 })
 
         return {

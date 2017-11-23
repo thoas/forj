@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.functional import cached_property
+from django.conf import settings
 
 from forj.db.models import base
 from forj.criteria import CriteriaSet
@@ -30,7 +31,7 @@ class Product(base.Model):
                                null=True, blank=True)
     currency = models.CharField(max_length=3,
                                 choices=constants.CURRENCY_CHOICES,
-                                default=constants.CURRENCY_CHOICES.EURO)
+                                default=settings.DEFAULT_CURRENCY)
     shipping_cost = AmountField(null=True, verbose_name='Shipping cost',
                                 default=0)
 

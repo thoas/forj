@@ -73,7 +73,18 @@
         </div>
 
         <section class="basket-container">
-            <div class="article-container"></div>
+            {% if cart %}
+                <div class="article-container">
+                    <div class="article">
+                        <div class="detail">Dimensions : L.140 P.80 H.74</div>
+                        <div class="detail">Plateau : douglas</div>
+                        <div class="detail">Couleur : brut</div>
+                        <p class="index" style="display: none;">0</p>
+                        <p class="delete">SUPPRIMER</p>
+                        <p class="price">518,00 €</p>
+                    </div>
+                </div>
+            {% endif %}
             <div class="infos">
                 <h2>Livraison</h2>
                 <p class="legal">Gratuite en France métropolitaine sous 5 semaines. Une fois votre commande validée, nous vous appelons sous une semaine pour choisir votre date de livraison</p>
@@ -83,7 +94,7 @@
                 {% if cart %}
                     <div class="price-container">
                         <p>Total TTC</p>
-                        <p id="total" class="price">{{ cart.total|amountformat(-2) }}</p>
+                        <p id="total" class="price">{{ cart.total|amountformat(-2) }} {{ CURRENCY_DISPLAY }}</p>
                     </div>
                     <div class="separation"></div>
                 {% endif %}

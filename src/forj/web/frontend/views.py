@@ -10,6 +10,7 @@ from forj.web.frontend.forms import RegistrationForm
 from forj.models import Order, Product
 from forj.cart import Cart
 from forj import exceptions
+from forj.encoders import JSONEncoder
 
 
 def home(request, template_name='forj/home.html'):
@@ -129,7 +130,7 @@ def cart(request):
             except exceptions.InvalidProductRef as e:
                 return HttpResponseBadRequest(e.message)
 
-            return JsonResponse(product.serialized_data)
+            return JsonResponse(product, encoder=JSONEncoder)
         elif action in ('add', 'remove'):
             if product_id is None:
                 return HttpResponseBadRequest('Missing `product_id` parameter')
@@ -144,8 +145,8 @@ def cart(request):
         elif action == 'flush':
             cart = Cart.flush(request)
 
-            return JsonResponse(cart.response)
+            return JsonResponse(cart.response, encoder=JSONEncoder)
 
         cart.to_request(request)
 
-    return JsonResponse(cart.response)
+    return JsonResponse(cart.response, encoder=JSONEncoder)
