@@ -1,18 +1,20 @@
-from forj.forms import MultiModelForm
+from django import forms
 
 from .address import RequiredAddressForm, OptionalAddressForm
 from .user import UserForm
 
 
-class RegistrationForm(MultiModelForm):
-    base_forms = {}
+class RegistrationForm(forms.Form):
+    diff = forms.BooleanField(required=False)
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         self._user = kwargs.pop('user', None)
         self._diff = kwargs.pop('diff', None)
         self._order = kwargs.pop('order', None)
+
+        country = kwargs.pop('country', None)
+
+        super().__init__(*args, **kwargs)
 
         self.shipping_address = None
         self.billing_address = None
@@ -23,8 +25,6 @@ class RegistrationForm(MultiModelForm):
 
             if self._order.billing_address_id:
                 self.billing_address = self._order.billing_address
-
-        country = kwargs.pop('country', None)
 
         if country is not None:
             self.initial = {
@@ -40,6 +40,8 @@ class RegistrationForm(MultiModelForm):
 
                 self.data = data
 
+        self.forms = {}
+
         self.forms['user'] = UserForm(self.data or None,
                                       self.files or None,
                                       initial=self.initial,
@@ -53,7 +55,7 @@ class RegistrationForm(MultiModelForm):
                                                              prefix='shipping-address')
 
         billing_address_form_class = OptionalAddressForm
-        if self._diff:
+        if self.data.get('diff'):
             billing_address_form_class = RequiredAddressForm
 
         self.forms['billing_address'] = billing_address_form_class(self.data or None,
@@ -62,11 +64,14 @@ class RegistrationForm(MultiModelForm):
                                                                    initial=self.initial,
                                                                    prefix='billing-address')
 
+    def is_valid(self):
+        return all([form.is_valid() for form in self.forms.values()]) & super().is_valid()
+
     def save(self, *args, **kwargs):
         user = self.forms['user'].save()
         self.shipping_address = self.forms['shipping_address'].save(user=user)
 
-        if self._diff:
+        if self.cleaned_data.get('diff'):
             self.billing_address = self.forms['billing_address'].save(user=user)
 
         return user

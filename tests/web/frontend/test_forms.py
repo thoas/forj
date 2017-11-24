@@ -143,9 +143,9 @@ class RegistrationFormTestCase(TestCase):
 
     def test_complete_billing(self):
         data = self.data
+        data['diff'] = True
 
         form = RegistrationForm(data=data,
-                                diff=True,
                                 country=settings.DEFAULT_COUNTRY)
 
         assert form.is_valid() is False

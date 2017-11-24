@@ -52,10 +52,6 @@ class CheckoutView(CheckoutMixin, generic.FormView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['country'] = settings.DEFAULT_COUNTRY
-
-        if self.request.method == 'POST':
-            kwargs['diff'] = self.request.POST.get('diff')
-
         kwargs['order'] = self.order
 
         user = self.request.user
