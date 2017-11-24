@@ -15,6 +15,10 @@ module.exports = {
       './javascript/forms.js',
       './javascript/checkout.js'
     ],
+    payment: [
+      './javascript/forms.js',
+      './javascript/payment.js'
+    ],
     styles: [
       './javascript/styles.js',
     ],

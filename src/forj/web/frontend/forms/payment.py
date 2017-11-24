@@ -3,6 +3,10 @@ from django.utils import timezone as datetime
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
+from forj import exceptions
+
+import stripe
+
 
 class TextInput(forms.TextInput):
     """
@@ -22,7 +26,7 @@ class TextInput(forms.TextInput):
 
 
 class PaymentForm(forms.Form):
-    token = forms.CharField(widget=forms.HiddenInput(), required=False)
+    token = forms.CharField(widget=forms.HiddenInput(), required=True)
 
     number = forms.CharField(
         required=False,
@@ -30,8 +34,7 @@ class PaymentForm(forms.Form):
         label=_('Card number'),
         widget=TextInput(
             attrs={
-                'placeholder': _('Card number'),
-                'class': 'kform__text kform__text--block',
+                'class': 'required first',
                 'size': 20,
                 'pattern': '\d*',  # number input on mobile
                 'autocomplete': 'cc-number',  # for autofill spec
@@ -44,9 +47,7 @@ class PaymentForm(forms.Form):
         label=_('Card security code'),
         widget=TextInput(
             attrs={
-                'placeholder': _('CVC'),
-                'id': 'security-code',
-                'class': 'kform__text kform__text--block',
+                'class': 'required last',
                 'size': 4,
                 'pattern': '\d*',  # number input on mobile
                 'autocomplete': 'off',
@@ -55,14 +56,9 @@ class PaymentForm(forms.Form):
         ),
     )
 
-    def clean_number(self):
-        value = self.cleaned_data.get('number')
-        if not value:
-            return value
-
-        return value.replace(' ', '')
-
     def __init__(self, *args, **kwargs):
+        self.order = kwargs.pop('order', None)
+
         super(PaymentForm, self).__init__(*args, **kwargs)
 
         self.label_suffix = ''
@@ -81,3 +77,22 @@ class PaymentForm(forms.Form):
         years = list(range(datetime.now().year, year + 20))
 
         self.fields['expire_year'] = forms.ChoiceField(choices=(('', (_('Year'))), ) + tuple(zip(years, years)), required=False, widget=forms.Select(attrs={}))
+
+    def save(self):
+        try:
+            charge = stripe.Charge.create(
+                amount=self.order.amount,
+                currency=self.order.currency,
+                source=self.cleaned_data['token'],
+                description="order:{}".format(self.order.pk),
+                capture=True,
+            )
+        except stripe.CardError as e:
+            raise exceptions.CardError('Invalid card') from e
+        except stripe.StripeError as e:
+            raise exceptions.PaymentError('Invalid payment') from e
+
+        if charge.status == 'succeeded':
+            self.order.mark_as_succeeded(commit=False)
+            self.order.stripe_charge = charge
+            self.order.save(update_fields=('status', 'stripe_charge', ))

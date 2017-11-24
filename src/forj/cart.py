@@ -59,8 +59,7 @@ class Cart(object):
 
         return data
 
-    @property
-    def items(self):
+    def get_items(self):
         products = []
 
         for product_id, entry in self._products.items():
@@ -78,7 +77,7 @@ class Cart(object):
     @property
     def response(self):
         return {
-            'items': self.items,
+            'items': self.get_items(),
             'total': self.total,
             'total_formatted': amountformat(self.total, settings.AMOUNT_PRECISION),
             'amount': self.amount,

@@ -1,7 +1,7 @@
 <section class="basket-container">
     {% if cart %}
         <div class="article-container">
-            {% for item in cart.items %}
+            {% for item in cart.get_items() %}
                 <div class="article">
                     <div class="detail">Nom : {{ item.product.name }}</div>
                     <div class="detail">Dimensions : {{ item.reference }}</div>

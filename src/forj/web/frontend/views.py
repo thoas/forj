@@ -7,8 +7,9 @@ from django.contrib.auth import login
 from django.db import transaction
 from django.utils.functional import cached_property
 from django.urls import NoReverseMatch
+from django.views.generic.edit import FormMixin
 
-from forj.web.frontend.forms import RegistrationForm
+from forj.web.frontend.forms import RegistrationForm, PaymentForm
 from forj.models import Order, Product
 from forj.cart import Cart
 from forj import exceptions
@@ -94,8 +95,15 @@ class OrderView(generic.DetailView):
         return Order.objects.filter(user=self.request.user)
 
 
-class PaymentView(OrderView):
+class PaymentView(FormMixin, OrderView):
     template_name = 'forj/checkout/payment.html'
+    form_class = PaymentForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['order'] = self.object
+
+        return kwargs
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -106,6 +114,24 @@ class PaymentView(OrderView):
         context = self.get_context_data(object=self.object)
 
         return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        form = self.get_form()
+
+        if form.is_valid():
+            return self.form_valid(form)
+
+        return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.save()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return self.object.get_success_url()
 
 
 class SuccessView(OrderView):

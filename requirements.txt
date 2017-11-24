@@ -21,6 +21,7 @@ requests==2.18.4
 SQLAlchemy==1.1.14
 django-countries==5.0
 django-hosts==3.0
+raven==6.3.0
 
 -e git://github.com/django/django.git@2.0rc1#egg=django
 

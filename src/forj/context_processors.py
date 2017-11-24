@@ -12,4 +12,6 @@ def base(request):
         'CURRENCY': default_currency,
         'CURRENCY_DISPLAY': value,
         'AMOUNT_PRECISION': settings.AMOUNT_PRECISION,
+        'STRIPE_PUBLISHABLE_KEY': getattr(settings, 'STRIPE_PUBLISHABLE_KEY', None),
+        'STRIPE_SECRET_KEY': getattr(settings, 'STRIPE_SECRET_KEY', None),
     }

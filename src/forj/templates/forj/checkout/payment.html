@@ -1,5 +1,7 @@
 {% extends "forj/checkout/base.html" %}
 
+{% import 'forj/forms.html' as forms %}
+
 {% block title %}Paiement{% endblock %}
 {% block body_class %}payment{% endblock %}
 
@@ -9,8 +11,22 @@
     </ul>
 {% endblock %}
 
+{% block extend_js %}
+    <script type="text/javascript">
+        window.FJ = {
+            stripe_publishable_key: '{{ STRIPE_PUBLISHABLE_KEY }}'
+        }
+    </script>
+    <script src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript" src="{{ static('site/build/javascript/payment.js') }}"></script>
+{% endblock %}
+
 {% block main %}
-    <form class="main" action="">
+    <form class="main" method="post" action="" id="payment-form">
+        {% csrf_token %}
+
+        {{ form.token }}
+
         <h1>Mes informations de paiement</h1>
         <h2>(tous les champs sont obligatoires)</h2>
         <p class="intro">Les cartes banquaires suivantes sont autorisées&nbsp; 
@@ -20,62 +36,27 @@
         </p>
 
         <div class="inputs-container">
-            <div class="input-wrapper">
-                <label class="number" for="number">Numéro <span class="error">format incorect</span></label>
-                <input id="number" class="first required" type="text">
-            </div>
-            <div class="select-date-wrapper">
+            {{ forms.input(form.number, label="Numéro") }}
+
+            <div class="select-date-wrapper" id="expiry-wrapper">
                 <div class="select-wrapper">
                     <span>Date de validité</span>
                     <div class="select">
-                        <p class="yearFeedBack selectFeedback">Année</p>
-                        <select name="year" id="year">
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                            <option value="2025">2025</option>
-                            <option value="2026">2026</option>
-                            <option value="2027">2027</option>
-                            <option value="2028">2028</option>
-                            <option value="2029">2029</option>
-                            <option value="2030">2030</option>
-                            <option value="2031">2031</option>
-                            <option value="2031">2032</option>
-                            <option value="2031">2033</option>
-                            <option value="2031">2034</option>
-                            <option value="2031">2035</option>
-                        </select>
+                        <p class="expiry_year-label">Année</p>
+                        {{ form.expire_year }}
                     </div>
                     <div style="margin-right: 100px" class="select">
-                        <p class="mounthFeedBack selectFeedback">Mois</p>
-                        <select name="mounth" id="mounth">
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                            <option value="06">06</option>
-                            <option value="07">07</option>
-                            <option value="08">08</option>
-                            <option value="09">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                        </select>
+                        <p class="expiry_month-label">Mois</p>
+                        {{ form.expire_month }}
                     </div>
                 </div>
             </div>
-            <div class="input-wrapper">
-                <label class="crypto" for="crypto">Cryptogramme <span class="error">format incorect</span></label>
-                <input id="crypto" class="last required" type="text">
-            </div>
+
+            {{ forms.input(form.cvc, label="Cryptogramme") }}
         </div>
 
-        {% include "forj/checkout/_cart.html" %}
+        {% with cart=order %}
+            {% include "forj/checkout/_cart.html" %}
+        {% endwith %}
     </form>
 {% endblock %}

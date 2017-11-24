@@ -1,11 +1,12 @@
 import shortuuid
+import stripe
 
 from django.db import models
 from django.urls import reverse
 
 from forj import constants
 from forj.db.models import base
-from forj.db.models.fields import AmountField
+from forj.db.models.fields import AmountField, ResourceField
 
 ORDER_SESSION_KEY = 'cart_id'
 
@@ -46,8 +47,8 @@ class Order(base.Model):
                                         related_name='billing_orders',
                                         null=True)
 
-    stripe_card_id = models.CharField(max_length=100, null=True)
-    stripe_charge_id = models.CharField(max_length=100, null=True)
+    stripe_card = ResourceField(stripe.Card, null=True)
+    stripe_charge = ResourceField(stripe.Charge, null=True)
 
     objects = OrderManager()
 
@@ -69,11 +70,18 @@ class Order(base.Model):
     def to_request(self, request):
         request.session[ORDER_SESSION_KEY] = self.pk
 
+    @property
+    def total(self):
+        return self.amount + self.shipping_cost
+
     def is_status_succeeded(self):
         return self.status == self.STATUS_CHOICES.SUCCEEDED
 
     def get_payment_url(self):
         return reverse('payment', args=[self.reference, ])
+
+    def get_success_url(self):
+        return reverse('success', args=[self.reference, ])
 
     def get_checkout_url(self):
         return reverse('checkout', args=[self.reference, ])
@@ -83,6 +91,18 @@ class Order(base.Model):
 
         if commit:
             self.save(update_fields=('status',))
+
+    def get_items(self):
+        products = []
+
+        for item in self.items.select_related('product'):
+            products.append({
+                'quantity': item.quantity,
+                'reference': item.product_reference,
+                'product': item.product,
+            })
+
+        return products
 
 
 class OrderItem(base.Model):

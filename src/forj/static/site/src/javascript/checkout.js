@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", e => {
 
       axios.post(current.getAttribute('href'), params).then(res => {
         cartContainer.removeChild(articleContainer);
-        totalContainer.innerHTML = res.data.total_formatted;
+        totalContainer.textContent = res.data.total_formatted;
       })
     })
   })
