@@ -2,14 +2,17 @@ import * as axios from 'axios'
 
 document.addEventListener("DOMContentLoaded", e => {
   const billingWrapper = document.querySelector('#billing-wrapper');
+  const diff = document.querySelector('#id_diff');
 
-  document.querySelector('#diff').addEventListener('change', e => {
+  diff.addEventListener('change', e => {
     if (e.target.checked) {
       billingWrapper.style.display = "block";
     } else {
       billingWrapper.style.display = "none";
     }
   })
+
+  diff.dispatchEvent(new Event('change'));
 
   const addressTypeChange = (radios, typeInput) => {
     radios.forEach(radio => {
