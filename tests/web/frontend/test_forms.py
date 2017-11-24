@@ -154,7 +154,6 @@ class RegistrationFormTestCase(TestCase):
             data['billing-address-{}'.format(k)] = v
 
         form = RegistrationForm(data=data,
-                                diff=True,
                                 country=settings.DEFAULT_COUNTRY)
 
         assert form.is_valid() is True

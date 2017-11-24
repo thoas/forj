@@ -9,7 +9,6 @@ class RegistrationForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self._user = kwargs.pop('user', None)
-        self._diff = kwargs.pop('diff', None)
         self._order = kwargs.pop('order', None)
 
         country = kwargs.pop('country', None)
@@ -25,6 +24,7 @@ class RegistrationForm(forms.Form):
 
             if self._order.billing_address_id:
                 self.billing_address = self._order.billing_address
+                self.fields['diff'].initial = True
 
         if country is not None:
             self.initial = {

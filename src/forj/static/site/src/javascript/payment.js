@@ -60,9 +60,10 @@ paymentForm.addEventListener('submit', e => {
     cvc: cardCvc.value
   };
 
+  paymentForm.classList.add('processing');
+
   Stripe.card.createToken(cardData, (status, response) => {
     token.value = response.id;
-    paymentForm.classList.add('processing');
     paymentForm.submit();
   });
 });
