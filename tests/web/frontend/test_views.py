@@ -145,6 +145,16 @@ class PaymentTest(TestCase):
 
         assert response.status_code == 200
 
+    def test_redirect(self):
+        self.client.force_login(self.user)
+
+        self.order.mark_as_succeeded()
+
+        response = self.client.get(self.path)
+
+        assert response.status_code == 302
+        assert response['Location'] == self.order.get_success_url()
+
 
 class SuccessTest(TestCase):
     @fixture

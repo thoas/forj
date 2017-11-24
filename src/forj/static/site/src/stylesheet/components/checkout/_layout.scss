@@ -55,6 +55,16 @@ body.checkout, body.payment {
 
         form {
             width: 50%;
+
+            &.processing {
+                .processing-container {
+                    display: block;
+                }
+
+                .submit-container {
+                    display: none !important;
+                }
+            }
         }
 
         .separation {
@@ -423,6 +433,14 @@ body.checkout, body.payment {
                         }
                     }
                 }
+            }
+
+            .submit-container {
+                display: block;
+            }
+
+            .processing-container {
+                display: none;
             }
 
             input[type=submit] {

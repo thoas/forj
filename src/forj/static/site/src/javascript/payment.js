@@ -15,11 +15,11 @@ const expireWrapper = document.getElementById('expiry-wrapper');
 });
 
 paymentForm.addEventListener('submit', e => {
-  if (paymentForm.classList.contains('bypass')) {
+  if (paymentForm.classList.contains('processing')) {
     return;
   }
 
-  event.preventDefault();
+  e.preventDefault();
 
   let hasErrors = false;
 
@@ -62,7 +62,7 @@ paymentForm.addEventListener('submit', e => {
 
   Stripe.card.createToken(cardData, (status, response) => {
     token.value = response.id;
-    paymentForm.classList.add('bypass');
+    paymentForm.classList.add('processing');
     paymentForm.submit();
   });
 });
