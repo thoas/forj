@@ -13,7 +13,15 @@
     <div class="main-wrapper">
         <main>
             {% if form and form.errors %}
-                <p class="error-label active">Certains champs sont incorrects ou incomplets</p>
+                {% with non_field_errors=form.non_field_errors() %}
+                    {% if non_field_errors %}
+                        {% for error in non_field_errors %}
+                            <p class="error-label active">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p class="error-label active">Certains champs sont incorrects ou incomplets</p>
+                    {% endif %}
+                {% endwith %}
             {% endif %}
             {% block main %}
 

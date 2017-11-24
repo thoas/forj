@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest, JsonResponse
+from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from django.conf import settings
 from django.contrib.auth import login
@@ -109,7 +110,7 @@ class PaymentView(FormMixin, OrderView):
         self.object = self.get_object()
 
         if self.object.is_status_succeeded():
-            return redirect(self.object.get_payment_url())
+            return redirect(self.object.get_success_url())
 
         context = self.get_context_data(object=self.object)
 
@@ -126,7 +127,17 @@ class PaymentView(FormMixin, OrderView):
         return self.form_invalid(form)
 
     def form_valid(self, form):
-        form.save()
+        try:
+            form.save()
+        except exceptions.CardError:
+            form.add_error(None, _('Your card has been declined by your bank, we can\'t process the transaction'))
+
+            return self.form_invalid(form)
+
+        except exceptions.PaymentError:
+            form.add_error(None, _('An unexcepted error happened with our payment provider, retry in a few minutes'))
+
+            return self.form_invalid(form)
 
         return super().form_valid(form)
 
