@@ -9,6 +9,7 @@ module.exports = {
   context: `${baseDir}/src`,
   entry: {
     app: [
+      './stylesheet/styles.js',
       './javascript/index.js'
     ],
     checkout: [
