@@ -1,8 +1,12 @@
 from django.contrib import admin  # noqa
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django import forms
+from django.utils.html import format_html
 
 from forj.models import Order, Product, User, OrderItem
+
+from django_countries import countries
 
 
 class UserAdmin(BaseUserAdmin):
@@ -62,9 +66,47 @@ class OrderItemInline(admin.TabularInline):
     )
 
 
+class OrderAdminForm(forms.ModelForm):
+    shipping_first_name = forms.CharField(required=False)
+    shipping_last_name = forms.CharField(required=False)
+    shipping_line1 = forms.CharField(required=False, widget=forms.Textarea)
+    shipping_line2 = forms.CharField(required=False, widget=forms.Textarea)
+    shipping_postal_code = forms.CharField(required=False)
+    shipping_city = forms.CharField(required=False)
+    shipping_country = forms.ChoiceField(required=False, choices=countries)
+
+    billing_first_name = forms.CharField(required=False)
+    billing_last_name = forms.CharField(required=False)
+    billing_line1 = forms.CharField(required=False, widget=forms.Textarea)
+    billing_line2 = forms.CharField(required=False, widget=forms.Textarea)
+    billing_postal_code = forms.CharField(required=False)
+    billing_city = forms.CharField(required=False)
+    billing_country = forms.ChoiceField(required=False, choices=countries)
+
+    class Meta:
+        model = Order
+        exclude = ()
+
+    def __init__(self, *args, **kwargs):
+        super(OrderAdminForm, self).__init__(*args, **kwargs)
+
+        if self.instance:
+            for field in ('shipping', 'billing', ):
+                if getattr(self.instance, '%s_address_id' % field):
+                    instance = getattr(self.instance, '%s_address' % field)
+
+                    self.fields['%s_first_name' % field].initial = instance.first_name
+                    self.fields['%s_last_name' % field].initial = instance.last_name
+                    self.fields['%s_line1' % field].initial = instance.line1
+                    self.fields['%s_line2' % field].initial = instance.line2
+                    self.fields['%s_postal_code' % field].initial = instance.postal_code
+                    self.fields['%s_city' % field].initial = instance.city
+                    self.fields['%s_country' % field].initial = instance.country
+
+
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', '_amount',
-                    'status', 'user',
+                    '_status', 'user',
                     'created_at', 'updated_at')
 
     list_filter = ('status', 'shipping_status', 'created_at')
@@ -73,7 +115,13 @@ class OrderAdmin(admin.ModelAdmin):
         'currency', 'created_at', 'updated_at'
     )
 
+    change_form_template = 'forj/admin/order/change_form.html'
+
+    raw_id_fields = ('user', )
+
     inlines = (OrderItemInline, )
+
+    form = OrderAdminForm
 
     fieldsets = (
         (None, {
@@ -90,6 +138,20 @@ class OrderAdmin(admin.ModelAdmin):
                 'shipping_status',
             )
         }),
+        ('Shipping address', {
+            'fields': ('shipping_first_name', 'shipping_last_name',
+                       'shipping_line1', 'shipping_line2',
+                       'shipping_city', 'shipping_postal_code',
+                       'shipping_country',),
+            'classes': ('collapse', )
+        }),
+        ('Billing address', {
+            'fields': ('billing_first_name', 'billing_last_name',
+                       'billing_line1', 'billing_line2',
+                       'billing_city', 'billing_postal_code',
+                       'billing_country',),
+            'classes': ('collapse', )
+        }),
         ('Information', {
             'fields': (
                 'created_at',
@@ -97,6 +159,16 @@ class OrderAdmin(admin.ModelAdmin):
             )
         }),
     )
+
+    def _status(self, instance):
+        color = 'blue'
+
+        if instance.is_status_succeeded():
+            color = 'green'
+        elif instance.is_status_failed():
+            color = 'green'
+
+        return format_html('<span style="color: {}">{}</span>'.format(color, instance.get_status_display()))
 
     def _amount(self, instance):
         return '{}{}'.format(

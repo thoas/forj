@@ -1,0 +1,16 @@
+{% extends "admin/change_form.html" %}
+
+{% block content %}
+    {% with instance=adminform.form.instance %}
+        {% if instance.pk and instance.stripe_charge_id %}
+            <ul class="object-tools">
+                <li><a href="https://dashboard.stripe.com/{% if 'sk_test' in STRIPE_SECRET_KEY %}test/{% endif %}payments/{{ instance.stripe_charge_id }}" class="viewsitelink" target="_blank">See charge on Stripe</a></li>
+            </ul>
+
+            <br />
+            <br />
+        {% endif %}
+    {% endwith %}
+
+    {{ block.super }}
+{% endblock %}

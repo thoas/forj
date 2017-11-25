@@ -77,6 +77,12 @@ class Order(base.Model):
     def is_status_succeeded(self):
         return self.status == self.STATUS_CHOICES.SUCCEEDED
 
+    def is_status_waiting(self):
+        return self.status == self.STATUS_CHOICES.WAITING
+
+    def is_status_failed(self):
+        return self.status == self.STATUS_CHOICES.FAILED
+
     def get_payment_url(self):
         return reverse('payment', args=[self.reference, ])
 
