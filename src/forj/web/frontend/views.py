@@ -162,11 +162,11 @@ class PaymentView(FormMixin, OrderView):
         except CardError:
             messages.error(self.request, _('Your card has been declined by your bank, we can\'t process the transaction'), fail_silently=True)
 
-            return redirect(order.get_payment_url())
+            return redirect(self.object.get_payment_url())
         except PaymentError:
             messages.error(self.request, _('An error occurred with our payment provider, we can\'t process the transaction'), fail_silently=True)
 
-            return redirect(order.get_payment_url())
+            return redirect(self.object.get_payment_url())
 
         if order.redirect_url:
             return redirect(order.redirect_url)

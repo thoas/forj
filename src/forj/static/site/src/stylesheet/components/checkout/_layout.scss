@@ -1,5 +1,14 @@
 body.checkout, body.payment {
 
+    #messages-container {
+        padding: 20px;
+        text-align: center;
+
+        li.error {
+            color: #d43e1b;
+        }
+    }
+
     nav .logo {
         background-image: url(../assets/images/Logo_square.svg)
     }

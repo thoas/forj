@@ -12,6 +12,13 @@
 
     <div class="main-wrapper">
         <main>
+            {% if messages %}
+                <ul id="messages-container">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             {% if form and form.errors %}
                 {% with non_field_errors=form.non_field_errors() %}
                     {% if non_field_errors %}
