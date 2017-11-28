@@ -3,10 +3,13 @@ import stripe
 
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 
 from forj import constants
 from forj.db.models import base
 from forj.db.models.fields import AmountField, ResourceField
+
+from django_hosts import reverse as reverse_full
 
 ORDER_SESSION_KEY = 'cart_id'
 
@@ -18,6 +21,10 @@ class OrderManager(base.Manager):
             return None
 
         return self.filter(pk=result).first()
+
+
+def retrieve_source(instance, source_id, field):
+    return instance.user.stripe_customer.sources.retrieve(source_id)
 
 
 class Order(base.Model):
@@ -47,7 +54,11 @@ class Order(base.Model):
                                         related_name='billing_orders',
                                         null=True)
 
-    stripe_card = ResourceField(stripe.Card, null=True)
+    stripe_card = ResourceField(stripe.Source, null=True, methods={
+        'get': retrieve_source,
+    })
+
+    stripe_source = ResourceField(stripe.Source, null=True)
     stripe_charge = ResourceField(stripe.Charge, null=True)
 
     objects = OrderManager()
@@ -55,6 +66,11 @@ class Order(base.Model):
     class Meta:
         abstract = False
         db_table = 'forj_order'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.redirect_url = None
 
     def __str__(self):
         return '{}{}/{}'.format(self.get_currency_display(),
@@ -85,6 +101,12 @@ class Order(base.Model):
 
     def get_payment_url(self):
         return reverse('payment', args=[self.reference, ])
+
+    def get_payment_processing_url(self):
+        return reverse_full('payment_processing',
+                            args=[self.reference, ],
+                            scheme=settings.DEFAULT_SCHEME,
+                            host=settings.DEFAULT_HOST)
 
     def get_success_url(self):
         return reverse('success', args=[self.reference, ])

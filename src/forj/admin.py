@@ -74,6 +74,7 @@ class OrderAdminForm(forms.ModelForm):
     shipping_postal_code = forms.CharField(required=False)
     shipping_city = forms.CharField(required=False)
     shipping_country = forms.ChoiceField(required=False, choices=countries)
+    shipping_phone_number = forms.CharField(required=False)
 
     billing_first_name = forms.CharField(required=False)
     billing_last_name = forms.CharField(required=False)
@@ -82,6 +83,7 @@ class OrderAdminForm(forms.ModelForm):
     billing_postal_code = forms.CharField(required=False)
     billing_city = forms.CharField(required=False)
     billing_country = forms.ChoiceField(required=False, choices=countries)
+    billing_phone_number = forms.CharField(required=False)
 
     class Meta:
         model = Order
@@ -102,11 +104,12 @@ class OrderAdminForm(forms.ModelForm):
                     self.fields['%s_postal_code' % field].initial = instance.postal_code
                     self.fields['%s_city' % field].initial = instance.city
                     self.fields['%s_country' % field].initial = instance.country
+                    self.fields['%s_phone_number' % field].initial = instance.phone_number
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', '_amount',
-                    '_status', 'user',
+    list_display = ('reference', '_amount',
+                    '_status', 'shipping_status', 'user',
                     'created_at', 'updated_at')
 
     list_filter = ('status', 'shipping_status', 'created_at')

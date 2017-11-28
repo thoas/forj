@@ -65,17 +65,21 @@ make bootstrap
 - [x] Cart engine
 - [x] Order generation from Cart
 - [ ] Invoice generation
-- [ ] Formula engine
+- [ ] Formula engine for > 1m2
   - [x] Static with range
   - [ ] Dynamic with formula based on criterion
+  - [ ] Tax cost per product
 - [x] Cart view
 - [x] Checkout view
-
   - [x] Order creation from Cart
   - [x] User registration
   - [x] Address registration
-- [ ] Payment view
-- [ ] Done view
+  - [ ] Remove billing address
+- [x] Payment view
+  - [x] 3dsecure
+- [ ] Edit order when returning to cart
+- [x] Done view
+  - [ ] Invoice view
 - [ ] Success mail
 - [ ] FTP access for landing page
 - [ ] Remove delete button on order item admin

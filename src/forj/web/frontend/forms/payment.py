@@ -3,9 +3,7 @@ from django.utils import timezone as datetime
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
-from forj import exceptions
-
-import stripe
+from forj.payment import backend
 
 
 class TextInput(forms.TextInput):
@@ -58,6 +56,7 @@ class PaymentForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.order = kwargs.pop('order', None)
+        self.request = kwargs.pop('request', None)
 
         super(PaymentForm, self).__init__(*args, **kwargs)
 
@@ -79,20 +78,8 @@ class PaymentForm(forms.Form):
         self.fields['expire_year'] = forms.ChoiceField(choices=(('', (_('Year'))), ) + tuple(zip(years, years)), required=False, widget=forms.Select(attrs={}))
 
     def save(self):
-        try:
-            charge = stripe.Charge.create(
-                amount=self.order.amount,
-                currency=self.order.currency,
-                source=self.cleaned_data['token'],
-                description="order:{}".format(self.order.pk),
-                capture=True,
-            )
-        except stripe.CardError as e:
-            raise exceptions.CardError('Invalid card') from e
-        except stripe.StripeError as e:
-            raise exceptions.PaymentError('Invalid payment') from e
+        params = {
+            'token': self.cleaned_data['token']
+        }
 
-        if charge.status == 'succeeded':
-            self.order.mark_as_succeeded(commit=False)
-            self.order.stripe_charge = charge
-            self.order.save(update_fields=('status', 'stripe_charge', ))
+        return backend.handle_order(self.order, **params)

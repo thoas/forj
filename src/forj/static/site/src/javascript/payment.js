@@ -62,7 +62,10 @@ paymentForm.addEventListener('submit', e => {
 
   paymentForm.classList.add('processing');
 
-  Stripe.card.createToken(cardData, (status, response) => {
+  Stripe.source.create({
+    type: 'card',
+    card: cardData
+  }, (status, response) => {
     token.value = response.id;
     paymentForm.submit();
   });

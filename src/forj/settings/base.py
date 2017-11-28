@@ -48,7 +48,8 @@ MIDDLEWARE = [
 
 ROOT_HOSTCONF = 'forj.hosts'
 DEFAULT_HOST = 'www'
-PARENT_HOST = 'local.forj.com'
+DEFAULT_SCHEME = 'http'
+PARENT_HOST = 'local.forj.com:8181'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 SESSION_COOKIE_NAME = 'fj_session'
@@ -288,3 +289,5 @@ LOGGING = {
         },
     }
 }
+
+FORJ_PAYMENT_BACKEND_CLASS = 'forj.payment.backends.stripe.StripeBackend'

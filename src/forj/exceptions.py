@@ -4,11 +4,3 @@ class ForjException(Exception):
 
 class InvalidProductRef(ForjException):
     pass
-
-
-class CardError(ForjException):
-    pass
-
-
-class PaymentError(ForjException):
-    pass

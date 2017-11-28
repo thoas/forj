@@ -64,6 +64,8 @@ class RegistrationForm(forms.Form):
                                                                    initial=self.initial,
                                                                    prefix='billing-address')
 
+        self.forms['billing_address'].fields['phone_number'].required = False
+
     def is_valid(self):
         return all([form.is_valid() for form in self.forms.values()]) & super().is_valid()
 

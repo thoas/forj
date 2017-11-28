@@ -87,6 +87,7 @@ def upgrade():
         sa.Column('created_at', sa.DateTime(timezone=True)),
         sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
         sa.Column('stripe_card_id', sa.String(100), nullable=True),
+        sa.Column('stripe_source_id', sa.String(100), nullable=True),
         sa.Column('stripe_charge_id', sa.String(100), nullable=True),
     )
 

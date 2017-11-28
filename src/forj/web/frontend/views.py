@@ -9,12 +9,15 @@ from django.db import transaction
 from django.utils.functional import cached_property
 from django.urls import NoReverseMatch
 from django.views.generic.edit import FormMixin
+from django.contrib import messages
 
 from forj.web.frontend.forms import RegistrationForm, PaymentForm
 from forj.models import Order, Product
 from forj.cart import Cart
 from forj import exceptions
 from forj.encoders import JSONEncoder
+from forj.payment.exceptions import CardError, PaymentError
+from forj.payment import backend
 
 
 def home(request, template_name='forj/home.html'):
@@ -96,6 +99,33 @@ class OrderView(generic.DetailView):
         return Order.objects.filter(user=self.request.user)
 
 
+class PaymentProcessingView(OrderView):
+    def get(self, request, *args, **kwargs):
+        order = self.get_object()
+
+        if order.is_status_succeeded():
+            return redirect(order.get_success_url())
+
+        try:
+            order = backend.handle_order(order)
+        except CardError:
+            messages.error(self.request, _('Your card has been declined by your bank, we can\'t process the transaction'), fail_silently=True)
+
+            return redirect(order.get_payment_url())
+        except PaymentError:
+            messages.error(self.request, _('An error occurred with our payment provider, we can\'t process the transaction'), fail_silently=True)
+
+            return redirect(order.get_payment_url())
+
+        if order.redirect_url:
+            return redirect(order.redirect_url)
+
+        if order.is_status_succeeded():
+            return redirect(order.get_success_url())
+
+        return order.get_payment_url()
+
+
 class PaymentView(FormMixin, OrderView):
     template_name = 'forj/checkout/payment.html'
     form_class = PaymentForm
@@ -128,16 +158,18 @@ class PaymentView(FormMixin, OrderView):
 
     def form_valid(self, form):
         try:
-            form.save()
-        except exceptions.CardError:
-            form.add_error(None, _('Your card has been declined by your bank, we can\'t process the transaction'))
+            order = form.save()
+        except CardError:
+            messages.error(self.request, _('Your card has been declined by your bank, we can\'t process the transaction'), fail_silently=True)
 
-            return self.form_invalid(form)
+            return redirect(order.get_payment_url())
+        except PaymentError:
+            messages.error(self.request, _('An error occurred with our payment provider, we can\'t process the transaction'), fail_silently=True)
 
-        except exceptions.PaymentError:
-            form.add_error(None, _('An unexcepted error happened with our payment provider, retry in a few minutes'))
+            return redirect(order.get_payment_url())
 
-            return self.form_invalid(form)
+        if order.redirect_url:
+            return redirect(order.redirect_url)
 
         return super().form_valid(form)
 

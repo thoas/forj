@@ -36,6 +36,9 @@ class AddressForm(forms.ModelForm):
 
     def clean_phone_number(self):
         value = self.cleaned_data['phone_number']
+        if not value:
+            return value
+
         country = self.initial.get('country')
 
         if country is None:

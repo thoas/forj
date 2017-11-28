@@ -1,7 +1,11 @@
+import stripe
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+
+from forj.db.models.fields import ResourceField
 
 
 class UserManager(BaseUserManager):
@@ -51,7 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
-    stripe_customer_id = models.CharField(max_length=100, null=True)
+    stripe_customer = ResourceField(stripe.Customer, null=True)
 
     objects = UserManager()
     EMAIL_FIELD = 'email'
