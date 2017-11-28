@@ -50,7 +50,7 @@ class StripeBackend(Backend):
 
             if not order.stripe_source_id:
                 source = stripe.Source.create(
-                    amount=order.amount,
+                    amount=order.total,
                     currency=order.currency,
                     type='three_d_secure',
                     three_d_secure={
@@ -74,7 +74,7 @@ class StripeBackend(Backend):
             if chargeable_source:
                 if not order.stripe_charge_id or not order.stripe_charge.status != 'succeeded':
                     charge = stripe.Charge.create(
-                        amount=order.amount,
+                        amount=order.total,
                         currency=order.currency,
                         source=chargeable_source,
                         customer=order.user.stripe_customer_id,
