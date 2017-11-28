@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", e => {
   document.querySelector('input[name=shipping-address-type]:checked').dispatchEvent(new Event('change'));
   document.querySelector('input[name=billing-address-type]:checked').dispatchEvent(new Event('change'));
 
-  const cartContainer = document.querySelector('.basket-container');
   const totalContainer = document.querySelector('#total-container');
 
   axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -50,14 +49,14 @@ document.addEventListener("DOMContentLoaded", e => {
       e.preventDefault();
 
       const current = e.target;
-      const articleContainer = current.parentNode.parentNode.parentNode;
+      const articleContainer = current.parentNode.parentNode;
 
       var params = new URLSearchParams();
       params.append('action', current.getAttribute('data-action'));
       params.append('reference', current.getAttribute('data-reference'));
 
       axios.post(current.getAttribute('href'), params).then(res => {
-        cartContainer.removeChild(articleContainer);
+        articleContainer.parentNode.removeChild(articleContainer);
         totalContainer.textContent = res.data.total_formatted;
       })
     })
