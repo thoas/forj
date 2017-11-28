@@ -73,11 +73,13 @@ def test_criteria_set_contains():
     c3 = CriteriaSet.from_reference('LA(101)-LO(25)-P(AGLO)-H(40)-R(0001)')
     c4 = CriteriaSet.from_reference('LA(100)-LO(25)-P(AGLO)-H(40)-R(0002)')
     c5 = CriteriaSet.from_reference('LA(100)-LO(25)-P(AGLO)-H(40)-R(0001)')
+    c6 = CriteriaSet.from_reference('LA(100)-LO(25)-P(AGLO)-H(40)-R(0001)-K(SPIKE)')
     crange = CriteriaSet.from_reference('LA(25/100)-LO(25/100)-P(AGLO)-H(40/120)-R(0000|0001)')
 
     assert c0 in crange
     assert c1 in crange
     assert c2 in crange
     assert c5 in crange
+    assert c6 not in crange
     assert c3 not in crange
     assert c4 not in crange

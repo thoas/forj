@@ -40,6 +40,9 @@ class CriteriaSet(object):
                                  value)
 
     def __contains__(self, value):
+        if len(self.criterias) != len(value.criterias):
+            return False
+
         return all([criteria in self.criterias[i]
                     for i, criteria in enumerate(value.criterias)])
 
