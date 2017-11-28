@@ -74,7 +74,7 @@ make bootstrap
   - [x] Order creation from Cart
   - [x] User registration
   - [x] Address registration
-  - [ ] Remove billing address
+  - [x] Remove billing address
 - [x] Payment view
   - [x] 3dsecure
 - [ ] Edit order when returning to cart
