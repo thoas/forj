@@ -36,6 +36,9 @@ class Product(base.Model):
     shipping_cost = AmountField(null=True, verbose_name='Shipping cost',
                                 default=0)
 
+    tax_cost = AmountField(null=True, verbose_name='Shipping cost',
+                           default=0)
+
     objects = ProductManager()
 
     class Meta:
