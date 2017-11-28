@@ -45,8 +45,6 @@ class Cart(object):
         self.total = 0
 
         for product_id, result in self._products.items():
-            print('start', self.total, self.amount, self.shipping_cost)
-
             quantity = sum(result['refs'].values())
 
             amount = quantity * result['obj'].price
