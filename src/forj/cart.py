@@ -45,11 +45,16 @@ class Cart(object):
         self.total = 0
 
         for product_id, result in self._products.items():
+            print('start', self.total, self.amount, self.shipping_cost)
+
             quantity = sum(result['refs'].values())
 
-            self.amount += quantity * result['obj'].price
-            self.shipping_cost += quantity * result['obj'].shipping_cost
-            self.total += self.amount + self.shipping_cost
+            amount = quantity * result['obj'].price
+            shipping_cost = quantity * result['obj'].shipping_cost
+
+            self.amount += amount
+            self.shipping_cost += shipping_cost
+            self.total += amount + shipping_cost
 
     @property
     def data(self):
