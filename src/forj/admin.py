@@ -69,6 +69,7 @@ class OrderItemInline(admin.TabularInline):
 class OrderAdminForm(forms.ModelForm):
     shipping_first_name = forms.CharField(required=False)
     shipping_last_name = forms.CharField(required=False)
+    shipping_business_name = forms.CharField(required=False)
     shipping_line1 = forms.CharField(required=False, widget=forms.Textarea)
     shipping_line2 = forms.CharField(required=False, widget=forms.Textarea)
     shipping_postal_code = forms.CharField(required=False)
@@ -78,6 +79,7 @@ class OrderAdminForm(forms.ModelForm):
 
     billing_first_name = forms.CharField(required=False)
     billing_last_name = forms.CharField(required=False)
+    billing_business_name = forms.CharField(required=False)
     billing_line1 = forms.CharField(required=False, widget=forms.Textarea)
     billing_line2 = forms.CharField(required=False, widget=forms.Textarea)
     billing_postal_code = forms.CharField(required=False)
@@ -99,6 +101,7 @@ class OrderAdminForm(forms.ModelForm):
 
                     self.fields['%s_first_name' % field].initial = instance.first_name
                     self.fields['%s_last_name' % field].initial = instance.last_name
+                    self.fields['%s_business_name' % field].initial = instance.business_name
                     self.fields['%s_line1' % field].initial = instance.line1
                     self.fields['%s_line2' % field].initial = instance.line2
                     self.fields['%s_postal_code' % field].initial = instance.postal_code
@@ -143,6 +146,7 @@ class OrderAdmin(admin.ModelAdmin):
         }),
         ('Shipping address', {
             'fields': ('shipping_first_name', 'shipping_last_name',
+                       'shipping_business_name',
                        'shipping_line1', 'shipping_line2',
                        'shipping_city', 'shipping_postal_code',
                        'shipping_country',),
@@ -150,6 +154,7 @@ class OrderAdmin(admin.ModelAdmin):
         }),
         ('Billing address', {
             'fields': ('billing_first_name', 'billing_last_name',
+                       'billing_business_name',
                        'billing_line1', 'billing_line2',
                        'billing_city', 'billing_postal_code',
                        'billing_country',),
