@@ -1,6 +1,6 @@
 from forj.utils.test import TestCase
 from forj import constants
-from forj.models import User
+from forj.models import User, Order
 
 from django.urls import reverse
 
@@ -81,6 +81,62 @@ class CheckoutUpdateTest(TestCase):
         response = self.client.get(self.path)
 
         assert response.status_code == 200
+
+    def test_update_remove_billing(self):
+        self.cart.to_request(self.client)
+        self.client.force_login(self.user)
+
+        data = {
+            'shipping-address-type': constants.ADDRESS_TYPE_CHOICES.INDIVIDUAL,
+            'shipping-address-first_name': 'Florent',
+            'shipping-address-last_name': 'Messa',
+            'shipping-address-city': 'Paris',
+            'shipping-address-phone_number': '0183629075',
+            'shipping-address-line1': '8 rue saint fiacre',
+            'shipping-address-postal_code': '75002',
+            'user-email': 'flo@ulule.com',
+            'diff': 1,
+            'billing-address-type': constants.ADDRESS_TYPE_CHOICES.BUSINESS,
+            'billing-address-first_name': 'Florent',
+            'billing-address-last_name': 'Messa',
+            'billing-address-business_name': 'Ulule',
+            'billing-address-city': 'Paris',
+            'billing-address-phone_number': '0183629075',
+            'billing-address-line1': '8 rue saint fiacre',
+            'billing-address-postal_code': '75002',
+        }
+
+        response = self.client.post(self.path, data=data)
+
+        assert response.status_code == 302
+        assert '_auth_user_id' in self.client.session
+        assert int(self.client.session['_auth_user_id']) == self.user.pk
+
+        order = Order.objects.get(pk=self.order.pk)
+
+        assert order.billing_address_id is not None
+        assert order.shipping_address_id is not None
+
+        data = {
+            'shipping-address-type': constants.ADDRESS_TYPE_CHOICES.BUSINESS,
+            'shipping-address-first_name': 'Florent',
+            'shipping-address-last_name': 'Messa',
+            'shipping-address-business_name': 'Ulule',
+            'shipping-address-city': 'Paris',
+            'shipping-address-phone_number': '0183629075',
+            'shipping-address-line1': '8 rue saint fiacre',
+            'shipping-address-postal_code': '75002',
+            'user-email': 'flo@ulule.com',
+        }
+
+        response = self.client.post(self.path, data=data)
+
+        assert response.status_code == 302
+
+        order = Order.objects.get(pk=self.order.pk)
+
+        assert order.billing_address_id is None
+        assert order.shipping_address_id is not None
 
     def test_update(self):
         self.cart.to_request(self.client)

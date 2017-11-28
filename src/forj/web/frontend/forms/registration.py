@@ -55,6 +55,7 @@ class RegistrationForm(forms.Form):
                                                              prefix='shipping-address')
 
         billing_address_form_class = OptionalAddressForm
+
         if self.data.get('diff'):
             billing_address_form_class = RequiredAddressForm
 
@@ -75,5 +76,7 @@ class RegistrationForm(forms.Form):
 
         if self.cleaned_data.get('diff'):
             self.billing_address = self.forms['billing_address'].save(user=user)
+        else:
+            self.billing_address = None
 
         return user
