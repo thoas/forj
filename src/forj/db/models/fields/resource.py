@@ -37,7 +37,10 @@ class ReverseSingleRelatedObjectDescriptor(object):
                              (value, instance._meta.object_name,
                               self.field.name, self.field.to))
 
-        setattr(instance, self.field.attname, value.id)
+        if value:
+            setattr(instance, self.field.attname, value.id)
+        else:
+            setattr(instance, self.field.attname, None)
 
         setattr(instance, self.field.get_cache_name(), value)
 
