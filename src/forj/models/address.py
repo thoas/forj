@@ -42,3 +42,22 @@ class Address(base.Model):
     class Meta:
         abstract = False
         db_table = 'forj_address'
+
+    @property
+    def name(self):
+        name = ' '.join([self.first_name or '', self.last_name or ''])
+
+        if self.type == self.TYPE_CHOICES.INDIVIDUAL:
+            return name
+
+        return '{}\n{}'.format(name, self.business_name)
+
+    @property
+    def formatted(self):
+        return '%s\n%s\n%s %s\n%s' % (
+            self.name or '',
+            self.line1 or '',
+            self.postal_code or '',
+            self.city or '',
+            self.get_country_display()
+        )

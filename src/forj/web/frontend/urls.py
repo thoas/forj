@@ -27,6 +27,10 @@ urlpatterns = urlpatterns + [
         login_required(views.SuccessView.as_view()),
         name='success'),
 
+    url(r'^checkout/(?P<reference>\w+)/invoice/$',
+        login_required(views.InvoiceView.as_view()),
+        name='invoice'),
+
     url(r'^cart/$',
         views.cart,
         name='cart'),

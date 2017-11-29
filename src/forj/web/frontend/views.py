@@ -184,6 +184,10 @@ class SuccessView(OrderView):
         return super().get_queryset().filter(status=Order.STATUS_CHOICES.SUCCEEDED)
 
 
+class InvoiceView(SuccessView):
+    template_name = 'forj/checkout/invoice.html'
+
+
 @csrf_exempt
 def cart(request):
     params = getattr(request, request.method)

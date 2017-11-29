@@ -9,7 +9,7 @@
 
     <div class="wrapper">
         <h1>Bravo et merci !</h1>
-        <p>Votre commande est traitée par notre équipe, un mail de confirmation va vous être envoyé. Nous vous contacterons d'ici une semaine pour fixer une date de livraison. Si vous le souhaitez vous pouvez télécharger <a href="">votre facture ici</a>.</p>
+        <p>Votre commande est traitée par notre équipe, un mail de confirmation va vous être envoyé. Nous vous contacterons d'ici une semaine pour fixer une date de livraison. Si vous le souhaitez vous pouvez télécharger <a href="{{ order.get_invoice_url() }}">votre facture ici</a>.</p>
         <div class="links">
             <a class="button inverted" href="{{ url('home') }}">RETOURNER AU SITE</a>
             <span class="intro-socials">Ou suivez-nous sur</span>

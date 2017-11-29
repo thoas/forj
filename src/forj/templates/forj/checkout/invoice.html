@@ -1,0 +1,68 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Ma facture</title>
+
+        <link rel="stylesheet" href="{{ static("site/build/stylesheet/main.css") }}">
+    </head>
+
+    <body class="facture">
+        <header>
+            <img width="120" src="{{ static("site/build/assets/images/Logo_square.svg") }}" alt="">
+            <div class="text-content">
+                <h2>Forj, table sur-mesure</h2>
+                <p>{{ order.created_at|date("d/m/Y") }}</p>
+                <p>Facture n°{{ order.invoice_number }}</p>
+            </div>
+        </header>
+
+        <h1>Adresses</h1>
+
+        <div class="address">
+            <h3>Livraison</h3>
+            <p>{{ order.shipping_address.formatted|linebreaksbr }}</p>
+        </div>
+
+        {% if order.billing_address_id %}
+            <div class="address">
+                <h3>Facturation</h3>
+                <p>{{ order.billing_address.formatted|linebreaksbr }}</p>
+            </div>
+        {% endif %}
+
+        <table class="main">
+            <tr>
+                <th>Produit/référence</th>
+                <th width="15%">Qté</th>
+                <th width="25%">Prix</th>
+            </tr>
+
+            {% for item in order.items.all() %}
+                <tr>
+                    <td>{{ item.product_reference }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.amount|amountformat }} {{ order.get_currency_display() }} HC</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <div class="price">
+            <table class="price">
+                <tr>
+                    <th>TVA 19,6%</th>
+                    <th>{{ order.tax_cost|amountformat }} {{ order.get_currency_display() }}</th>
+                </tr>
+                <tr>
+                    <td>Total TTC</td>
+                    <td>{{ order.total|amountformat }} {{ order.get_currency_display() }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <p class="cgv">
+            Forj est une marque déposée de la société B concept, 16 rue Saint Just, Noisy le Sec
+            <br> contact : 0678458812 forj.info@gmail.com
+        </p>
+    </body>
+</html>

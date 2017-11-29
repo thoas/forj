@@ -22,6 +22,9 @@ class OrderManager(base.Manager):
 
         return self.filter(pk=result).first()
 
+    def status_succeeded(self):
+        return self.filter(status=self.model.STATUS_CHOICES.SUCCEEDED)
+
 
 def retrieve_source(instance, source_id, field):
     return instance.user.stripe_customer.sources.retrieve(source_id)
@@ -74,9 +77,10 @@ class Order(base.Model):
         self.redirect_url = None
 
     def __str__(self):
-        return '{}{}/{}'.format(self.get_currency_display(),
-                                self.amount_converted,
-                                self.get_status_display())
+        return '{} - {}{}/{}'.format(self.reference,
+                                     self.get_currency_display(),
+                                     self.amount_converted,
+                                     self.get_status_display())
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -112,6 +116,9 @@ class Order(base.Model):
     def get_success_url(self):
         return reverse('success', args=[self.reference, ])
 
+    def get_invoice_url(self):
+        return reverse('invoice', args=[self.reference, ])
+
     def get_checkout_url(self):
         return reverse('checkout', args=[self.reference, ])
 
@@ -120,6 +127,10 @@ class Order(base.Model):
 
         if commit:
             self.save(update_fields=('status',))
+
+    @property
+    def invoice_number(self):
+        return Order.objects.status_succeeded().filter(id__lt=self.pk).count() + 1
 
     def get_items(self):
         products = []
