@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
+from django.views import generic
 
 from . import views
 
@@ -34,6 +35,12 @@ urlpatterns = urlpatterns + [
     url(r'^cart/$',
         views.cart,
         name='cart'),
+
+    url(r'^handler404/',
+        generic.TemplateView.as_view(template_name='404.html')),
+
+    url(r'^handler500/',
+        generic.TemplateView.as_view(template_name='500.html')),
 
     url(r'^collection/$',
         views.collection,

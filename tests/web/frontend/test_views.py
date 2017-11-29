@@ -324,3 +324,25 @@ class CollectionTest(TestCase):
         response = self.client.get(self.path)
 
         assert response.status_code == 200
+
+
+class InvoiceTest(TestCase):
+    @fixture
+    def order(self):
+        self.cart.add_product('LA(37)-LO(122)-H(67)', 1)
+
+        order = self.cart.save(self.user)
+        order.mark_as_succeeded()
+
+        return order
+
+    @fixture
+    def path(self):
+        return self.order.get_invoice_url()
+
+    def test_view(self):
+        self.client.force_login(self.user)
+
+        response = self.client.get(self.path)
+
+        assert response.status_code == 200
