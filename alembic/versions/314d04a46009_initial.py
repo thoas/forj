@@ -100,6 +100,7 @@ def upgrade():
         sa.Column('quantity', sa.Integer, server_default="0"),
         sa.Column('amount', sa.Integer),
         sa.Column('shipping_cost', sa.Integer, server_default="0"),
+        sa.Column('tax_cost', sa.Integer, server_default="0"),
         sa.Column('order_id', sa.Integer, sa.ForeignKey('forj_order.id')),
         sa.Column('product_id', sa.Integer, sa.ForeignKey('forj_product.id')),
         sa.Column('product_reference', sa.String(100)),

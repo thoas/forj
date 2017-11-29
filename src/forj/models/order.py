@@ -42,6 +42,7 @@ class Order(base.Model):
         choices=SHIPPING_STATUS_CHOICES,
         default=SHIPPING_STATUS_CHOICES.WAITING)
     shipping_cost = AmountField(verbose_name='Shipping cost', default=0)
+    tax_cost = AmountField(verbose_name='Tax cost', default=0)
     user = models.ForeignKey('forj.User', on_delete=models.PROTECT,
                              related_name='orders')
 
@@ -88,7 +89,7 @@ class Order(base.Model):
 
     @property
     def total(self):
-        return self.amount + self.shipping_cost
+        return self.amount + self.shipping_cost + self.tax_cost
 
     def is_status_succeeded(self):
         return self.status == self.STATUS_CHOICES.SUCCEEDED
@@ -141,6 +142,7 @@ class OrderItem(base.Model):
                                 verbose_name='Product',
                                 on_delete=models.CASCADE)
     shipping_cost = AmountField(verbose_name='Shipping cost', default=0)
+    tax_cost = AmountField(verbose_name='Tax cost', default=0)
     amount = AmountField(verbose_name='Total amount')
     product_reference = models.CharField(max_length=100,
                                          verbose_name='Product reference')

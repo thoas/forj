@@ -16,6 +16,7 @@ class Cart(object):
         self._products = {}
         self.amount = 0
         self.shipping_cost = 0
+        self.tax_cost = 0
         self.total = 0
 
     def add_product(self, reference, quantity=1):
@@ -43,16 +44,19 @@ class Cart(object):
         self.amount = 0
         self.shipping_cost = 0
         self.total = 0
+        self.tax_cost = 0
 
         for product_id, result in self._products.items():
             quantity = sum(result['refs'].values())
 
             amount = quantity * result['obj'].price
             shipping_cost = quantity * result['obj'].shipping_cost
+            tax_cost = quantity * result['obj'].tax_cost
 
             self.amount += amount
             self.shipping_cost += shipping_cost
-            self.total += amount + shipping_cost
+            self.tax_cost += tax_cost
+            self.total += amount + shipping_cost + tax_cost
 
     @property
     def data(self):
@@ -87,6 +91,8 @@ class Cart(object):
             'amount_formatted': amountformat(self.amount, settings.AMOUNT_PRECISION),
             'shipping_cost': self.shipping_cost,
             'shipping_cost_formatted': amountformat(self.shipping_cost, settings.AMOUNT_PRECISION),
+            'tax_cost': self.tax_cost,
+            'tax_cost_formatted': amountformat(self.tax_cost, settings.AMOUNT_PRECISION),
         }
 
     @property
@@ -139,6 +145,7 @@ class Cart(object):
 
         order.amount = self.amount
         order.shipping_cost = self.shipping_cost
+        order.tax_cost = self.tax_cost
 
         for k, v in defaults.items():
             setattr(order, k, v)
@@ -150,12 +157,14 @@ class Cart(object):
 
             for ref, quantity in result['refs'].items():
                 shipping_cost = quantity * product.shipping_cost
+                tax_cost = quantity * product.tax_cost
 
                 order_item = OrderItem(order=order,
                                        quantity=quantity,
                                        amount=quantity * product.price,
                                        product_reference=ref,
                                        shipping_cost=shipping_cost,
+                                       tax_cost=tax_cost,
                                        product=product)
                 order_items.append(order_item)
 
