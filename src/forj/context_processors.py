@@ -9,6 +9,7 @@ def base(request):
     _, _, value = constants.CURRENCY_CHOICES.values[default_currency]
 
     return {
+        'STATIC_URL': settings.STATIC_URL,
         'CURRENCY': default_currency,
         'CURRENCY_DISPLAY': value,
         'AMOUNT_PRECISION': settings.AMOUNT_PRECISION,
