@@ -158,19 +158,12 @@ class Table {
       sub_frame.userData.color = true;
       pivot.add(sub_frame);
 
-      // let sub_frame_geom_2 = new THREE.BoxBufferGeometry( .5, .5, .5 )
-      // let sub_frame_2 =  new THREE.Mesh( sub_frame_geom_2, this.frame_material )
-      // sub_frame_2.position.y = 10.5
-      // sub_frame_2.userData.color = true
-      // pivot.add(sub_frame_2)
-
       pivot.position.x = this.feets_pos[i * 2] * 10;
       pivot.position.z = this.feets_pos[i * 2 + 1] * 10;
       feet.position.y = 5;
       pivot.lookAt(new THREE.Vector3(0, -4, 0));
 
       sub_frame.rotation.x = -0.2657291252981319;
-      // sub_frame_2.rotation.x = -0.2657291252981319
 
       pivot.castShadow = true;
       this.group_feets.add(pivot);
@@ -229,10 +222,6 @@ class Table {
   }
 
   resize() {
-    // if (w != undefined) { this.width = w * 2 }
-    // if (d != undefined) { this.depth = d * 2 }
-    // if (h != undefined) { this.height = h * 2 }
-
     this.group_frame.scale.y = this.height / 100;
     this.group_feets.scale.y = this.height / 100;
 

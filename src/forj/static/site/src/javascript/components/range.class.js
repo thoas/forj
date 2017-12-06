@@ -57,8 +57,6 @@ class Range {
     check_size();
 
     window.addEventListener("resize", () => {
-      //   console.log('YO');
-
       check_size();
     });
 
@@ -108,16 +106,12 @@ class Range {
         value: distance,
         ease: Expo.easeInOut,
         onStart: function() {
-          // document.querySelector('.mobile-nav').classList.add('hidden')
         },
         onUpdate: function() {
           window.scrollTo(0, this.target.value);
         },
         onComplete: () => {
           that.allready_scrolled = true;
-          //   document.querySelector('header').style.display = 'none'
-          //   document.querySelector('nav').style.display = 'none'
-          //   document.querySelector('.mobile-nav').classList.add('dark')
         }
       });
     }
@@ -152,16 +146,6 @@ class Range {
         scroll();
       }
     });
-
-    //   document.querySelector('.slider').addEventListener('click', (e)=>{
-    //       if (prevent) {
-    //           e.preventDefault()
-    //           setTimeout(() => {
-    //               prevent = false
-    //           }, 1000)
-    //       }
-    //       scroll()
-    //   })
   }
 
   init_presets() {
@@ -337,17 +321,6 @@ class Range {
       acier: window.SETTINGS.prices.acier,
       laquage: laquage
     };
-
-    //   let plop = {
-    //       sans_plateau : 0,
-    //       chene_plateau : 133,
-    //       douglas : 60,
-    //       metal: 60,
-    //       traitement_exterieur: 250,
-    //       main_d_oeuvre : 104,
-    //       vernis : 15,
-    //       acier : 40
-    //   }
 
     let total = 42;
     for (let key in prices) {
