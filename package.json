@@ -5,6 +5,12 @@
     "build": "webpack --progress --config webpack.config.babel.js --optimize-minimize",
     "watch": "webpack --progress --colors --watch --config webpack.config.babel.js"
   },
+  "prettier": {
+    "printWidth": 120,
+    "parser": "flow",
+    "semi": false,
+    "singleQuote": true
+  },
   "dependencies": {
     "axios": "^0.17.1",
     "babel-core": "^6.23.1",

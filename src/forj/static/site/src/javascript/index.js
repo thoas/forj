@@ -7,6 +7,7 @@ import CollectionCarousel from './components/CollectionCarousel'
 import Popins from './components/Popins'
 
 let three
+
 if (document.body.classList.contains('main')) {
   three = new THREEController({
     container: document.querySelector('.webgl')

@@ -1,11 +1,11 @@
-document.addEventListener("DOMContentLoaded", e => {
-  const wrappers = document.querySelectorAll('.input-wrapper');
+document.addEventListener('DOMContentLoaded', e => {
+  const wrappers = document.querySelectorAll('.input-wrapper')
 
   wrappers.forEach(elem => {
     elem.addEventListener('change', () => {
       setTimeout(() => {
         wrappers.forEach(child => {
-          const input = child.querySelector('input');
+          const input = child.querySelector('input')
 
           if (input) {
             if (input.value.length > 0) {
@@ -19,18 +19,18 @@ document.addEventListener("DOMContentLoaded", e => {
       }, 100)
     })
 
-    elem.addEventListener('focusin', (e) => {
+    elem.addEventListener('focusin', e => {
       elem.classList.add('active')
-    });
+    })
 
-    elem.addEventListener('focusout', (e) => {
+    elem.addEventListener('focusout', e => {
       if (elem.querySelector('input')) {
         if (elem.querySelector('input').value.length === 0) {
-          elem.classList.remove('active');
+          elem.classList.remove('active')
         } else {
-          elem.classList.add('filled');
+          elem.classList.add('filled')
         }
       }
-    });
-  });
-});
+    })
+  })
+})
