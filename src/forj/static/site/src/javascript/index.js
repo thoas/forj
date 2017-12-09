@@ -6,6 +6,29 @@ import Slider from './components/Slider'
 import Popins from './components/Popins'
 import * as TweenMax from 'gsap'
 
+const formatProductReference = cursor => {
+  let criterias = [];
+
+  if (cursor.table.outside) {
+      criterias.push('P(ACIEREXT)')
+  } else {
+    if (cursor.table.active_desk === 'chene') {
+      criterias.push('P(BRUT)')
+    } else if (cursor.table.active_desk === 'metal') {
+      criterias.push('P(ACIER)')
+    } else if (cursor.table.active_desk === 'brut') {
+      criterias.push('P(AGLO)')
+    }
+  }
+
+  criterias.push(`R(${cursor.table.active_color.toUpperCase()})`)
+  criterias.push(`LA(${cursor.depth})`)
+  criterias.push(`LO(${cursor.width})`)
+  criterias.push(`H(${cursor.height})`)
+
+  return criterias.join('-')
+}
+
 const cursor = new Range({
   onChange: () => {
     let surface = cursor.table.width * cursor.table.depth / 40000
@@ -65,6 +88,9 @@ const cursor = new Range({
         }
       }
     })
+
+    const reference = formatProductReference(cursor)
+    console.log(`Product reference: ${reference}`)
 
     const ops = [
       [document.querySelectorAll('section.infos .depth, .basket .depth'), (elem) => elem.textContent = cursor.depth],

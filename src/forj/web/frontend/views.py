@@ -12,7 +12,7 @@ from django.views.generic.edit import FormMixin
 from django.contrib import messages
 
 from forj.web.frontend.forms import RegistrationForm, PaymentForm
-from forj.models import Order, Product
+from forj.models import Order
 from forj.cart import Cart
 from forj import exceptions
 from forj.encoders import JSONEncoder
@@ -205,12 +205,9 @@ def cart(request):
             if reference is None:
                 return HttpResponseBadRequest('Missing `reference` parameter')
 
-            try:
-                product = Product.objects.from_reference(reference)
-            except exceptions.InvalidProductRef as e:
-                return HttpResponseBadRequest(e.message)
-
-            return JsonResponse(product, encoder=JSONEncoder)
+            cart = Cart()
+            cart.add_product(reference, params.get('quantity') or 1)
+            return JsonResponse(cart.response, encoder=JSONEncoder)
         elif action in ('add', 'remove'):
             if reference is None:
                 return HttpResponseBadRequest('Missing `reference` parameter')
