@@ -29,12 +29,12 @@ class Range {
     this.table.change_size(this.width, this.depth, this.height)
     this.update_range()
     this.init_bancs()
-    this.update()
+    this.triggerChange()
     this.init_scroll()
     this.init_roll_down()
   }
 
-  update() {
+  triggerChange() {
     if (this.onChange !== undefined) {
       this.onChange()
     }
@@ -268,7 +268,7 @@ class Range {
       let count = JSON.parse(banc_count.textContent)
       if (this.controller.bancs.length < 2) {
         this.controller.add_banc()
-        this.update()
+        this.triggerChange()
         count++
         banc_count.textContent = count
         if (this.controller.bancs.length === 2) {
@@ -283,7 +283,7 @@ class Range {
       let count = JSON.parse(banc_count.textContent)
       if (this.controller.bancs.length > 0) {
         this.controller.remove_banc()
-        this.update()
+        this.triggerChange()
         count--
         banc_count.textContent = count
         if (this.controller.bancs.length === 0) {

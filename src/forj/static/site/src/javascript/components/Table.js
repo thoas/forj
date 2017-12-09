@@ -5,8 +5,7 @@ class Table {
   constructor(options) {
     this.scene = options.scene
     this.assets = options.assets
-    this.controller = options.controller
-    this.cursor = options.cursor
+    this.onChange = options.onChange
     this.position = options.position || new THREE.Vector3()
 
     this.depth = options.depth || 160
@@ -22,7 +21,6 @@ class Table {
     this.init_frame()
     this.init_desk()
     this.init_floor()
-    this.init_check_outside()
     this.load_frame_material(1)
 
     this.need_change_size = false
@@ -256,7 +254,7 @@ class Table {
           opacity: 1,
           ease: Power1.ease,
           onComplete: () => {
-            this.cursor.update()
+            this.triggerChange()
           }
         })
       }, 500)
@@ -279,43 +277,22 @@ class Table {
       onComplete: () => {
         setTimeout(() => {
           this.need_change_size = false
-          this.cursor.update()
+          this.triggerChange()
         }, 10)
       }
     })
   }
 
+  triggerChange() {
+    if (this.onChange !== undefined) {
+      this.onChange()
+    }
+  }
+
   change_color(color) {
     this.active_color = color
     this.load_frame_material()
-    this.cursor.update()
-  }
-
-  init_check_outside() {
-    let previous_mat = 'douglas'
-    let checkbox = document.querySelector('#vernis')
-    checkbox.addEventListener('click', () => {
-      if (checkbox.checked) {
-        this.change_material('metal')
-        for (var i = 0; i < this.controller.bancs.length; i++) {
-          this.controller.bancs[i].change_material('metal')
-        }
-        this.outside = true
-        previous_mat = this.active_desk
-        let materials = document.querySelectorAll('section.module .material')
-        for (var i = 0; i < materials.length; i++) {
-          materials[i].classList.remove('active')
-        }
-        document.querySelector('section.module .metal-material').classList.add('active')
-      } else {
-        this.outside = false
-        this.change_material(previous_mat)
-        for (var i = 0; i < this.controller.bancs.length; i++) {
-          this.controller.bancs[i].outside = false
-          this.controller.bancs[i].change_material(previous_mat)
-        }
-      }
-    })
+    this.triggerChange()
   }
 
   update() {

@@ -80,12 +80,43 @@ class THREEController {
     this.table = new Table({
       scene: this.group,
       assets: this.assets,
-      cursor: this.cursor,
-      controller: this,
+      onChange: () => {
+        this.cursor.triggerChange()
+      }
     })
 
     this.cursor.init(this)
+    this.initCheckboxOutside()
   }
+
+  initCheckboxOutside() {
+    let previousMat = 'douglas'
+    let checkbox = document.querySelector('#vernis')
+
+    checkbox.addEventListener('click', () => {
+      if (checkbox.checked) {
+        this.table.change_material('metal')
+        for (var i = 0; i < this.bancs.length; i++) {
+          this.controller.bancs[i].change_material('metal')
+        }
+        this.table.outside = true
+        previousMat = this.table.active_desk
+        let materials = document.querySelectorAll('section.module .material')
+        for (var i = 0; i < materials.length; i++) {
+          materials[i].classList.remove('active')
+        }
+        document.querySelector('section.module .metal-material').classList.add('active')
+      } else {
+        this.table.outside = false
+        this.table.change_material(previousMat)
+        for (var i = 0; i < this.bancs.length; i++) {
+          this.bancs[i].outside = false
+          this.bancs[i].change_material(previousMat)
+        }
+      }
+    })
+  }
+
 
   add_banc() {
     if (this.bancs.length === 0) {
@@ -100,13 +131,14 @@ class THREEController {
 
     let banc = new Table({
       scene: banc_group,
-      cursor: this.cursor,
-      controller: this,
       assets: this.assets,
       position: new THREE.Vector3(0, 0.01, position),
       width: 50,
       depth: 50,
-      height: 80
+      height: 80,
+      onChange: () => {
+        this.cursor.triggerChange()
+      }
     })
 
     banc.change_size(this.table.width / 2 - 25, 32, 45)
@@ -217,7 +249,6 @@ class THREEController {
       materials[i].addEventListener('click', function() {
         if (this.dataset.material != 'metal' && that.table.outside) {
           document.querySelector('#vernis').checked = false
-          window.STORAGE.TABLE.outside = false
           for (var i = 0; i < that.bancs.length; i++) {
             that.bancs[i].outside = false
           }
