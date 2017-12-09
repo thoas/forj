@@ -36,6 +36,9 @@ class Cart(object):
         product = Product.objects.from_reference(reference)
 
         if product.pk in self._products:
+            del self._products[product.pk]['refs'][reference]
+
+        if not self._products[product.pk]:
             del self._products[product.pk]
 
         self.update()
