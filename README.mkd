@@ -15,14 +15,31 @@ Add this lines in your ``/etc/hosts``
 127.0.0.1       admin.local.forj.com
 ```
 
+## Requirements
+
+You must install:
+
+* Python 3
+* Postgresql
+
+On macOS, use [homebrew](https://brew.sh/)
+
+```console
+brew install python3 postgresql
+```
+
 ## Bootstrap
 
 Install the virtualenv
 
 
 ```console
-pip install virtualenv
-virtualenv .env
+make setup-virtualenv
+```
+
+Source the virtualenv to install dependencies
+
+```console
 source .env/bin/activate
 ```
 
@@ -45,6 +62,16 @@ Setup project (models + initial fixtures + index)
 ```console
 make bootstrap
 ```
+
+Launch webserver
+
+```console
+make run-server
+```
+
+Remember to always source the virtualenv before launching the webserver.
+
+open [http://www.local.forj.com:8181/](http://www.local.forj.com:8181/) on your browser.
 
 ## TODO
 

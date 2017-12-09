@@ -36,6 +36,11 @@ initial-data:
 createsuperuser:
 	DJANGO_SETTINGS_MODULE=forj.settings.local python manage.py createsuperuser
 
+setup-virtualenv:
+	pip install pip --upgrade
+	pip install virtualenv
+	virtualenv .env -p /usr/local/bin/python3
+
 setup-db:
 	psql -U postgres -c "create user forj with password 'forj';"
 	psql -U postgres -c "alter role forj with superuser;"
