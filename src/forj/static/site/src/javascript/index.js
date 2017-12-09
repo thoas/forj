@@ -1,3 +1,4 @@
+import * as axios from 'axios'
 import * as TOOLS from './components/tools'
 import THREEController from './components/THREEController'
 import Range from './components/Range'
@@ -6,6 +7,8 @@ import Slider from './components/Slider'
 import Popins from './components/Popins'
 import * as TweenMax from 'gsap'
 
+// formatProductReference formats the current selection in a product reference
+// readable by the server
 const formatProductReference = cursor => {
   let criterias = [];
 
@@ -16,7 +19,7 @@ const formatProductReference = cursor => {
       criterias.push('P(BRUT)')
     } else if (cursor.table.active_desk === 'metal') {
       criterias.push('P(ACIER)')
-    } else if (cursor.table.active_desk === 'brut') {
+    } else if (cursor.table.active_desk === 'douglas') {
       criterias.push('P(AGLO)')
     }
   }
@@ -31,66 +34,32 @@ const formatProductReference = cursor => {
 
 const cursor = new Range({
   onChange: () => {
-    let surface = cursor.table.width * cursor.table.depth / 40000
-    surface = Math.max(surface, 1)
-
-    let plateau_price
-    if (cursor.table.active_desk === 'none') {
-      plateau_price = window.SETTINGS.prices.sans_plateau
-    } else if (cursor.table.active_desk === 'chene') {
-      plateau_price = window.SETTINGS.prices.chene_plateau
-    } else if (cursor.table.active_desk === 'metal') {
-      plateau_price = window.SETTINGS.prices.metal
-    } else {
-      plateau_price = window.SETTINGS.prices.douglas
-    }
-
-    let laquage = 0
-    if (cursor.table.outside) {
-      laquage = window.SETTINGS.prices.traitement_exterieur
-    }
-
-    let prices = {
-      time: window.SETTINGS.prices.main_d_oeuvre,
-      plateau: plateau_price,
-      vernis: window.SETTINGS.prices.vernis,
-      acier: window.SETTINGS.prices.acier,
-      laquage: laquage
-    }
-
-    let total = 42
-    for (let key in prices) {
-      if (!prices.hasOwnProperty(key)) continue
-      prices[key] *= surface
-      total += prices[key]
-    }
-
-    // Marge
-    total *= 1.5
-    // TVA
-    total *= 1.2
-    total = Math.ceil(total)
-
-    for (var i = 0; i < cursor.controller.bancs.length; i++) {
-      total += 250
-    }
-
-    let diplayed_price = {}
-    diplayed_price.dom = document.querySelector('#price-value')
-    diplayed_price.value = parseFloat(diplayed_price.dom.textContent).toFixed(2)
-
-    let tween_price = TweenMax.to(diplayed_price, 1, {
-      value: total,
-      ease: Expo.easeInOut,
-      onUpdate: () => {
-        if (tween_price.target.value.toFixed) {
-          diplayed_price.dom.textContent = tween_price.target.value.toFixed(2)
-        }
-      }
-    })
-
     const reference = formatProductReference(cursor)
     console.log(`Product reference: ${reference}`)
+
+    var params = new URLSearchParams()
+    params.append('action', 'detail')
+    params.append('reference', reference)
+
+    axios.post(window.SETTINGS.urls.cart, params).then(res => {
+      const total = parseFloat(res.data.total_formatted)
+      const priceNode = document.querySelector('#price-value')
+
+      let price = {
+        dom: priceNode,
+        value: parseFloat(priceNode.textContent).toFixed(2)
+      }
+
+      let tweenPrice = TweenMax.to(price, 1, {
+        value: total,
+        ease: Expo.easeInOut,
+        onUpdate: () => {
+          if (tweenPrice.target.value.toFixed) {
+            price.dom.textContent = tweenPrice.target.value.toFixed(2)
+          }
+        }
+      })
+    })
 
     const ops = [
       [document.querySelectorAll('section.infos .depth, .basket .depth'), (elem) => elem.textContent = cursor.depth],
