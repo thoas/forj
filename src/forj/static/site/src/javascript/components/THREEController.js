@@ -6,6 +6,7 @@ class THREEController {
   constructor(options) {
     this.options = options
     this.container = this.options.container
+    this.cursor = this.options.cursor
     this.debug = this.options.debug || false
     this.width = this.container.offsetWidth
     this.height = this.container.offsetHeight
@@ -91,9 +92,8 @@ class THREEController {
       scene: this.group,
       assets: this.assets
     })
-    window.STORAGE.TABLE = this.table
 
-    window.STORAGE.CURSOR.init()
+    this.cursor.init(this.table)
   }
 
   add_banc() {

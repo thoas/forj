@@ -18,12 +18,16 @@ class Range {
     this.allready_scrolled = false
 
     window.STORAGE.CURSOR = this
+
+    this.table = null
   }
 
-  init() {
+  init(table) {
+    this.table = table
+
     this.init_presets()
     this.init_ranges()
-    window.STORAGE.TABLE.change_size(this.width, this.depth, this.height)
+    this.table.change_size(this.width, this.depth, this.height)
     this.update_range()
     this.init_bancs()
     this.update_price()
@@ -160,7 +164,7 @@ class Range {
           bancs_selector.classList.remove('active')
         }
 
-        window.STORAGE.TABLE.change_size(width, depth, height)
+        this.table.change_size(width, depth, height)
         setTimeout(() => {
           if (window.innerWidth < 960) {
             window.GL.mouse.z = -0.5
@@ -211,7 +215,7 @@ class Range {
           } else if (type === 'height') {
             this.height = size
           }
-          window.STORAGE.TABLE.change_size(this.width, this.depth, this.height)
+          this.table.change_size(this.width, this.depth, this.height)
           for (var i = 0; i < window.GL.bancs.length; i++) {
             window.GL.bancs[i].change_size(this.width - 25, 32, 45)
           }
@@ -290,22 +294,22 @@ class Range {
   update_price() {
     console.log({ STORAGE: window.STORAGE, GL: window.GL })
 
-    let surface = window.STORAGE.TABLE.width * window.STORAGE.TABLE.depth / 40000
+    let surface = this.table.width * this.table.depth / 40000
     surface = Math.max(surface, 1)
 
     let plateau_price
-    if (window.STORAGE.TABLE.active_desk === 'none') {
+    if (this.table.active_desk === 'none') {
       plateau_price = window.SETTINGS.prices.sans_plateau
-    } else if (window.STORAGE.TABLE.active_desk === 'chene') {
+    } else if (this.table.active_desk === 'chene') {
       plateau_price = window.SETTINGS.prices.chene_plateau
-    } else if (window.STORAGE.TABLE.active_desk === 'metal') {
+    } else if (this.table.active_desk === 'metal') {
       plateau_price = window.SETTINGS.prices.metal
     } else {
       plateau_price = window.SETTINGS.prices.douglas
     }
 
     let laquage = 0
-    if (window.STORAGE.TABLE.outside) {
+    if (this.table.outside) {
       laquage = window.SETTINGS.prices.traitement_exterieur
     }
 
@@ -375,15 +379,15 @@ class Range {
       for (let key in infos[i]) {
         if (!infos[i].hasOwnProperty(key)) continue
         if (key === 'depth' || key === 'width' || key === 'height') {
-          infos[i][key].textContent = window.STORAGE.TABLE[key] / 2 + ',00'
+          infos[i][key].textContent = this.table[key] / 2 + ',00'
         } else {
-          infos[i][key].textContent = window.STORAGE.TABLE[key]
+          infos[i][key].textContent = this.table[key]
         }
       }
     }
 
     let outside = document.querySelector('section.infos .outside')
-    if (window.STORAGE.TABLE.outside) {
+    if (this.table.outside) {
       outside.innerHTML = '<br>Traitement extérieur'
     } else {
       outside.textContent = ''
@@ -397,7 +401,7 @@ class Range {
     }
 
     let outside_popin = document.querySelector('.basket .outside')
-    if (window.STORAGE.TABLE.outside) {
+    if (this.table.outside) {
       outside_popin.innerHTML = '<br>Traitement extérieur'
     } else {
       outside_popin.textContent = ''
@@ -415,13 +419,13 @@ class Range {
 
   update_selection() {
     this.basket = {
-      depth: window.STORAGE.TABLE.depth / 2,
-      width: window.STORAGE.TABLE.width / 2,
-      height: window.STORAGE.TABLE.height / 2,
-      desk: window.STORAGE.TABLE.active_desk,
-      color: window.STORAGE.TABLE.active_color,
+      depth: this.table.depth / 2,
+      width: this.table.width / 2,
+      height: this.table.height / 2,
+      desk: this.table.active_desk,
+      color: this.table.active_color,
       bancs: window.GL.bancs.length,
-      outside: window.STORAGE.TABLE.outside,
+      outside: this.table.outside,
       price: this.price
     }
   }

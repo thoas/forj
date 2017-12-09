@@ -9,11 +9,12 @@ import Popins from './components/Popins'
 let three
 
 if (document.body.classList.contains('main')) {
+  const cursor = new Range()
   three = new THREEController({
-    container: document.querySelector('.webgl')
+    container: document.querySelector('.webgl'),
+    cursor: cursor
   })
 
-  new Range()
   new StickyBar(document.querySelector('section.infos'))
   const popins = new Popins(['more_color', 'gallery', 'basket'])
 
