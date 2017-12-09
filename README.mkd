@@ -92,6 +92,9 @@ Build dependencies
 npm run watch
 ```
 
+Static files are located in [src/forj/static/src](https://github.com/thoas/forj/tree/master/src/forj/static/site/src)
+and templates files are located in [src/forj/templates](https://github.com/thoas/forj/tree/master/src/forj/templates).
+
 ## TODO
 
 - [x] Data models
