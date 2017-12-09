@@ -221,7 +221,7 @@ class Range {
           }
 
           if (type === 'height') {
-            GL.remove_bancs()
+            this.controller.remove_bancs()
             this.update_bancs()
             bancs_selector.classList.remove('active')
 
