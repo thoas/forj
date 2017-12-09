@@ -82,6 +82,10 @@ class Cart(object):
         return products
 
     @property
+    def total_quantity(self):
+        return sum([item['quantity'] for item in self.get_items()])
+
+    @property
     def response(self):
         return {
             'items': self.get_items(),

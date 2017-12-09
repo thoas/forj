@@ -62,11 +62,26 @@ const cursor = new Range({
     })
 
     const ops = [
-      [document.querySelectorAll('section.infos .depth, .basket .depth'), (elem) => elem.textContent = cursor.depth],
-      [document.querySelectorAll('section.infos .width, .basket .width'), (elem) => elem.textContent = cursor.width],
-      [document.querySelectorAll('section.infos .height, .basket .height'), (elem) => elem.textContent = cursor.height],
-      [document.querySelectorAll('section.infos .desk, .basket .desk'), (elem) => elem.textContent = cursor.table.active_desk],
-      [document.querySelectorAll('section.infos .color, .basket .color'), (elem) => elem.textContent = cursor.table.active_color],
+      [
+        document.querySelectorAll('section.infos .depth, .basket .depth'),
+        (elem) => elem.textContent = cursor.depth
+      ],
+      [
+        document.querySelectorAll('section.infos .width, .basket .width'),
+        (elem) => elem.textContent = cursor.width
+      ],
+      [
+        document.querySelectorAll('section.infos .height, .basket .height'),
+        (elem) => elem.textContent = cursor.height
+      ],
+      [
+        document.querySelectorAll('section.infos .desk, .basket .desk'),
+        (elem) => elem.textContent = cursor.table.active_desk
+      ],
+      [
+        document.querySelectorAll('section.infos .color, .basket .color'),
+        (elem) => elem.textContent = cursor.table.active_color
+      ],
     ]
     ops.forEach(entry => entry[0].forEach(elem => entry[1](elem)))
 
@@ -111,7 +126,18 @@ const popins = new Popins(['more_color', 'gallery', 'basket'])
 
 document.querySelector('#add-to-basket').addEventListener('click', e => {
   e.preventDefault()
-  popins.display('basket')
+
+  var params = new URLSearchParams()
+  params.append('action', 'add')
+  params.append('reference', formatProductReference(cursor))
+
+  axios.post(window.SETTINGS.urls.cart, params).then(res => {
+    popins.display('basket')
+
+    const sum =res.data.items.map(entry => entry.quantity).reduce((a, b) => a + b, 0)
+
+    document.querySelectorAll('.cart-counter').forEach(elem => elem.textContent = `(${sum})`)
+  })
 })
 
 document.querySelectorAll('.slider').forEach(node => {

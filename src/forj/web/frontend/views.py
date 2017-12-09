@@ -21,7 +21,13 @@ from forj.payment import backend
 
 
 def home(request, template_name='forj/home.html'):
-    return render(request, template_name)
+    cart = Cart.from_request(request)
+    if cart is None:
+        cart = Cart()
+
+    return render(request, template_name, {
+        'cart': cart
+    })
 
 
 def collection(request, template_name='forj/collection.html'):

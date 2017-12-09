@@ -10,7 +10,7 @@
         <ul>
             <li><a class="link active" href="{{ url("home") }}">Table sur-mesure</a></li>
             <li><a class="link" href="{{ url("collection") }}">Collection</a></li>
-            <li><a class="button disabled checkout" href="{{ url("checkout") }}">Panier (<span id="items-numbers">0</span>)</a></li>
+            <li><a class="button disabled checkout" href="{{ url("checkout") }}">Panier <span id="items-numbers" class="cart-counter">({{ cart.total_quantity }})</span></a></li>
         </ul>
     </nav>
     <div class="hamburger">
@@ -21,7 +21,7 @@
     </div>
     <div class="mobile-nav">
         <a href="{{ url("home") }}" class="logo">Forje</a>
-        <a href="{{ url("checkout") }}" class="basket-icon"><span>(0)</span></a>
+        <a href="{{ url("checkout") }}" class="basket-icon"><span class="cart-counter">({{ cart.total_quantity }})</span></a>
     </div>
     <header class="slider">
         <div class="wrapper">
