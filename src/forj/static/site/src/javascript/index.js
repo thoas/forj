@@ -14,8 +14,7 @@ if (document.body.classList.contains("main")) {
   let sticky = new StickyBar(document.querySelector("section.infos"));
   new Popins(["more_color", "gallery", "basket"])
 
-  let launcher = document.querySelector("#add-to-basket");
-  launcher.addEventListener("click", e => {
+  document.querySelector("#add-to-basket").addEventListener("click", e => {
     e.preventDefault();
     window.POPIN.display("basket");
   });
@@ -23,10 +22,9 @@ if (document.body.classList.contains("main")) {
   new CollectionCarrousel();
 }
 
-let sliders = document.querySelectorAll(".slider");
-for (var i = 0; i < sliders.length; i++) {
-  let carroussel = new Slider(sliders[i]);
-}
+document.querySelectorAll(".slider").forEach(node => {
+  new Slider(node);
+})
 
 let hamburger = document.querySelector(".hamburger");
 let nav_mobile = document.querySelector("nav");
