@@ -63,6 +63,8 @@ Setup project (models + initial fixtures + index)
 make bootstrap
 ```
 
+## Run webserver
+
 Launch webserver
 
 ```console
@@ -72,6 +74,23 @@ make run-server
 Remember to always source the virtualenv before launching the webserver.
 
 open [http://www.local.forj.com:8181/](http://www.local.forj.com:8181/) on your browser.
+
+
+## Manage static dependencies
+
+Install npm dependencies, we use node.js 8.9.x
+
+
+```console
+npm install
+```
+
+
+Build dependencies
+
+```console
+npm run watch
+```
 
 ## TODO
 
