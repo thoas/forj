@@ -1,6 +1,3 @@
-//Global data storage
-window.STORAGE = {}
-
 // UI for displaying the frameRate
 export class FrameRateUI {
   constructor(options) {

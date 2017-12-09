@@ -350,9 +350,6 @@
     <!-- params -->
     <script type="text/javascript">
         window.SETTINGS = {
-            static_url: '{{ STATIC_URL }}',
-            cgu_url: 'assets/CGU.html',
-            contact_ajax_url: 'assets/contact_response.json',
             staticfiles: {
                 hdr: "{{ static('site/build/assets/images/hdr.png') }}",
                 shadow: "{{ static('site/build/assets/images/shadow.png') }}",
@@ -361,7 +358,7 @@
                 metal: "{{ static('site/build/assets/images/textures/metal_DIFFUSE.jpg') }}",
                 none: "{{ static('site/build/assets/images/textures/none_DIFFUSE.png') }}",
             },
-            prices : {
+            prices: {
                 sans_plateau: 0,
                 chene_plateau: 133,
                 douglas: 60,

@@ -224,7 +224,6 @@ class THREEController {
         for (var i = 0; i < that.bancs.length; i++) {
           that.bancs[i].change_material(this.dataset.material)
         }
-        window.STORAGE.material = this.dataset.material
         for (var i = 0; i < materials.length; i++) {
           materials[i].classList.remove('active')
         }
@@ -238,7 +237,6 @@ class THREEController {
         for (var i = 0; i < that.bancs.length; i++) {
           that.bancs[i].change_color(this.dataset.color)
         }
-        window.STORAGE.color = this.dataset.color
         for (var i = 0; i < colors.length; i++) {
           colors[i].classList.remove('active')
         }
