@@ -2,9 +2,11 @@ import re
 
 CRITERIA_SEPARATOR = '-'
 RANGE_CRITERIA_SEPARATOR = '/'
+FREE_CRITERIA_SEPARATOR = '?'
 CHOICE_CRITERIA_SEPARATOR = '|'
 
-criteria_regex = re.compile(r'(?P<name>\w+)\((?P<value>[\w\{}\{}]+)\)'.format(
+criteria_regex = re.compile(r'(?P<name>\w+)\((?P<value>[\w\{}\{}\{}]+)\)'.format(
+    FREE_CRITERIA_SEPARATOR,
     RANGE_CRITERIA_SEPARATOR,
     CHOICE_CRITERIA_SEPARATOR
 ))
@@ -99,11 +101,19 @@ class ChoiceCriteria(Criteria):
         return criteria.name == self.name and criteria.value in self.value
 
 
+class FreeCriteria(Criteria):
+    def __eq__(self, criteria):
+        return criteria.name == self.name
+
+
 def get_criteria_class(segment):
     if RANGE_CRITERIA_SEPARATOR in segment:
         return RangeCriteria
 
     if CHOICE_CRITERIA_SEPARATOR in segment:
         return ChoiceCriteria
+
+    if FREE_CRITERIA_SEPARATOR in segment:
+        return FreeCriteria
 
     return Criteria

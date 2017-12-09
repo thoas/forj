@@ -1,4 +1,4 @@
-from forj.criteria import CriteriaSet, Criteria, RangeCriteria, ChoiceCriteria
+from forj.criteria import CriteriaSet, Criteria, RangeCriteria, ChoiceCriteria, FreeCriteria
 
 
 def test_criteria_from_segment():
@@ -36,6 +36,16 @@ def test_criteria_contains():
     assert c2 is not None
 
     assert c1 in c2
+
+
+def test_free_criteria():
+    c1 = FreeCriteria.from_segment('LA(?)')
+    assert c1 is not None
+
+    c2 = Criteria.from_segment('LA(50)')
+    assert c2 is not None
+
+    assert c2 in c1
 
 
 def test_range_criteria_contains():
