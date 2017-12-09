@@ -66,33 +66,14 @@ const cursor = new Range({
       }
     })
 
-    let infos = [
-      {
-        depth: document.querySelector('section.infos .depth'),
-        width: document.querySelector('section.infos .width'),
-        height: document.querySelector('section.infos .height'),
-        active_desk: document.querySelector('section.infos .desk'),
-        active_color: document.querySelector('section.infos .color')
-      },
-      {
-        depth: document.querySelector('.basket .depth'),
-        width: document.querySelector('.basket .width'),
-        height: document.querySelector('.basket .height'),
-        active_desk: document.querySelector('.basket .desk'),
-        active_color: document.querySelector('.basket .color')
-      }
+    const ops = [
+      [document.querySelectorAll('section.infos .depth, .basket .depth'), (elem) => elem.textContent = cursor.depth],
+      [document.querySelectorAll('section.infos .width, .basket .width'), (elem) => elem.textContent = cursor.width],
+      [document.querySelectorAll('section.infos .height, .basket .height'), (elem) => elem.textContent = cursor.height],
+      [document.querySelectorAll('section.infos .desk, .basket .desk'), (elem) => elem.textContent = cursor.table.active_desk],
+      [document.querySelectorAll('section.infos .color, .basket .color'), (elem) => elem.textContent = cursor.table.active_color],
     ]
-
-    for (var i = 0; i < infos.length; i++) {
-      for (let key in infos[i]) {
-        if (!infos[i].hasOwnProperty(key)) continue
-        if (key === 'depth' || key === 'width' || key === 'height') {
-          infos[i][key].textContent = cursor.table[key] / 2 + ',00'
-        } else {
-          infos[i][key].textContent = cursor.table[key]
-        }
-      }
-    }
+    ops.forEach(entry => entry[0].forEach(elem => entry[1](elem)))
 
     let outside = document.querySelector('section.infos .outside')
     if (cursor.table.outside) {
