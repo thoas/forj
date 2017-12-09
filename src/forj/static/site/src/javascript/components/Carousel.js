@@ -25,7 +25,7 @@ const carousel = (target) => {
       }
       pause = true
       clearTimeout(timer)
-      timer = setTimeout(function() {
+      timer = setTimeout(() => {
         pause = false
       }, 5000)
     })
@@ -39,14 +39,14 @@ const carousel = (target) => {
       }
       pause = true
       clearTimeout(timer)
-      timer = setTimeout(function() {
+      timer = setTimeout(() => {
         pause = false
       }, 5000)
     })
 
     setInterval(function() {
       if (!pause) {
-        onRight()
+        arrowRight.click()
       }
     }, 3000 + Math.round(Math.random() * 2000))
   }
