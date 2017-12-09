@@ -8,9 +8,6 @@ class Popins {
     }
 
     this.active_popin = null;
-
-    window.POPIN = this;
-
     this.init_event_background();
   }
 
