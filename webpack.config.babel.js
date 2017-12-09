@@ -8,6 +8,9 @@ const baseDir = path.resolve(__dirname, 'src/forj/static/site');
 module.exports = {
   context: `${baseDir}/src`,
   entry: {
+    collection: [
+      './javascript/collection.js'
+    ],
     app: [
       './stylesheet/styles.js',
       './javascript/index.js'

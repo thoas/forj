@@ -1,7 +1,7 @@
-import CollectionCarousel from './components/CollectionCarousel'
+import carousel from './components/Carousel'
 import Slider from './components/Slider'
 
-const carousel = new CollectionCarrousel()
+carousel(document.querySelectorAll('.carroussel'))
 
 document.querySelectorAll('.slider').forEach(node => {
   new Slider(node)
