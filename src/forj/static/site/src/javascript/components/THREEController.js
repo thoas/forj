@@ -27,8 +27,6 @@ class THREEController {
     this.assets = {}
     this.bancs = []
 
-    window.GL = this
-
     this.init_environement()
     this.init_camera()
     this.init_lights()
@@ -90,10 +88,11 @@ class THREEController {
 
     this.table = new Table({
       scene: this.group,
-      assets: this.assets
+      assets: this.assets,
+      cursor: this.cursor,
     })
 
-    this.cursor.init(this.table)
+    this.cursor.init(this)
   }
 
   add_banc() {
@@ -109,6 +108,7 @@ class THREEController {
 
     let banc = new Table({
       scene: banc_group,
+      cursor: this.cursor,
       assets: this.assets,
       position: new THREE.Vector3(0, 0.01, position),
       width: 50,

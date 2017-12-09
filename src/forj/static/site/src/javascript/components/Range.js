@@ -17,13 +17,13 @@ class Range {
     this.need_roll = false
     this.allready_scrolled = false
 
-    window.STORAGE.CURSOR = this
-
+    this.controller = null
     this.table = null
   }
 
-  init(table) {
-    this.table = table
+  init(controller) {
+    this.controller = controller
+    this.table = controller.table
 
     this.init_presets()
     this.init_ranges()
@@ -94,7 +94,7 @@ class Range {
       if (!that.allready_scrolled) {
         document.body.classList.remove('fixed')
         setTimeout(function() {
-          GL.anim_in()
+          that.controller.anim_in()
         }, 500)
       }
 
@@ -128,7 +128,7 @@ class Range {
     window.addEventListener('mousewheel', e => {
       if (window.scrollY > 10 && !this.allready_scrolled) {
         this.allready_scrolled = true
-        GL.anim_in()
+        that.controller.anim_in()
         document.body.classList.remove('fixed')
         prevent = false
         return
@@ -164,12 +164,12 @@ class Range {
           bancs_selector.classList.remove('active')
         }
 
-        this.table.change_size(width, depth, height)
+        that.table.change_size(width, depth, height)
         setTimeout(() => {
           if (window.innerWidth < 960) {
-            window.GL.mouse.z = -0.5
+            that.controller.mouse.z = -0.5
           } else {
-            window.GL.mouse.z = -0.2
+            that.controller.mouse.z = -0.2
           }
         }, 470)
 
@@ -186,7 +186,7 @@ class Range {
         that.custom.classList.remove('selected')
         this.classList.add('selected')
 
-        window.GL.remove_bancs()
+        that.controller.remove_bancs()
       })
     }
   }
@@ -216,8 +216,8 @@ class Range {
             this.height = size
           }
           this.table.change_size(this.width, this.depth, this.height)
-          for (var i = 0; i < window.GL.bancs.length; i++) {
-            window.GL.bancs[i].change_size(this.width - 25, 32, 45)
+          for (var i = 0; i < this.controller.bancs.length; i++) {
+            this.controller.bancs[i].change_size(this.width - 25, 32, 45)
           }
 
           if (type === 'height') {
@@ -246,10 +246,10 @@ class Range {
     add_banc.classList.remove('disabled')
     remove_banc.classList.remove('disabled')
 
-    if (window.GL.bancs.length === 2) {
+    if (this.controller.bancs.length === 2) {
       add_banc.classList.add('disabled')
     }
-    if (window.GL.bancs.length === 0) {
+    if (this.controller.bancs.length === 0) {
       remove_banc.classList.add('disabled')
     }
   }
@@ -261,12 +261,12 @@ class Range {
 
     add_banc.addEventListener('click', () => {
       let count = JSON.parse(banc_count.textContent)
-      if (window.GL.bancs.length < 2) {
-        window.GL.add_banc()
+      if (this.controller.bancs.length < 2) {
+        this.controller.add_banc()
         this.update_price()
         count++
         banc_count.textContent = count
-        if (window.GL.bancs.length === 2) {
+        if (this.controller.bancs.length === 2) {
           add_banc.classList.add('disabled')
         } else {
           add_banc.classList.remove('disabled')
@@ -276,12 +276,12 @@ class Range {
     })
     remove_banc.addEventListener('click', () => {
       let count = JSON.parse(banc_count.textContent)
-      if (window.GL.bancs.length > 0) {
-        window.GL.remove_banc()
+      if (this.controller.bancs.length > 0) {
+        this.controller.remove_banc()
         this.update_price()
         count--
         banc_count.textContent = count
-        if (window.GL.bancs.length === 0) {
+        if (this.controller.bancs.length === 0) {
           remove_banc.classList.add('disabled')
         } else {
           add_banc.classList.remove('disabled')
@@ -292,8 +292,6 @@ class Range {
   }
 
   update_price() {
-    console.log({ STORAGE: window.STORAGE, GL: window.GL })
-
     let surface = this.table.width * this.table.depth / 40000
     surface = Math.max(surface, 1)
 
@@ -334,7 +332,7 @@ class Range {
     total *= 1.2
     total = Math.ceil(total)
 
-    for (var i = 0; i < window.GL.bancs.length; i++) {
+    for (var i = 0; i < this.controller.bancs.length; i++) {
       total += 250
     }
 
@@ -394,8 +392,8 @@ class Range {
     }
 
     let bancs = document.querySelector('section.infos .bancs')
-    if (window.GL.bancs.length > 0) {
-      bancs.textContent = '(' + window.GL.bancs.length + ')'
+    if (this.controller.bancs.length > 0) {
+      bancs.textContent = '(' + this.controller.bancs.length + ')'
     } else {
       bancs.textContent = '(0)'
     }
@@ -408,8 +406,8 @@ class Range {
     }
 
     let bancs_popin = document.querySelector('.basket .bancs')
-    if (window.GL.bancs.length > 0) {
-      bancs_popin.textContent = '(' + window.GL.bancs.length + ')'
+    if (this.controller.bancs.length > 0) {
+      bancs_popin.textContent = '(' + this.controller.bancs.length + ')'
     } else {
       bancs_popin.textContent = '(0)'
     }
@@ -424,7 +422,7 @@ class Range {
       height: this.table.height / 2,
       desk: this.table.active_desk,
       color: this.table.active_color,
-      bancs: window.GL.bancs.length,
+      bancs: this.controller.bancs.length,
       outside: this.table.outside,
       price: this.price
     }

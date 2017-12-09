@@ -5,6 +5,8 @@ class Table {
   constructor(options) {
     this.scene = options.scene
     this.assets = options.assets
+    this.controller = options.controller
+    this.cursor = options.cursor
     this.position = options.position || new THREE.Vector3()
 
     this.depth = options.depth || 160
@@ -254,7 +256,7 @@ class Table {
           opacity: 1,
           ease: Power1.ease,
           onComplete: () => {
-            window.STORAGE.CURSOR.update_price()
+            this.cursor.update_price()
           }
         })
       }, 500)
@@ -267,6 +269,7 @@ class Table {
     h = Math.min(Math.max(h, 40), 120)
 
     this.need_change_size = true
+
     TweenMax.to(this, 1, {
       width: w * 2,
       depth: d * 2,
@@ -276,7 +279,7 @@ class Table {
       onComplete: () => {
         setTimeout(() => {
           this.need_change_size = false
-          window.STORAGE.CURSOR.update_price()
+          this.cursor.update_price()
         }, 10)
       }
     })
@@ -285,7 +288,7 @@ class Table {
   change_color(color) {
     this.active_color = color
     this.load_frame_material()
-    window.STORAGE.CURSOR.update_labels()
+    this.cursor.update_labels()
   }
 
   init_check_outside() {
@@ -294,8 +297,8 @@ class Table {
     checkbox.addEventListener('click', () => {
       if (checkbox.checked) {
         this.change_material('metal')
-        for (var i = 0; i < window.GL.bancs.length; i++) {
-          window.GL.bancs[i].change_material('metal')
+        for (var i = 0; i < this.controller.bancs.length; i++) {
+          this.controller.bancs[i].change_material('metal')
         }
         this.outside = true
         previous_mat = this.active_desk
@@ -307,9 +310,9 @@ class Table {
       } else {
         this.outside = false
         this.change_material(previous_mat)
-        for (var i = 0; i < window.GL.bancs.length; i++) {
-          window.GL.bancs[i].outside = false
-          window.GL.bancs[i].change_material(previous_mat)
+        for (var i = 0; i < this.controller.bancs.length; i++) {
+          this.controller.bancs[i].outside = false
+          this.controller.bancs[i].change_material(previous_mat)
         }
       }
     })
