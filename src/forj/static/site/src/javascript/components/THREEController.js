@@ -5,6 +5,7 @@ import Table from './Table'
 class THREEController {
   constructor(options) {
     this.options = options
+    this.staticfiles = options.staticfiles
     this.container = this.options.container
     this.cursor = this.options.cursor
     this.debug = this.options.debug || false
@@ -55,23 +56,13 @@ class THREEController {
   init_loader() {
     this.manager = new THREE.LoadingManager()
 
-    const staticUrl = window.SETTINGS.static_url
+    this.assets.hdr = new THREE.TextureLoader(this.manager).load(this.staticfiles.hdr)
+    this.assets.shadow = new THREE.TextureLoader(this.manager).load(this.staticfiles.shadow)
 
-    this.assets.hdr = new THREE.TextureLoader(this.manager).load(staticUrl + 'site/build/assets/images/hdr.png')
-    this.assets.shadow = new THREE.TextureLoader(this.manager).load(staticUrl + 'site/build/assets/images/shadow.png')
-
-    this.assets.douglas_tex = new THREE.TextureLoader(this.manager).load(
-      staticUrl + 'site/build/assets/images/textures/douglas_DIFFUSE.jpg'
-    )
-    this.assets.chene_tex = new THREE.TextureLoader(this.manager).load(
-      staticUrl + 'site/build/assets/images/textures/chene_DIFFUSE.jpg'
-    )
-    this.assets.metal_tex = new THREE.TextureLoader(this.manager).load(
-      staticUrl + 'site/build/assets/images/textures/metal_DIFFUSE.jpg'
-    )
-    this.assets.none_tex = new THREE.TextureLoader(this.manager).load(
-      staticUrl + 'site/build/assets/images/textures/none_DIFFUSE.png'
-    )
+    this.assets.douglas_tex = new THREE.TextureLoader(this.manager).load(this.staticfiles.douglas)
+    this.assets.chene_tex = new THREE.TextureLoader(this.manager).load(this.staticfiles.chene)
+    this.assets.metal_tex = new THREE.TextureLoader(this.manager).load(this.staticfiles.metal)
+    this.assets.none_tex = new THREE.TextureLoader(this.manager).load(this.staticfiles.none)
 
     this.assets.hdr.mapping = THREE.SphericalReflectionMapping
 
@@ -222,7 +213,7 @@ class THREEController {
     let materials = document.querySelectorAll('section.module .material')
     for (var i = 0; i < materials.length; i++) {
       materials[i].addEventListener('click', function() {
-        if (this.dataset.material != 'metal' && window.STORAGE.TABLE.outside) {
+        if (this.dataset.material != 'metal' && that.table.outside) {
           document.querySelector('#vernis').checked = false
           window.STORAGE.TABLE.outside = false
           for (var i = 0; i < that.bancs.length; i++) {

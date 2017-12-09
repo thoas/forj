@@ -12,7 +12,8 @@ if (document.body.classList.contains('main')) {
   const cursor = new Range()
   three = new THREEController({
     container: document.querySelector('.webgl'),
-    cursor: cursor
+    cursor: cursor,
+    staticfiles: window.SETTINGS.staticfiles,
   })
 
   new StickyBar(document.querySelector('section.infos'))

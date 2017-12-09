@@ -353,6 +353,14 @@
             static_url: '{{ STATIC_URL }}',
             cgu_url: 'assets/CGU.html',
             contact_ajax_url: 'assets/contact_response.json',
+            staticfiles: {
+                hdr: "{{ static('site/build/assets/images/hdr.png') }}",
+                shadow: "{{ static('site/build/assets/images/shadow.png') }}",
+                douglas: "{{ static('site/build/assets/images/textures/douglas_DIFFUSE.jpg') }}",
+                chene: "{{ static('site/build/assets/images/textures/chene_DIFFUSE.jpg') }}",
+                metal: "{{ static('site/build/assets/images/textures/metal_DIFFUSE.jpg') }}",
+                none: "{{ static('site/build/assets/images/textures/none_DIFFUSE.png') }}",
+            },
             prices : {
                 sans_plateau: 0,
                 chene_plateau: 133,
