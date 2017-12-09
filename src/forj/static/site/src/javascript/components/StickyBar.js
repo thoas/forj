@@ -1,4 +1,4 @@
-class Sticky_bar {
+class StickyBar {
   constructor(target) {
     this.target = target;
     this.height_target = this.target.offsetHeight;
@@ -97,4 +97,4 @@ class Sticky_bar {
     this.target.style.zIndex = "auto";
   }
 }
-export default Sticky_bar;
+export default StickyBar;

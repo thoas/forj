@@ -62,7 +62,6 @@ class Range {
 
     button.addEventListener("click", () => {
       shifter.style.transform = "translate(0,0)";
-      console.log(expanded);
 
       if (!expanded) {
         list.style.height = height + "px";
@@ -294,6 +293,8 @@ class Range {
   }
 
   update_price() {
+    console.log({STORAGE: window.STORAGE, GL: window.GL})
+
     let surface =
       window.STORAGE.TABLE.width * window.STORAGE.TABLE.depth / 40000;
     surface = Math.max(surface, 1);

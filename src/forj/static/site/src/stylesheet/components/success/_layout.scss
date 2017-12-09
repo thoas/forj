@@ -46,11 +46,19 @@ body.success {
     }
 
     .wrapper {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
+        &--sticky {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        &--centered {
+            width: 70%;
+            margin: 0 auto;
+            padding: 5% 0;
+        }
     }
 
 }

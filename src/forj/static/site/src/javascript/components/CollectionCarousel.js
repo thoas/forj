@@ -1,4 +1,4 @@
-class Collection_Carroussel {
+class CollectionCarousel {
   constructor(options) {
     this.target = document.querySelectorAll(".carroussel");
     this.sliders = [];
@@ -67,4 +67,4 @@ class Collection_Carroussel {
     }
   }
 }
-export default Collection_Carroussel;
+export default CollectionCarousel;

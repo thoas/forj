@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import normalizeWheel from "normalize-wheel";
-import Table from "./table.class.js";
+import Table from "./Table";
 
-class THREE_Controller {
+class THREEController {
   constructor(options) {
     this.options = options;
     this.container = this.options.container;
@@ -306,4 +306,4 @@ class THREE_Controller {
   }
 }
 
-export default THREE_Controller;
+export default THREEController;

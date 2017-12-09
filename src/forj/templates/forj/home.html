@@ -230,7 +230,7 @@
         <div class="gid-container">
             <div class="wrapper contact">
                 <div class="content">
-                    <p>Une demande spéciale ?  <a class="popin_contact_launcher" href="#">Contactez&#8209;nous</a></p>
+                    <p>Une demande spéciale ? <a href="{{ url('about') }}">Contactez&#8209;nous</a></p>
                 </div>
             </div>
             <div class="wrapper recap">
@@ -323,8 +323,8 @@
         <img src="{{ static("site/build/assets/images/american-express.jpg") }}" width="60px" alt="">
         <div class="links">
             <p>
-                <a class="disabled cgu-button" href="">CGV, Mentions légles et livraison</a>
-                <a class="disabled a-propos-button" href="">A propos</a>
+                <a class="disabled cgu-button" href="{{ url('terms') }}">CGV, Mentions légles et livraison</a>
+                <a class="disabled a-propos-button" href="{{ url('about') }}">A propos</a>
                 <!-- <a class="" target="_blank" href="http://dorianlods.fr">Réalisation : <img class="logo-dorian" width="15" src="http://dorianlods.fr/Ressources/logo.svg" alt=""></a> -->
                 <a class="social" style="margin-left: 20px;" href="https://www.facebook.com/forjmobilier/"><i style="padding: 0 3px;" class="demo-icon icon-facebook"></i></a>
                 <a class="social" href="https://www.instagram.com/forj_mobilier/"><i class="demo-icon icon-instagram"></i></a>
@@ -333,60 +333,6 @@
     </footer>
 
     <div class="popin-background"></div>
-
-    <div class="popin contact-popin hidden">
-        <div class="cross">
-            <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 167.5 167.6" style="enable-background:new 0 0 167.5 167.6;" xml:space="preserve">
-                <g>
-                    <rect x="-27" y="76" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -34.6378 83.6231)" width="221.3" height="15.2"/>
-                    <rect x="-26.8" y="76.4" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 83.8375 202.6933)" width="221.3" height="15.2"/>
-                </g>
-            </svg>
-        </div>
-        <h2>Vous avez une question, une demande plus spécifique ?</h2>
-        <p>Laissez-nous vos coordonnées et dites-nous tout, nous vous recontacterons dans les plus brefs délais.</p>
-        <form action="#">
-            <div class="input-wrapper">
-                <label class="mail" for="contact-mail">Adresse mail</label>
-                <input id="contact-mail" class="first" type="text">
-            </div>
-            <div class="input-wrapper">
-                <label class="phone" for="contact-phone">Téléphone</label>
-                <input id="contact-phone" type="text">
-            </div>
-            <div class="input-wrapper">
-                <label class="message" for="contact-asking">Votre demande</label>
-                <textarea class="last" id="contact-asking" name="asking" rows="8" cols="80"></textarea>
-            </div>
-            <div class="sumbit-wrapper">
-                <div class="progress-bar">
-                    <div class="progress"></div>
-                </div>
-                <input class="submit" type="submit" name="" value="ENVOYER">
-            </div>
-        </form>
-    </div>
-
-    <div class="popin thank-you hidden">
-        <h2>Merci !</h2>
-        <p>Votre demande a bien été envoyée.</p>
-    </div>
-
-    <div class="popin cgu hidden">
-        <div class="cross cgu-cross">
-            <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 167.5 167.6" style="enable-background:new 0 0 167.5 167.6;" xml:space="preserve">
-                <g>
-                    <rect x="-27" y="76" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -34.6378 83.6231)" width="221.3" height="15.2"/>
-                    <rect x="-26.8" y="76.4" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 83.8375 202.6933)" width="221.3" height="15.2"/>
-                </g>
-            </svg>
-        </div>
-        <h2>Conditions générales de vente, mentions
-            légales, livraison</h2>
-        <div class="wrapper">Chargement</div>
-    </div>
 
     <div class="popin basket hidden">
         <h2>Bravo !</h2>
@@ -397,7 +343,7 @@
         </div>
         <div class="sumbit-wrapper">
             <p class="return">CONTINUER MES ACHATS</p>
-            <a class="checkout" href="#">VOIR MON PANIER</a>
+            <a class="checkout" href="{{ url('checkout') }}">VOIR MON PANIER</a>
         </div>
     </div>
 
@@ -407,7 +353,6 @@
             static_url: '{{ STATIC_URL }}',
             cgu_url: 'assets/CGU.html',
             contact_ajax_url: 'assets/contact_response.json',
-            checkout_url: '/checkout.html',
             prices : {
                 sans_plateau: 0,
                 chene_plateau: 133,
