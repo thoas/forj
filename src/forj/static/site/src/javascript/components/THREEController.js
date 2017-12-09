@@ -81,6 +81,7 @@ class THREEController {
       scene: this.group,
       assets: this.assets,
       cursor: this.cursor,
+      controller: this,
     })
 
     this.cursor.init(this)
@@ -100,6 +101,7 @@ class THREEController {
     let banc = new Table({
       scene: banc_group,
       cursor: this.cursor,
+      controller: this,
       assets: this.assets,
       position: new THREE.Vector3(0, 0.01, position),
       width: 50,

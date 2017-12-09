@@ -3,16 +3,15 @@ import * as TweenMax from 'gsap'
 import normalizeWheel from 'normalize-wheel'
 
 class Range {
-  constructor() {
+  constructor(options = {}) {
     this.presets = document.querySelectorAll('section.module .presets-selector')
     this.custom = document.querySelector('section.module .custom-selector')
     this.ranges = document.querySelectorAll('section.module .cursor-container')
-    this.depth = 80
-    this.width = 140
-    this.height = 74
+    this.depth = options.depth || 80
+    this.width = options.width || 140
+    this.height = options.height || 74
+    this.onChange = options.onChange
 
-    this.price = 0
-    this.tween_price = null
     this.basket = null
     this.need_roll = false
     this.allready_scrolled = false
@@ -30,9 +29,15 @@ class Range {
     this.table.change_size(this.width, this.depth, this.height)
     this.update_range()
     this.init_bancs()
-    this.update_price()
+    this.update()
     this.init_scroll()
     this.init_roll_down()
+  }
+
+  update() {
+    if (this.onChange !== undefined) {
+      this.onChange()
+    }
   }
 
   init_roll_down() {
@@ -263,7 +268,7 @@ class Range {
       let count = JSON.parse(banc_count.textContent)
       if (this.controller.bancs.length < 2) {
         this.controller.add_banc()
-        this.update_price()
+        this.update()
         count++
         banc_count.textContent = count
         if (this.controller.bancs.length === 2) {
@@ -278,7 +283,7 @@ class Range {
       let count = JSON.parse(banc_count.textContent)
       if (this.controller.bancs.length > 0) {
         this.controller.remove_banc()
-        this.update_price()
+        this.update()
         count--
         banc_count.textContent = count
         if (this.controller.bancs.length === 0) {
@@ -289,143 +294,6 @@ class Range {
         }
       }
     })
-  }
-
-  update_price() {
-    let surface = this.table.width * this.table.depth / 40000
-    surface = Math.max(surface, 1)
-
-    let plateau_price
-    if (this.table.active_desk === 'none') {
-      plateau_price = window.SETTINGS.prices.sans_plateau
-    } else if (this.table.active_desk === 'chene') {
-      plateau_price = window.SETTINGS.prices.chene_plateau
-    } else if (this.table.active_desk === 'metal') {
-      plateau_price = window.SETTINGS.prices.metal
-    } else {
-      plateau_price = window.SETTINGS.prices.douglas
-    }
-
-    let laquage = 0
-    if (this.table.outside) {
-      laquage = window.SETTINGS.prices.traitement_exterieur
-    }
-
-    let prices = {
-      time: window.SETTINGS.prices.main_d_oeuvre,
-      plateau: plateau_price,
-      vernis: window.SETTINGS.prices.vernis,
-      acier: window.SETTINGS.prices.acier,
-      laquage: laquage
-    }
-
-    let total = 42
-    for (let key in prices) {
-      if (!prices.hasOwnProperty(key)) continue
-      prices[key] *= surface
-      total += prices[key]
-    }
-
-    // Marge
-    total *= 1.5
-    // TVA
-    total *= 1.2
-    total = Math.ceil(total)
-
-    for (var i = 0; i < this.controller.bancs.length; i++) {
-      total += 250
-    }
-
-    this.price = total
-
-    let diplayed_price = {}
-    diplayed_price.dom = document.querySelector('#price-value')
-    diplayed_price.value = parseFloat(diplayed_price.dom.textContent).toFixed(2)
-
-    this.tween_price = TweenMax.to(diplayed_price, 1, {
-      value: total,
-      ease: Expo.easeInOut,
-      onUpdate: () => {
-        if (this.tween_price.target.value.toFixed) {
-          diplayed_price.dom.textContent = this.tween_price.target.value.toFixed(2)
-        }
-      }
-    })
-
-    this.update_labels()
-  }
-
-  update_labels() {
-    let infos = [
-      {
-        depth: document.querySelector('section.infos .depth'),
-        width: document.querySelector('section.infos .width'),
-        height: document.querySelector('section.infos .height'),
-        active_desk: document.querySelector('section.infos .desk'),
-        active_color: document.querySelector('section.infos .color')
-      },
-      {
-        depth: document.querySelector('.basket .depth'),
-        width: document.querySelector('.basket .width'),
-        height: document.querySelector('.basket .height'),
-        active_desk: document.querySelector('.basket .desk'),
-        active_color: document.querySelector('.basket .color')
-      }
-    ]
-
-    for (var i = 0; i < infos.length; i++) {
-      for (let key in infos[i]) {
-        if (!infos[i].hasOwnProperty(key)) continue
-        if (key === 'depth' || key === 'width' || key === 'height') {
-          infos[i][key].textContent = this.table[key] / 2 + ',00'
-        } else {
-          infos[i][key].textContent = this.table[key]
-        }
-      }
-    }
-
-    let outside = document.querySelector('section.infos .outside')
-    if (this.table.outside) {
-      outside.innerHTML = '<br>Traitement extérieur'
-    } else {
-      outside.textContent = ''
-    }
-
-    let bancs = document.querySelector('section.infos .bancs')
-    if (this.controller.bancs.length > 0) {
-      bancs.textContent = '(' + this.controller.bancs.length + ')'
-    } else {
-      bancs.textContent = '(0)'
-    }
-
-    let outside_popin = document.querySelector('.basket .outside')
-    if (this.table.outside) {
-      outside_popin.innerHTML = '<br>Traitement extérieur'
-    } else {
-      outside_popin.textContent = ''
-    }
-
-    let bancs_popin = document.querySelector('.basket .bancs')
-    if (this.controller.bancs.length > 0) {
-      bancs_popin.textContent = '(' + this.controller.bancs.length + ')'
-    } else {
-      bancs_popin.textContent = '(0)'
-    }
-
-    this.update_selection()
-  }
-
-  update_selection() {
-    this.basket = {
-      depth: this.table.depth / 2,
-      width: this.table.width / 2,
-      height: this.table.height / 2,
-      desk: this.table.active_desk,
-      color: this.table.active_color,
-      bancs: this.controller.bancs.length,
-      outside: this.table.outside,
-      price: this.price
-    }
   }
 
   update_range() {

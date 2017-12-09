@@ -256,7 +256,7 @@ class Table {
           opacity: 1,
           ease: Power1.ease,
           onComplete: () => {
-            this.cursor.update_price()
+            this.cursor.update()
           }
         })
       }, 500)
@@ -279,7 +279,7 @@ class Table {
       onComplete: () => {
         setTimeout(() => {
           this.need_change_size = false
-          this.cursor.update_price()
+          this.cursor.update()
         }, 10)
       }
     })
@@ -288,7 +288,7 @@ class Table {
   change_color(color) {
     this.active_color = color
     this.load_frame_material()
-    this.cursor.update_labels()
+    this.cursor.update()
   }
 
   init_check_outside() {
