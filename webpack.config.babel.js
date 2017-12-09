@@ -11,7 +11,7 @@ module.exports = {
     collection: [
       './javascript/collection.js'
     ],
-    app: [
+    home: [
       './stylesheet/styles.js',
       './javascript/index.js'
     ],
