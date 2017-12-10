@@ -14,7 +14,7 @@ class Range {
 
     this.basket = null
     this.need_roll = false
-    this.allready_scrolled = false
+    this.alreadyScrolled = false
 
     this.controller = null
     this.table = null
@@ -30,7 +30,7 @@ class Range {
     this.update_range()
     this.init_bancs()
     this.triggerChange()
-    this.init_scroll()
+    this.initScroll()
     this.init_roll_down()
   }
 
@@ -93,22 +93,19 @@ class Range {
     }
   }
 
-  init_scroll() {
-    let that = this
-    function scroll() {
-      if (!that.allready_scrolled) {
+  initScroll() {
+    const scroll = () => {
+      if (!this.alreadyScrolled) {
         document.body.classList.remove('fixed')
         setTimeout(function() {
-          that.controller.anim_in()
-        }, 500)
+          this.controller.anim_in()
+        }.bind(this), 500)
       }
 
-      let module = document.querySelector('.module')
-      let distance = module.getBoundingClientRect().top
+      const module = document.querySelector('.module')
+      const distance = module.getBoundingClientRect().top
 
-      let tmp = { value: window.scrollY }
-
-      TweenMax.to(tmp, 1, {
+      TweenMax.to({ value: window.scrollY }, 1, {
         value: distance,
         ease: Expo.easeInOut,
         onStart: function() {},
@@ -116,24 +113,19 @@ class Range {
           window.scrollTo(0, this.target.value)
         },
         onComplete: () => {
-          that.allready_scrolled = true
+          this.alreadyScrolled = true
         }
       })
     }
 
-    let scroll_links = document.querySelectorAll('.scroll-to')
-    for (var i = 0; i < scroll_links.length; i++) {
-      scroll_links[i].addEventListener('click', function() {
-        scroll()
-      })
-    }
+    document.querySelectorAll('.scroll-to').forEach(node => node.addEventListener('click', () => scroll()))
 
-    let wheel_fired = false
+    let wheelFired = false
     let prevent = true
     window.addEventListener('mousewheel', e => {
-      if (window.scrollY > 10 && !this.allready_scrolled) {
-        this.allready_scrolled = true
-        that.controller.anim_in()
+      if (window.scrollY > 10 && !this.alreadyScrolled) {
+        this.alreadyScrolled = true
+        this.controller.anim_in()
         document.body.classList.remove('fixed')
         prevent = false
         return
@@ -144,10 +136,10 @@ class Range {
           prevent = false
         }, 1000)
       }
-      const normalized_wheel = normalizeWheel(e)
-      let wheel = normalized_wheel.spinY
-      if (wheel > 0 && !this.allready_scrolled && !wheel_fired) {
-        wheel_fired = true
+      const normalizedWheel = normalizeWheel(e)
+      const wheel = normalizedWheel.spinY
+      if (wheel > 0 && !this.alreadyScrolled && !wheelFired) {
+        wheelFired = true
         scroll()
       }
     })
