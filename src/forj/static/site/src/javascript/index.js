@@ -6,6 +6,7 @@ import StickyBar from './components/StickyBar'
 import Slider from './components/Slider'
 import Popins from './components/Popins'
 import * as TweenMax from 'gsap'
+import numeral from './format'
 
 // formatProductReference formats the current selection in a product reference
 // readable by the server
@@ -42,7 +43,7 @@ const cursor = new Range({
     params.append('reference', reference)
 
     axios.post(window.SETTINGS.urls.cart, params).then(res => {
-      const total = parseFloat(res.data.total_formatted)
+      const total = parseFloat(parseInt(res.data.total, 10) / 100.0)
       const priceNode = document.querySelector('#price-value')
 
       let price = {
@@ -55,7 +56,7 @@ const cursor = new Range({
         ease: Expo.easeInOut,
         onUpdate: () => {
           if (tweenPrice.target.value.toFixed) {
-            price.dom.textContent = tweenPrice.target.value.toFixed(2)
+            price.dom.textContent = numeral(tweenPrice.target.value).format("0.00")
           }
         }
       })

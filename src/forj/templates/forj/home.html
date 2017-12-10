@@ -251,7 +251,7 @@
                 <div class="wrapper price">
                     <div class="content">
                         <p>Total TTC</p>
-                        <p class="value"><span id="price-value">0.00</span>{{ CURRENCY_DISPLAY }}</p>
+                        <p class="value"><span id="price-value">{{ 0.00|amountformat }}</span>{{ CURRENCY_DISPLAY }}</p>
                     </div>
                 </div>
             </div>
@@ -355,6 +355,5 @@
             }
         }
     </script>
-
     <script src="{{ static("site/build/javascript/home.js") }}"></script>
 {% endblock %}

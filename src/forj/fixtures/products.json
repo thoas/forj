@@ -1,0 +1,50 @@
+[
+  {
+    "model": "forj.product",
+    "pk": 1,
+    "fields": {
+      "created_at": "2017-11-23T20:22:26.227Z",
+      "updated_at": "2017-12-09T21:23:31.054Z",
+      "name": "SANS PLATEAU<=1m2",
+      "reference": "LA(25/100)-LO(25/100)-H(40/120)-R(?)",
+      "description": "",
+      "price": 54300,
+      "formula": null,
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 2,
+    "fields": {
+      "created_at": "2017-11-25T18:10:33.722Z",
+      "updated_at": "2017-12-09T21:23:44.596Z",
+      "name": "BRUT<=1m2",
+      "reference": "LA(25/50)-LO(100/200)-P(BRUT)-H(40/120)-R(?)",
+      "description": "",
+      "price": 90150,
+      "formula": null,
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 3,
+    "fields": {
+      "created_at": "2017-12-09T21:28:35.783Z",
+      "updated_at": "2017-12-09T23:41:10.914Z",
+      "name": "AGLO <=100cm2",
+      "reference": "LA(25/50)-LO(100/200)-P(AGLO)-H(40/120)-R(?)",
+      "description": "",
+      "price": 60500,
+      "formula": null,
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  }
+]

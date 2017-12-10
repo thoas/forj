@@ -12,6 +12,7 @@
     "singleQuote": true
   },
   "dependencies": {
+    "numeral": "2.0.6",
     "axios": "^0.17.1",
     "babel-core": "^6.23.1",
     "babel-loader": "7.1.2",

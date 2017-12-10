@@ -1,4 +1,5 @@
 import * as axios from 'axios'
+import numeral from './format'
 
 document.addEventListener('DOMContentLoaded', e => {
   const billingWrapper = document.querySelector('#billing-wrapper')
@@ -57,7 +58,11 @@ document.addEventListener('DOMContentLoaded', e => {
 
       axios.post(current.getAttribute('href'), params).then(res => {
         articleContainer.parentNode.removeChild(articleContainer)
-        totalContainer.textContent = res.data.total_formatted
+
+        // amount are in cents
+        const total = parseInt(res.data.total, 10) / 100.0
+
+        totalContainer.textContent = numeral(total).format('0.00')
       })
     })
   })

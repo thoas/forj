@@ -9,6 +9,7 @@ def base(request):
     _, _, value = constants.CURRENCY_CHOICES.values[default_currency]
 
     return {
+        'FORJ_CONTACT_EMAIL': settings.FORJ_CONTACT_EMAIL,
         'FORJ_INSTAGRAM_URL': settings.FORJ_INSTAGRAM_URL,
         'FORJ_FACEBOOK_URL': settings.FORJ_FACEBOOK_URL,
         'STATIC_URL': settings.STATIC_URL,

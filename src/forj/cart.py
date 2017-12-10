@@ -1,12 +1,10 @@
 import simplejson as json
 
 from django.db import transaction
-from django.conf import settings
 
 from collections import defaultdict
 
 from forj.models import Product, Order, OrderItem
-from forj.builtins.filters import amountformat
 
 CART_SESSION_KEY = 'cart_id'
 
@@ -93,13 +91,9 @@ class Cart(object):
         return {
             'items': self.get_items(),
             'total': self.total,
-            'total_formatted': amountformat(self.total, settings.AMOUNT_PRECISION),
             'amount': self.amount,
-            'amount_formatted': amountformat(self.amount, settings.AMOUNT_PRECISION),
             'shipping_cost': self.shipping_cost,
-            'shipping_cost_formatted': amountformat(self.shipping_cost, settings.AMOUNT_PRECISION),
             'tax_cost': self.tax_cost,
-            'tax_cost_formatted': amountformat(self.tax_cost, settings.AMOUNT_PRECISION),
         }
 
     @property
