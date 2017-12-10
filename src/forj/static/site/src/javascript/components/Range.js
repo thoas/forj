@@ -24,9 +24,9 @@ class Range {
     this.controller = controller
     this.table = controller.table
 
-    this.init_presets()
+    this.initPresets()
     this.init_ranges()
-    this.table.change_size(this.width, this.depth, this.height)
+    this.table.changeSize(this.width, this.depth, this.height)
     this.update_range()
     this.init_bancs()
     this.triggerChange()
@@ -153,47 +153,46 @@ class Range {
     })
   }
 
-  init_presets() {
-    let that = this
-    for (var i = 0; i < this.presets.length; i++) {
-      this.presets[i].addEventListener('click', function() {
-        let depth = this.dataset.depth
-        let width = this.dataset.width
-        let height = this.dataset.height
-        let bancs_selector = document.querySelector('section.module .bancs')
-        let banc_enabled = document.querySelector('section.module .banc-enabled')
+  initPresets() {
+    const bancsSelector = document.querySelector('section.module .bancs')
+    const bancEnabled = document.querySelector('section.module .banc-enabled')
 
-        if (this === banc_enabled) {
-          bancs_selector.classList.add('active')
+    this.presets.forEach(preset => preset.addEventListener('click', () => {
+      const depth = preset.dataset.depth
+      const width = preset.dataset.width
+      const height = preset.dataset.height
+
+      if (preset === bancEnabled) {
+        bancsSelector.classList.add('active')
+      } else {
+        bancsSelector.classList.remove('active')
+      }
+
+      this.table.changeSize(width, depth, height)
+      setTimeout(() => {
+        if (window.innerWidth < 960) {
+          this.controller.mouse.z = -0.5
         } else {
-          bancs_selector.classList.remove('active')
+          this.controller.mouse.z = -0.2
         }
+      }, 470)
 
-        that.table.change_size(width, depth, height)
-        setTimeout(() => {
-          if (window.innerWidth < 960) {
-            that.controller.mouse.z = -0.5
-          } else {
-            that.controller.mouse.z = -0.2
-          }
-        }, 470)
+      this.depth = depth
+      this.width = width
+      this.height = height
+      this.update_range()
+      this.update_bancs()
 
-        that.depth = depth
-        that.width = width
-        that.height = height
-        that.update_range()
-        that.update_bancs()
-
-        for (var i = 0; i < that.presets.length; i++) {
-          that.presets[i].classList.remove('selected')
-          that.presets[i].classList.add('active')
-        }
-        that.custom.classList.remove('selected')
-        this.classList.add('selected')
-
-        that.controller.remove_bancs()
+      this.presets.forEach(node => {
+        node.classList.remove('selected')
+        node.classList.add('active')
       })
-    }
+
+      this.custom.classList.remove('selected')
+      preset.classList.add('selected')
+
+      this.controller.remove_bancs()
+    }))
   }
 
   init_ranges() {
@@ -220,9 +219,9 @@ class Range {
           } else if (type === 'height') {
             this.height = size
           }
-          this.table.change_size(this.width, this.depth, this.height)
+          this.table.changeSize(this.width, this.depth, this.height)
           for (var i = 0; i < this.controller.bancs.length; i++) {
-            this.controller.bancs[i].change_size(this.width - 25, 32, 45)
+            this.controller.bancs[i].changeSize(this.width - 25, 32, 45)
           }
 
           if (type === 'height') {

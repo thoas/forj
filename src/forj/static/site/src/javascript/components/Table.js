@@ -261,7 +261,7 @@ class Table {
     }
   }
 
-  change_size(w, d, h) {
+  changeSize(w, d, h) {
     w = Math.min(Math.max(w, 25), 200)
     d = Math.min(Math.max(d, 25), 120)
     h = Math.min(Math.max(h, 40), 120)
