@@ -140,7 +140,7 @@ class THREEController {
       }
     })
 
-    banc.change_size(this.table.width / 2 - 25, 32, 45)
+    banc.changeSize(this.table.width / 2 - 25, 32, 45)
     banc.active_desk = this.table.active_desk
     banc.load_desk_material(1)
     banc.change_color(this.table.active_color)
