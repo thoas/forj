@@ -20,18 +20,18 @@ from forj.payment.exceptions import CardError, PaymentError
 from forj.payment import backend
 
 
-def home(request, template_name='forj/home.html'):
+def home(request, template_name='forj/home.html', **extra_context):
     cart = Cart.from_request(request)
     if cart is None:
         cart = Cart()
 
-    return render(request, template_name, {
-        'cart': cart
-    })
+    extra_context['cart'] = cart
+
+    return render(request, template_name, extra_context)
 
 
 def collection(request, template_name='forj/collection.html'):
-    return render(request, template_name)
+    return home(request, template_name)
 
 
 class CheckoutMixin(object):

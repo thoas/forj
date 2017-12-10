@@ -1,9 +1,9 @@
-const carousel = (target) => {
-  const resetActive = (el) => {
+const carousel = target => {
+  const resetActive = el => {
     el.querySelectorAll('li').forEach(node => node.classList.remove('active'))
   }
 
-  const init = (el) => {
+  const init = el => {
     const arrowRight = el.querySelector('.arrow.right')
     const arrowLeft = el.querySelector('.arrow.left')
     const children = el.querySelectorAll('li')

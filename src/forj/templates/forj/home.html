@@ -2,15 +2,21 @@
 
 {% block title %}Accueil{% endblock %}
 
+{% set section = section|default("home") %}
+
 {% block body_class %}main fixed{% endblock %}
 
 {% block body %}
     <nav>
         <a href="{{ url("home") }}" class="logo">Forj</a>
         <ul>
-            <li><a class="link active" href="{{ url("home") }}">Table sur-mesure</a></li>
-            <li><a class="link" href="{{ url("collection") }}">Collection</a></li>
-            <li><a class="button disabled checkout" href="{{ url("checkout") }}">Panier <span id="items-numbers" class="cart-counter">({{ cart.total_quantity }})</span></a></li>
+            <li><a class="link{% if section == "home" %} active{% endif %}" href="{{ url("home") }}">Table sur-mesure</a></li>
+            <li><a class="link{% if section == "collection" %} active{% endif %}" href="{{ url("collection") }}">Collection</a></li>
+            <li>
+                <a class="button disabled checkout" href="{{ url("checkout") }}">
+                    Panier <span id="items-numbers" class="cart-counter">({{ cart.total_quantity }})</span>
+                </a>
+            </li>
         </ul>
     </nav>
     <div class="hamburger">
@@ -23,297 +29,312 @@
         <a href="{{ url("home") }}" class="logo">Forje</a>
         <a href="{{ url("checkout") }}" class="basket-icon"><span class="cart-counter">({{ cart.total_quantity }})</span></a>
     </div>
+
     <header class="slider">
-        <div class="wrapper">
-            <h1>Forges, 4 pieds et 1 cadre entièrement modulables</h1>
-            <p>Nous construisons la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
-            <div class="buttons-wrapper">
-                <span class="button inverted scroll-to">Construire ma table</span>
-                <div class="social">
-                    <a href="https://www.facebook.com/forjmobilier/" class="button facebook"><i class="demo-icon icon-facebook"></i></a>
-                    <a href="https://www.instagram.com/forj_mobilier/" class="button instagram"><i class="demo-icon icon-instagram"></i></a>
+        {% block header %}
+            <div class="wrapper">
+                <h1>Forges, 4 pieds et 1 cadre entièrement modulables</h1>
+                <p>Nous construisons la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
+                <div class="buttons-wrapper">
+                    <span class="button inverted scroll-to">Construire ma table</span>
+                    <div class="social">
+                        <a href="https://www.facebook.com/forjmobilier/" class="button facebook"><i class="demo-icon icon-facebook"></i></a>
+                        <a href="https://www.instagram.com/forj_mobilier/" class="button instagram"><i class="demo-icon icon-instagram"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="slider-container">
-            <div class="button arrow left"><span></span></div>
-            <ul>
-                <li class="text-slider active">
-                    <p>Table d’intérieur noir en chêne à partir de 650€</p>
-                </li>
-                <li class="text-slider">
-                    <p>Table d’intérieur noir en chêne à partir de 650€</p>
-                </li>
-                <li class="text-slider">
-                    <p>Table d’intérieur noir en chêne à partir de 650€</p>
-                </li>
-            </ul>
-            <div class="button arrow right"><span></span></div>
-            <div class="progress"></div>
-            <div class="progress-bar"></div>
-        </div>
-        <div class="cover active" style="background-image: url({{ static("site/build/assets/images/Cover_02.png") }})"></div>
-        <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }}"></div>
-        <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }}"></div>
+            <div class="slider-container">
+                <div class="button arrow left"><span></span></div>
+                <ul>
+                    <li class="text-slider active">
+                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                    </li>
+                    <li class="text-slider">
+                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                    </li>
+                    <li class="text-slider">
+                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                    </li>
+                </ul>
+                <div class="button arrow right"><span></span></div>
+                <div class="progress"></div>
+                <div class="progress-bar"></div>
+            </div>
+            <div class="cover active" style="background-image: url({{ static("site/build/assets/images/Cover_02.png") }})"></div>
+            <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }}"></div>
+            <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }}"></div>
+        {% endblock %}
     </header>
 
-    <section class="gallery">
-        <ul>
-            <li>
-                <h3>Table de bar noir plateau chêne</h3>
-                <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
-            </li>
-            <li>
-                <h3>Table de bar noir plateau chêne</h3>
-                <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
-            </li>
-            <li>
-                <h3>Table de bar noir plateau chêne</h3>
-                <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
-            </li>
-            <li>
-                <h3>Table de bar noir plateau chêne</h3>
-                <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
-            </li>
-        </ul>
-        <div class="button arrow left"><span></span></div>
-        <div class="button arrow right"><span></span></div>
-        <div class="background"></div>
-    </section>
-
-    <section class="module">
-        <div class="builder">
-            <ul class="presets">
-                <div class="mobile-dropdown"></div>
-                <div class="shifter">
-                    <li data-width="140" data-height="74" data-depth="80" class="active selected presets-selector banc-enabled">Bureau, table</li>
-                    <li data-width="80" data-height="40" data-depth="60" class="active presets-selector">Table basse</li>
-                    <li data-width="120" data-height="120" data-depth="60" class="active presets-selector">Bar</li>
-                    <li data-width="60" data-height="80" data-depth="60" class="active presets-selector">Table d'appoint</li>
-                    <li data-width="100" data-height="50" data-depth="30" class="active presets-selector">Banc</li>
-                    <li class="custom-selector">Hauteur personnalisée</li>
-                </div>
-            </ul>
-            <div class="bancs active">
-                <p>Ajout de banc<span class="mobileHidden"> adapté à ma table</span> (+250€ TTC)</p>
-                <div class="wrapper">
-                    <div class="button remove-banc disabled">-</div>
-                    <p class="banc-count">0</p>
-                    <div class="button add-banc">+</div>
-                </div>
-            </div>
-            <div class="webgl">
-                <div class="gallery-launcher mobileHidden">
-                    <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
-                    <p>Gallerie d'exemples</p>
-                </div>
-                <div class="expedition">
-                    <div class="cover" style="background-image: url({{ static("site/build/assets/images/camion.svg") }})"></div>
-                    <p>Livraison en France Métropolitaine sous 5 semaines (hors Corse)</p>
-                </div>
-            </div>
-            <div class="params">
-                <div class="param">
-                    <p class="title">Largeur</p>
-                    <div data-min="25" data-max="120" data-type="depth" class="cursor-container">
-                        <div class="cursor"></div>
-                    </div>
-                    <p class="value-container"><span class="value">80</span>,00 cm</p>
-                </div>
-                <div class="param">
-                    <p class="title">Longueur</p>
-                    <div data-min="25" data-max="200" data-type="width" class="cursor-container">
-                        <div class="cursor"></div>
-                    </div>
-                    <p class="value-container"><span class="value">140</span>,00 cm</p>
-                </div>
-                <div class="param">
-                    <p class="title">Hauteur</p>
-                    <div data-min="40" data-max="120" data-type="height" class="cursor-container">
-                        <div class="cursor"></div>
-                    </div>
-                    <p class="value-container"><span class="value">74</span>,00 cm</p>
-                </div>
-                <div class="outside">
-                    <input type="checkbox" id="vernis" />
-                    <label for="vernis"><span class="label">Traiter pour l'exterieur</span><span class="help sub-popin">? <span class="content">Affrontez toutes les intempéries avec nos tables pour l’extérieur, entièrement en acier, laquées Epoxytm et cuites au four chez un peintre industriel partenaire.</span></span></label>
-                </div>
-
-                <div class="settings">
-                    <h2>Plateau</h2>
-                    <ul>
-                        <li class="active material" data-material="douglas">
-                            <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
-                            <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/douglas.png") }})"></div>
-                            <p>Douglas</p>
-                        </li>
-                        <li class="material" data-material="chene">
-                            <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
-                            <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/chene.png") }})"></div>
-                            <p>Chêne</p>
-                        </li>
-                        <li class="material metal-material" data-material="metal">
-                            <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
-                            <div class="cover" style="background-color: #cbcbcb"></div>
-                            <p>Metal</p>
-                        </li>
-                        <li class="material" data-material="none">
-                            <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
-                            <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/aucun.png") }}); border: 1px solid #d3d5d6;"></div>
-                            <p>Aucun</p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="settings color">
-                    <h2>Couleur</h2>
-                    <ul>
-                        <li class="active color-param" data-color="brut">
-                            <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
-                            <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/aucun.png") }}); border: 1px solid #d3d5d6;"></div>
-                        </li>
-                        <li class="color-param" data-color="noir">
-                            <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
-                            <div class="cover" style="background-color: #000000"></div>
-                        </li>
-                        <li class="color-param" data-color="gris">
-                            <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
-                            <div class="cover" style="background-color: #5d5d5d"></div>
-                        </li>
-                        <li class="color-param" data-color="blanc">
-                            <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
-                            <div class="cover" style="background-color: #ffffff; border: 1px solid #d3d5d6;"></div>
-                        </li>
-                        <li class="color-param" data-color="orange">
-                            <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
-                            <div class="cover" style="background-color: #d43e1b"></div>
-                        </li>
-                        <li class="color-param" data-color="cyan">
-                            <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
-                            <div class="cover" style="background-color: #a7dfd4"></div>
-                        </li>
-                        <li class="color-param" data-color="jaune">
-                            <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
-                            <div class="cover" style="background-color: #fed147"></div>
-                        </li>
-                        <li class="more">
-                            <ul>
-                                <li data-color="option-bleu-fonce" class="color-param">
-                                    <div class="cover" style="background-color: #115b77"></div>
-                                </li>
-                                <li data-color="option-bleu" class="color-param">
-                                    <div class="cover" style="background-color: #0080c9"></div>
-                                </li>
-                                <li data-color="option-beige" class="color-param">
-                                    <div class="cover" style="background-color: #bf7e48"></div>
-                                </li>
-                                <li data-color="option-orange" class="color-param">
-                                    <div class="cover" style="background-color: #f57b02"></div>
-                                </li>
-                                <li data-color="option-rose" class="color-param">
-                                    <div class="cover" style="background-color: #d93f71"></div>
-                                </li>
-                                <li data-color="option-vert-fonce" class="color-param">
-                                    <div class="cover" style="background-color: #537452"></div>
-                                </li>
-                                <li data-color="option-marron" class="color-param">
-                                    <div class="cover" style="background-color: #6d5723"></div>
-                                </li>
-                            </ul>
-                            <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/plus.png") }}); border: 1px solid #d3d5d6;"></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="infos">
-        <div class="gid-container">
-            <div class="wrapper contact">
-                <div class="content">
-                    <p>Une demande spéciale ? <a href="{{ url('about') }}">Contactez&#8209;nous</a></p>
-                </div>
-            </div>
-            <div class="wrapper recap">
-                <div class="content">
-                    <p>Dimensions (cm)</p>
-                    <p style="color: #606060;">Lar.&nbsp;:&nbsp;<span class="depth"></span>Long.&nbsp;:&nbsp;<span class="width"></span> Haut.&nbsp;:&nbsp;<span class="height"></span> Plateau&nbsp;:&nbsp;<span class="desk"></span> Couleur&nbsp;:&nbsp;<span class="color"></span> Bancs&nbsp;:&nbsp;<span class="bancs"></span> <span class="outside"></span></p>
-                </div>
-            </div>
-            <div class="wrapper price">
-                <div class="content">
-                    <p>Total TTC</p>
-                    <p class="value"><span id="price-value">0.00</span>{{ CURRENCY_DISPLAY }}</p>
-                </div>
-            </div>
-        </div>
-        <a id="add-to-basket" href="#"> <span class="label">Ajouter au panier</span> <span class="button arrow right"></span></a>
-    </section>
-
-    <section class="content">
-        <article>
-            <div class="text-wrapper">
-                <h2>Les tables Forges sont des produits artisanaux concus et fabriqués sur-mesure en France dans un atelier de métalerie.</h2>
-                <p>
-                    <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
-                    <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
-                </p>
-            </div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
-            <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
-        </article>
-        <article>
-            <div class="text-wrapper">
-                <p>
-                    <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
-                    <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
-                </p>
-            </div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
-            <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
-        </article>
-        <article>
-            <div class="text-wrapper">
-                <p>
-                    <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
-                    <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
-                </p>
-            </div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
-            <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
-        </article>
-    </section>
-
-    <section class="slider">
-        <div class="wrapper">
-            <h1>Forges, 4 pieds et 1 cadre entièrement modulables</h1>
-            <div class="buttons-wrapper">
-                <span class="button inverted scroll-to">Construire ma table</span>
-            </div>
-        </div>
-        <div class="slider-container">
-            <div class="button arrow left"><span></span></div>
+    {% block main %}
+        <section class="gallery">
             <ul>
-                <li class="text-slider active">
-                    <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                <li>
+                    <h3>Table de bar noir plateau chêne</h3>
+                    <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
                 </li>
-                <li class="text-slider">
-                    <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                <li>
+                    <h3>Table de bar noir plateau chêne</h3>
+                    <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
                 </li>
-                <li class="text-slider">
-                    <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                <li>
+                    <h3>Table de bar noir plateau chêne</h3>
+                    <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
+                </li>
+                <li>
+                    <h3>Table de bar noir plateau chêne</h3>
+                    <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
                 </li>
             </ul>
+            <div class="button arrow left"><span></span></div>
             <div class="button arrow right"><span></span></div>
-            <div class="progress"></div>
-            <div class="progress-bar"></div>
+            <div class="background"></div>
+        </section>
+        <section class="module">
+            <div class="builder">
+                <ul class="presets">
+                    <div class="mobile-dropdown"></div>
+                    <div class="shifter">
+                        <li data-width="140" data-height="74" data-depth="80" class="active selected presets-selector banc-enabled">Bureau, table</li>
+                        <li data-width="80" data-height="40" data-depth="60" class="active presets-selector">Table basse</li>
+                        <li data-width="120" data-height="120" data-depth="60" class="active presets-selector">Bar</li>
+                        <li data-width="60" data-height="80" data-depth="60" class="active presets-selector">Table d'appoint</li>
+                        <li data-width="100" data-height="50" data-depth="30" class="active presets-selector">Banc</li>
+                        <li class="custom-selector">Hauteur personnalisée</li>
+                    </div>
+                </ul>
+                <div class="bancs active">
+                    <p>Ajout de banc<span class="mobileHidden"> adapté à ma table</span> (+250€ TTC)</p>
+                    <div class="wrapper">
+                        <div class="button remove-banc disabled">-</div>
+                        <p class="banc-count">0</p>
+                        <div class="button add-banc">+</div>
+                    </div>
+                </div>
+                <div class="webgl">
+                    <div class="gallery-launcher mobileHidden">
+                        <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
+                        <p>Gallerie d'exemples</p>
+                    </div>
+                    <div class="expedition">
+                        <div class="cover" style="background-image: url({{ static("site/build/assets/images/camion.svg") }})"></div>
+                        <p>Livraison en France Métropolitaine sous 5 semaines (hors Corse)</p>
+                    </div>
+                </div>
+                <div class="params">
+                    <div class="param">
+                        <p class="title">Largeur</p>
+                        <div data-min="25" data-max="120" data-type="depth" class="cursor-container">
+                            <div class="cursor"></div>
+                        </div>
+                        <p class="value-container"><span class="value">80</span>,00 cm</p>
+                    </div>
+                    <div class="param">
+                        <p class="title">Longueur</p>
+                        <div data-min="25" data-max="200" data-type="width" class="cursor-container">
+                            <div class="cursor"></div>
+                        </div>
+                        <p class="value-container"><span class="value">140</span>,00 cm</p>
+                    </div>
+                    <div class="param">
+                        <p class="title">Hauteur</p>
+                        <div data-min="40" data-max="120" data-type="height" class="cursor-container">
+                            <div class="cursor"></div>
+                        </div>
+                        <p class="value-container"><span class="value">74</span>,00 cm</p>
+                    </div>
+                    <div class="outside">
+                        <input type="checkbox" id="vernis" />
+                        <label for="vernis"><span class="label">Traiter pour l'exterieur</span><span class="help sub-popin">? <span class="content">Affrontez toutes les intempéries avec nos tables pour l’extérieur, entièrement en acier, laquées Epoxytm et cuites au four chez un peintre industriel partenaire.</span></span></label>
+                    </div>
+
+                    <div class="settings">
+                        <h2>Plateau</h2>
+                        <ul>
+                            <li class="active material" data-material="douglas">
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/douglas.png") }})"></div>
+                                <p>Douglas</p>
+                            </li>
+                            <li class="material" data-material="chene">
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/chene.png") }})"></div>
+                                <p>Chêne</p>
+                            </li>
+                            <li class="material metal-material" data-material="metal">
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="cover" style="background-color: #cbcbcb"></div>
+                                <p>Metal</p>
+                            </li>
+                            <li class="material" data-material="none">
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/aucun.png") }}); border: 1px solid #d3d5d6;"></div>
+                                <p>Aucun</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="settings color">
+                        <h2>Couleur</h2>
+                        <ul>
+                            <li class="active color-param" data-color="brut">
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/aucun.png") }}); border: 1px solid #d3d5d6;"></div>
+                            </li>
+                            <li class="color-param" data-color="noir">
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="cover" style="background-color: #000000"></div>
+                            </li>
+                            <li class="color-param" data-color="gris">
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="cover" style="background-color: #5d5d5d"></div>
+                            </li>
+                            <li class="color-param" data-color="blanc">
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="cover" style="background-color: #ffffff; border: 1px solid #d3d5d6;"></div>
+                            </li>
+                            <li class="color-param" data-color="orange">
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="cover" style="background-color: #d43e1b"></div>
+                            </li>
+                            <li class="color-param" data-color="cyan">
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="cover" style="background-color: #a7dfd4"></div>
+                            </li>
+                            <li class="color-param" data-color="jaune">
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="cover" style="background-color: #fed147"></div>
+                            </li>
+                            <li class="more">
+                                <ul>
+                                    <li data-color="option-bleu-fonce" class="color-param">
+                                        <div class="cover" style="background-color: #115b77"></div>
+                                    </li>
+                                    <li data-color="option-bleu" class="color-param">
+                                        <div class="cover" style="background-color: #0080c9"></div>
+                                    </li>
+                                    <li data-color="option-beige" class="color-param">
+                                        <div class="cover" style="background-color: #bf7e48"></div>
+                                    </li>
+                                    <li data-color="option-orange" class="color-param">
+                                        <div class="cover" style="background-color: #f57b02"></div>
+                                    </li>
+                                    <li data-color="option-rose" class="color-param">
+                                        <div class="cover" style="background-color: #d93f71"></div>
+                                    </li>
+                                    <li data-color="option-vert-fonce" class="color-param">
+                                        <div class="cover" style="background-color: #537452"></div>
+                                    </li>
+                                    <li data-color="option-marron" class="color-param">
+                                        <div class="cover" style="background-color: #6d5723"></div>
+                                    </li>
+                                </ul>
+                                <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/plus.png") }}); border: 1px solid #d3d5d6;"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="infos">
+            <div class="gid-container">
+                <div class="wrapper contact">
+                    <div class="content">
+                        <p>Une demande spéciale ? <a href="{{ url('about') }}">Contactez&#8209;nous</a></p>
+                    </div>
+                </div>
+                <div class="wrapper recap">
+                    <div class="content">
+                        <p>Dimensions (cm)</p>
+                        <p style="color: #606060;">Lar.&nbsp;:&nbsp;<span class="depth"></span>Long.&nbsp;:&nbsp;<span class="width"></span> Haut.&nbsp;:&nbsp;<span class="height"></span> Plateau&nbsp;:&nbsp;<span class="desk"></span> Couleur&nbsp;:&nbsp;<span class="color"></span> Bancs&nbsp;:&nbsp;<span class="bancs"></span> <span class="outside"></span></p>
+                    </div>
+                </div>
+                <div class="wrapper price">
+                    <div class="content">
+                        <p>Total TTC</p>
+                        <p class="value"><span id="price-value">0.00</span>{{ CURRENCY_DISPLAY }}</p>
+                    </div>
+                </div>
+            </div>
+            <a id="add-to-basket" href="#"> <span class="label">Ajouter au panier</span> <span class="button arrow right"></span></a>
+        </section>
+        <section class="content">
+            <article>
+                <div class="text-wrapper">
+                    <h2>Les tables Forges sont des produits artisanaux concus et fabriqués sur-mesure en France dans un atelier de métalerie.</h2>
+                    <p>
+                        <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
+                        <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
+                    </p>
+                </div>
+                <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
+                <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
+            </article>
+            <article>
+                <div class="text-wrapper">
+                    <p>
+                        <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
+                        <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
+                    </p>
+                </div>
+                <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
+                <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
+            </article>
+            <article>
+                <div class="text-wrapper">
+                    <p>
+                        <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
+                        <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
+                    </p>
+                </div>
+                <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
+                <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
+            </article>
+        </section>
+        <section class="slider">
+            <div class="wrapper">
+                <h1>Forges, 4 pieds et 1 cadre entièrement modulables</h1>
+                <div class="buttons-wrapper">
+                    <span class="button inverted scroll-to">Construire ma table</span>
+                </div>
+            </div>
+            <div class="slider-container">
+                <div class="button arrow left"><span></span></div>
+                <ul>
+                    <li class="text-slider active">
+                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                    </li>
+                    <li class="text-slider">
+                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                    </li>
+                    <li class="text-slider">
+                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                    </li>
+                </ul>
+                <div class="button arrow right"><span></span></div>
+                <div class="progress"></div>
+                <div class="progress-bar"></div>
+            </div>
+
+
+            <div class="cover active" style="background-image: url({{ static("site/build/assets/images/Cover_02.png") }})"></div>
+            <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
+            <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
+
+        </section>
+        <div class="popin-background"></div>
+        <div class="popin basket hidden">
+            <h2>Bravo !</h2>
+            <p>La table que vous avez crée a bien été ajoutée à votre panier</p>
+            <div class="content">
+                <p>Dimensions (cm) :</p>
+                <p style="color: #606060;">Lar.&nbsp;:&nbsp;<span class="depth"></span>Long.&nbsp;:&nbsp;<span class="width"></span> Haut.&nbsp;:&nbsp;<span class="height"></span> Plateau&nbsp;:&nbsp;<span class="desk"></span> Couleur&nbsp;:&nbsp;<span class="color"></span> Bancs&nbsp;:&nbsp;<span class="bancs"></span> <span class="outside"></span></p>
+            </div>
+            <div class="sumbit-wrapper">
+                <p class="return">CONTINUER MES ACHATS</p>
+                <a class="checkout" href="{{ url('checkout') }}">VOIR MON PANIER</a>
+            </div>
         </div>
-
-
-        <div class="cover active" style="background-image: url({{ static("site/build/assets/images/Cover_02.png") }})"></div>
-        <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
-        <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
-
-    </section>
+    {% endblock %}
 
     <footer>
         <h3>Paiement sécurisé</h3>
@@ -331,23 +352,9 @@
             </p>
         </div>
     </footer>
+{% endblock %} 
 
-    <div class="popin-background"></div>
-
-    <div class="popin basket hidden">
-        <h2>Bravo !</h2>
-        <p>La table que vous avez crée a bien été ajoutée à votre panier</p>
-        <div class="content">
-            <p>Dimensions (cm) :</p>
-            <p style="color: #606060;">Lar.&nbsp;:&nbsp;<span class="depth"></span>Long.&nbsp;:&nbsp;<span class="width"></span> Haut.&nbsp;:&nbsp;<span class="height"></span> Plateau&nbsp;:&nbsp;<span class="desk"></span> Couleur&nbsp;:&nbsp;<span class="color"></span> Bancs&nbsp;:&nbsp;<span class="bancs"></span> <span class="outside"></span></p>
-        </div>
-        <div class="sumbit-wrapper">
-            <p class="return">CONTINUER MES ACHATS</p>
-            <a class="checkout" href="{{ url('checkout') }}">VOIR MON PANIER</a>
-        </div>
-    </div>
-
-    <!-- params -->
+{% block extend_js %}
     <script type="text/javascript">
         window.SETTINGS = {
             urls: {
@@ -360,19 +367,9 @@
                 chene: "{{ static('site/build/assets/images/textures/chene_DIFFUSE.jpg') }}",
                 metal: "{{ static('site/build/assets/images/textures/metal_DIFFUSE.jpg') }}",
                 none: "{{ static('site/build/assets/images/textures/none_DIFFUSE.png') }}",
-            },
-            prices: {
-                sans_plateau: 0,
-                chene_plateau: 133,
-                douglas: 60,
-                metal: 60,
-                traitement_exterieur: 250,
-                main_d_oeuvre: 104,
-                vernis: 15,
-                acier: 40
             }
         }
     </script>
 
     <script src="{{ static("site/build/javascript/home.js") }}"></script>
-{% endblock %} 
+{% endblock %}
