@@ -19,6 +19,10 @@ AUTH_USER_MODEL = 'forj.User'
 DEFAULT_COUNTRY = 'FR'
 DEFAULT_CURRENCY = 'EUR'
 
+FORJ_INSTAGRAM_URL = 'https://www.instagram.com/forj_mobilier/'
+FORJ_FACEBOOK_URL = 'https://www.facebook.com/forjmobilier/'
+FORJ_CONTACT_EMAIL = 'support@mycs.com'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
