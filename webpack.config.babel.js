@@ -9,11 +9,13 @@ module.exports = {
   context: `${baseDir}/src`,
   entry: {
     collection: [
-      './javascript/collection.js'
+      './javascript/collection.js',
+      './javascript/base.js'
     ],
     home: [
       './stylesheet/styles.js',
-      './javascript/index.js'
+      './javascript/index.js',
+      './javascript/base.js'
     ],
     checkout: [
       './javascript/forms.js',

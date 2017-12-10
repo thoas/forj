@@ -204,25 +204,29 @@ def cart(request):
     if cart is None:
         cart = Cart()
 
-    reference = params.get('reference')
+    reference_list = params.getlist('reference')
 
     if action is not None:
         if action == 'detail':
-            if reference is None:
+            if reference_list is None:
                 return HttpResponseBadRequest('Missing `reference` parameter')
 
             cart = Cart()
-            cart.add_product(reference, params.get('quantity') or 1)
+            for reference in reference_list:
+                cart.add_product(reference, params.get('quantity') or 1)
+
             return JsonResponse(cart.response, encoder=JSONEncoder)
         elif action in ('add', 'remove'):
-            if reference is None:
+            if reference_list is None:
                 return HttpResponseBadRequest('Missing `reference` parameter')
 
             try:
                 if action == 'add':
-                    cart.add_product(reference, params.get('quantity') or 1)
+                    for reference in reference_list:
+                        cart.add_product(reference, params.get('quantity') or 1)
                 elif action == 'remove':
-                    cart.remove_product(reference)
+                    for reference in reference_list:
+                        cart.remove_product(reference)
             except exceptions.InvalidProductRef as e:
                 return HttpResponseBadRequest(e.message)
         elif action == 'flush':

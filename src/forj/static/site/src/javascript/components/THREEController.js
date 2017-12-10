@@ -117,7 +117,6 @@ class THREEController {
     })
   }
 
-
   add_banc() {
     if (this.bancs.length === 0) {
       this.table.toggle_depth()

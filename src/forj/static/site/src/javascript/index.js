@@ -38,7 +38,7 @@ const cursor = new Range({
     const reference = formatProductReference(cursor)
     console.log(`Product reference: ${reference}`)
 
-    var params = new URLSearchParams()
+    var params = new FormData()
     params.append('action', 'detail')
     params.append('reference', reference)
 
@@ -128,9 +128,11 @@ const popins = new Popins(['more_color', 'gallery', 'basket'])
 document.querySelector('#add-to-basket').addEventListener('click', e => {
   e.preventDefault()
 
-  var params = new URLSearchParams()
+  const reference = formatProductReference(cursor)
+
+  var params = new FormData()
   params.append('action', 'add')
-  params.append('reference', formatProductReference(cursor))
+  params.append('reference', reference)
 
   axios.post(window.SETTINGS.urls.cart, params).then(res => {
     popins.display('basket')
@@ -141,16 +143,7 @@ document.querySelector('#add-to-basket').addEventListener('click', e => {
   })
 })
 
-document.querySelectorAll('.slider').forEach(node => {
-  new Slider(node)
-})
-
-const hamburger = document.querySelector('.hamburger')
-const mobileNav = document.querySelector('nav')
-hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('active')
-  mobileNav.classList.toggle('active')
-})
+document.querySelectorAll('.slider').forEach(node => new Slider(node))
 
 const animate = () => {
   requestAnimationFrame(animate)
