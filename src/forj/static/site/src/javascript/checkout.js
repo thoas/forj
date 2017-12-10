@@ -16,15 +16,13 @@ document.addEventListener('DOMContentLoaded', e => {
   diff.dispatchEvent(new Event('change'))
 
   const addressTypeChange = (radios, typeInput) => {
-    radios.forEach(radio => {
-      radio.addEventListener('change', e => {
-        if (radio.value == 1) {
-          typeInput.style.display = 'none'
-        } else {
-          typeInput.style.display = 'block'
-        }
-      })
-    })
+    radios.forEach(radio => radio.addEventListener('change', e => {
+      if (radio.value == 1) {
+        typeInput.style.display = 'none'
+      } else {
+        typeInput.style.display = 'block'
+      }
+    }))
   }
 
   addressTypeChange(
@@ -45,25 +43,24 @@ document.addEventListener('DOMContentLoaded', e => {
   axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
   axios.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest'
 
-  document.querySelectorAll('.article-container p.delete a').forEach(elem => {
-    elem.addEventListener('click', e => {
-      e.preventDefault()
+  document.querySelectorAll('.article-container p.delete a').forEach(elem => elem.addEventListener('click', e => {
+    e.preventDefault()
 
-      const current = e.target
-      const articleContainer = current.parentNode.parentNode
+    const current = e.target
+    const articleContainer = current.parentNode.parentNode
 
-      var params = new URLSearchParams()
-      params.append('action', current.getAttribute('data-action'))
-      params.append('reference', current.getAttribute('data-reference'))
+    var params = new URLSearchParams()
+    params.append('action', current.getAttribute('data-action'))
+    params.append('reference', current.getAttribute('data-reference'))
 
-      axios.post(current.getAttribute('href'), params).then(res => {
-        articleContainer.parentNode.removeChild(articleContainer)
+    axios.post(current.getAttribute('href'), params).then(res => {
+      articleContainer.parentNode.removeChild(articleContainer)
 
-        // amount are in cents
-        const total = parseInt(res.data.total, 10) / 100.0
+      // amount are in cents
+      const total = parseInt(res.data.total, 10) / 100.0
 
-        totalContainer.textContent = numeral(total).format('0.00')
-      })
+      totalContainer.textContent = numeral(total).format('0.00')
     })
   })
+  )
 })
