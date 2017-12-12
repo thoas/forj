@@ -5,6 +5,7 @@ from django import forms
 from django.utils.html import format_html
 
 from forj.models import Order, Product, User, OrderItem
+from forj.forms.fields import AmountField
 
 from django_countries import countries
 
@@ -33,6 +34,20 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('date_joined',)
 
 
+class ProductAdminForm(forms.ModelForm):
+    name = forms.CharField(required=True)
+    reference = forms.CharField(required=True, widget=forms.Textarea)
+    description = forms.CharField(required=False, widget=forms.Textarea)
+    formula = forms.CharField(required=False, widget=forms.Textarea)
+    price = AmountField(required=False)
+    tax_cost = AmountField(required=False)
+    shipping_cost = AmountField(required=False)
+
+    class Meta:
+        model = Product
+        fields = ()
+
+
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'reference', '_price', '_shipping_cost')
 
@@ -42,10 +57,15 @@ class ProductAdmin(admin.ModelAdmin):
 
     change_form_template = 'forj/admin/product/change_form.html'
 
+    form = ProductAdminForm
+
     def _price(self, instance):
-        return '{}{}'.format(
-            instance.get_currency_display(),
-            instance.price_converted)
+        if instance.price:
+            return '{}{}'.format(
+                instance.get_currency_display(),
+                instance.price_converted)
+
+        return instance.formula
 
     def _shipping_cost(self, instance):
         return '{}{}'.format(
