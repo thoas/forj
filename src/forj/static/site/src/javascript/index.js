@@ -26,21 +26,32 @@ const formatProductReference = cursor => {
   }
 
   criterias.push(`R(${cursor.table.active_color.toUpperCase()})`)
-  criterias.push(`LA(${cursor.depth})`)
-  criterias.push(`LO(${cursor.width})`)
-  criterias.push(`H(${cursor.height})`)
 
-  return criterias.join('-')
+  return [
+    [
+      ...criterias,
+      `LO(${cursor.width})`,
+      `LA(${cursor.depth})`,
+      `H(${cursor.height})`
+    ].join('-'),
+    ...cursor.controller.bancs.map(banc => [
+      'T(BANC)',
+      `LO(${cursor.width - 25 <= 25 ? 25:cursor.width - 25 })`,
+      ...criterias,
+      'LA(28)',
+      'H(45)'
+    ].join('-'))
+  ]
 }
 
 const cursor = new Range({
   onChange: () => {
-    const reference = formatProductReference(cursor)
-    console.log(`Product reference: ${reference}`)
+    const referenceList = formatProductReference(cursor)
+    console.log('Product reference: ', referenceList.join(', '))
 
     var params = new FormData()
     params.append('action', 'detail')
-    params.append('reference', reference)
+    referenceList.forEach(reference => params.append('reference', reference))
 
     axios.post(window.SETTINGS.urls.cart, params).then(res => {
       const total = parseFloat(parseInt(res.data.total, 10) / 100.0)
@@ -128,11 +139,11 @@ const popins = new Popins(['more_color', 'gallery', 'basket'])
 document.querySelector('#add-to-basket').addEventListener('click', e => {
   e.preventDefault()
 
-  const reference = formatProductReference(cursor)
+  const referenceList = formatProductReference(cursor)
 
   var params = new FormData()
   params.append('action', 'add')
-  params.append('reference', reference)
+  referenceList.forEach(reference => params.append('reference', reference))
 
   axios.post(window.SETTINGS.urls.cart, params).then(res => {
     popins.display('basket')
