@@ -49,7 +49,7 @@ class ProductAdminForm(forms.ModelForm):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'reference', '_price', '_shipping_cost')
+    list_display = ('name', 'reference', '_price', '_shipping_cost', '_tax_cost')
 
     readonly_fields = (
         'currency', 'created_at', 'updated_at'
@@ -71,6 +71,11 @@ class ProductAdmin(admin.ModelAdmin):
         return '{}{}'.format(
             instance.get_currency_display(),
             instance.shipping_cost_converted)
+
+    def _tax_cost(self, instance):
+        return '{}{}'.format(
+            instance.get_currency_display(),
+            instance.tax_cost_converted)
 
 
 class OrderItemInline(admin.TabularInline):
