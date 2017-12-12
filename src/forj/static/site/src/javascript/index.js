@@ -11,10 +11,10 @@ import numeral from './format'
 // formatProductReference formats the current selection in a product reference
 // readable by the server
 const formatProductReference = cursor => {
-  let criterias = [];
+  let criterias = []
 
   if (cursor.table.outside) {
-      criterias.push('P(ACIEREXT)')
+    criterias.push('P(ACIEREXT)')
   } else {
     if (cursor.table.active_desk === 'chene') {
       criterias.push('P(BRUT)')
@@ -28,19 +28,10 @@ const formatProductReference = cursor => {
   criterias.push(`R(${cursor.table.active_color.toUpperCase()})`)
 
   return [
-    [
-      ...criterias,
-      `LO(${cursor.width})`,
-      `LA(${cursor.depth})`,
-      `H(${cursor.height})`
-    ].join('-'),
-    ...cursor.controller.bancs.map(banc => [
-      'T(BANC)',
-      `LO(${cursor.width - 25 <= 25 ? 25:cursor.width - 25 })`,
-      ...criterias,
-      'LA(28)',
-      'H(45)'
-    ].join('-'))
+    [...criterias, `LO(${cursor.width})`, `LA(${cursor.depth})`, `H(${cursor.height})`].join('-'),
+    ...cursor.controller.bancs.map(banc =>
+      ['T(BANC)', `LO(${cursor.width - 25 <= 25 ? 25 : cursor.width - 25})`, ...criterias, 'LA(28)', 'H(45)'].join('-')
+    )
   ]
 }
 
@@ -67,33 +58,24 @@ const cursor = new Range({
         ease: Expo.easeInOut,
         onUpdate: () => {
           if (tweenPrice.target.value.toFixed) {
-            price.dom.textContent = numeral(tweenPrice.target.value).format("0.00")
+            price.dom.textContent = numeral(tweenPrice.target.value).format('0.00')
           }
         }
       })
     })
 
     const ops = [
-      [
-        document.querySelectorAll('section.infos .depth, .basket .depth'),
-        (elem) => elem.textContent = cursor.depth
-      ],
-      [
-        document.querySelectorAll('section.infos .width, .basket .width'),
-        (elem) => elem.textContent = cursor.width
-      ],
-      [
-        document.querySelectorAll('section.infos .height, .basket .height'),
-        (elem) => elem.textContent = cursor.height
-      ],
+      [document.querySelectorAll('section.infos .depth, .basket .depth'), elem => (elem.textContent = cursor.depth)],
+      [document.querySelectorAll('section.infos .width, .basket .width'), elem => (elem.textContent = cursor.width)],
+      [document.querySelectorAll('section.infos .height, .basket .height'), elem => (elem.textContent = cursor.height)],
       [
         document.querySelectorAll('section.infos .desk, .basket .desk'),
-        (elem) => elem.textContent = cursor.table.active_desk
+        elem => (elem.textContent = cursor.table.active_desk)
       ],
       [
         document.querySelectorAll('section.infos .color, .basket .color'),
-        (elem) => elem.textContent = cursor.table.active_color
-      ],
+        elem => (elem.textContent = cursor.table.active_color)
+      ]
     ]
     ops.forEach(entry => entry[0].forEach(elem => entry[1](elem)))
 
@@ -130,7 +112,7 @@ const cursor = new Range({
 const three = new THREEController({
   container: document.querySelector('.webgl'),
   cursor: cursor,
-  staticfiles: window.SETTINGS.staticfiles,
+  staticfiles: window.SETTINGS.staticfiles
 })
 
 new StickyBar(document.querySelector('section.infos'))
@@ -148,9 +130,9 @@ document.querySelector('#add-to-basket').addEventListener('click', e => {
   axios.post(window.SETTINGS.urls.cart, params).then(res => {
     popins.display('basket')
 
-    const sum =res.data.items.map(entry => entry.quantity).reduce((a, b) => a + b, 0)
+    const sum = res.data.items.map(entry => entry.quantity).reduce((a, b) => a + b, 0)
 
-    document.querySelectorAll('.cart-counter').forEach(elem => elem.textContent = `(${sum})`)
+    document.querySelectorAll('.cart-counter').forEach(elem => (elem.textContent = `(${sum})`))
   })
 })
 
