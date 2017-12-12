@@ -259,7 +259,7 @@ class THREEController {
       this.table.change_color(elem.dataset.color)
       this.bancs.forEach(banc => banc.change_color(elem.dataset.color))
       colors.forEach(node => node.classList.remove('active'))
-      this.classList.add('active')
+      elem.classList.add('active')
     }))
   }
 
