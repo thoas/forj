@@ -36,11 +36,11 @@
     "pk": 3,
     "fields": {
       "created_at": "2017-12-09T21:28:35.783Z",
-      "updated_at": "2017-12-12T20:29:14.073Z",
+      "updated_at": "2017-12-12T20:37:51.849Z",
       "name": "AGLO <=1m2",
       "reference": "LA(25/50)-LO(100/200)-P(AGLO)-H(40/120)-R(?)",
       "description": "",
-      "price": 60500,
+      "price": 70500,
       "formula": "",
       "currency": "EUR",
       "shipping_cost": 0,
@@ -84,11 +84,11 @@
     "pk": 6,
     "fields": {
       "created_at": "2017-12-12T20:26:23.821Z",
-      "updated_at": "2017-12-12T20:29:09.700Z",
+      "updated_at": "2017-12-12T20:37:39.929Z",
       "name": "AGLO <= 1m2",
       "reference": "LA(25/100)-LO(25/100)-P(AGLO)-H(40/120)-R(?)",
       "description": "",
-      "price": 60500,
+      "price": 70500,
       "formula": "",
       "currency": "EUR",
       "shipping_cost": 0,
@@ -100,11 +100,11 @@
     "pk": 7,
     "fields": {
       "created_at": "2017-12-12T20:27:32.394Z",
-      "updated_at": "2017-12-12T20:29:03.981Z",
+      "updated_at": "2017-12-12T20:37:44.651Z",
       "name": "AGLO <= 1m2",
       "reference": "LA(100/120)-LO(25/83)-P(AGLO)-H(40/120)-R(?)",
       "description": "",
-      "price": 60100,
+      "price": 70500,
       "formula": "",
       "currency": "EUR",
       "shipping_cost": 0,
@@ -217,6 +217,54 @@
       "reference": "LA(25/50)-LO(100/200)-H(40/120)-R(?)",
       "description": "",
       "price": 54300,
+      "formula": "",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 15,
+    "fields": {
+      "created_at": "2017-12-12T20:38:44.036Z",
+      "updated_at": "2017-12-12T20:38:44.037Z",
+      "name": "ACIER <= 1m2",
+      "reference": "LA(25/100)-LO(25/100)-P(ACIER)-H(40/120)-R(?)",
+      "description": "",
+      "price": 70500,
+      "formula": "",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 16,
+    "fields": {
+      "created_at": "2017-12-12T20:39:01.763Z",
+      "updated_at": "2017-12-12T20:39:01.764Z",
+      "name": "ACIER <= 1m2",
+      "reference": "LA(100/120)-LO(25/83)-P(ACIER)-H(40/120)-R(?)",
+      "description": "",
+      "price": 70500,
+      "formula": "",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 17,
+    "fields": {
+      "created_at": "2017-12-12T20:39:16.402Z",
+      "updated_at": "2017-12-12T20:39:16.403Z",
+      "name": "ACIER <= 1m2",
+      "reference": "LA(25/50)-LO(100/200)-P(ACIER)-H(40/120)-R(?)",
+      "description": "",
+      "price": 70500,
       "formula": "",
       "currency": "EUR",
       "shipping_cost": 0,
