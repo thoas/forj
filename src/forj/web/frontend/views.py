@@ -213,8 +213,10 @@ def cart(request):
 
             cart = Cart()
             for reference in reference_list:
-                cart.add_product(reference, params.get('quantity') or 1)
-
+                try:
+                    cart.add_product(reference, params.get('quantity') or 1)
+                except exceptions.InvalidProductRef as e:
+                    return HttpResponseBadRequest(e)
             return JsonResponse(cart.response, encoder=JSONEncoder)
         elif action in ('add', 'remove'):
             if reference_list is None:
@@ -228,7 +230,7 @@ def cart(request):
                     for reference in reference_list:
                         cart.remove_product(reference)
             except exceptions.InvalidProductRef as e:
-                return HttpResponseBadRequest(e.message)
+                return HttpResponseBadRequest(e)
         elif action == 'flush':
             cart = Cart.flush(request)
 
