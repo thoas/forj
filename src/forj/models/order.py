@@ -140,6 +140,7 @@ class Order(base.Model):
                 'quantity': item.quantity,
                 'reference': item.product_reference,
                 'product': item.product,
+                'total': item.amount,
             })
 
         return products
