@@ -16,6 +16,11 @@ class ProductTest(TestCase):
         p = Product.objects.from_reference('LA(112)-LO(33)-P(ACIER)-H(67)')
         p == self.p2_acier
 
+    def test_get_price(self):
+        price = self.p4_aglo.get_price('LA(106)-LO(124)-P(AGLO)-H(61)-R(NOIR)')
+
+        assert price == 575.62
+
 
 class OrderTest(TestCase):
     def test_to_request(self):

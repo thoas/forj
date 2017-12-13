@@ -32,8 +32,12 @@ class CriteriaSet(object):
     def __len__(self):
         return len(self.criterias)
 
+    def __iter__(self):
+        for criteria in self.criterias:
+            yield criteria
+
     def __repr__(self):
-        value = '{}'.format(CRITERIA_SEPARATOR).join([
+        value = ', '.join([
             '{}'.format(criteria)
             for criteria in self.criterias
         ])

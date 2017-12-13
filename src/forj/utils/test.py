@@ -64,6 +64,12 @@ class TestCase(Exam, test.TestCase):
             price=47000 * 1.5,
         )
 
+        self.p4_aglo = Product.objects.create(
+            name='AGLO>1m2',
+            reference='LA(101/120)-LO(101/220)-P(AGLO)-H(40/120)-R(?)',
+            formula='(LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*60)*1.5'
+        )
+
         self.p1_acier = Product.objects.create(
             name='ACIER<=1m2',
             reference='LA(25/100)-LO(25/100)-P(ACIER)-H(40/120)',

@@ -6,13 +6,14 @@ from forj.db.models import base
 from forj.criteria import CriteriaSet
 from forj.db.models.fields import AmountField
 from forj import constants, exceptions
+from forj.utils.math import expr
 
 
 class ProductManager(base.Manager):
     def from_reference(self, reference):
         criteria_set = CriteriaSet.from_reference(reference)
 
-        for product in self.all():
+        for product in self.order_by('price'):
             if (criteria_set in product.criteria_set and
                     len(criteria_set) == len(product.criteria_set)):
                 return product
@@ -40,12 +41,26 @@ class Product(base.Model):
 
     objects = ProductManager()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     class Meta:
         db_table = 'forj_product'
         abstract = False
 
     def __str__(self):
         return '{}: {}'.format(self.name, self.reference)
+
+    def get_price(self, reference):
+        if not self.formula:
+            return self.price
+
+        formula = self.formula
+
+        for criteria in CriteriaSet.from_reference(reference):
+            formula = formula.replace(criteria.name, criteria.value)
+
+        return round(expr(formula), 2)
 
     @cached_property
     def criteria_set(self):

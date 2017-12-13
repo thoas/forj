@@ -48,16 +48,15 @@ class Cart(object):
         self.tax_cost = 0
 
         for product_id, result in self._products.items():
-            quantity = sum(result['refs'].values())
+            for ref, quantity in result['refs'].items():
+                amount = quantity * result['obj'].get_price(ref)
+                shipping_cost = quantity * result['obj'].shipping_cost
+                tax_cost = quantity * result['obj'].tax_cost
 
-            amount = quantity * result['obj'].price
-            shipping_cost = quantity * result['obj'].shipping_cost
-            tax_cost = quantity * result['obj'].tax_cost
-
-            self.amount += amount
-            self.shipping_cost += shipping_cost
-            self.tax_cost += tax_cost
-            self.total += amount + shipping_cost + tax_cost
+                self.amount += amount
+                self.shipping_cost += shipping_cost
+                self.tax_cost += tax_cost
+                self.total += amount + shipping_cost + tax_cost
 
     @property
     def data(self):
@@ -78,6 +77,7 @@ class Cart(object):
                     'quantity': quantity,
                     'reference': ref,
                     'product': product,
+                    'total': quantity * product.get_price(ref),
                 })
 
         return products

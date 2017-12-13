@@ -270,5 +270,69 @@
       "shipping_cost": 0,
       "tax_cost": 0
     }
+  },
+  {
+    "model": "forj.product",
+    "pk": 18,
+    "fields": {
+      "created_at": "2017-12-13T20:38:49.448Z",
+      "updated_at": "2017-12-13T22:30:27.356Z",
+      "name": "AGLO > 1m2",
+      "reference": "LA(?)-LO(?)-P(AGLO)-H(40/120)-R(?)",
+      "description": "",
+      "price": null,
+      "formula": "(LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*60)*100*1.5",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 19,
+    "fields": {
+      "created_at": "2017-12-13T22:31:26.580Z",
+      "updated_at": "2017-12-13T22:31:30.379Z",
+      "name": "ACIER > 1m2",
+      "reference": "LA(?)-LO(?)-P(ACIER)-H(40/120)-R(?)",
+      "description": "",
+      "price": null,
+      "formula": "(LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*60)*100*1.5",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 20,
+    "fields": {
+      "created_at": "2017-12-13T22:31:57.004Z",
+      "updated_at": "2017-12-13T22:31:57.005Z",
+      "name": "BRUT > 1m2",
+      "reference": "LA(?)-LO(?)-P(BRUT)-H(40/120)-R(?)",
+      "description": "",
+      "price": null,
+      "formula": "(LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*133)*100*1.5",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 21,
+    "fields": {
+      "created_at": "2017-12-13T22:32:25.956Z",
+      "updated_at": "2017-12-13T22:32:25.956Z",
+      "name": "ACIEREXT > 1m2",
+      "reference": "LA(?)-LO(?)-P(ACIEREXT)-H(40/120)-R(?)",
+      "description": "",
+      "price": null,
+      "formula": "(LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*60+250)*100*1.5",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
   }
 ]

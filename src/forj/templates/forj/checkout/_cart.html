@@ -14,7 +14,7 @@
                             </a>
                         </p>
                     {% endif %}
-                    <p class="price">{{ item.product.price_converted|floatformat(AMOUNT_PRECISION) }} {{ CURRENCY_DISPLAY }}</p>
+                    <p class="price">{{ item.total|amountformat(AMOUNT_PRECISION) }} {{ CURRENCY_DISPLAY }}</p>
                 </div>
             {% endfor %}
         </div>
