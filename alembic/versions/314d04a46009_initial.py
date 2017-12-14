@@ -63,6 +63,7 @@ def upgrade():
         sa.Column('reference', sa.String(100)),
         sa.Column('description', sa.Text, nullable=True),
         sa.Column('price', sa.Integer, nullable=True),
+        sa.Column('condition', sa.String(100), nullable=True),
         sa.Column('formula', sa.String(100), nullable=True),
         sa.Column('currency', sa.String(3)),
         sa.Column('shipping_cost', sa.Integer, server_default="0"),

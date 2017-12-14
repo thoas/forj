@@ -38,6 +38,7 @@ class ProductAdminForm(forms.ModelForm):
     name = forms.CharField(required=True)
     reference = forms.CharField(required=True, widget=forms.Textarea)
     description = forms.CharField(required=False, widget=forms.Textarea)
+    condition = forms.CharField(required=False, widget=forms.Textarea)
     formula = forms.CharField(required=False, widget=forms.Textarea)
     price = AmountField(required=False)
     tax_cost = AmountField(required=False)
@@ -49,7 +50,7 @@ class ProductAdminForm(forms.ModelForm):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'reference', '_price', '_shipping_cost', '_tax_cost')
+    list_display = ('name', 'reference', '_price', 'condition', '_shipping_cost', '_tax_cost')
 
     readonly_fields = (
         'currency', 'created_at', 'updated_at'
