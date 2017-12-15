@@ -1,0 +1,4 @@
+- name: add PATH to crontab
+  cronvar:
+    name: "PATH"
+    value: "/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"

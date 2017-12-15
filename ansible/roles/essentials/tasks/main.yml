@@ -1,0 +1,28 @@
+- import_tasks: apt.yml
+  tags:
+    - essentials
+    - essentials-apt
+
+- name: Create locale file
+  copy:
+    src: etc/default/locale
+    dest: /etc/default/locale
+  tags:
+    - essentials
+    - essentials-locale
+
+- import_tasks: resolv.yml
+  tags:
+    - essentials
+    - essentials-resolv
+  when: nameservers is defined
+
+- import_tasks: kernel.yml
+  tags:
+    - essentials
+    - essentials-kernel
+
+- import_tasks: cron.yml
+  tags:
+    - essentials
+    - essentials-cron
