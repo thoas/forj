@@ -1,9 +1,6 @@
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 BUILD_DIR = $(ROOT_DIR)/src/forj/static/site/build
 
-deploy:
-	cd ansible && ansible-playbook -u root -i inventories/hosts.ini playbooks/deploy.yml
-
 outdated:
 	pip list -o --format=columns
 

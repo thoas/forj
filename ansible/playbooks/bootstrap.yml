@@ -4,6 +4,7 @@
     - python
     - ssh
     - users
+    - docker
     - role: avanov.pyenv
       pyenv_path: "{{ pyenv.path }}"
       pyenv_owner: "{{ pyenv.owner }}"
