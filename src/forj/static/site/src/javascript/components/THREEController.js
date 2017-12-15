@@ -80,6 +80,7 @@ class THREEController {
     this.table = new Table({
       scene: this.group,
       assets: this.assets,
+      staticfiles: this.staticfiles,
       onChange: () => {
         this.cursor.triggerChange()
       }
@@ -131,6 +132,7 @@ class THREEController {
     let banc = new Table({
       scene: banc_group,
       assets: this.assets,
+      staticfiles: this.staticfiles,
       position: new THREE.Vector3(0, 0.01, position),
       width: 50,
       depth: 50,

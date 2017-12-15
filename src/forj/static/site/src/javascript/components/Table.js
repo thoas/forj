@@ -5,6 +5,7 @@ import BinaryLoader from './BinaryLoader'
 class Table {
   constructor(options) {
     this.scene = options.scene
+    this.staticfiles = options.staticfiles
     this.assets = options.assets
     this.onChange = options.onChange
     this.position = options.position || new THREE.Vector3()
@@ -81,13 +82,10 @@ class Table {
     this.active_color = 'brut'
   }
 
-  load_model(){
-    console.log(typeof SETTINGS.staticfiles.tableJson)
-    
-    let meshes = new BinaryLoader(SETTINGS.staticfiles.tableJson, SETTINGS.staticfiles.tableBin).then((obj) => {
+  load_model() {
+    let meshes = new BinaryLoader(this.staticfiles.tableJson, this.staticfiles.tableBin).then(obj => {
       this.meshes = obj
       console.log(this.meshes)
-      
     })
   }
 
@@ -234,7 +232,6 @@ class Table {
   }
 
   resize() {
-
     this.width = 100
     this.height = 100
 
