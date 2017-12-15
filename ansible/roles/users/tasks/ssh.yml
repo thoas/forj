@@ -6,6 +6,16 @@
       mode: 0700
       state: directory
 
+  - name: configure ssh keys
+    template:
+      src: "home/ssh/{{ item }}.j2"
+      dest: "~/.ssh/{{ item }}"
+      mode: 0600
+      backup: true
+    with_items:
+      - "id_rsa"
+      - "id_rsa.pub"
+
   - name: configure authorized keys
     template:
       src: "home/ssh/authorized_keys.j2"

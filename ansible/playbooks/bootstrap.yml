@@ -3,6 +3,7 @@
     - essentials
     - python
     - ssh
+    - users
     - role: avanov.pyenv
       pyenv_path: "{{ pyenv.path }}"
       pyenv_owner: "{{ pyenv.owner }}"

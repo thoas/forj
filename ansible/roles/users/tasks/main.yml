@@ -5,12 +5,14 @@
     - user-setup
   with_dict: "{{ users }}"
 
-- include_tasks: ssh.yml id="{{ item.key }}" user="{{ item.value }}"
+- include_tasks: ssh.yml id="{{ outer_item.key }}" user="{{ outer_item.value }}"
   tags:
     - user
     - ssh
     - user-ssh
   with_dict: "{{ users }}"
+  loop_control:
+    loop_var: outer_item
 
 - include_tasks: root.yml
   tags:

@@ -12,3 +12,10 @@
     groups: "{{ user.groups }}"
     home: "{{ user.home }}"
     shell: "/bin/bash"
+
+- name: set permissions
+  file:
+    path: "{{ user.home }}"
+    owner: "{{ id }}"
+    group: "{{ user.groups[0] }}"
+    recurse: true

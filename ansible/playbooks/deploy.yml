@@ -1,4 +1,6 @@
 - name: Deploy forj
+  become: true
+  become_user: www-data
   hosts: front
   vars:
     ansistrano_deploy_to: "/var/www/forj"

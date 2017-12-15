@@ -1,4 +1,8 @@
 users:
+  www-data:
+    groups:
+      - www-data
+    home: /var/www
   root:
     groups:
       - root
@@ -7,6 +11,6 @@ users:
       - thoas.pub
 
 pyenv:
-  path: "/root/pyenv"
-  owner: "root"
+  path: "/var/www/pyenv"
+  owner: "www-data"
   python_version: "3.6.3"
