@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import * as TweenMax from 'gsap'
+import BinaryLoader from './BinaryLoader'
 
 class Table {
   constructor(options) {
@@ -17,9 +18,10 @@ class Table {
 
     this.init()
     this.init_material()
-    this.init_feets()
-    this.init_frame()
-    this.init_desk()
+    this.load_model()
+    // this.init_feets()
+    // this.init_frame()
+    // this.init_desk()
     this.init_floor()
     this.load_frame_material(1)
 
@@ -77,6 +79,16 @@ class Table {
 
     this.active_desk = 'douglas'
     this.active_color = 'brut'
+  }
+
+  load_model(){
+    console.log(typeof SETTINGS.staticfiles.tableJson)
+    
+    let meshes = new BinaryLoader(SETTINGS.staticfiles.tableJson, SETTINGS.staticfiles.tableBin).then((obj) => {
+      this.meshes = obj
+      console.log(this.meshes)
+      
+    })
   }
 
   init_material() {
@@ -222,20 +234,24 @@ class Table {
   }
 
   resize() {
-    this.group_frame.scale.y = this.height / 100
-    this.group_feets.scale.y = this.height / 100
 
-    this.group_frame.scale.x = this.width / 100
-    this.group_frame.scale.z = this.depth / 100
+    this.width = 100
+    this.height = 100
 
-    for (var i = 0; i < 4; i++) {
-      this.feets[i].position.x = this.feets_pos[i * 2] * 10 * this.width / 100
-      this.feets[i].position.z = this.feets_pos[i * 2 + 1] * 10 * this.depth / 100
-    }
+    // this.group_frame.scale.y = this.height / 100
+    // this.group_feets.scale.y = this.height / 100
 
-    this.desk.position.y = 10 * this.height / 100 + 0.7
-    this.desk.scale.x = this.width / 100
-    this.desk.scale.z = this.depth / 100
+    // this.group_frame.scale.x = this.width / 100
+    // this.group_frame.scale.z = this.depth / 100
+
+    // for (var i = 0; i < 4; i++) {
+    //   this.feets[i].position.x = this.feets_pos[i * 2] * 10 * this.width / 100
+    //   this.feets[i].position.z = this.feets_pos[i * 2 + 1] * 10 * this.depth / 100
+    // }
+
+    // this.desk.position.y = 10 * this.height / 100 + 0.7
+    // this.desk.scale.x = this.width / 100
+    // this.desk.scale.z = this.depth / 100
   }
 
   change_material(mat) {
