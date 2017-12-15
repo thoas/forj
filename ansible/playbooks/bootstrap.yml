@@ -2,3 +2,13 @@
   roles:
     - essentials
     - python
+    - ssh
+    - role: avanov.pyenv
+      pyenv_path: "{{ pyenv.path }}"
+      pyenv_owner: "{{ pyenv.owner }}"
+      pyenv_update_git_install: no
+      pyenv_enable_autocompletion: no
+      pyenv_python_versions:
+        - "{{ pyenv.python_version }}"
+      pyenv_virtualenvs:
+        - { venv_name: "py-363", py_version: "{{ pyenv.python_version }}" }

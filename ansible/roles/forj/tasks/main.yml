@@ -1,0 +1,12 @@
+- name: Configure forj nginx config
+  template:
+    src: "etc/nginx/sites-available/forj.j2"
+    dest: "/etc/nginx/sites-available/forj"
+  notify: reload nginx
+
+- name: enable forj nginx site
+  file:
+    src: "/etc/nginx/sites-available/forj"
+    dest: "/etc/nginx/sites-enabled/forj"
+    state: link
+    force: yes

@@ -1,0 +1,11 @@
+- import_tasks: setup.yml
+  tags:
+    - letsencrypt
+    - setup
+    - letsencrypt-setup
+
+- import_tasks: conf.yml
+  tags:
+    - letsencrypt
+    - conf
+    - letsencrypt-conf

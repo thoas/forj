@@ -1,0 +1,4 @@
+nginx_user: "www-data"
+letsencrypt:
+  domains:
+    - www.forj.com

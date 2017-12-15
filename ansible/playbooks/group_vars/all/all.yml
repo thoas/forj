@@ -1,0 +1,12 @@
+users:
+  root:
+    groups:
+      - root
+    home: /root
+    authorized_keys:
+      - thoas.pub
+
+pyenv:
+  path: "/root/pyenv"
+  owner: "root"
+  python_version: "3.6.3"

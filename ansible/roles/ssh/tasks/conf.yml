@@ -1,0 +1,8 @@
+- name: add ssh configuration
+  template:
+    src: "etc/ssh/{{ item }}.j2"
+    dest: "/etc/ssh/{{ item }}"
+  with_items:
+    - ssh_config
+    - sshd_config
+  notify: restart ssh

@@ -1,0 +1,2 @@
+- name: Create virtualenv
+  shell: "virtualenv -p {{ pyenv.path }}/versions/{{ pyenv.python_version }}/bin/python {{ ansistrano_release_path.stdout }}/.env"

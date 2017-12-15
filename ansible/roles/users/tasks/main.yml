@@ -1,0 +1,19 @@
+- include_tasks: setup.yml id="{{ item.key }}" user="{{ item.value }}"
+  tags:
+    - user
+    - setup
+    - user-setup
+  with_dict: "{{ users }}"
+
+- include_tasks: ssh.yml id="{{ item.key }}" user="{{ item.value }}"
+  tags:
+    - user
+    - ssh
+    - user-ssh
+  with_dict: "{{ users }}"
+
+- include_tasks: root.yml
+  tags:
+    - user
+    - ssh
+    - user-ssh

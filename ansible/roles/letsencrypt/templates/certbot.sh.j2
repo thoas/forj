@@ -1,0 +1,15 @@
+#! /bin/bash
+
+certbot certonly \
+        --webroot \
+        --email florent.messa@gmail.com \
+        --non-interactive \
+        --agree-tos \
+        --expand \
+{% if dryrun is defined and dryrun|bool %}
+        --dry-run \
+{% endif %}
+{% for domain in letsencrypt.domains %}
+        -d {{ domain }} \
+{% endfor %}
+        -w /usr/share/nginx/html

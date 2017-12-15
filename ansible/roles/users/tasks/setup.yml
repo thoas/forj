@@ -1,0 +1,14 @@
+- name: create user groups
+  group:
+    name: "{{ group }}"
+    state: present
+  with_items: "{{ user.groups }}"
+  loop_control:
+    loop_var: group
+
+- name: create user
+  user:
+    name: "{{ id }}"
+    groups: "{{ user.groups }}"
+    home: "{{ user.home }}"
+    shell: "/bin/bash"

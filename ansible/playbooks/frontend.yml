@@ -1,3 +1,5 @@
 - hosts: front
-  tasks:
-    - shell: cat /etc/hosts
+  roles:
+    - jdauphant.nginx
+    # - letsencrypt
+    - forj

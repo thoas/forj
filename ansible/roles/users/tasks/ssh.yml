@@ -1,0 +1,22 @@
+- block:
+
+  - name: add .ssh dir
+    file:
+      path: "{{ user.home }}/.ssh"
+      mode: 0700
+      state: directory
+
+  - name: configure authorized keys
+    template:
+      src: "home/ssh/authorized_keys.j2"
+      dest: "~/.ssh/authorized_keys"
+      backup: true
+
+  - name: configure config file
+    copy:
+      src: "ssh/config"
+      dest: "~/.ssh/config"
+      backup: true
+
+  become: true
+  become_user: "{{ id }}"

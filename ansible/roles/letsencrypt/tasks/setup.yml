@@ -1,0 +1,8 @@
+- name: install certbot
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - certbot
+    - python-ndg-httpsclient
