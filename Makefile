@@ -20,6 +20,9 @@ test:
 	DJANGO_SETTINGS_MODULE=forj.settings.test python manage.py check
 	py.test tests/ -v -s
 
+collectstatic:
+	python manage.py collectstatic --noinput -i *.scss --traceback
+
 docker-prebuild:
 	docker build -t forj-prebuilder -f Dockerfile.build .
 	mkdir -p $(BUILD_DIR)
