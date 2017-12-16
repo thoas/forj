@@ -20,7 +20,7 @@ const formatProductReference = cursor => {
       criterias.push('P(BRUT)')
     } else if (cursor.table.active_desk === 'metal') {
       criterias.push('P(ACIER)')
-    } else if (cursor.table.active_desk === 'douglas') {
+    } else if (cursor.table.active_desk === 'bouleau') {
       criterias.push('P(AGLO)')
     }
   }
