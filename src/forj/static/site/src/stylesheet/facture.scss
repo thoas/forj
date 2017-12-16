@@ -1,0 +1,115 @@
+@media print {  
+  @page {
+    size: 210mm 297mm; /* landscape */
+    /* you can also specify margins here: */
+    margin: 10mm;
+    margin-right: 10mm; /* for compatibility with both A4 and Letter */
+  }
+
+  body.facture {
+      padding: 0;
+      max-width: none;
+  }
+
+  .cgv {
+      position: absolute
+  }
+
+
+}
+
+body.facture {
+
+    background-color: white;
+    padding: 60px;
+    box-sizing: border-box;
+    font-size: 1.2em;
+    line-height: 1.3em;
+    max-width: 940px;
+    margin: 0 auto;
+
+    header {
+        margin-bottom: 150px;
+        .text-content {
+            float: right;
+            text-align: right;
+            margin-top: 15px;
+            h2 {
+                font-family: "Avenir Black";
+                margin-bottom: 10px
+            }
+        }
+    }
+
+    h1 {
+        font-family: "Avenir Black";
+        margin-bottom: 10px;
+        font-size: 1.4em;
+    }
+
+    h3 {
+        font-family: "Avenir Black";
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+
+    .address {
+        display: inline-block;
+        margin-right: 60px;
+        h3 {
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+    }
+
+    table.main {
+        width: 100%;
+        margin-top: 60px;
+        border-bottom: 3px solid black;
+
+        td {
+            padding: 30px;
+            vertical-align: bottom;
+        }
+        
+        th {
+            padding: 30px;
+            font-family: "Avenir Black";
+            background: #f1f1f1 !important;
+            -webkit-print-color-adjust: exact;
+            color-adjust: exact;
+        }
+    }
+
+    table.price {
+        margin-left: auto;
+        margin-top: 40px;
+        border-bottom: 1px solid black;
+        padding: 10px 10px 10px 30px;
+        box-sizing: content-box;
+        margin-bottom: 300px;
+        text-align: right;
+
+        td {
+            padding: 20px 0 30px;
+            padding-left: 60px;
+            padding-right: 30px;
+            vertical-align: bottom;
+            font-family: "Avenir Black";
+        }
+        
+        th {
+            padding-right: 30px;
+            font-size: .8em;
+        }
+    }
+
+    .cgv {
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        font-size: .8em;
+        margin-bottom: 30px;
+    }
+
+}

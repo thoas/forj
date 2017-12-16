@@ -38,8 +38,6 @@ class BinaryLoader {
     oReq.open('GET', this.json, true)
     oReq.responseType = 'json'
     oReq.onload = function(e) {
-      console.log(oReq)
-
       defer.resolve(oReq.response)
     }
     oReq.send()

@@ -12,6 +12,10 @@
     font-size: 12px;
     border: 2px solid white;
 
+    &.button-link {
+      text-decoration: none
+    }
+
     &:after {
         content: "";
         display: block;
@@ -87,7 +91,7 @@
         }
 
         &:before {
-            background-image: url("../assets/images/arrow.svg");
+            background-image: url("/assets/images/arrow.svg");
             background-position: center;
             background-size: contain;
             background-repeat: no-repeat;

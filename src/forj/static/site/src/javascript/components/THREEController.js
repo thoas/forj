@@ -193,7 +193,7 @@ class THREEController {
       alpha: true
     })
 
-    // this.renderer.setPixelRatio(window.devicePixelRatio)
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     this.renderer.setSize(this.width, this.height)
 
     this.container.appendChild(this.renderer.domElement)

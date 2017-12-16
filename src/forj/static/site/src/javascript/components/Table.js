@@ -20,7 +20,7 @@ class Table {
     this.init()
     this.init_material()
     this.load_model()
-    // this.init_feets()
+    this.init_feets()
     // this.init_frame()
     // this.init_desk()
     this.init_floor()
@@ -85,7 +85,8 @@ class Table {
   load_model() {
     let meshes = new BinaryLoader(this.staticfiles.tableJson, this.staticfiles.tableBin).then(obj => {
       this.meshes = obj
-      console.log(this.meshes)
+      this.init_desk()
+      this.init_frame()
     })
   }
 
@@ -162,7 +163,7 @@ class Table {
       feet.userData.color = true
       pivot.add(feet)
 
-      let sub_frame_geom = new THREE.BoxBufferGeometry(5.5, 0.42, 0.5)
+      let sub_frame_geom = new THREE.BoxBufferGeometry(5, 0.4, 0.5)
       let sub_frame = new THREE.Mesh(sub_frame_geom, this.frame_material)
       sub_frame.position.y = 10.6
       sub_frame.userData.color = true
@@ -182,39 +183,26 @@ class Table {
   }
 
   init_frame() {
-    let frame_pos = [-1, -1, 1, -1, -1, 1, 1, 1]
+    let frame_geom = this.meshes[0]    
+    
+    let temp_frame = new THREE.Mesh(frame_geom, this.frame_material)
+    temp_frame.userData.color = true
+    // temp_frame.scale.set(.05, .05, .05)
+    temp_frame.scale.set(4.8, 4.8, 4.8)
+    temp_frame.position.y = 10
+    this.group_frame.add(temp_frame)
+    this.frame_parts.push(temp_frame)
+    this.load_frame_material(1)
 
-    let frame_geom = new THREE.BoxBufferGeometry(20.5, 0.2, 0.5)
-    let frame_geom_2 = new THREE.BoxBufferGeometry(16, 0.42, 0.1)
 
-    for (var i = 0; i < 4; i++) {
-      let pivot = new THREE.Object3D()
-      let temp_frame = new THREE.Mesh(frame_geom, this.frame_material)
-      let temp_frame_2 = new THREE.Mesh(frame_geom_2, this.frame_material)
-      pivot.position.x = frame_pos[i * 2] * 10
-      pivot.position.z = frame_pos[i * 2 + 1] * 10
-      pivot.position.y = 10
-      temp_frame.position.x = 10
-      temp_frame.userData.color = true
-      temp_frame_2.position.x = 10
-      temp_frame_2.position.y = 0.2
-      temp_frame_2.position.z = 0.25
-      temp_frame_2.userData.color = true
-      pivot.add(temp_frame)
-      pivot.add(temp_frame_2)
-      this.group_frame.add(pivot)
-      this.frame_parts.push(pivot)
-    }
-
-    this.frame_parts[1].rotation.y = -Math.PI / 2
-    this.frame_parts[2].rotation.y = Math.PI / 2
-    this.frame_parts[3].rotation.y = -Math.PI
+    
   }
 
   init_desk() {
-    let desk_geom = new THREE.BoxBufferGeometry(20.5, 0.6, 20.5)
+    let desk_geom = this.meshes[1]
     this.desk = new THREE.Mesh(desk_geom, this.desk_material)
     this.desk.position.y = 10.5
+    // this.desk.scale.set(.05, .05, .05)
     this.load_desk_material(1)
 
     this.scene.add(this.desk)
@@ -232,23 +220,24 @@ class Table {
   }
 
   resize() {
-    this.width = 100
-    this.height = 100
+    // this.width = 100
+    // this.height = 100
 
-    // this.group_frame.scale.y = this.height / 100
-    // this.group_feets.scale.y = this.height / 100
+    this.group_frame.scale.y = this.height / 100
+    this.group_feets.scale.y = this.height / 100
 
-    // this.group_frame.scale.x = this.width / 100
-    // this.group_frame.scale.z = this.depth / 100
+    this.group_frame.scale.x = this.width / 100
+    this.group_frame.scale.z = this.depth / 100
 
-    // for (var i = 0; i < 4; i++) {
-    //   this.feets[i].position.x = this.feets_pos[i * 2] * 10 * this.width / 100
-    //   this.feets[i].position.z = this.feets_pos[i * 2 + 1] * 10 * this.depth / 100
-    // }
+    for (var i = 0; i < 4; i++) {
+      this.feets[i].position.x = this.feets_pos[i * 2] * 10 * this.width / 100
+      this.feets[i].position.z = this.feets_pos[i * 2 + 1] * 10 * this.depth / 100
+    }
 
-    // this.desk.position.y = 10 * this.height / 100 + 0.7
-    // this.desk.scale.x = this.width / 100
-    // this.desk.scale.z = this.depth / 100
+    this.desk.position.y = 10 * this.height / 100 + 0.75
+    this.desk.scale.x = (this.width / 100) * 4.8
+    this.desk.scale.z = (this.depth / 100) * 4.8
+    this.desk.scale.y = 7
   }
 
   change_material(mat) {

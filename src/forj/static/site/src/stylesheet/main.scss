@@ -46,4 +46,17 @@
 @import "./components/success/layout.scss";
 
 // Invoice
-@import "./invoice.scss"
+@import "./invoice.scss";
+
+
+header .header-link {
+    padding: 16px 20px 12px 20px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: "Avenir Black";
+    font-size: 12px;
+    vertical-align: top;
+    color: white;
+}
