@@ -10,8 +10,8 @@
     <nav>
         <a href="{{ url("home") }}" class="logo">Forj</a>
         <ul>
-            <li><a class="link{% if section == "home" %} active{% endif %}" href="{{ url("home") }}">Table sur-mesure</a></li>
-            <li><a class="link{% if section == "collection" %} active{% endif %}" href="{{ url("collection") }}">Collection</a></li>
+            {# <li><a class="link{% if section == "home" %} active{% endif %}" href="{{ url("home") }}">Table sur-mesure</a></li> #}
+            {# <li><a class="link{% if section == "collection" %} active{% endif %}" href="{{ url("collection") }}">Collection</a></li> #}
             <li>
                 <a class="button disabled checkout" href="{{ url("checkout") }}">
                     Panier <span id="items-numbers" class="cart-counter">({{ cart.total_quantity }})</span>
