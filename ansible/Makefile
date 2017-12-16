@@ -8,7 +8,7 @@ setup-frontend:
 	ansible-playbook -u root -i inventories/hosts.ini playbooks/frontend.yml
 
 deploy:
-	ansible-playbook -u root -i inventories/hosts.ini playbooks/deploy.yml
+	ansible-playbook -u root -i inventories/hosts.ini playbooks/deploy.yml -v
 
 rollback:
-	ansible-playbook -u root -i inventories/hosts.ini playbooks/rollback.yml
+	ansible-playbook -u root -i inventories/hosts.ini playbooks/rollback.yml -v
