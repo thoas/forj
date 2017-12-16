@@ -19,11 +19,17 @@ server {
     }
 
     location /media {
-        root /var/www/forj/shared/media;
+        root /var/www/forj/shared;
+        gzip_static on;
+        expires max;
+        add_header Cache-Control public;
     }
 
     location /static {
-        root /var/www/forj/shared/static;
+        root /var/www/forj/shared;
+        gzip_static on;
+        expires max;
+        add_header Cache-Control public;
     }
 }
 
@@ -73,10 +79,16 @@ server {
 
     location /media {
         root /var/www/forj/shared;
+        gzip_static on;
+        expires max;
+        add_header Cache-Control public;
     }
 
     location /static {
         root /var/www/forj/shared;
+        gzip_static on;
+        expires max;
+        add_header Cache-Control public;
     }
 }
 {% endif %}

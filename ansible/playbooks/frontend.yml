@@ -1,6 +1,5 @@
 - hosts: front
   roles:
-    - iptables
     - jdauphant.nginx
     # - letsencrypt
     - forj

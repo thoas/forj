@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest, JsonResponse
@@ -10,6 +12,9 @@ from django.utils.functional import cached_property
 from django.urls import NoReverseMatch
 from django.views.generic.edit import FormMixin
 from django.contrib import messages
+from django.utils.module_loading import import_string
+from django.contrib.humanize.templatetags.humanize import naturaltime
+from django.utils import timezone
 
 from forj.web.frontend.forms import RegistrationForm, PaymentForm
 from forj.models import Order
@@ -18,6 +23,50 @@ from forj import exceptions
 from forj.encoders import JSONEncoder
 from forj.payment.exceptions import CardError, PaymentError
 from forj.payment import backend
+
+
+headers = (
+    'HTTP_HOST',
+    'REMOTE_ADDR',
+    'HTTP_X_FORWARDED_FOR',
+    'HTTP_X_FORWARDED_PROTO',
+    'HTTP_X_FORWARDED_PROTOCOL',
+    'HTTP_ACCEPT_LANGUAGE',
+    'QUERY_STRING',
+    'X-Real-Ip',
+)
+
+
+@csrf_exempt
+def healthcheck(request):
+    user = getattr(request, 'user', None)
+
+    results = {header: request.META.get(header) for header in headers}
+
+    results['GET'] = request.GET
+    results['POST'] = request.POST
+    results['USER'] = '{}'.format(user or '')
+    results['HOST'] = request.get_host()
+    results['IS_SECURE'] = request.is_secure()
+    results['IS_AJAX'] = request.is_ajax()
+
+    release_tag = getattr(settings, 'RELEASE_TAG', None)
+
+    version = getattr(settings, 'PROJECT_VERSION', None)
+
+    uptime = getattr(settings, 'PROJECT_UPTIME', None)
+
+    if version is not None and '.' in version:
+        version = import_string(version)
+
+    results['sha'] = release_tag
+    results['tznow'] = timezone.now()
+    results['now'] = datetime.now()
+    results['version'] = version
+    results['uptime'] = uptime
+    results['uptime_since'] = naturaltime(uptime)
+
+    return JsonResponse(results)
 
 
 def home(request, template_name='forj/home.html', **extra_context):
