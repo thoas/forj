@@ -162,7 +162,7 @@ class Cart(object):
 
                 order_item = OrderItem(order=order,
                                        quantity=quantity,
-                                       amount=quantity * product.price,
+                                       amount=quantity * product.get_price(ref),
                                        product_reference=ref,
                                        shipping_cost=shipping_cost,
                                        tax_cost=tax_cost,
