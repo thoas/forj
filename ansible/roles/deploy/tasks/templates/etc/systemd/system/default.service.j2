@@ -7,8 +7,8 @@ PIDFile=/var/www/forj/forj-web.pid
 User=www-data
 Group=www-data
 
-{% if forj is defined %}
-{% for env in forj.environments|default([]) %}
+{% if deploy is defined %}
+{% for env in deploy.environments|default([]) %}
 Environment="{{ env }}"
 {% endfor %}
 {% endif %}

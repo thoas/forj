@@ -1,3 +1,10 @@
+- name: Configure forj environment
+  template:
+    src: "var/www/forj/.env.j2"
+    dest: "/var/www/forj/.env"
+    owner: "www-data"
+    group: "www-data"
+
 - name: Configure systemd service
   template:
     src: etc/systemd/system/default.service.j2

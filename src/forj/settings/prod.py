@@ -1,4 +1,9 @@
+import dotenv
+import os
+
 from .base import *  # noqa
+
+dotenv.read_dotenv('/var/www/forj/.env')
 
 DEBUG = False
 
