@@ -8,6 +8,13 @@
 
         <title>Forj | {% block title %}{% endblock %}</title>
 
+        <link rel="apple-touch-icon" href="{{ static("site/build/assets/images/prod/apple_114_114.png") }}" />
+        <link rel="apple-touch-icon-precomposed" href="{{ static("site/build/assets/images/prod/apple_114_114.png") }}" />
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ static("site/build/assets/images/prod/apple_114_114.png") }}" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ static("site/build/assets/images/prod/apple_114_114.png") }}" />
+
+        <link rel="icon" type="image/gif" href="{{ static("site/build/assets/images/prod/favicon.ico") }}" />
+
         {% block extend_css %}
             <link rel="stylesheet" href="{{ static("site/build/stylesheet/main.css") }}">
         {% endblock %}
