@@ -1,0 +1,4 @@
+- name: Reload forj
+  hosts: front
+  roles:
+    - deploy

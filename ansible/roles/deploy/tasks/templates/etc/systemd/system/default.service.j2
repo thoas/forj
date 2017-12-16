@@ -13,10 +13,10 @@ Environment="{{ env }}"
 {% endfor %}
 {% endif %}
 
-WorkingDirectory={{ ansistrano_deploy_to }}/current/
+WorkingDirectory={{ deploy.root_path }}/current/
 ExecReload=/bin/kill -HUP $MAINPID
-ExecStart={{ ansistrano_deploy_to }}/current/.env/bin/gunicorn \
-          --chdir={{ ansistrano_deploy_to }}/current/ \
+ExecStart={{ deploy.root_path }}/current/.env/bin/gunicorn \
+          --chdir={{ deploy.root_path }}/current/ \
           --pid /var/www/forj/forj-web.pid \
           --bind unix:/var/www/forj/forj-web.sock \
           -w 3 \

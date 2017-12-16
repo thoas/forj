@@ -9,3 +9,6 @@ pyenv:
   python_version: "3.6.3"
 
 nodejs_version: "8.x"
+
+deploy:
+  root_path: "/var/www/forj"
