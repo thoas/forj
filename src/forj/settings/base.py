@@ -2,6 +2,8 @@ import os
 import jinja2
 import django
 
+from datetime import datetime
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 path = lambda *a: os.path.join(BASE_DIR, *a)  # noqa
 DEPENDENCY_PATH = os.path.join(os.path.dirname(jinja2.__file__), os.pardir)
@@ -51,6 +53,9 @@ MIDDLEWARE = [
     'forj.middleware.MinifyHTMLMiddleware',
     'forj.middleware.SetRemoteAddrFromForwardedFor',
 ]
+
+PROJECT_VERSION = 'forj.__version__'
+PROJECT_UPTIME = datetime.now()
 
 ROOT_HOSTCONF = 'forj.hosts'
 DEFAULT_HOST = 'www'
