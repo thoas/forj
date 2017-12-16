@@ -16,6 +16,7 @@
         {% csrf_token %}
 
         <h1>Mes informations</h1>
+        <p style="margin-bottom: 10px">Si vous avez des questions, appelez nous au {{ FORJ_PHONE_NUMBER }}</p>
         <h2>(tous les champs sont obligatoires)</h2>
 
         {{ form.forms.shipping_address.type }}
