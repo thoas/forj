@@ -61,16 +61,16 @@ PROJECT_UPTIME = datetime.now()
 ROOT_HOSTCONF = 'forj.hosts'
 DEFAULT_HOST = 'www'
 DEFAULT_SCHEME = 'http'
-PARENT_HOST = 'local.forj.com:8181'
+PARENT_HOST = 'local.forj.shop:8181'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 SESSION_COOKIE_NAME = 'fj_session'
-SESSION_COOKIE_DOMAIN = '.forj.com'
+SESSION_COOKIE_DOMAIN = '.forj.shop'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-CSRF_COOKIE_DOMAIN = '.forj.com'
+CSRF_COOKIE_DOMAIN = '.forj.shop'
 
-DEFAULT_FROM_EMAIL = 'contact@forj.com'
+DEFAULT_FROM_EMAIL = 'forj.info@gmail.com'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 ROOT_URLCONF = 'forj.web.frontend.urls'
