@@ -18,6 +18,7 @@ class MinifyHTMLMiddleware:
                 response['Content-Length'] = str(len(response.content))
             except DjangoUnicodeDecodeError:
                 pass
+
         return response
 
 
@@ -52,7 +53,7 @@ class SetRemoteAddrFromForwardedFor(object):
                    request.META['HTTP_X_FORWARDED_FOR'].split(',')]
             ips = [ip for ip in xff if is_valid(ip)]
         else:
-            return
+            return self.get_response(request)
 
         ips.append(request.META['REMOTE_ADDR'])
 
