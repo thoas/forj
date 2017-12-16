@@ -18,6 +18,9 @@
     requirements: "{{ ansistrano_release_path.stdout }}/requirements.txt"
     virtualenv: "{{ virtualenv_path }}"
 
+- name: Build transations
+  command: "{{ virtualenv_bin_path }}/django-admin.py compilemessages chdir={{ ansistrano_release_path.stdout }}/src/forj"
+
 - name: Build static files
   command: "{{ virtualenv_bin_path }}/python manage.py collectstatic --noinput -i *.scss --traceback chdir={{ ansistrano_release_path.stdout }}"
 

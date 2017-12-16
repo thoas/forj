@@ -42,6 +42,7 @@
     - ngrep
     - tree
     - rsync
+    - gettext
 
 - name: add backport packages
   apt:
