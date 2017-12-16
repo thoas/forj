@@ -15,6 +15,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '.forj.com',
+    '.forj.shop',
 ]
 
 AUTH_USER_MODEL = 'forj.User'

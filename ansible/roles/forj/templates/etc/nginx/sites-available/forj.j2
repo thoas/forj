@@ -4,7 +4,7 @@ upstream forj {
 
 server {
     listen 80;
-    server_name www.forj.com admin.forj.com;
+    server_name www.forj.com admin.forj.com www.forj.shop admin.forj.shop;
 
     access_log  /var/log/nginx/forj.com.access.log;
     error_log   /var/log/nginx/forj.com.error.log;
@@ -38,7 +38,7 @@ server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    server_name www.forj.com;
+    server_name www.forj.com www.forj.shop;
 
     ssl_certificate /etc/nginx/ssl/forj.com.crt;
     ssl_certificate_key /etc/nginx/ssl/forj.com.key;
