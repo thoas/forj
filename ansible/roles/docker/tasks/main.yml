@@ -1,5 +1,0 @@
-- import_tasks: setup.yml
-  tags:
-    - docker
-    - setup
-    - docker-setup

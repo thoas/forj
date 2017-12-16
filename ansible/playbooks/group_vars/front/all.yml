@@ -2,3 +2,20 @@ nginx_user: "www-data"
 letsencrypt:
   domains:
     - www.forj.com
+
+pyenv:
+  path: "/var/www/pyenv"
+  owner: "www-data"
+  python_version: "3.6.3"
+
+nodejs_version: "8.x"
+
+iptables:
+  hosts:
+    - 91.103.136.242
+    - 54.77.188.116
+  private_ports:
+    - 22
+  public_ports:
+    - 80
+    - 443

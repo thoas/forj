@@ -1,4 +1,0 @@
-- name: reload docker
-  systemd:
-    name: "docker"
-    state: reloaded

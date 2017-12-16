@@ -1,0 +1,5 @@
+- import_tasks: conf.yml
+  tags:
+    - iptables
+    - conf
+    - iptables-conf

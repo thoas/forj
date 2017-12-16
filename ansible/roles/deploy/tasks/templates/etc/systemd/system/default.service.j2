@@ -1,0 +1,28 @@
+[Unit]
+Description=Forj webserver
+After=syslog.target network.target
+
+[Service]
+PIDFile=/var/www/forj/forj-web.pid
+User=www-data
+Group=www-data
+
+{% if forj is defined %}
+{% for env in forj.environments|default([]) %}
+Environment="{{ env }}"
+{% endfor %}
+{% endif %}
+
+WorkingDirectory={{ ansistrano_deploy_to }}/current/
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStart={{ ansistrano_deploy_to }}/current/.env/bin/gunicorn \
+          --chdir={{ ansistrano_deploy_to }}/current/ \
+          --pid /var/www/forj/forj-web.pid \
+          --bind unix:/var/www/forj/forj-web.sock \
+          -w 3 \
+          -b 127.0.0.1:8000 wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target

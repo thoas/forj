@@ -9,8 +9,3 @@ users:
     home: /root
     authorized_keys:
       - thoas.pub
-
-pyenv:
-  path: "/var/www/pyenv"
-  owner: "www-data"
-  python_version: "3.6.3"

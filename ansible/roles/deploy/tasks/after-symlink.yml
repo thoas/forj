@@ -1,0 +1,8 @@
+- name: Restart systemd service
+  systemd:
+    name: "forj-web"
+    state: restarted
+    daemon_reload: yes
+    enabled: true
+  become_user: root
+  become: true
