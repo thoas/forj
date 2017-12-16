@@ -2,6 +2,13 @@ upstream forj {
     server 127.0.0.1:8000 fail_timeout=10s;
 }
 
+# forj.shop -> www.forj.shop
+server {
+    listen 80;
+    server_name forj.shop forj.com;
+    return 301 http://www.forj.shop$request_uri;
+}
+
 server {
     listen 80;
     server_name www.forj.com admin.forj.com www.forj.shop admin.forj.shop;
