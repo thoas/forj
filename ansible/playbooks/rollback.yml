@@ -1,0 +1,6 @@
+- name: Rollback forj
+  hosts: all
+  vars:
+    ansistrano_deploy_to: "/var/www/forj"
+  roles:
+    - { role: carlosbuenosvinos.ansistrano-rollback }

@@ -44,12 +44,12 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.middleware.http.SetRemoteAddrFromForwardedFor',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_hosts.middleware.HostsResponseMiddleware',
     'forj.middleware.MinifyHTMLMiddleware',
+    'forj.middleware.SetRemoteAddrFromForwardedFor',
 ]
 
 ROOT_HOSTCONF = 'forj.hosts'
