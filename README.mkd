@@ -11,8 +11,8 @@ forj is the personal project of Michel Berard.
 Add this lines in your ``/etc/hosts``
 
 ```
-127.0.0.1       www.local.forj.com
-127.0.0.1       admin.local.forj.com
+127.0.0.1       www.local.forj.shop
+127.0.0.1       admin.local.forj.shop
 ```
 
 ## Requirements
@@ -87,7 +87,7 @@ make run-server
 
 Remember to always source the virtualenv before launching the webserver.
 
-open [http://www.local.forj.com:8181/](http://www.local.forj.com:8181/) on your browser.
+open [http://www.local.forj.shop:8181/](http://www.local.forj.shop:8181/) on your browser.
 
 
 ## Manage static dependencies
