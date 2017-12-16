@@ -22,6 +22,7 @@ SQLAlchemy==1.1.15
 django-countries==5.0
 django-hosts==3.0
 raven==6.4.0
+Babel==2.5.1
 
 django==2.0
 

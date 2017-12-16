@@ -1,6 +1,12 @@
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 BUILD_DIR = $(ROOT_DIR)/src/forj/static/site/build
 
+build-translations:
+	cd src/forj && pybabel extract -F babel.cfg -o locale/en/LC_MESSAGES/django.po .
+
+compile-translations:
+	cd src/forj && django-admin.py compilemessages
+
 outdated:
 	pip list -o --format=columns
 
