@@ -1,1 +1,189 @@
-[{"model": "forj.product", "pk": 4, "fields": {"created_at": "2017-12-12T19:35:08.356Z", "updated_at": "2017-12-12T20:05:50.378Z", "name": "BANC AVEC PLATEAU", "reference": "T(BANC)-LA(28)-LO(25/175)-P(BRUT|AGLO|ACIEREXT|ACIER)-H(45)-R(?)", "description": "", "price": 25000, "formula": null, "condition": null, "currency": "EUR", "shipping_cost": 0, "tax_cost": 0}}, {"model": "forj.product", "pk": 5, "fields": {"created_at": "2017-12-12T20:05:41.056Z", "updated_at": "2017-12-12T20:23:51.130Z", "name": "BANC SANS PLATEAU", "reference": "T(BANC)-LA(28)-LO(25/175)-H(45)-R(?)", "description": "", "price": 25000, "formula": "", "condition": null, "currency": "EUR", "shipping_cost": 0, "tax_cost": 0}}, {"model": "forj.product", "pk": 7, "fields": {"created_at": "2017-12-12T20:27:32.394Z", "updated_at": "2017-12-14T08:36:02.518Z", "name": "AGLO <= 1m2", "reference": "LA(25/120)-LO(25/200)-P(AGLO)-H(40/120)-R(?)", "description": "", "price": 70500, "formula": "", "condition": "LA * LO <= 10000", "currency": "EUR", "shipping_cost": 0, "tax_cost": 0}}, {"model": "forj.product", "pk": 9, "fields": {"created_at": "2017-12-12T20:28:54.454Z", "updated_at": "2017-12-14T08:35:51.101Z", "name": "BRUT<=1m2", "reference": "LA(25/120)-LO(25/200)-P(BRUT)-H(40/120)-R(?)", "description": "", "price": 90150, "formula": "", "condition": "LA * LO <= 10000", "currency": "EUR", "shipping_cost": 0, "tax_cost": 0}}, {"model": "forj.product", "pk": 12, "fields": {"created_at": "2017-12-12T20:30:33.678Z", "updated_at": "2017-12-14T08:35:39.617Z", "name": "ACIEREXT <= 1m2", "reference": "LA(25/120)-LO(25/200)-P(ACIEREXT)-H(40/120)-R(?)", "description": "", "price": 124500, "formula": "", "condition": "LA * LO <= 10000", "currency": "EUR", "shipping_cost": 0, "tax_cost": 0}}, {"model": "forj.product", "pk": 14, "fields": {"created_at": "2017-12-12T20:33:47.401Z", "updated_at": "2017-12-14T08:35:27.774Z", "name": "SANS PLATEAU <=1m2", "reference": "LA(25/120)-LO(25/200)-H(40/120)-R(?)", "description": "", "price": 54300, "formula": "", "condition": "LA * LO <= 10000", "currency": "EUR", "shipping_cost": 0, "tax_cost": 0}}, {"model": "forj.product", "pk": 15, "fields": {"created_at": "2017-12-12T20:38:44.036Z", "updated_at": "2017-12-14T08:36:15.149Z", "name": "ACIER <= 1m2", "reference": "LA(25/120)-LO(25/200)-P(ACIER)-H(40/120)-R(?)", "description": "", "price": 70500, "formula": "", "condition": "LA * LO <= 10000", "currency": "EUR", "shipping_cost": 0, "tax_cost": 0}}, {"model": "forj.product", "pk": 18, "fields": {"created_at": "2017-12-13T20:38:49.448Z", "updated_at": "2017-12-14T08:34:19.143Z", "name": "AGLO > 1m2", "reference": "LA(25/120)-LO(25/200)-P(AGLO)-H(40/120)-R(?)", "description": "", "price": null, "formula": "(LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*60)*100*1.5", "condition": "LA * LO > 10000", "currency": "EUR", "shipping_cost": 0, "tax_cost": 0}}, {"model": "forj.product", "pk": 19, "fields": {"created_at": "2017-12-13T22:31:26.580Z", "updated_at": "2017-12-14T08:34:01.466Z", "name": "ACIER > 1m2", "reference": "LA(25/120)-LO(25/200)-P(ACIER)-H(40/120)-R(?)", "description": "", "price": null, "formula": "(LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*60)*100*1.5", "condition": "LA * LO > 10000", "currency": "EUR", "shipping_cost": 0, "tax_cost": 0}}, {"model": "forj.product", "pk": 20, "fields": {"created_at": "2017-12-13T22:31:57.004Z", "updated_at": "2017-12-14T08:33:47.267Z", "name": "BRUT > 1m2", "reference": "LA(25/120)-LO(25/200)-P(BRUT)-H(40/120)-R(?)", "description": "", "price": null, "formula": "(LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*133)*100*1.5", "condition": "LA * LO > 10000", "currency": "EUR", "shipping_cost": 0, "tax_cost": 0}}, {"model": "forj.product", "pk": 21, "fields": {"created_at": "2017-12-13T22:32:25.956Z", "updated_at": "2017-12-14T08:32:40.222Z", "name": "ACIEREXT > 1m2", "reference": "LA(25/120)-LO(25/200)-P(ACIEREXT)-H(40/120)-R(?)", "description": "", "price": null, "formula": "(LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*60+250)*100*1.5", "condition": "LA * LO > 10000", "currency": "EUR", "shipping_cost": 0, "tax_cost": 0}}]
+[
+  {
+    "model": "forj.product",
+    "pk": 4,
+    "fields": {
+      "created_at": "2017-12-12T19:35:08.356Z",
+      "updated_at": "2017-12-12T20:05:50.378Z",
+      "name": "BANC AVEC PLATEAU",
+      "reference": "T(BANC)-LA(28)-LO(25/175)-P(BRUT|AGLO|ACIEREXT|ACIER)-H(45)-R(?)",
+      "description": "",
+      "price": 25000,
+      "formula": null,
+      "condition": null,
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 5,
+    "fields": {
+      "created_at": "2017-12-12T20:05:41.056Z",
+      "updated_at": "2017-12-12T20:23:51.130Z",
+      "name": "BANC SANS PLATEAU",
+      "reference": "T(BANC)-LA(28)-LO(25/175)-H(45)-R(?)",
+      "description": "",
+      "price": 25000,
+      "formula": "",
+      "condition": null,
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 7,
+    "fields": {
+      "created_at": "2017-12-12T20:27:32.394Z",
+      "updated_at": "2017-12-15T10:29:27.182Z",
+      "name": "AGLO <= 1m2",
+      "reference": "LA(25/120)-LO(25/200)-P(AGLO)-H(40/120)-R(?)",
+      "description": "",
+      "price": 57600,
+      "formula": "",
+      "condition": "LA * LO <= 10000",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 9,
+    "fields": {
+      "created_at": "2017-12-12T20:28:54.454Z",
+      "updated_at": "2017-12-15T10:30:05.410Z",
+      "name": "BRUT<=1m2",
+      "reference": "LA(25/120)-LO(25/200)-P(BRUT)-H(40/120)-R(?)",
+      "description": "",
+      "price": 70200,
+      "formula": "",
+      "condition": "LA * LO <= 10000",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 12,
+    "fields": {
+      "created_at": "2017-12-12T20:30:33.678Z",
+      "updated_at": "2017-12-15T10:30:16.137Z",
+      "name": "ACIEREXT <= 1m2",
+      "reference": "LA(25/120)-LO(25/200)-P(ACIEREXT)-H(40/120)-R(?)",
+      "description": "",
+      "price": 83000,
+      "formula": "",
+      "condition": "LA * LO <= 10000",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 14,
+    "fields": {
+      "created_at": "2017-12-12T20:33:47.401Z",
+      "updated_at": "2017-12-15T10:30:34.335Z",
+      "name": "SANS PLATEAU <=1m2",
+      "reference": "LA(25/120)-LO(25/200)-H(40/120)-R(?)",
+      "description": "",
+      "price": 36200,
+      "formula": "",
+      "condition": "LA * LO <= 10000",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 15,
+    "fields": {
+      "created_at": "2017-12-12T20:38:44.036Z",
+      "updated_at": "2017-12-15T10:29:50.691Z",
+      "name": "ACIER <= 1m2",
+      "reference": "LA(25/120)-LO(25/200)-P(ACIER)-H(40/120)-R(?)",
+      "description": "",
+      "price": 57600,
+      "formula": "",
+      "condition": "LA * LO <= 10000",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 18,
+    "fields": {
+      "created_at": "2017-12-13T20:38:49.448Z",
+      "updated_at": "2017-12-15T10:28:15.202Z",
+      "name": "AGLO > 1m2",
+      "reference": "LA(25/120)-LO(25/200)-P(AGLO)-H(40/120)-R(?)",
+      "description": "",
+      "price": null,
+      "formula": "((LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*60)*100*1.5)*1.2",
+      "condition": "LA * LO > 10000",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 19,
+    "fields": {
+      "created_at": "2017-12-13T22:31:26.580Z",
+      "updated_at": "2017-12-15T10:28:29.523Z",
+      "name": "ACIER > 1m2",
+      "reference": "LA(25/120)-LO(25/200)-P(ACIER)-H(40/120)-R(?)",
+      "description": "",
+      "price": null,
+      "formula": "((LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*60)*100*1.5)*1.2",
+      "condition": "LA * LO > 10000",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 20,
+    "fields": {
+      "created_at": "2017-12-13T22:31:57.004Z",
+      "updated_at": "2017-12-15T10:28:42.365Z",
+      "name": "BRUT > 1m2",
+      "reference": "LA(25/120)-LO(25/200)-P(BRUT)-H(40/120)-R(?)",
+      "description": "",
+      "price": null,
+      "formula": "((LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*133)*100*1.5)*1.2",
+      "condition": "LA * LO > 10000",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  },
+  {
+    "model": "forj.product",
+    "pk": 21,
+    "fields": {
+      "created_at": "2017-12-13T22:32:25.956Z",
+      "updated_at": "2017-12-15T10:28:55.411Z",
+      "name": "ACIEREXT > 1m2",
+      "reference": "LA(25/120)-LO(25/200)-P(ACIEREXT)-H(40/120)-R(?)",
+      "description": "",
+      "price": null,
+      "formula": "((LA/100*LO/100*120+LA/100*LO/100*40+LA/100*LO/100*40+42+LA/100*LO/100*60+250)*100*1.5)*1.2",
+      "condition": "LA * LO > 10000",
+      "currency": "EUR",
+      "shipping_cost": 0,
+      "tax_cost": 0
+    }
+  }
+]
