@@ -234,10 +234,12 @@ class Table {
       this.feets[i].position.z = this.feets_pos[i * 2 + 1] * 10 * this.depth / 100
     }
 
-    this.desk.position.y = 10 * this.height / 100 + 0.75
-    this.desk.scale.x = (this.width / 100) * 4.8
-    this.desk.scale.z = (this.depth / 100) * 4.8
-    this.desk.scale.y = 7
+    if (this.desk != undefined) {
+      this.desk.position.y = 10 * this.height / 100 + 0.75
+      this.desk.scale.x = (this.width / 100) * 4.8
+      this.desk.scale.z = (this.depth / 100) * 4.8
+      this.desk.scale.y = 7
+    }
   }
 
   change_material(mat) {
