@@ -1,11 +1,16 @@
 {% extends "forj/checkout/success.html" %}
 
-{% block title %}A propos, nous contacter{% endblock %}
+{% block title %}A propos de Forj, créateur de tables sur mesure{% endblock %}
 
 {% block success_content %}
-    <h1>A propos, nous contacter</h1>
+    <h1>A propos de Forj, créateur de tables sur mesure</h1>
     <p>
-        Vous avez une question, une demande plus spécifique ?
-        <br />
+        Crédits :
+        Développement Front :  <a href="http://www.dorianlods.fr/">Dorian Lods</a><br/>
+        Développement Back : <a href="https://www.linkedin.com/in/fmessa/">Florent Messa</a><br/>
+        Photographies : <a href="http://www.numeart.fr/">Tanguy Dupont</a><br/>
+        Direction Artistique : <a href="https://www.linkedin.com/in/benoît-séverin-deshayes-39032625">Benoît-Séverin Deshayes</a><br/>
+        Conception : Jean-Charles Deshayes & Benoît-Séverin Deshayes<br/>
+        
         Laissez-nous vos coordonnées <a href="mailto:{{ FORJ_CONTACT_EMAIL }}">{{ FORJ_CONTACT_EMAIL }}</a> ou nous appeler au : {{ FORJ_PHONE_NUMBER }} (7 jours sur 7 de 9h00 à 18h) et dites-nous tout, nous vous recontacterons dans les plus brefs délais.</p>
 {% endblock %}
