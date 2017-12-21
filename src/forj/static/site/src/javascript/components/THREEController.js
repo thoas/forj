@@ -186,7 +186,9 @@ class THREEController {
   }
 
   init_environement() {
-    this.scene.fog = new THREE.FogExp2(0xf6f8f9, 0.005)
+    // this.scene.fog = new THREE.FogExp2(0xfff2cc, 0.005)
+    // this.scene.fog = new THREE.FogExp2(0xf6f8f9, 0.005)
+    this.scene.fog = new THREE.FogExp2(0xf3f7fa, 0.0035)
 
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,

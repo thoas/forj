@@ -129,7 +129,8 @@ section.module {
       left: 0;
       width: calc(100% - 400px);
       height: 100%;
-      background-color: darken($light-grey, 4);
+    //   background-color: darken($light-grey, 4);
+      background-color: #f3f7fa;
       border-right: 1px solid $grey;
       border-bottom: 1px solid $grey;
       overflow: hidden;

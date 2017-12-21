@@ -46,7 +46,7 @@ class Table {
         opacity: 1
       },
       chene: {
-        reflectivity: 0.07,
+        reflectivity: 0.01,
         tex: 'chene_tex',
         opacity: 1
       },
@@ -92,7 +92,8 @@ class Table {
 
   init_material() {
     this.floor_material = new THREE.MeshPhongMaterial({
-      color: '#FFFFFF'
+      color: '#e2e6e9',
+      // color: '#fed147'
     })
 
     this.shadow_material = new THREE.MeshBasicMaterial({
@@ -163,14 +164,17 @@ class Table {
       feet.userData.color = true
       pivot.add(feet)
 
-      let sub_frame_geom = new THREE.BoxBufferGeometry(5, 0.4, 0.5)
+      // let sub_frame_geom = new THREE.BoxBufferGeometry(5, 0.4, 0.5)
+      let sub_frame_geom = new THREE.CylinderBufferGeometry(1.85, 1.85, 0.3, 3)
       let sub_frame = new THREE.Mesh(sub_frame_geom, this.frame_material)
       sub_frame.position.y = 10.6
+      sub_frame.rotation.y = Math.PI
+      sub_frame.scale.x = 1.66
       sub_frame.userData.color = true
       pivot.add(sub_frame)
 
-      pivot.position.x = this.feets_pos[i * 2] * 10
-      pivot.position.z = this.feets_pos[i * 2 + 1] * 10
+      pivot.position.x = this.feets_pos[i * 2] * 11
+      pivot.position.z = this.feets_pos[i * 2 + 1] * 11
       feet.position.y = 5
       pivot.lookAt(new THREE.Vector3(0, -4, 0))
 
