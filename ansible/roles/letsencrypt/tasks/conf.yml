@@ -1,0 +1,50 @@
+- name: add nginx configuration
+  template:
+    src: "etc/nginx/sites-available/letsencrypt.j2"
+    dest: "/etc/nginx/sites-available/letsencrypt"
+
+- name: link nginx configuration
+  file:
+    src: "/etc/nginx/sites-available/letsencrypt"
+    dest: "/etc/nginx/sites-enabled/letsencrypt"
+    state: link
+  notify: reload nginx
+
+- name: configure script
+  template:
+    src: "certbot.sh.j2"
+    dest: "/tmp/certbot.sh"
+    mode: 0755
+  when: not do_renew
+
+- name: save firewall rules
+  shell: iptables-save > /etc/iptables.rules
+
+- name: disable firewall
+  shell: iptables -F && iptables -X
+
+- name: generate new certificates
+  shell: bash /tmp/certbot.sh
+  when: not do_renew
+
+- name: renew certificates
+  shell: certbot renew
+  when: do_renew
+
+- name: restore firewall
+  shell: iptables-restore < /etc/iptables.rules
+
+- name: symlink certificates
+  file:
+    src: "/etc/letsencrypt/live/{{ letsencrypt.domains[0] }}/{{ item }}"
+    dest: "/etc/letsencrypt/live/{{ item }}"
+    state: link
+  with_items:
+    - fullchain.pem
+    - privkey.pem
+  when: not do_renew
+
+- name: reload nginx
+  systemd:
+    name: "nginx"
+    state: reloaded

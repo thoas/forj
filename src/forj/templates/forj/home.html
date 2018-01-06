@@ -10,8 +10,8 @@
     <nav>
         <a href="{{ url("home") }}" class="logo">Forj</a>
         <ul>
-            <li><a class="link{% if section == "home" %} active{% endif %}" href="{{ url("home") }}">Table sur-mesure</a></li>
-            <li><a class="link{% if section == "collection" %} active{% endif %}" href="{{ url("collection") }}">Collection</a></li>
+            {# <li><a class="link{% if section == "home" %} active{% endif %}" href="{{ url("home") }}">Table sur-mesure</a></li> #}
+            {# <li><a class="link{% if section == "collection" %} active{% endif %}" href="{{ url("collection") }}">Collection</a></li> #}
             <li>
                 <a class="button disabled checkout" href="{{ url("checkout") }}">
                     Panier <span id="items-numbers" class="cart-counter">({{ cart.total_quantity }})</span>
@@ -33,8 +33,8 @@
     <header class="slider">
         {% block header %}
             <div class="wrapper">
-                <h1>Forges, 4 pieds et 1 cadre entièrement modulables</h1>
-                <p>Nous construisons la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
+                <h1>Forj, 4 pieds et 1 cadre entièrement sur-mesure</h1>
+                <p>Fabriqué en région Parisienne, nous créons des tables ou des assises aux dimensions et matières de votre choix.</p>
                 <div class="buttons-wrapper">
                     <span class="button inverted scroll-to">Construire ma table</span>
                     <a href="{{ url('about') }}" class="header-link">En savoir plus</a>
@@ -48,22 +48,26 @@
                 <div class="button arrow left"><span></span></div>
                 <ul>
                     <li class="text-slider active">
-                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                        <p>Table basse gris foncé en contre plaqué chêne à partir de 640€</p>
                     </li>
                     <li class="text-slider">
-                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                        <p>Table de cuisine blanche en contre plaqué chêne à partir de 820€</p>
                     </li>
                     <li class="text-slider">
-                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                        <p>Table d'extérieur en traitement époxy à partir de 1300€</p>
+                    </li>
+                    <li class="text-slider">
+                        <p>Table basse gris foncé en contre plaqué chêne à partir de 640€</p>
                     </li>
                 </ul>
                 <div class="button arrow right"><span></span></div>
                 <div class="progress"></div>
                 <div class="progress-bar"></div>
             </div>
-            <div class="cover active" style="background-image: url({{ static("site/build/assets/images/Cover_02.png") }})"></div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }}"></div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }}"></div>
+            <div class="cover active" style="background-image: url({{ static("site/build/assets/images/prod/Cover_00.jpg") }})"></div>
+            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_01.jpg") }}"></div>
+            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_02.jpg") }}"></div>
+            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_03.jpg") }}"></div>
         {% endblock %}
     </header>
 
@@ -71,20 +75,36 @@
         <section class="gallery">
             <ul>
                 <li>
-                    <h3>Table de bar noir plateau chêne</h3>
-                    <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
+                    <h3>Banc, couleur brut en chêne contreplaqué</h3>
+                    <img src="{{ static("site/build/assets/images/prod/Gallerie_00.jpg") }}" alt="">
                 </li>
                 <li>
-                    <h3>Table de bar noir plateau chêne</h3>
-                    <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
+                    <h3>Bureau, couleur brut en chêne. Bancs, couleur brut et assise métal</h3>
+                    <img src="{{ static("site/build/assets/images/prod/Gallerie_01.jpg") }}" alt="">
                 </li>
                 <li>
-                    <h3>Table de bar noir plateau chêne</h3>
-                    <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
+                    <h3>Table extérieur, traitement époxy, couleur verte</h3>
+                    <img src="{{ static("site/build/assets/images/prod/Gallerie_02.jpg") }}" alt="">
                 </li>
                 <li>
-                    <h3>Table de bar noir plateau chêne</h3>
-                    <img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="">
+                    <h3>Détail table extérieur, traitement époxy, couleur verte</h3>
+                    <img src="{{ static("site/build/assets/images/prod/Gallerie_03.jpg") }}" alt="">
+                </li>
+                <li>
+                    <h3>Table basse, couleur gris en chêne contreplaqué</h3>
+                    <img src="{{ static("site/build/assets/images/prod/Gallerie_04.jpg") }}" alt="">
+                </li>
+                <li>
+                    <h3>Table de bar, couleur rouge-orange en chêne contreplaqué</h3>
+                    <img src="{{ static("site/build/assets/images/prod/Gallerie_05.jpg") }}" alt="">
+                </li>
+                <li>
+                    <h3>Table de bar, couleur rouge-orange en chêne contreplaqué</h3>
+                    <img src="{{ static("site/build/assets/images/prod/Gallerie_06.jpg") }}" alt="">
+                </li>
+                <li>
+                    <h3>Table de cuisine, couleur brut en chêne contreplaqué</h3>
+                    <img src="{{ static("site/build/assets/images/prod/Gallerie_07.jpg") }}" alt="">
                 </li>
             </ul>
             <div class="button arrow left"><span></span></div>
@@ -146,24 +166,24 @@
                     </div>
                     <div class="outside">
                         <input type="checkbox" id="vernis" />
-                        <label for="vernis"><span class="label">Traiter pour l'exterieur</span><span class="help sub-popin">? <span class="content">Affrontez toutes les intempéries avec nos tables pour l’extérieur, entièrement en acier, laquées Epoxytm et cuites au four chez un peintre industriel partenaire.</span></span></label>
+                        <label for="vernis"><span class="label">Traiter pour l'extérieur</span><span class="help sub-popin">? <span class="content">Affrontez toutes les intempéries avec nos tables pour l’extérieur. Entièrement en acier, laquées Epoxy et cuites au four chez un peintre industriel partenaire.</span></span></label>
                     </div>
 
                     <div class="settings">
                         <h2>Plateau</h2>
                         <ul>
                             <li class="active material" data-material="douglas">
-                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/prod/Plateau_bouleau.jpg") }}" alt=""></div>
                                 <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/douglas.png") }})"></div>
-                                <p>Douglas</p>
+                                <p>Bouleau</p>
                             </li>
                             <li class="material" data-material="chene">
-                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/prod/Plateau_chene.jpg") }}" alt=""></div>
                                 <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/chene.png") }})"></div>
                                 <p>Chêne</p>
                             </li>
                             <li class="material metal-material" data-material="metal">
-                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/prod/Plateau_metal.jpg") }}" alt=""></div>
                                 <div class="cover" style="background-color: #cbcbcb"></div>
                                 <p>Metal</p>
                             </li>
@@ -178,31 +198,31 @@
                         <h2>Couleur</h2>
                         <ul>
                             <li class="active color-param" data-color="brut">
-                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/prod/couleur_sans.jpg") }}" alt=""></div>
                                 <div class="cover" style="background-image: url({{ static("site/build/assets/images/textures/icons/aucun.png") }}); border: 1px solid #d3d5d6;"></div>
                             </li>
                             <li class="color-param" data-color="noir">
-                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/prod/couleur_noir.jpg") }}" alt=""></div>
                                 <div class="cover" style="background-color: #000000"></div>
                             </li>
                             <li class="color-param" data-color="gris">
-                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/prod/couleur_gris.jpg") }}" alt=""></div>
                                 <div class="cover" style="background-color: #5d5d5d"></div>
                             </li>
                             <li class="color-param" data-color="blanc">
-                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/prod/couleur_blanc.jpg") }}" alt=""></div>
                                 <div class="cover" style="background-color: #ffffff; border: 1px solid #d3d5d6;"></div>
                             </li>
                             <li class="color-param" data-color="orange">
-                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/prod/couleur_rouge.jpg") }}" alt=""></div>
                                 <div class="cover" style="background-color: #d43e1b"></div>
                             </li>
                             <li class="color-param" data-color="cyan">
-                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/prod/couleur_vert.jpg") }}" alt=""></div>
                                 <div class="cover" style="background-color: #a7dfd4"></div>
                             </li>
                             <li class="color-param" data-color="jaune">
-                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/export.png") }}" alt=""></div>
+                                <div class="preview"><img class="" src="{{ static("site/build/assets/images/prod/couleur_jaune.jpg") }}" alt=""></div>
                                 <div class="cover" style="background-color: #fed147"></div>
                             </li>
                             <li class="more">
@@ -240,7 +260,7 @@
             <div class="gid-container">
                 <div class="wrapper contact">
                     <div class="content">
-                        <p>Une demande spéciale ? <a href="{{ url('about') }}">Contactez&#8209;nous</a></p>
+                        <p>Une demande spéciale ? <a href="mailto:{{ FORJ_CONTACT_EMAIL }}">{{ FORJ_CONTACT_EMAIL }}</a></p>
                     </div>
                 </div>
                 <div class="wrapper recap">
@@ -261,34 +281,41 @@
         <section class="content">
             <article>
                 <div class="text-wrapper">
-                    <h2>Les tables Forges sont des produits artisanaux concus et fabriqués sur-mesure en France dans un atelier de métalerie.</h2>
+                    <h2>Les tables Forj sont des produits artisanaux conçus et fabriqués sur-mesure en France dans notre atelier de métallerie.</h2>
                     <p>
-                        <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
-                        <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
+                        <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entièrements modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.
+                   </p>
+                        <p>Forj est une marque crée par deux passionés de design et de métal. Nous concevons et réalisons tous nos produits nous-même et à la demande dans notre atelier en région parisienne. Les plateaux en chêne et en bouleau sont également découpés et traités sur place par notre par notre menuisier partenaire qui a sont atelier à coté du notre. </p>
                     </p>
                 </div>
-                <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
-                <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
+                <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/portrait_00.jpg") }})"></div>
+                <p class="legendary">La table sur-mesure Forj, couleur brut avec un banc en acier brut.</p>
             </article>
             <article>
                 <div class="text-wrapper">
                     <p>
-                        <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
-                        <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
+                        <p> Les pieds et le plateau sont démontables afin 
+de faciliter le transport. Ils sont en acier renforcé, montés et soudés dans notre atelier. Nous vous proposons 3 surfaces pour le plateau de votre table sur-mesure : un contreplaqué bouleau brut ou mat ainsi que l’acier tôlé et rien ne vous empêche de commander votre table sur-mesure sans plateau et la personnaliser comme vous le souhaitez. Nous avons souaité également de mettre un grand nombre de couleurs à votre disposition, nous peignons nous-même les tables d'intérieur en couleur RAL, les cadres sans couleurs sont traités.
+              </p>
+              <p>Forj est une métallerie parisienne abituée aux commandes de mobiliers sur-mesure ou autres structures métalliques complexes. Forj est donc capable de répondre à tout types de commandes et assumé une production de tables sur-mesure dans des temps raisonnables (5 semaines). Votre table sur-mesure Forj est donc un produit entièrement artisanal et fabriqué en France.</p>
+            </p>
+                        
                     </p>
                 </div>
-                <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
-                <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
+                <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/portrait_01.jpg") }})"></div>
+                <p class="legendary">Détail du cadre fabriqué dans notre atelier parisien.</p>
             </article>
             <article>
                 <div class="text-wrapper">
                     <p>
-                        <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entierement modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.</p>
-                        <p>Les pieds et le plateau sont démontables afin de faciliter le transport. Ils sont en acier renforcé, montés et soudé dans notre atelier. Nous vous proposons 3 matières pour le plateau de votre table sur-mesure : le chêne brut, l’acier tôlé et l’agloméré.</p>
+                        <p>Une fois votre commande validée, les plans sont envoyé dans notre métalerie. Toutes les pièces sont découpées, percées et soudées à la main. Le cadre est en acier étiré, les plaques de vissages sont taillées au lazer et les plateaux en bois sont découpées et traités dans un atelier de menuiserie.</p>
+                        <p>Forj propose un service de table et assise sur-mesure, toutefois nous pouvons réaliser d’autres pièces de mobilier ou tout autre structure métalique.
+Pour cela, nous vous invitons à <A HREF="mailto:forj.info@gmail.com">nous contacter</A>, décrivez-nous votre projet et laissez-nous vos coordonnées, nous vous recontacterons au plus vite. L’atelier de Forges se situe en région Parisienne, mais nous intervenons dans toute la France.
+</p>
                     </p>
                 </div>
-                <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
-                <p class="legendary">Détail de notre table sur-mesure, sous différents formats et différents matériaux.</p>
+                <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/portrait_02.jpg") }})"></div>
+                <p class="legendary">Après avoir finit le cadre, la table est montée et évaluée.</p>
             </article>
         </section>
         <section class="slider">
@@ -302,13 +329,16 @@
                 <div class="button arrow left"><span></span></div>
                 <ul>
                     <li class="text-slider active">
-                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                        <p>Table basse, couleur gris en chêne contreplaqué</p>
                     </li>
                     <li class="text-slider">
-                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                        <p>Table de cuisine et bancs, couleur brut en chêne contreplaqué</p>
                     </li>
                     <li class="text-slider">
-                        <p>Table d’intérieur noir en chêne à partir de 650€</p>
+                        <p>Table basse, couleur gris en chêne contreplaqué</p>
+                    </li>
+                    <li class="text-slider">
+                        <p>Table pour animaux domestiques !</p>
                     </li>
                 </ul>
                 <div class="button arrow right"><span></span></div>
@@ -317,9 +347,10 @@
             </div>
 
 
-            <div class="cover active" style="background-image: url({{ static("site/build/assets/images/Cover_02.png") }})"></div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }})"></div>
+            <div class="cover active" style="background-image: url({{ static("site/build/assets/images/prod/Cover_04.jpg") }})"></div>
+            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_05.jpg") }})"></div>
+            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_06.jpg") }})"></div>
+            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_07.jpg") }})"></div>
 
         </section>
         <div class="popin-background"></div>

@@ -1,0 +1,37 @@
+- set_fact:
+    python_bin_path: "{{ pyenv.path }}/versions/{{ pyenv.python_version }}/bin/python"
+    virtualenv_path: "{{ ansistrano_release_path.stdout }}/.env"
+    virtualenv_bin_path: "{{ ansistrano_release_path.stdout }}/.env/bin"
+    staticfiles_path: "{{ ansistrano_release_path.stdout }}/src/forj/static/build"
+
+- name: Create virtualenv
+  shell: "virtualenv -p {{ python_bin_path }} {{ virtualenv_path }}"
+
+- name: Install node dependencies
+  command: npm install chdir="{{ ansistrano_release_path.stdout }}"
+
+- name: Build node assets
+  command: npm run build chdir="{{ ansistrano_release_path.stdout }}"
+
+- name: Install dependencies
+  pip:
+    requirements: "{{ ansistrano_release_path.stdout }}/requirements.txt"
+    virtualenv: "{{ virtualenv_path }}"
+
+- name: Build transations
+  command: "{{ virtualenv_bin_path }}/django-admin.py compilemessages chdir={{ ansistrano_release_path.stdout }}/src/forj"
+
+- name: Build static files
+  command: "{{ virtualenv_bin_path }}/python manage.py collectstatic --noinput -i *.scss --traceback chdir={{ ansistrano_release_path.stdout }}"
+
+- name: Configure systemd service
+  template:
+    src: etc/systemd/system/default.service.j2
+    dest: "/etc/systemd/system/forj-web.service"
+  become_user: root
+  become: true
+
+- name: Reload systemd
+  command: systemctl daemon-reload
+  become_user: root
+  become: true

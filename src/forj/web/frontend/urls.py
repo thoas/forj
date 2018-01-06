@@ -8,6 +8,10 @@ from forj.urls import urlpatterns
 
 
 urlpatterns = urlpatterns + [
+    url(r'^healthcheck/$',
+        views.healthcheck,
+        name='healthcheck'),
+
     url(r'^$',
         views.home,
         name='home'),

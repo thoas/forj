@@ -1,0 +1,59 @@
+- set_fact:
+    release_backport: "{{ ansible_distribution_release }}-backports"
+
+- name: disable recommended packages automatic installation
+  shell: echo 'APT::Install-Recommends "false";' > /etc/apt/apt.conf.d/10recommends
+
+- name: add backports repository
+  apt_repository:
+    repo: 'deb http://ftp.debian.org/debian {{ release_backport }} main'
+    state: present
+
+- name: add essential packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - ca-certificates
+    - apt-transport-https
+    - unattended-upgrades
+
+    - sudo
+    - netcat-openbsd
+    - ccrypt
+    - net-tools
+    - dnsutils
+
+    - tmux
+    - vim
+    - curl
+    - make
+    - git-core
+
+    - ifstat
+    - hddtemp
+    - smartmontools
+    - iotop
+    - atop
+    - sysstat
+
+    - multitail
+    - ngrep
+    - tree
+    - rsync
+    - gettext
+
+- name: add backport packages
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    default_release: "{{ release_backport }}"
+  with_items:
+    - htop
+
+- name: add unattended-upgrades debconf configuration
+  shell: echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections
+
+- name: configure unattended-upgrades
+  shell: dpkg-reconfigure -f noninteractive unattended-upgrades

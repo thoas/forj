@@ -1,0 +1,6 @@
+{% for key in (user.authorized_keys|default([]) + (extra_authorized_keys|default({}))[id]|default([])) %}
+{{ lookup('file', 'ssh/public_keys/' + key) }}
+{% endfor %}
+{% for key in user.limited_keys|default([]) %}
+no-port-forwarding,no-pty {{ lookup('file', 'ssh/public_keys/' + key) }}
+{% endfor %}

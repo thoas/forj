@@ -11,11 +11,8 @@ from forj.utils.math import expr
 
 class ProductManager(base.Manager):
     def from_reference(self, reference):
-        criteria_set = CriteriaSet.from_reference(reference)
-
-        for product in self.order_by('price'):
-            if (criteria_set in product.criteria_set and
-                    len(criteria_set) == len(product.criteria_set)):
+        for product in self.order_by('price', '-condition'):
+            if product.handle_reference(reference):
                 return product
 
         raise exceptions.InvalidProductRef('Product ref {} is not available'.format(reference))
@@ -30,6 +27,8 @@ class Product(base.Model):
     price = AmountField(verbose_name='Price', null=True, blank=True)
     formula = models.CharField(max_length=100, verbose_name='Formula',
                                null=True, blank=True)
+    condition = models.CharField(max_length=100, verbose_name='Condition',
+                                 null=True, blank=True)
     currency = models.CharField(max_length=3,
                                 choices=constants.CURRENCY_CHOICES,
                                 default=settings.DEFAULT_CURRENCY)
@@ -50,6 +49,25 @@ class Product(base.Model):
 
     def __str__(self):
         return '{}: {}'.format(self.name, self.reference)
+
+    def handle_reference(self, reference):
+        criteria_set = CriteriaSet.from_reference(reference)
+
+        if (criteria_set in self.criteria_set and
+                len(criteria_set) == len(self.criteria_set)):
+
+            if not self.condition:
+                return True
+
+            cond = self.condition
+
+            for criteria in criteria_set:
+                cond = cond.replace(criteria.name, criteria.value)
+
+            if expr(cond):
+                return True
+
+        return False
 
     def get_price(self, reference):
         if not self.formula:

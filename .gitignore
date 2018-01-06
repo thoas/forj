@@ -101,4 +101,6 @@ ENV/
 .mypy_cache/
 node_modules/
 forje/
+id_rsa.j2
 .DS_Store
+vault.yml

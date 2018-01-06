@@ -1,0 +1,10 @@
+- name: configure resolv.conf
+  template:
+    src: etc/resolv.conf.j2
+    dest: /etc/resolv.conf
+    backup: yes
+
+- name: ensure fqdn resolve to localhost
+  lineinfile:
+    dest: /etc/hosts
+    line: "127.0.0.1 {{ inventory_hostname }}"

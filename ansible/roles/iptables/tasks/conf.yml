@@ -1,0 +1,20 @@
+- name: Purge iptables
+  command: "{{ item }}"
+  with_items:
+    - "iptables -F"
+    - "iptables -X"
+
+- name: Prepare the iptables file to load
+  template:
+    src: "etc/iptables.rules.j2"
+    dest: "/etc/iptables.rules"
+    backup: yes
+
+- name: Load rules in iptables
+  command: "iptables-restore /etc/iptables.rules"
+
+- name: Add firewall pre-up file
+  copy:
+    src: "etc/network/if-pre-up.d/firewall"
+    dest: "/etc/network/if-pre-up.d/firewall"
+    mode: "u=rwx,g=r,o=r"

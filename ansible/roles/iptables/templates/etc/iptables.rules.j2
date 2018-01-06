@@ -1,0 +1,50 @@
+{% if iptables.nat is defined %}
+*nat
+-P PREROUTING ACCEPT
+-P INPUT ACCEPT
+-P OUTPUT ACCEPT
+-P POSTROUTING ACCEPT
+{% for pre in iptables.nat.pre|default([]) %}
+-A PREROUTING {{ pre }}
+{% endfor %}
+{% for post in iptables.nat.post|default([]) %}
+-A POSTROUTING {{ pre }}
+{% endfor %}
+{% endif %}
+*filter
+-P OUTPUT ACCEPT
+-P INPUT ACCEPT
+-N fail2ban-ssh
+-N DOCKER
+-N DOCKER-ISOLATION
+-A INPUT -p tcp -m multiport --dports 22 -j fail2ban-ssh
+-A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+-A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+-A FORWARD -j DOCKER-ISOLATION
+-A FORWARD -i docker0 -o eth0 -j ACCEPT
+-A FORWARD -i eth0 -o docker0 -j ACCEPT
+-A FORWARD -i docker0 -o eth1 -j ACCEPT
+-A FORWARD -i eth1 -o docker0 -j ACCEPT
+-I INPUT 1 -i lo -j ACCEPT
+{% if iptables.whitelist is defined %}
+{% for host in iptables.whitelist %}
+-A INPUT -s {{ host }} -j ACCEPT
+{% endfor %}
+{% endif %}
+{% if iptables.hosts is defined %}
+{% for host in iptables.hosts %}
+    {% for port in iptables.private_ports %}
+-A INPUT -p tcp --dport {{ port }} -s {{ host }} -j ACCEPT
+-A INPUT -p udp --dport {{ port }} -s {{ host }} -j ACCEPT
+    {% endfor %}
+{% endfor %}
+{% endif %}
+{% if iptables.public_ports is defined %}
+    {% for port in iptables.public_ports %}
+-A INPUT -p tcp --dport {{ port }} -j ACCEPT
+-A INPUT -p udp --dport {{ port }} -j ACCEPT
+    {% endfor %}
+{% endif %}
+-A INPUT -j DROP
+-A fail2ban-ssh -j RETURN
+COMMIT

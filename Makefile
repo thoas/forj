@@ -1,6 +1,12 @@
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 BUILD_DIR = $(ROOT_DIR)/src/forj/static/site/build
 
+build-translations:
+	cd src/forj && pybabel extract -F babel.cfg -o locale/en/LC_MESSAGES/django.po .
+
+compile-translations:
+	cd src/forj && django-admin.py compilemessages
+
 outdated:
 	pip list -o --format=columns
 
@@ -19,6 +25,9 @@ syncdb:
 test:
 	DJANGO_SETTINGS_MODULE=forj.settings.test python manage.py check
 	py.test tests/ -v -s
+
+collectstatic:
+	python manage.py collectstatic --noinput -i *.scss --traceback
 
 docker-prebuild:
 	docker build -t forj-prebuilder -f Dockerfile.build .

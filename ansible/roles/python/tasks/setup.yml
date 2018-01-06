@@ -1,0 +1,12 @@
+- name: Add python essential packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - zlib1g-dev
+    - virtualenv
+    - python-pip
+    - python-virtualenv
+    - python-dev
+    - python-setuptools
+    - python-openssl

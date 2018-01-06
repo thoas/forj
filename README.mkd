@@ -11,8 +11,8 @@ forj is the personal project of Michel Berard.
 Add this lines in your ``/etc/hosts``
 
 ```
-127.0.0.1       www.local.forj.com
-127.0.0.1       admin.local.forj.com
+127.0.0.1       www.local.forj.shop
+127.0.0.1       admin.local.forj.shop
 ```
 
 ## Requirements
@@ -87,7 +87,7 @@ make run-server
 
 Remember to always source the virtualenv before launching the webserver.
 
-open [http://www.local.forj.com:8181/](http://www.local.forj.com:8181/) on your browser.
+open [http://www.local.forj.shop:8181/](http://www.local.forj.shop:8181/) on your browser.
 
 
 ## Manage static dependencies
@@ -128,7 +128,7 @@ and templates files are located in [src/forj/templates](https://github.com/thoas
 - [x] Order generation from Cart
 - [ ] Formula engine for > 1m2
   - [x] Static with range
-  - [ ] Dynamic with formula based on criterion
+  - [x] Dynamic with formula based on criterion
   - [x] Tax cost per product
 - [x] Cart view
 - [x] Checkout view
@@ -143,5 +143,5 @@ and templates files are located in [src/forj/templates](https://github.com/thoas
   - [x] Invoice view
 - [ ] Success mail
 - [ ] FTP access for landing page
-- [ ] Remove delete button on order item admin
+- [x] Remove delete button on order item admin
 - [ ] Internal field for Product (note)

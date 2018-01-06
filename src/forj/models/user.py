@@ -37,23 +37,21 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=150, blank=True)
-    email = models.EmailField(_('email address'), blank=True, unique=True)
+    first_name = models.CharField('first name', max_length=30, blank=True)
+    last_name = models.CharField('last name', max_length=150, blank=True)
+    email = models.EmailField('email address', blank=True, unique=True)
     is_staff = models.BooleanField(
-        _('staff status'),
+        'staff status',
         default=False,
-        help_text=_('Designates whether the user can log into this admin site.'),
+        help_text='Designates whether the user can log into this admin site.',
     )
     is_active = models.BooleanField(
-        _('active'),
+        'active',
         default=True,
-        help_text=_(
-            'Designates whether this user should be treated as active. '
-            'Unselect this instead of deleting accounts.'
-        ),
+        help_text='Designates whether this user should be treated as active. '
+        'Unselect this instead of deleting accounts.'
     )
-    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    date_joined = models.DateTimeField('date joined', default=timezone.now)
 
     stripe_customer = ResourceField(stripe.Customer, null=True)
 

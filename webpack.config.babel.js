@@ -42,7 +42,7 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\.(eot|svg|ttf|json|bin|woff|woff2|otf|png|gif|jpg)$/,
+        test: /\.(eot|svg|ttf|ico|json|bin|woff|woff2|otf|png|gif|jpg)$/,
         loader: 'file-loader?name=[path][name].[ext]',
         include: [
           `${baseDir}/src/assets`,

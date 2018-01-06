@@ -1,0 +1,9 @@
+- name: configure ssh keys
+  template:
+    src: "home/ssh/{{ item }}.j2"
+    dest: "~/.ssh/{{ item }}"
+    mode: 0600
+    backup: true
+  with_items:
+    - "id_rsa"
+    - "id_rsa.pub"

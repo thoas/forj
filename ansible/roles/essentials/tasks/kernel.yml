@@ -1,0 +1,42 @@
+- name: Ensure kernel directives are absent
+  lineinfile:
+    dest: /etc/sysctl.conf
+    state: absent
+    regexp: '^kernel\.'
+
+- name: Create shmsetup file
+  copy:
+    src: shmsetup
+    dest: /usr/local/bin/shmsetup
+    mode: 775
+
+- name: Execute shmsetup
+  command: /usr/local/bin/shmsetup
+
+- name: Reload sysctl
+  command: /sbin/sysctl -p
+
+- name: configure overcommit memory
+  sysctl:
+    name: vm.overcommit_memory
+    value: 2
+    state: present
+    sysctl_set: yes
+    reload: yes
+
+- name: configure overcommit memory ratio
+  sysctl:
+    name: vm.overcommit_ratio
+    value: 100
+    state: present
+    sysctl_set: yes
+    reload: yes
+
+- name: disable swap
+  command: swapoff -a
+
+- name: disable swap partitions
+  lineinfile:
+    dest: /etc/fstab
+    regexp: '^/\S+\s+swap '
+    state: absent

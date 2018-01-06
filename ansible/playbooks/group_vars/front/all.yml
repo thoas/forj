@@ -1,0 +1,14 @@
+nginx_user: "www-data"
+letsencrypt:
+  domains:
+    - www.forj.com
+
+pyenv:
+  path: "/var/www/pyenv"
+  owner: "www-data"
+  python_version: "3.6.3"
+
+nodejs_version: "8.x"
+
+deploy:
+  root_path: "/var/www/forj"

@@ -2,6 +2,8 @@ import os
 import jinja2
 import django
 
+from datetime import datetime
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 path = lambda *a: os.path.join(BASE_DIR, *a)  # noqa
 DEPENDENCY_PATH = os.path.join(os.path.dirname(jinja2.__file__), os.pardir)
@@ -13,6 +15,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '.forj.com',
+    '.forj.shop',
 ]
 
 AUTH_USER_MODEL = 'forj.User'
@@ -22,6 +25,7 @@ DEFAULT_CURRENCY = 'EUR'
 FORJ_INSTAGRAM_URL = 'https://www.instagram.com/forj_mobilier/'
 FORJ_FACEBOOK_URL = 'https://www.facebook.com/forjmobilier/'
 FORJ_CONTACT_EMAIL = 'support@mycs.com'
+FORJ_PHONE_NUMBER = '01.86.65.12.20'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -48,21 +52,26 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_hosts.middleware.HostsResponseMiddleware',
+    'forj.middleware.MinifyHTMLMiddleware',
+    'forj.middleware.SetRemoteAddrFromForwardedFor',
 ]
+
+PROJECT_VERSION = 'forj.__version__'
+PROJECT_UPTIME = datetime.now()
 
 ROOT_HOSTCONF = 'forj.hosts'
 DEFAULT_HOST = 'www'
 DEFAULT_SCHEME = 'http'
-PARENT_HOST = 'local.forj.com:8181'
+PARENT_HOST = 'local.forj.shop:8181'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 SESSION_COOKIE_NAME = 'fj_session'
-SESSION_COOKIE_DOMAIN = '.forj.com'
+SESSION_COOKIE_DOMAIN = '.forj.shop'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-CSRF_COOKIE_DOMAIN = '.forj.com'
+CSRF_COOKIE_DOMAIN = '.forj.shop'
 
-DEFAULT_FROM_EMAIL = 'contact@forj.com'
+DEFAULT_FROM_EMAIL = 'forj.info@gmail.com'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 ROOT_URLCONF = 'forj.web.frontend.urls'

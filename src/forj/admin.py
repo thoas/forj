@@ -15,10 +15,10 @@ class UserAdmin(BaseUserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', )}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+        ('Personal info', {'fields': ('first_name', 'last_name', )}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
 
     add_fieldsets = (
@@ -38,6 +38,7 @@ class ProductAdminForm(forms.ModelForm):
     name = forms.CharField(required=True)
     reference = forms.CharField(required=True, widget=forms.Textarea)
     description = forms.CharField(required=False, widget=forms.Textarea)
+    condition = forms.CharField(required=False, widget=forms.Textarea)
     formula = forms.CharField(required=False, widget=forms.Textarea)
     price = AmountField(required=False)
     tax_cost = AmountField(required=False)
@@ -49,7 +50,7 @@ class ProductAdminForm(forms.ModelForm):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'reference', '_price', '_shipping_cost', '_tax_cost')
+    list_display = ('name', 'reference', '_price', 'condition', '_shipping_cost', '_tax_cost')
 
     readonly_fields = (
         'currency', 'created_at', 'updated_at'
