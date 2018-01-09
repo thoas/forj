@@ -98,7 +98,7 @@ class THREEController {
       if (checkbox.checked) {
         this.table.change_material('metal')
         for (var i = 0; i < this.bancs.length; i++) {
-          this.controller.bancs[i].change_material('metal')
+          this.bancs[i].change_material('metal')
         }
         this.table.outside = true
         previousMat = this.table.active_desk
@@ -139,19 +139,21 @@ class THREEController {
       height: 80,
       onChange: () => {
         this.cursor.triggerChange()
+      },
+      onLoad: banc => {
+        banc.changeSize(this.table.width / 2 - 25, 32, 45)
+        banc.active_desk = this.table.active_desk
+        banc.load_desk_material(1)
+        banc.change_color(this.table.active_color)
+
+        this.group.add(banc_group)
+        this.bancs.push(banc)
+
+        if (window.innerWidth > 960) {
+          this.mouse.z = -0.3
+        }
       }
     })
-
-    banc.changeSize(this.table.width / 2 - 25, 32, 45)
-    banc.active_desk = this.table.active_desk
-    banc.load_desk_material(1)
-    banc.change_color(this.table.active_color)
-    this.group.add(banc_group)
-    this.bancs.push(banc)
-
-    if (window.innerWidth > 960) {
-      this.mouse.z = -0.3
-    }
   }
 
   remove_banc() {

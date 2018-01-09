@@ -8,6 +8,7 @@ class Table {
     this.staticfiles = options.staticfiles
     this.assets = options.assets
     this.onChange = options.onChange
+    this.onLoad = options.onLoad
     this.position = options.position || new THREE.Vector3()
 
     this.depth = options.depth || 160
@@ -21,8 +22,6 @@ class Table {
     this.init_material()
     this.load_model()
     this.init_feets()
-    // this.init_frame()
-    // this.init_desk()
     this.init_floor()
     this.load_frame_material(1)
 
@@ -87,6 +86,7 @@ class Table {
       this.meshes = obj
       this.init_desk()
       this.init_frame()
+      this.triggerLoad()
     })
   }
 
@@ -197,9 +197,6 @@ class Table {
     this.group_frame.add(temp_frame)
     this.frame_parts.push(temp_frame)
     this.load_frame_material(1)
-
-
-    
   }
 
   init_desk() {
@@ -293,7 +290,13 @@ class Table {
 
   triggerChange() {
     if (this.onChange !== undefined) {
-      this.onChange()
+      this.onChange(this)
+    }
+  }
+
+  triggerLoad() {
+    if (this.onLoad !== undefined) {
+      this.onLoad(this)
     }
   }
 
