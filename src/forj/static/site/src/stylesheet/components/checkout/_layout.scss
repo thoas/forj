@@ -437,7 +437,9 @@ body.checkout, body.payment {
                         margin-left: 5px;
                         transform: translate(0, 3px);
                         font-size: .7em;
-                        span.cgu-basket-launcher {
+
+                        .cgu-basket-launcher {
+                            color: #000;
                             text-decoration: underline;
                         }
                     }
