@@ -1,5 +1,4 @@
 from django.contrib import admin  # noqa
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 from django.utils.html import format_html
@@ -17,7 +16,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name', )}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser',
-                                       'groups', 'user_permissions')}),
+                                    'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
 
@@ -175,7 +174,7 @@ class OrderAdmin(admin.ModelAdmin):
                        'shipping_business_name',
                        'shipping_line1', 'shipping_line2',
                        'shipping_city', 'shipping_postal_code',
-                       'shipping_country',),
+                       'shipping_country', 'shipping_phone_number'),
             'classes': ('collapse', )
         }),
         ('Billing address', {
@@ -183,7 +182,7 @@ class OrderAdmin(admin.ModelAdmin):
                        'billing_business_name',
                        'billing_line1', 'billing_line2',
                        'billing_city', 'billing_postal_code',
-                       'billing_country',),
+                       'billing_country', 'billing_phone_number'),
             'classes': ('collapse', )
         }),
         ('Information', {
