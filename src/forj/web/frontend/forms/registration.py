@@ -6,6 +6,7 @@ from .user import UserForm
 
 class RegistrationForm(forms.Form):
     diff = forms.BooleanField(required=False)
+    cgu = forms.BooleanField(required=False)
 
     def __init__(self, *args, **kwargs):
         self._user = kwargs.pop('user', None)

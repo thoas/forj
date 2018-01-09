@@ -5,6 +5,13 @@ document.addEventListener('DOMContentLoaded', e => {
   const billingWrapper = document.querySelector('#billing-wrapper')
   const diff = document.querySelector('#id_diff')
 
+  document.querySelector("#checkout-form").addEventListener('submit', e => {
+    if (document.querySelector("#id_cgu").checked === false) {
+      alert("Vous devez accepter les conditions générales de ventes.")
+      e.preventDefault();
+    }
+  })
+
   diff.addEventListener('change', e => {
     if (e.target.checked) {
       billingWrapper.style.display = 'block'

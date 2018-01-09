@@ -36,8 +36,8 @@
 
         {% if enable_cgu %}
             <div class="check-cgu-container">
-                <input type="checkbox" id="check-cgu" />
-                <label for="check-cgu"><span>J’accepte les <a class="cgu-basket-launcher" target="_blank" href="{{ url('terms') }}">conditions générales de ventes</a></span></label>
+                {{ form.cgu }}
+                <label for="{{ form.cgu.id_for_label }}"><span>J’accepte les <a class="cgu-basket-launcher" target="_blank" href="{{ url('terms') }}">conditions générales de ventes</a></span></label>
             </div>
         {% endif %}
     </div>

@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block main %}
-    <form class="main" action="" method="post" novalidate>
+    <form class="main" id="checkout-form" action="" method="post" novalidate>
         {% csrf_token %}
 
         <h1>Mes informations</h1>
