@@ -24,8 +24,8 @@ DEFAULT_CURRENCY = 'EUR'
 
 FORJ_INSTAGRAM_URL = 'https://www.instagram.com/forj_mobilier/'
 FORJ_FACEBOOK_URL = 'https://www.facebook.com/forjmobilier/'
-FORJ_CONTACT_EMAIL = 'support@mycs.com'
-FORJ_PHONE_NUMBER = '01.86.65.12.20'
+FORJ_CONTACT_EMAIL = 'forj.info@gmail.com'
+FORJ_PHONE_NUMBER = '06.42.03.80.50'
 
 INSTALLED_APPS = [
     'django.contrib.admin',

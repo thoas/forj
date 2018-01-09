@@ -112,7 +112,6 @@ and templates files are located in [src/forj/templates](https://github.com/thoas
 ## TODO
 
 - [x] Data models
-
   - [x] Order
   - [x] Product
   - [x] Address
@@ -126,7 +125,7 @@ and templates files are located in [src/forj/templates](https://github.com/thoas
 - [x] Retrieve product in database from criteria
 - [x] Cart engine
 - [x] Order generation from Cart
-- [ ] Formula engine for > 1m2
+- [x] Formula engine for > 1m2
   - [x] Static with range
   - [x] Dynamic with formula based on criterion
   - [x] Tax cost per product
@@ -138,10 +137,11 @@ and templates files are located in [src/forj/templates](https://github.com/thoas
   - [x] Remove billing address
 - [x] Payment view
   - [x] 3dsecure
-- [ ] Edit order when returning to cart
+- [x] Edit order when returning to cart
 - [x] Done view
   - [x] Invoice view
 - [ ] Success mail
 - [ ] FTP access for landing page
 - [x] Remove delete button on order item admin
 - [ ] Internal field for Product (note)
+- [ ] Generate SSL certificat with letsencrypt
