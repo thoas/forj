@@ -91,29 +91,42 @@ class THREEController {
   }
 
   initCheckboxOutside() {
-    let previousMat = 'douglas'
-    let checkbox = document.querySelector('#vernis')
+    let activeMaterial
+
+    const checkbox = document.querySelector('#vernis')
+    const materials = document.querySelectorAll('section.module .material')
+    const metalMaterial = document.querySelector('section.module .metal-material')
+
+    materials.forEach(material => {
+      if (material.classList.contains('active')) {
+        activeMaterial = material.dataset.material
+      }
+    })
 
     checkbox.addEventListener('click', () => {
       if (checkbox.checked) {
         this.table.change_material('metal')
-        for (var i = 0; i < this.bancs.length; i++) {
-          this.bancs[i].change_material('metal')
-        }
+        this.bancs.forEach(banc => banc.change_material('metal'))
         this.table.outside = true
-        previousMat = this.table.active_desk
-        let materials = document.querySelectorAll('section.module .material')
-        for (var i = 0; i < materials.length; i++) {
-          materials[i].classList.remove('active')
-        }
-        document.querySelector('section.module .metal-material').classList.add('active')
+        activeMaterial = this.table.active_desk
+
+        materials.forEach(material => material.classList.remove('active'))
+        metalMaterial.classList.add('active')
       } else {
         this.table.outside = false
-        this.table.change_material(previousMat)
-        for (var i = 0; i < this.bancs.length; i++) {
-          this.bancs[i].outside = false
-          this.bancs[i].change_material(previousMat)
-        }
+        this.table.change_material(activeMaterial)
+        this.bancs.forEach(banc => {
+          banc.outside = false
+          banc.change_material(activeMaterial)
+        })
+
+        metalMaterial.classList.remove('active')
+
+        materials.forEach(material => {
+          if (material.dataset.material == activeMaterial) {
+            material.classList.add('active')
+          }
+        })
       }
     })
   }
@@ -249,24 +262,28 @@ class THREEController {
 
   initMaterialEvents() {
     const materials = document.querySelectorAll('section.module .material')
-    materials.forEach(elem => elem.addEventListener('click', () => {
-      if (elem.dataset.material != 'metal' && this.table.outside) {
-        document.querySelector('#vernis').checked = false
-        this.bancs.forEach(banc => banc.outside = false)
-      }
-      this.table.change_material(elem.dataset.material)
-      this.bancs.forEach(banc => banc.change_material(elem.dataset.material))
-      materials.forEach(material => material.classList.remove('active'))
-      elem.classList.add('active')
-    }))
+    materials.forEach(elem =>
+      elem.addEventListener('click', () => {
+        if (elem.dataset.material != 'metal' && this.table.outside) {
+          document.querySelector('#vernis').checked = false
+          this.bancs.forEach(banc => (banc.outside = false))
+        }
+        this.table.change_material(elem.dataset.material)
+        this.bancs.forEach(banc => banc.change_material(elem.dataset.material))
+        materials.forEach(material => material.classList.remove('active'))
+        elem.classList.add('active')
+      })
+    )
 
     const colors = document.querySelectorAll('section.module .color-param')
-    colors.forEach(elem => elem.addEventListener('click', () => {
-      this.table.change_color(elem.dataset.color)
-      this.bancs.forEach(banc => banc.change_color(elem.dataset.color))
-      colors.forEach(node => node.classList.remove('active'))
-      elem.classList.add('active')
-    }))
+    colors.forEach(elem =>
+      elem.addEventListener('click', () => {
+        this.table.change_color(elem.dataset.color)
+        this.bancs.forEach(banc => banc.change_color(elem.dataset.color))
+        colors.forEach(node => node.classList.remove('active'))
+        elem.classList.add('active')
+      })
+    )
   }
 
   update() {
