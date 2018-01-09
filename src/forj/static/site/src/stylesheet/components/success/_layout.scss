@@ -13,7 +13,7 @@ body.success {
         margin-bottom: 10px;
     }
 
-    p {
+    p, ul {
         line-height: 1.6em;
     }
 
@@ -58,6 +58,22 @@ body.success {
             width: 70%;
             margin: 0 auto;
             padding: 5% 0;
+
+            img {
+                width: 100%;
+                padding: 20px 0;
+            }
+
+            h2 {
+                font-size: 1.5em;
+                margin: 20px 0;
+            }
+
+            ul {
+                li {
+                    margin-bottom: 10px;
+                }
+            }
         }
     }
 
