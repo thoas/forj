@@ -1,0 +1,9 @@
+Bonjour Benoit,
+
+Nous vous confirmons le règlement pour votre commande Forj et sa bonne réception à notre atelier. Nous vous contacterons d'ici une à deux semaines pour vous fixer une date de livraison.
+
+Nous vous remercions pour votre commande,
+l'équipe Forj
+
+{{ FORJ_CONTACT_EMAIL }}
+{{ FORJ_PHONE_NUMBER }}

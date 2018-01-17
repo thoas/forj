@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_jinja.contrib._easy_thumbnails',
     'django_jinja.contrib._humanize',
     'django_hosts',
+    'mail_factory',
 ]
 
 MIDDLEWARE = [

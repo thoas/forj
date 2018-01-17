@@ -5,6 +5,8 @@ from django.db import models
 from django.urls import reverse
 from django.conf import settings
 
+from mail_factory import factory
+
 from forj import constants
 from forj.db.models import base
 from forj.db.models.fields import AmountField, ResourceField
@@ -122,11 +124,20 @@ class Order(base.Model):
     def get_checkout_url(self):
         return reverse('checkout', args=[self.reference, ])
 
-    def mark_as_succeeded(self, commit=True):
+    def mark_as_succeeded(self, commit=True, force=False):
+        previous_status = self.status
+
         self.status = self.STATUS_CHOICES.SUCCEEDED
 
         if commit:
             self.save(update_fields=('status',))
+
+        if previous_status != self.status or force is True:
+            self.send_confirmation_mail()
+
+    def send_confirmation_mail(self):
+        factory.mail('confirmation', [self.user.email, ],
+                     {'order': self})
 
     @property
     def invoice_number(self):

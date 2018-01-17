@@ -3,6 +3,7 @@ from forj import constants
 from forj.models import User, Order
 
 from django.urls import reverse
+from django.core import mail
 
 from exam import fixture
 
@@ -234,6 +235,7 @@ class SuccessTest(TestCase):
         response = self.client.get(self.path)
 
         assert response.status_code == 200
+        assert len(mail.outbox) == 1
 
 
 class CartTest(TestCase):

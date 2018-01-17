@@ -140,7 +140,7 @@ and templates files are located in [src/forj/templates](https://github.com/thoas
 - [x] Edit order when returning to cart
 - [x] Done view
   - [x] Invoice view
-- [ ] Success mail
+- [x] Success mail
 - [ ] FTP access for landing page
 - [x] Remove delete button on order item admin
 - [ ] Internal field for Product (note)
