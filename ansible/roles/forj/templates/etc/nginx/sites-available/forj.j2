@@ -11,6 +11,30 @@ server {
 
 server {
     listen 80;
+    server_name table-sur-mesure.fr;
+    root /home/www/data/www/table-sur-mesure.fr/;
+}
+
+server {
+    listen 80;
+    server_name table-sur-mesure.com;
+    root /home/www/data/www/table-sur-mesure.com/;
+}
+
+server {
+    listen 80;
+    server_name table-forj.fr;
+    root /home/www/data/www/table-forj.fr/;
+}
+
+server {
+    listen 80;
+    server_name table-forj.com;
+    root /home/www/data/www/table-forj.com/;
+}
+
+server {
+    listen 80;
     server_name www.forj.com admin.forj.com www.forj.shop admin.forj.shop;
 
     access_log  /var/log/nginx/forj.com.access.log;

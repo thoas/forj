@@ -33,10 +33,12 @@
 {% endif %}
 {% if iptables.hosts is defined %}
 {% for host in iptables.hosts %}
+{% if iptables.private_ports is defined %}
     {% for port in iptables.private_ports %}
 -A INPUT -p tcp --dport {{ port }} -s {{ host }} -j ACCEPT
 -A INPUT -p udp --dport {{ port }} -s {{ host }} -j ACCEPT
     {% endfor %}
+{% endif %}
 {% endfor %}
 {% endif %}
 {% if iptables.public_ports is defined %}
