@@ -265,6 +265,7 @@ class THREEController {
     materials.forEach(elem =>
       elem.addEventListener('click', () => {
         if (elem.dataset.material != 'metal' && this.table.outside) {
+          this.table.outside = false
           document.querySelector('#vernis').checked = false
           this.bancs.forEach(banc => (banc.outside = false))
         }
