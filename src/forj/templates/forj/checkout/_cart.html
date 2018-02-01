@@ -2,20 +2,28 @@
     {% if cart %}
         <div class="article-container">
             {% for item in cart.get_items() %}
-                <div class="article">
-                    <div class="detail">Nom : {{ item.product.name }}</div>
-                    <div class="detail">Dimensions : {{ item.reference }}</div>
-                    <div class="detail">Quantité : {{ item.quantity }}</div>
-                    <p class="index" style="display: none;">0</p>
-                    {% if enable_delete %}
-                        <p class="delete">
-                            <a href="{{ url('cart') }}" data-reference="{{ item.reference }}" data-action="remove">
-                                SUPPRIMER
-                            </a>
-                        </p>
-                    {% endif %}
-                    <p class="price">{{ item.total|amountformat(AMOUNT_PRECISION) }} {{ CURRENCY_DISPLAY }}</p>
-                </div>
+                {% with product=item.product %}
+                    <div class="article">
+                        {% if not product.description %}
+                            <div class="detail">Nom : {{ item.product.name }}</div>
+                            <div class="detail">Dimensions : {{ item.reference }}</div>
+                        {% else %}
+                            {% for line in product.format_description(item.reference).splitlines() %}
+                                <div class="detail">{{ line }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="detail">Quantité : {{ item.quantity }}</div>
+                        <p class="index" style="display: none;">0</p>
+                        {% if enable_delete %}
+                            <p class="delete">
+                                <a href="{{ url('cart') }}" data-reference="{{ item.reference }}" data-action="remove">
+                                    SUPPRIMER
+                                </a>
+                            </p>
+                        {% endif %}
+                        <p class="price">{{ item.total|amountformat(AMOUNT_PRECISION) }} {{ CURRENCY_DISPLAY }}</p>
+                    </div>
+                {% endwith %}
             {% endfor %}
         </div>
     {% endif %}

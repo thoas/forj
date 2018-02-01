@@ -84,6 +84,17 @@ class Product(base.Model):
     def criteria_set(self):
         return CriteriaSet.from_reference(self.reference)
 
+    def format_description(self, reference):
+        if not self.description:
+            return None
+
+        description = self.description
+
+        for criteria in CriteriaSet.from_reference(reference):
+            description = description.replace('{%s}' % criteria.name, criteria.value)
+
+        return description
+
     @property
     def serialized_data(self):
         return {
