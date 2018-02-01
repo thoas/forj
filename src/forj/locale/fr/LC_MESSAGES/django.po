@@ -51,3 +51,10 @@ msgstr "Année"
 msgid "This email already exists"
 msgstr "Cette adresse e-mail existe déjà"
 
+#: constants.py:22
+msgid "Individual"
+msgstr "Particulier"
+
+#: constants.py:23
+msgid "Business"
+msgstr "Entreprise"

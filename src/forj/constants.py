@@ -1,5 +1,7 @@
 from extended_choices import Choices
 
+from django.utils.translation import gettext_lazy as _
+
 ORDER_STATUS_CHOICES = Choices(
     ('WAITING', 1, 'Waiting'),
     ('SUCCEEDED', 2, 'Succeeded'),
@@ -17,6 +19,6 @@ ORDER_SHIPPING_STATUS_CHOICES = Choices(
 )
 
 ADDRESS_TYPE_CHOICES = Choices(
-    ('INDIVIDUAL', 1, 'Individual'),
-    ('BUSINESS', 2, 'Business'),
+    ('INDIVIDUAL', 1, _('Individual')),
+    ('BUSINESS', 2, _('Business')),
 )
