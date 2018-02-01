@@ -27,7 +27,7 @@ class CheckoutTest(TestCase):
     def test_view(self):
         response = self.client.get(self.path)
 
-        assert response.status_code == 200
+        assert response.status_code == 302
 
     def test_complete(self):
         self.cart.add_product('LA(37)-LO(122)-H(67)', 1)
@@ -81,7 +81,7 @@ class CheckoutUpdateTest(TestCase):
     def test_view(self):
         response = self.client.get(self.path)
 
-        assert response.status_code == 200
+        assert response.status_code == 302
 
     def test_update_remove_billing(self):
         self.cart.to_request(self.client)
