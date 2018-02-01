@@ -121,6 +121,9 @@ class CheckoutView(CheckoutMixin, generic.FormView):
         return kwargs
 
     def dispatch(self, *args, **kwargs):
+        if not self.cart:
+            return redirect('home')
+
         return super().dispatch(*args, **kwargs)
 
     def form_valid(self, form):
