@@ -33,9 +33,17 @@ server {
     root /home/www/data/www/table-forj.com/;
 }
 
+{% if use_ssl is defined %}
 server {
     listen 80;
-    server_name www.forj.com admin.forj.com www.forj.shop admin.forj.shop;
+    server_name www.forj.shop;
+    return 301 https://www.forj.shop$request_uri;
+}
+{% endif %}
+
+server {
+    listen 80;
+    server_name {% if use_ssl is not defined %}www.forj.com {% endif %}admin.forj.com www.forj.shop admin.forj.shop;
 
     access_log  /var/log/nginx/forj.com.access.log;
     error_log   /var/log/nginx/forj.com.error.log;
@@ -47,6 +55,11 @@ server {
         proxy_set_header    Host $http_host;
         proxy_redirect      off;
         proxy_pass          http://forj;
+    }
+
+    location ~ /.well-known/ {
+        allow all;
+        root /usr/share/nginx/html;
     }
 
     location /media {
@@ -71,8 +84,9 @@ server {
 
     server_name www.forj.com www.forj.shop;
 
-    ssl_certificate /etc/nginx/ssl/forj.com.crt;
-    ssl_certificate_key /etc/nginx/ssl/forj.com.key;
+	ssl_certificate /etc/letsencrypt/live/www.forj.shop/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/www.forj.shop/privkey.pem;
+	ssl_trusted_certificate /etc/letsencrypt/live/www.forj.shop/fullchain.pem;
 
     ssl_session_cache shared:SSL:50m;
     ssl_session_timeout 1d;
@@ -88,7 +102,6 @@ server {
     resolver 8.8.8.8 8.8.4.4;
     ssl_stapling on;
     ssl_stapling_verify on;
-    ssl_trusted_certificate /etc/nginx/ssl/forj.com.crt;
 
 # config to enable HSTS(HTTP Strict Transport Security) https://developer.mozilla.org/en-US/docs/Security/HTTP_Strict_Transport_Security
 # to avoid ssl stripping https://en.wikipedia.org/wiki/SSL_stripping#SSL_stripping
