@@ -17,7 +17,7 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.utils import timezone
 
 from forj.web.frontend.forms import RegistrationForm, PaymentForm
-from forj.models import Order
+from forj.models import Order, ContentNode
 from forj.cart import Cart
 from forj import exceptions
 from forj.encoders import JSONEncoder
@@ -69,18 +69,23 @@ def healthcheck(request):
     return JsonResponse(results)
 
 
-def home(request, template_name='forj/home.html', **extra_context):
-    cart = Cart.from_request(request)
-    if cart is None:
-        cart = Cart()
+def home(request, template_name='forj/home.html', **extra):
+    extra['nodes'] = {
+        'carousel_top': ContentNode.objects.type(ContentNode.TYPE_CHOICES.HOME_CAROUSEL_TOP),
+        'carousel_bottom': ContentNode.objects.type(ContentNode.TYPE_CHOICES.HOME_CAROUSEL_BOTTOM),
+        'portrait': ContentNode.objects.type(ContentNode.TYPE_CHOICES.HOME_PORTRAIT),
+    }
 
-    extra_context['cart'] = cart
-
-    return render(request, template_name, extra_context)
+    return render(request, template_name, extra)
 
 
-def collection(request, template_name='forj/collection.html'):
-    return home(request, template_name)
+def collection(request, template_name='forj/collection.html', **extra):
+    extra['nodes'] = {
+        'carousel': ContentNode.objects.type(ContentNode.TYPE_CHOICES.COLLECTION_CAROUSEL),
+        'selection': ContentNode.objects.type(ContentNode.TYPE_CHOICES.COLLECTION_SELECTION),
+    }
+
+    return render(request, template_name, extra)
 
 
 class CheckoutMixin(object):

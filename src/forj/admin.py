@@ -3,10 +3,42 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 from django.utils.html import format_html
 
-from forj.models import Order, Product, User, OrderItem
+from forj.models import Order, Product, User, OrderItem, ContentNode, ContentNodeCover
 from forj.forms.fields import AmountField
 
 from django_countries import countries
+
+
+class ContentNodeCoverInline(admin.TabularInline):
+    model = ContentNodeCover
+    extra = 1
+
+    fields = (
+        'image',
+        'rank',
+    )
+
+
+class ContentNodeAdmin(admin.ModelAdmin):
+    list_display = ('subject', 'type', 'cover', 'rank')
+    list_filter = ('type', )
+
+    inlines = (ContentNodeCoverInline, )
+
+    fieldsets = (
+        (None, {'fields': (
+            'type',
+            'title',
+            'description',
+            'legend',
+            'cover',
+            'product_reference',
+            'rank',
+        )}),
+    )
+
+
+admin.site.register(ContentNode, ContentNodeAdmin)
 
 
 class UserAdmin(BaseUserAdmin):

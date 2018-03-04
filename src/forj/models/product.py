@@ -9,13 +9,21 @@ from forj import constants, exceptions
 from forj.utils.math import expr
 
 
-class ProductManager(base.Manager):
+class ProductQuerySet(base.QuerySet):
     def from_reference(self, reference):
-        for product in self.order_by('price', '-condition'):
+        for product in self:
             if product.handle_reference(reference):
                 return product
 
         raise exceptions.InvalidProductRef('Product ref {} is not available'.format(reference))
+
+
+class ProductManager(base.Manager):
+    def get_queryset(self):
+        return ProductQuerySet(self.model)
+
+    def from_reference(self, reference):
+        return self.order_by('price', '-condition').from_reference(reference)
 
 
 class Product(base.Model):

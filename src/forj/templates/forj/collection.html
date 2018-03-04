@@ -20,54 +20,56 @@
     <div class="slider-container">
         <div class="button arrow left"><span></span></div>
         <ul>
-            <li class="text-slider active">
-                <p>Table d’intérieur noir en chêne à partir de 650€</p>
-            </li>
-            <li class="text-slider">
-                <p>Table d’intérieur noir en chêne à partir de 650€</p>
-            </li>
-            <li class="text-slider">
-                <p>Table d’intérieur noir en chêne à partir de 650€</p>
-            </li>
+            {% for node in nodes.carousel %}
+                <li class="text-slider {% if loop.first %} active{% endif %}">
+                    <p>{{ node.title }}</p>
+                </li>
+            {% endfor %}
         </ul>
         <div class="button arrow right"><span></span></div>
         <div class="progress"></div>
         <div class="progress-bar"></div>
     </div>
-    <div class="cover active" style="background-image: url({{ static("site/build/assets/images/Cover_02.png") }})"></div>
-    <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }}"></div>
-    <div class="cover" style="background-image: url({{ static("site/build/assets/images/Cover_01.png") }}"></div>
+    {% for node in nodes.carousel %}
+        {% if node.cover %}
+            <div class="cover{% if loop.first %} active{% endif %}" style="background-image: url({{ node.cover.url }})"></div>
+        {% endif %}
+    {% endfor %}
 {% endblock %} 
 
 {% block main %}
     <main>
+        {% for node in nodes.selection %}
         <section>
             <div class="image-wrapper carousel">
                 <div class="arrow left"></div>
                 <div class="arrow right"></div>
                 <ul>
-                    <li><img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="#"></li>
-                    <li><img src="{{ static("site/build/assets/images/Cover_02.png") }}" alt="#"></li>
-                    <li><img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="#"></li>
-                    <li><img src="{{ static("site/build/assets/images/Cover_02.png") }}" alt="#"></li>
-                    <li><img src="{{ static("site/build/assets/images/Cover_01.png") }}" alt="#"></li>
+                    {% for cover in node.covers.all() %}
+                        {% if cover.image %}
+                            <li><img src="{{ cover.image.url }}" alt="#"></li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
 
             <div class="infos-container">
-                <p>Dimension : L.85 P. 125 H.85</p>
-                <p>Cadre moyen, Plateau en chêne, cadre brut</p>
+                {{ node.description|linebreaks }}
 
-                <div class="price-wrapper">
-                    <div class="wrapper">
-                        <p>Total TTC</p>
-                        <p class="price">550,00 €</p>
+                {% if node.product_reference %}
+                    <div class="price-wrapper">
+                        <div class="wrapper">
+                            <p>Total TTC</p>
+                            <p class="price">{{ node.product_price|amountformat }} {{ node.product.get_currency_display() }}</p>
+                        </div>
+                        <a href="{{ url("cart") }}?action=add&reference={{ node.product_reference }}&next={{ url('checkout') }}">
+                            <span class="button inverted">Ajouter au panier</span>
+                        </a>
                     </div>
-                    <span class="button inverted">Ajouter au panier</span>
-                </div>
-
+                {% endif %}
             </div>
         </section>
+        {% endfor %}
     </main>
 {% endblock %}
 

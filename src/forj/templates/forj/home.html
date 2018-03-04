@@ -47,27 +47,21 @@
             <div class="slider-container">
                 <div class="button arrow left"><span></span></div>
                 <ul>
-                    <li class="text-slider active">
-                        <p>Table basse gris foncé en contre plaqué chêne à partir de 640€</p>
+                    {% for node in nodes.carousel_top %}
+                    <li class="text-slider {% if loop.first %} active{% endif %}">
+                        <p>{{ node.title }}</p>
                     </li>
-                    <li class="text-slider">
-                        <p>Table de cuisine blanche en contre plaqué chêne à partir de 820€</p>
-                    </li>
-                    <li class="text-slider">
-                        <p>Table d'extérieur en traitement époxy à partir de 1300€</p>
-                    </li>
-                    <li class="text-slider">
-                        <p>Table basse gris foncé en contre plaqué chêne à partir de 640€</p>
-                    </li>
+                    {% endfor %}
                 </ul>
                 <div class="button arrow right"><span></span></div>
                 <div class="progress"></div>
                 <div class="progress-bar"></div>
             </div>
-            <div class="cover active" style="background-image: url({{ static("site/build/assets/images/prod/Cover_00.jpg") }})"></div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_01.jpg") }}"></div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_02.jpg") }}"></div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_03.jpg") }}"></div>
+            {% for node in nodes.carousel_top %}
+                {% if node.cover %}
+                    <div class="cover{% if loop.first %} active{% endif %}" style="background-image: url({{ node.cover.url }})"></div>
+                {% endif %}
+            {% endfor %}
         {% endblock %}
     </header>
 
@@ -279,44 +273,23 @@
             <a id="add-to-basket" href="#"> <span class="label">Ajouter au panier</span> <span class="button arrow right"></span></a>
         </section>
         <section class="content">
+            {% for node in nodes.portrait %}
             <article>
                 <div class="text-wrapper" id="about">
-                    <h2>Les tables Forj sont des produits artisanaux conçus et fabriqués sur-mesure en France dans notre atelier de métallerie.</h2>
-                    <p>
-                        <p>Nous avons conçu un design de table sur-mesure épuré et moderne, proposant des matériaux adaptés à votre budget et votre esthétique. Avec quatre pieds et un cadre entièrements modulables, vous construisez la table ou l’assise sur-mesure aux dimensions et matières de votre choix.
-                   </p>
-                        <p>Forj est une marque créée par deux passionnés de design et de métal. Nous concevons et réalisons tous nos produits nous-mêmes et à la demande dans notre atelier en région parisienne. Les plateaux en chêne et en bouleau sont également découpés et traités sur place par notre menuisier partenaire voisin de l’atelier Forj. </p>
-                    </p>
+                    {% if node.title %}
+                        <h2>{{ node.title }}</h2>
+                    {% endif %}
+
+                    {{ node.description|linebreaks(autoescape=False) }}
                 </div>
-                <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/portrait_00.jpg") }})"></div>
-                <p class="legendary">La table sur-mesure Forj, couleur brut avec un banc en acier brut.</p>
+                {% if node.cover %}
+                    <div class="cover" style="background-image: url({{ node.cover.url }})"></div>
+                {% endif %}
+                {% if node.legend %}
+                    <p class="legendary">{{ node.legend }}</p>
+                {% endif %}
             </article>
-            <article>
-                <div class="text-wrapper">
-                    <p>
-                        <p> Les pieds et le plateau sont démontables afin 
-de faciliter le transport. Ils sont en acier renforcé, montés et soudés dans notre atelier. Nous vous proposons 3 surfaces pour le plateau de votre table sur-mesure : un contreplaqué bouleau brut ou mat ainsi que l’acier tôlé et rien ne vous empêche de commander votre table sur-mesure sans plateau et de la personnaliser comme vous le souhaitez. Nous avons également souhaité  vous proposer un grand nombre de couleur, nous peignons nous-même les tables d'intérieur en couleur RAL, les cadres sans couleur sont traités.
-              </p>
-              <p>Forj est une métallerie parisienne habituée aux commandes de mobilier sur-mesure ou autre structure métallique complexe. Forj est donc capable de répondre à tous types de commandes et d’assumer une production de tables sur-mesure dans des temps raisonnables (5 semaines). Votre table sur-mesure Forj est donc un produit entièrement artisanal et fabriqué en France.</p>
-            </p>
-                        
-                    </p>
-                </div>
-                <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/portrait_01.jpg") }})"></div>
-                <p class="legendary">Détail du cadre fabriqué dans notre atelier parisien.</p>
-            </article>
-            <article>
-                <div class="text-wrapper">
-                    <p>
-                        <p>Une fois votre commande validée, les plans sont envoyés dans notre métallerie. Toutes les pièces sont découpées, percées et soudées à la main. Le cadre est en acier étiré, les plaques de vissage sont taillées au lazer et les plateaux en bois sont découpés et traités dans un atelier de menuiserie.</p>
-                        <p>Forj propose de fabriquer des tables et des assises sur-mesure, toutefois nous pouvons réaliser d’autres pièces de mobilier ou n’importe quelle structure en métal.
-Pour cela, nous vous invitons à <A HREF="mailto:forj.info@gmail.com">nous contacter</A>, décrivez-nous votre projet et laissez-nous vos coordonnées, nous vous recontacterons au plus vite. L’atelier de Forges se situe en région Parisienne, mais nous intervenons dans toute la France.
-</p>
-                    </p>
-                </div>
-                <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/portrait_02.jpg") }})"></div>
-                <p class="legendary">Notre artisan Forj préféré en plein action de montage.</p>
-            </article>
+            {% endfor %}
         </section>
         <section class="slider">
             <div class="wrapper">
@@ -328,30 +301,21 @@ Pour cela, nous vous invitons à <A HREF="mailto:forj.info@gmail.com">nous conta
             <div class="slider-container">
                 <div class="button arrow left"><span></span></div>
                 <ul>
-                    <li class="text-slider active">
-                        <p>Table basse, couleur gris en chêne contreplaqué</p>
+                    {% for node in nodes.carousel_bottom %}
+                    <li class="text-slider {% if loop.first %} active{% endif %}">
+                        <p>{{ node.title }}</p>
                     </li>
-                    <li class="text-slider">
-                        <p>Table de cuisine et bancs, couleur brut en chêne contreplaqué</p>
-                    </li>
-                    <li class="text-slider">
-                        <p>Table basse, couleur gris en chêne contreplaqué</p>
-                    </li>
-                    <li class="text-slider">
-                        <p>Table pour animaux domestiques !</p>
-                    </li>
+                    {% endfor %}
                 </ul>
                 <div class="button arrow right"><span></span></div>
                 <div class="progress"></div>
                 <div class="progress-bar"></div>
             </div>
-
-
-            <div class="cover active" style="background-image: url({{ static("site/build/assets/images/prod/Cover_04.jpg") }})"></div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_05.jpg") }})"></div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_06.jpg") }})"></div>
-            <div class="cover" style="background-image: url({{ static("site/build/assets/images/prod/Cover_07.jpg") }})"></div>
-
+            {% for node in nodes.carousel_bottom %}
+                {% if node.cover %}
+                    <div class="cover{% if loop.first %} active{% endif %}" style="background-image: url({{ node.cover.url }})"></div>
+                {% endif %}
+            {% endfor %}
         </section>
         <div class="popin-background"></div>
         <div class="popin basket hidden">

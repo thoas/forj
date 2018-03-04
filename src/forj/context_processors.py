@@ -1,6 +1,7 @@
 from django.conf import settings
 
 from forj import constants
+from forj.cart import Cart
 
 
 def base(request):
@@ -8,7 +9,12 @@ def base(request):
 
     _, _, value = constants.CURRENCY_CHOICES.values[default_currency]
 
+    cart = Cart.from_request(request)
+    if cart is None:
+        cart = Cart()
+
     return {
+        'cart': cart,
         'FORJ_PHONE_NUMBER': settings.FORJ_PHONE_NUMBER,
         'FORJ_CONTACT_EMAIL': settings.FORJ_CONTACT_EMAIL,
         'FORJ_INSTAGRAM_URL': settings.FORJ_INSTAGRAM_URL,
