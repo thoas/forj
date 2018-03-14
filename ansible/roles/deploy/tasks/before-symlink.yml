@@ -24,6 +24,10 @@
 - name: Build static files
   command: "{{ virtualenv_bin_path }}/python manage.py collectstatic --noinput -i *.scss --traceback chdir={{ ansistrano_release_path.stdout }}"
 
+- name: Migrate database
+  command: "{{ virtualenv_bin_path }}/alembic upgrade head chdir={{ ansistrano_release_path.stdout }}"
+  when: migrate is defined
+
 - name: Configure systemd service
   template:
     src: etc/systemd/system/default.service.j2
