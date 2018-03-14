@@ -2,6 +2,8 @@ Bonjour Benoit,
 
 Nous vous confirmons le règlement pour votre commande Forj et sa bonne réception à notre atelier. Nous vous contacterons d'ici une à deux semaines pour vous fixer une date de livraison.
 
+Vous trouverez votre facture à cette adresse : {{ order.get_invoice_url }}
+
 Nous vous remercions pour votre commande,
 l'équipe Forj
 

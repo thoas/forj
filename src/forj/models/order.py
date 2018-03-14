@@ -119,7 +119,10 @@ class Order(base.Model):
         return reverse('success', args=[self.reference, ])
 
     def get_invoice_url(self):
-        return reverse('invoice', args=[self.reference, ])
+        return reverse_full('invoice',
+                            args=[self.reference, ],
+                            scheme=settings.DEFAULT_SCHEME,
+                            host=settings.DEFAULT_HOST)
 
     def get_checkout_url(self):
         return reverse('checkout', args=[self.reference, ])
