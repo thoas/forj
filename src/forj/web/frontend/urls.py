@@ -8,6 +8,10 @@ from forj.urls import urlpatterns
 
 
 urlpatterns = urlpatterns + [
+    url(r'^sitemap-arbo.xml$',
+        generic.TemplateView.as_view(template_name='sitemap-arbo.html',
+                                     content_type='text/xml')),
+
     url(r'^healthcheck/$',
         views.healthcheck,
         name='healthcheck'),
