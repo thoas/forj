@@ -19,7 +19,7 @@ class ReverseSingleRelatedObjectDescriptor(object):
                 if self.field.null:
                     return None
 
-            rel_obj = self.field.methods['get'](instance, val, self.field)
+            rel_obj = self.field.methods["get"](instance, val, self.field)
 
             setattr(instance, cache_name, rel_obj)
 
@@ -30,12 +30,15 @@ class ReverseSingleRelatedObjectDescriptor(object):
             raise AttributeError("%s must be accessed via instance" % self._field.name)
 
         if value is None and self.field.null is False:
-            raise ValueError('Cannot assign None: "%s.%s" does not allow null values.' %
-                             (instance._meta.object_name, self.field.name))
+            raise ValueError(
+                'Cannot assign None: "%s.%s" does not allow null values.'
+                % (instance._meta.object_name, self.field.name)
+            )
         elif value is not None and not isinstance(value, self.field.to):
-            raise ValueError('Cannot assign "%r": "%s.%s" must be a "%s" instance.' %
-                             (value, instance._meta.object_name,
-                              self.field.name, self.field.to))
+            raise ValueError(
+                'Cannot assign "%r": "%s.%s" must be a "%s" instance.'
+                % (value, instance._meta.object_name, self.field.name, self.field.to)
+            )
 
         if value:
             setattr(instance, self.field.attname, value.id)
@@ -60,24 +63,24 @@ def update_resource(instance):
 
 class ResourceField(models.CharField):
     def __init__(self, to=None, methods=None, *args, **kwargs):
-        kwargs['max_length'] = 100
+        kwargs["max_length"] = 100
 
         super(ResourceField, self).__init__(*args, **kwargs)
 
         self.to = to
         self.methods = {
-            'get': retrieve_resource,
-            'create': create_resource,
-            'update': update_resource
+            "get": retrieve_resource,
+            "create": create_resource,
+            "update": update_resource,
         }
         if methods is not None:
             self.methods.update(methods)
 
     def get_attname(self):
-        return '%s_id' % self.name
+        return "%s_id" % self.name
 
     def get_cache_name(self):
-        return '%s_cache' % self.name
+        return "%s_cache" % self.name
 
     def contribute_to_class(self, cls, name):
         super(ResourceField, self).contribute_to_class(cls, name)

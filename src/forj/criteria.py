@@ -1,31 +1,31 @@
 import re
 
-CRITERIA_SEPARATOR = '-'
-RANGE_CRITERIA_SEPARATOR = '/'
-FREE_CRITERIA_SEPARATOR = '?'
-CHOICE_CRITERIA_SEPARATOR = '|'
+CRITERIA_SEPARATOR = "-"
+RANGE_CRITERIA_SEPARATOR = "/"
+FREE_CRITERIA_SEPARATOR = "?"
+CHOICE_CRITERIA_SEPARATOR = "|"
 
-criteria_regex = re.compile(r'(?P<name>\w+)\((?P<value>[\w\{}\{}\{}]+)\)'.format(
-    FREE_CRITERIA_SEPARATOR,
-    RANGE_CRITERIA_SEPARATOR,
-    CHOICE_CRITERIA_SEPARATOR
-))
+criteria_regex = re.compile(
+    r"(?P<name>\w+)\((?P<value>[\w\{}\{}\{}]+)\)".format(
+        FREE_CRITERIA_SEPARATOR, RANGE_CRITERIA_SEPARATOR, CHOICE_CRITERIA_SEPARATOR
+    )
+)
 
 
 class CriteriaSet(object):
     def __init__(self, criterias):
-        self.criterias = sorted(criterias,
-                                key=lambda criteria: criteria.name,
-                                reverse=True)
+        self.criterias = sorted(
+            criterias, key=lambda criteria: criteria.name, reverse=True
+        )
 
     @classmethod
-    def from_reference(cls, reference,
-                       separator=CRITERIA_SEPARATOR):
+    def from_reference(cls, reference, separator=CRITERIA_SEPARATOR):
 
         segments = reference.split(separator)
 
-        criterias = [get_criteria_class(segment).from_segment(segment)
-                     for segment in segments]
+        criterias = [
+            get_criteria_class(segment).from_segment(segment) for segment in segments
+        ]
 
         return cls(criterias)
 
@@ -37,20 +37,20 @@ class CriteriaSet(object):
             yield criteria
 
     def __repr__(self):
-        value = ', '.join([
-            '{}'.format(criteria)
-            for criteria in self.criterias
-        ])
+        value = ", ".join(["{}".format(criteria) for criteria in self.criterias])
 
-        return '<{}: {}>'.format(self.__class__.__name__,
-                                 value)
+        return "<{}: {}>".format(self.__class__.__name__, value)
 
     def __contains__(self, value):
         if len(self.criterias) != len(value.criterias):
             return False
 
-        return all([criteria in self.criterias[i]
-                    for i, criteria in enumerate(value.criterias)])
+        return all(
+            [
+                criteria in self.criterias[i]
+                for i, criteria in enumerate(value.criterias)
+            ]
+        )
 
 
 class Criteria(object):
@@ -65,13 +65,10 @@ class Criteria(object):
         if not match:
             return None
 
-        return cls(name=match.group('name'),
-                   value=match.group('value'))
+        return cls(name=match.group("name"), value=match.group("value"))
 
     def __repr__(self):
-        return '<{}: {}:{}>'.format(self.__class__.__name__,
-                                    self.name,
-                                    self.value)
+        return "<{}: {}:{}>".format(self.__class__.__name__, self.name, self.value)
 
     def __eq__(self, criteria):
         return criteria.name == self.name and criteria.value == self.value
@@ -80,7 +77,7 @@ class Criteria(object):
         return self == value
 
     def __str__(self):
-        return '{}: {}'.format(self.name, self.value)
+        return "{}: {}".format(self.name, self.value)
 
 
 class RangeCriteria(Criteria):

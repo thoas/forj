@@ -26,63 +26,71 @@ from forj.payment import backend
 
 
 headers = (
-    'HTTP_HOST',
-    'REMOTE_ADDR',
-    'HTTP_X_FORWARDED_FOR',
-    'HTTP_X_FORWARDED_PROTO',
-    'HTTP_X_FORWARDED_PROTOCOL',
-    'HTTP_ACCEPT_LANGUAGE',
-    'QUERY_STRING',
-    'X-Real-Ip',
+    "HTTP_HOST",
+    "REMOTE_ADDR",
+    "HTTP_X_FORWARDED_FOR",
+    "HTTP_X_FORWARDED_PROTO",
+    "HTTP_X_FORWARDED_PROTOCOL",
+    "HTTP_ACCEPT_LANGUAGE",
+    "QUERY_STRING",
+    "X-Real-Ip",
 )
 
 
 @csrf_exempt
 def healthcheck(request):
-    user = getattr(request, 'user', None)
+    user = getattr(request, "user", None)
 
     results = {header: request.META.get(header) for header in headers}
 
-    results['GET'] = request.GET
-    results['POST'] = request.POST
-    results['USER'] = '{}'.format(user or '')
-    results['HOST'] = request.get_host()
-    results['IS_SECURE'] = request.is_secure()
-    results['IS_AJAX'] = request.is_ajax()
+    results["GET"] = request.GET
+    results["POST"] = request.POST
+    results["USER"] = "{}".format(user or "")
+    results["HOST"] = request.get_host()
+    results["IS_SECURE"] = request.is_secure()
+    results["IS_AJAX"] = request.is_ajax()
 
-    release_tag = getattr(settings, 'RELEASE_TAG', None)
+    release_tag = getattr(settings, "RELEASE_TAG", None)
 
-    version = getattr(settings, 'PROJECT_VERSION', None)
+    version = getattr(settings, "PROJECT_VERSION", None)
 
-    uptime = getattr(settings, 'PROJECT_UPTIME', None)
+    uptime = getattr(settings, "PROJECT_UPTIME", None)
 
-    if version is not None and '.' in version:
+    if version is not None and "." in version:
         version = import_string(version)
 
-    results['sha'] = release_tag
-    results['tznow'] = timezone.now()
-    results['now'] = datetime.now()
-    results['version'] = version
-    results['uptime'] = uptime
-    results['uptime_since'] = naturaltime(uptime)
+    results["sha"] = release_tag
+    results["tznow"] = timezone.now()
+    results["now"] = datetime.now()
+    results["version"] = version
+    results["uptime"] = uptime
+    results["uptime_since"] = naturaltime(uptime)
 
     return JsonResponse(results)
 
 
-def home(request, template_name='forj/home.html', **extra):
-    extra['nodes'] = {
-        'carousel_top': ContentNode.objects.type(ContentNode.TYPE_CHOICES.HOME_CAROUSEL_TOP),
-        'carousel_bottom': ContentNode.objects.type(ContentNode.TYPE_CHOICES.HOME_CAROUSEL_BOTTOM),
-        'portrait': ContentNode.objects.type(ContentNode.TYPE_CHOICES.HOME_PORTRAIT),
+def home(request, template_name="forj/home.html", **extra):
+    extra["nodes"] = {
+        "carousel_top": ContentNode.objects.type(
+            ContentNode.TYPE_CHOICES.HOME_CAROUSEL_TOP
+        ),
+        "carousel_bottom": ContentNode.objects.type(
+            ContentNode.TYPE_CHOICES.HOME_CAROUSEL_BOTTOM
+        ),
+        "portrait": ContentNode.objects.type(ContentNode.TYPE_CHOICES.HOME_PORTRAIT),
     }
 
     return render(request, template_name, extra)
 
 
-def collection(request, template_name='forj/collection.html', **extra):
-    extra['nodes'] = {
-        'carousel': ContentNode.objects.type(ContentNode.TYPE_CHOICES.COLLECTION_CAROUSEL),
-        'selection': ContentNode.objects.type(ContentNode.TYPE_CHOICES.COLLECTION_SELECTION),
+def collection(request, template_name="forj/collection.html", **extra):
+    extra["nodes"] = {
+        "carousel": ContentNode.objects.type(
+            ContentNode.TYPE_CHOICES.COLLECTION_CAROUSEL
+        ),
+        "selection": ContentNode.objects.type(
+            ContentNode.TYPE_CHOICES.COLLECTION_SELECTION
+        ),
     }
 
     return render(request, template_name, extra)
@@ -95,39 +103,40 @@ class CheckoutMixin(object):
 
     @cached_property
     def order(self):
-        reference = self.kwargs.get('reference')
+        reference = self.kwargs.get("reference")
 
         if reference and self.request.user.is_authenticated:
-            return Order.objects.filter(user=self.request.user,
-                                        reference=reference).first()
+            return Order.objects.filter(
+                user=self.request.user, reference=reference
+            ).first()
 
         return None
 
 
 class CheckoutView(CheckoutMixin, generic.FormView):
-    template_name = 'forj/checkout/home.html'
+    template_name = "forj/checkout/home.html"
     form_class = RegistrationForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['cart'] = self.cart
+        context["cart"] = self.cart
 
         return context
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['country'] = settings.DEFAULT_COUNTRY
-        kwargs['order'] = self.order
+        kwargs["country"] = settings.DEFAULT_COUNTRY
+        kwargs["order"] = self.order
 
         user = self.request.user
         if user.is_authenticated:
-            kwargs['user'] = user
+            kwargs["user"] = user
 
         return kwargs
 
     def dispatch(self, *args, **kwargs):
         if not self.cart:
-            return redirect('home')
+            return redirect("home")
 
         return super().dispatch(*args, **kwargs)
 
@@ -135,10 +144,14 @@ class CheckoutView(CheckoutMixin, generic.FormView):
         with transaction.atomic():
             user = form.save()
 
-            self.order = self.cart.save(user, order=self.order, defaults={
-                'shipping_address': form.shipping_address,
-                'billing_address': form.billing_address,
-            })
+            self.order = self.cart.save(
+                user,
+                order=self.order,
+                defaults={
+                    "shipping_address": form.shipping_address,
+                    "billing_address": form.billing_address,
+                },
+            )
 
         if not self.request.user.is_authenticated:
             user.backend = settings.DEFAULT_AUTHENTICATION_BACKEND
@@ -154,9 +167,9 @@ class CheckoutView(CheckoutMixin, generic.FormView):
 
 
 class OrderView(generic.DetailView):
-    slug_field = 'reference'
-    context_object_name = 'order'
-    slug_url_kwarg = 'reference'
+    slug_field = "reference"
+    context_object_name = "order"
+    slug_url_kwarg = "reference"
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
@@ -172,11 +185,23 @@ class PaymentProcessingView(OrderView):
         try:
             order = backend.handle_order(order)
         except CardError:
-            messages.error(self.request, _('Your card has been declined by your bank, we can\'t process the transaction'), fail_silently=True)
+            messages.error(
+                self.request,
+                _(
+                    "Your card has been declined by your bank, we can't process the transaction"
+                ),
+                fail_silently=True,
+            )
 
             return redirect(order.get_payment_url())
         except PaymentError:
-            messages.error(self.request, _('An error occurred with our payment provider, we can\'t process the transaction'), fail_silently=True)
+            messages.error(
+                self.request,
+                _(
+                    "An error occurred with our payment provider, we can't process the transaction"
+                ),
+                fail_silently=True,
+            )
 
             return redirect(order.get_payment_url())
 
@@ -190,12 +215,12 @@ class PaymentProcessingView(OrderView):
 
 
 class PaymentView(FormMixin, OrderView):
-    template_name = 'forj/checkout/payment.html'
+    template_name = "forj/checkout/payment.html"
     form_class = PaymentForm
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['order'] = self.object
+        kwargs["order"] = self.object
 
         return kwargs
 
@@ -223,11 +248,23 @@ class PaymentView(FormMixin, OrderView):
         try:
             order = form.save()
         except CardError:
-            messages.error(self.request, _('Your card has been declined by your bank, we can\'t process the transaction'), fail_silently=True)
+            messages.error(
+                self.request,
+                _(
+                    "Your card has been declined by your bank, we can't process the transaction"
+                ),
+                fail_silently=True,
+            )
 
             return redirect(self.object.get_payment_url())
         except PaymentError:
-            messages.error(self.request, _('An error occurred with our payment provider, we can\'t process the transaction'), fail_silently=True)
+            messages.error(
+                self.request,
+                _(
+                    "An error occurred with our payment provider, we can't process the transaction"
+                ),
+                fail_silently=True,
+            )
 
             return redirect(self.object.get_payment_url())
 
@@ -241,59 +278,59 @@ class PaymentView(FormMixin, OrderView):
 
 
 class SuccessView(OrderView):
-    template_name = 'forj/checkout/success.html'
+    template_name = "forj/checkout/success.html"
 
     def get_queryset(self):
         return super().get_queryset().filter(status=Order.STATUS_CHOICES.SUCCEEDED)
 
 
 class InvoiceView(SuccessView):
-    template_name = 'forj/checkout/invoice.html'
+    template_name = "forj/checkout/invoice.html"
 
 
 @csrf_exempt
 def cart(request):
     params = getattr(request, request.method)
 
-    action = params.get('action')
+    action = params.get("action")
 
     cart = Cart.from_request(request)
     if cart is None:
         cart = Cart()
 
-    reference_list = params.getlist('reference')
+    reference_list = params.getlist("reference")
 
     if action is not None:
-        if action == 'detail':
+        if action == "detail":
             if reference_list is None:
-                return HttpResponseBadRequest('Missing `reference` parameter')
+                return HttpResponseBadRequest("Missing `reference` parameter")
 
             cart = Cart()
             for reference in reference_list:
                 try:
-                    cart.add_product(reference, params.get('quantity') or 1)
+                    cart.add_product(reference, params.get("quantity") or 1)
                 except exceptions.InvalidProductRef as e:
                     return HttpResponseBadRequest(e)
             return JsonResponse(cart.response, encoder=JSONEncoder)
-        elif action in ('add', 'remove'):
+        elif action in ("add", "remove"):
             if reference_list is None:
-                return HttpResponseBadRequest('Missing `reference` parameter')
+                return HttpResponseBadRequest("Missing `reference` parameter")
 
             try:
-                if action == 'add':
+                if action == "add":
                     for reference in reference_list:
-                        cart.add_product(reference, params.get('quantity') or 1)
-                elif action == 'remove':
+                        cart.add_product(reference, params.get("quantity") or 1)
+                elif action == "remove":
                     for reference in reference_list:
                         cart.remove_product(reference)
             except exceptions.InvalidProductRef as e:
                 return HttpResponseBadRequest(e)
-        elif action == 'flush':
+        elif action == "flush":
             cart = Cart.flush(request)
 
         cart.to_request(request)
 
-    next_value = params.get('next')
+    next_value = params.get("next")
     if next_value:
         try:
             return redirect(next_value)

@@ -13,28 +13,30 @@ class ContentNodeCoverInline(admin.TabularInline):
     model = ContentNodeCover
     extra = 1
 
-    fields = (
-        'image',
-        'rank',
-    )
+    fields = ("image", "rank")
 
 
 class ContentNodeAdmin(admin.ModelAdmin):
-    list_display = ('subject', 'type', 'cover', 'rank')
-    list_filter = ('type', )
+    list_display = ("subject", "type", "cover", "rank")
+    list_filter = ("type",)
 
-    inlines = (ContentNodeCoverInline, )
+    inlines = (ContentNodeCoverInline,)
 
     fieldsets = (
-        (None, {'fields': (
-            'type',
-            'title',
-            'description',
-            'legend',
-            'cover',
-            'product_reference',
-            'rank',
-        )}),
+        (
+            None,
+            {
+                "fields": (
+                    "type",
+                    "title",
+                    "description",
+                    "legend",
+                    "cover",
+                    "product_reference",
+                    "rank",
+                )
+            },
+        ),
     )
 
 
@@ -42,27 +44,34 @@ admin.site.register(ContentNode, ContentNodeAdmin)
 
 
 class UserAdmin(BaseUserAdmin):
-    change_form_template = 'forj/admin/user/change_form.html'
+    change_form_template = "forj/admin/user/change_form.html"
 
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', )}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser',
-                                    'groups', 'user_permissions')}),
-        ('Important dates', {'fields': ('last_login', 'date_joined')}),
+        (None, {"fields": ("email", "password")}),
+        ("Personal info", {"fields": ("first_name", "last_name")}),
+        (
+            "Permissions",
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                )
+            },
+        ),
+        ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
 
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2'),
-        }),
+        (None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),
     )
 
-    list_display = ('email', 'first_name', 'last_name', 'is_staff')
-    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
-    search_fields = ('first_name', 'last_name', 'email')
-    ordering = ('date_joined',)
+    list_display = ("email", "first_name", "last_name", "is_staff")
+    list_filter = ("is_staff", "is_superuser", "is_active", "groups")
+    search_fields = ("first_name", "last_name", "email")
+    ordering = ("date_joined",)
 
 
 class ProductAdminForm(forms.ModelForm):
@@ -81,46 +90,45 @@ class ProductAdminForm(forms.ModelForm):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'reference', '_price', 'condition', '_shipping_cost', '_tax_cost')
-
-    readonly_fields = (
-        'currency', 'created_at', 'updated_at'
+    list_display = (
+        "name",
+        "reference",
+        "_price",
+        "condition",
+        "_shipping_cost",
+        "_tax_cost",
     )
 
-    change_form_template = 'forj/admin/product/change_form.html'
+    readonly_fields = ("currency", "created_at", "updated_at")
+
+    change_form_template = "forj/admin/product/change_form.html"
 
     form = ProductAdminForm
 
     def _price(self, instance):
         if instance.price:
-            return '{}{}'.format(
-                instance.get_currency_display(),
-                instance.price_converted)
+            return "{}{}".format(
+                instance.get_currency_display(), instance.price_converted
+            )
 
         return instance.formula
 
     def _shipping_cost(self, instance):
-        return '{}{}'.format(
-            instance.get_currency_display(),
-            instance.shipping_cost_converted)
+        return "{}{}".format(
+            instance.get_currency_display(), instance.shipping_cost_converted
+        )
 
     def _tax_cost(self, instance):
-        return '{}{}'.format(
-            instance.get_currency_display(),
-            instance.tax_cost_converted)
+        return "{}{}".format(
+            instance.get_currency_display(), instance.tax_cost_converted
+        )
 
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 1
 
-    fields = (
-        'product',
-        'product_reference',
-        'quantity',
-        'shipping_cost',
-        'amount'
-    )
+    fields = ("product", "product_reference", "quantity", "shipping_cost", "amount")
 
 
 class OrderAdminForm(forms.ModelForm):
@@ -152,98 +160,109 @@ class OrderAdminForm(forms.ModelForm):
         super(OrderAdminForm, self).__init__(*args, **kwargs)
 
         if self.instance:
-            for field in ('shipping', 'billing', ):
-                if getattr(self.instance, '%s_address_id' % field):
-                    instance = getattr(self.instance, '%s_address' % field)
+            for field in ("shipping", "billing"):
+                if getattr(self.instance, "%s_address_id" % field):
+                    instance = getattr(self.instance, "%s_address" % field)
 
-                    self.fields['%s_first_name' % field].initial = instance.first_name
-                    self.fields['%s_last_name' % field].initial = instance.last_name
-                    self.fields['%s_business_name' % field].initial = instance.business_name
-                    self.fields['%s_line1' % field].initial = instance.line1
-                    self.fields['%s_line2' % field].initial = instance.line2
-                    self.fields['%s_postal_code' % field].initial = instance.postal_code
-                    self.fields['%s_city' % field].initial = instance.city
-                    self.fields['%s_country' % field].initial = instance.country
-                    self.fields['%s_phone_number' % field].initial = instance.phone_number
+                    self.fields["%s_first_name" % field].initial = instance.first_name
+                    self.fields["%s_last_name" % field].initial = instance.last_name
+                    self.fields[
+                        "%s_business_name" % field
+                    ].initial = instance.business_name
+                    self.fields["%s_line1" % field].initial = instance.line1
+                    self.fields["%s_line2" % field].initial = instance.line2
+                    self.fields["%s_postal_code" % field].initial = instance.postal_code
+                    self.fields["%s_city" % field].initial = instance.city
+                    self.fields["%s_country" % field].initial = instance.country
+                    self.fields[
+                        "%s_phone_number" % field
+                    ].initial = instance.phone_number
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('reference', '_amount',
-                    '_status', 'shipping_status', 'user',
-                    'created_at', 'updated_at')
-
-    list_filter = ('status', 'shipping_status', 'created_at')
-
-    readonly_fields = (
-        'currency', 'created_at', 'updated_at'
+    list_display = (
+        "reference",
+        "_amount",
+        "_status",
+        "shipping_status",
+        "user",
+        "created_at",
+        "updated_at",
     )
 
-    change_form_template = 'forj/admin/order/change_form.html'
+    list_filter = ("status", "shipping_status", "created_at")
 
-    raw_id_fields = ('user', )
+    readonly_fields = ("currency", "created_at", "updated_at")
 
-    inlines = (OrderItemInline, )
+    change_form_template = "forj/admin/order/change_form.html"
+
+    raw_id_fields = ("user",)
+
+    inlines = (OrderItemInline,)
 
     form = OrderAdminForm
 
     fieldsets = (
-        (None, {
-            'fields': (
-                'amount',
-                'currency',
-                'status',
-                'user',
-            ),
-        }),
-        ('Shipping', {
-            'fields': (
-                'shipping_cost',
-                'shipping_status',
-            )
-        }),
-        ('Shipping address', {
-            'fields': ('shipping_first_name', 'shipping_last_name',
-                       'shipping_business_name',
-                       'shipping_line1', 'shipping_line2',
-                       'shipping_city', 'shipping_postal_code',
-                       'shipping_country', 'shipping_phone_number'),
-            'classes': ('collapse', )
-        }),
-        ('Billing address', {
-            'fields': ('billing_first_name', 'billing_last_name',
-                       'billing_business_name',
-                       'billing_line1', 'billing_line2',
-                       'billing_city', 'billing_postal_code',
-                       'billing_country', 'billing_phone_number'),
-            'classes': ('collapse', )
-        }),
-        ('Information', {
-            'fields': (
-                'created_at',
-                'updated_at',
-            )
-        }),
+        (None, {"fields": ("amount", "currency", "status", "user")}),
+        ("Shipping", {"fields": ("shipping_cost", "shipping_status")}),
+        (
+            "Shipping address",
+            {
+                "fields": (
+                    "shipping_first_name",
+                    "shipping_last_name",
+                    "shipping_business_name",
+                    "shipping_line1",
+                    "shipping_line2",
+                    "shipping_city",
+                    "shipping_postal_code",
+                    "shipping_country",
+                    "shipping_phone_number",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+        (
+            "Billing address",
+            {
+                "fields": (
+                    "billing_first_name",
+                    "billing_last_name",
+                    "billing_business_name",
+                    "billing_line1",
+                    "billing_line2",
+                    "billing_city",
+                    "billing_postal_code",
+                    "billing_country",
+                    "billing_phone_number",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+        ("Information", {"fields": ("created_at", "updated_at")}),
     )
 
     def _status(self, instance):
-        color = 'blue'
+        color = "blue"
 
         if instance.is_status_succeeded():
-            color = 'green'
+            color = "green"
         elif instance.is_status_failed():
-            color = 'green'
+            color = "green"
 
-        return format_html('<span style="color: {}">{}</span>'.format(color, instance.get_status_display()))
+        return format_html(
+            '<span style="color: {}">{}</span>'.format(
+                color, instance.get_status_display()
+            )
+        )
 
     def _amount(self, instance):
-        return '{}{}'.format(
-            instance.get_currency_display(),
-            instance.amount_converted)
+        return "{}{}".format(instance.get_currency_display(), instance.amount_converted)
 
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(User, UserAdmin)
 
-admin.site.site_title = 'Site admin'
-admin.site.site_header = 'Forj administration'
+admin.site.site_title = "Site admin"
+admin.site.site_header = "Forj administration"

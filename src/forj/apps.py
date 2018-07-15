@@ -5,8 +5,8 @@ from django.conf import settings
 
 
 class ForjConfig(AppConfig):
-    name = 'forj'
-    verbose_name = 'Forj'
+    name = "forj"
+    verbose_name = "Forj"
 
     def ready(self):
         super(ForjConfig, self).ready()

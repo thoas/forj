@@ -6,7 +6,7 @@ from collections import defaultdict
 
 from forj.models import Product, Order, OrderItem
 
-CART_SESSION_KEY = 'cart_id'
+CART_SESSION_KEY = "cart_id"
 
 
 class Cart(object):
@@ -21,12 +21,9 @@ class Cart(object):
         product = Product.objects.from_reference(reference)
 
         if product.pk not in self._products:
-            self._products[product.pk] = {
-                'obj': product,
-                'refs': defaultdict(int),
-            }
+            self._products[product.pk] = {"obj": product, "refs": defaultdict(int)}
 
-        self._products[product.pk]['refs'][reference] += quantity
+        self._products[product.pk]["refs"][reference] += quantity
 
         self.update()
 
@@ -34,7 +31,7 @@ class Cart(object):
         product = Product.objects.from_reference(reference)
 
         if product.pk in self._products:
-            del self._products[product.pk]['refs'][reference]
+            del self._products[product.pk]["refs"][reference]
 
         if not self._products[product.pk]:
             del self._products[product.pk]
@@ -48,10 +45,10 @@ class Cart(object):
         self.tax_cost = 0
 
         for product_id, result in self._products.items():
-            for ref, quantity in result['refs'].items():
-                amount = quantity * result['obj'].get_price(ref)
-                shipping_cost = quantity * result['obj'].shipping_cost
-                tax_cost = quantity * result['obj'].tax_cost
+            for ref, quantity in result["refs"].items():
+                amount = quantity * result["obj"].get_price(ref)
+                shipping_cost = quantity * result["obj"].shipping_cost
+                tax_cost = quantity * result["obj"].tax_cost
 
                 self.amount += amount
                 self.shipping_cost += shipping_cost
@@ -62,7 +59,7 @@ class Cart(object):
     def data(self):
         data = {}
         for product_id, result in self._products.items():
-            data.update(result['refs'])
+            data.update(result["refs"])
 
         return data
 
@@ -70,30 +67,32 @@ class Cart(object):
         products = []
 
         for product_id, entry in self._products.items():
-            product = entry['obj']
+            product = entry["obj"]
 
-            for ref, quantity in entry['refs'].items():
-                products.append({
-                    'quantity': quantity,
-                    'reference': ref,
-                    'product': product,
-                    'total': quantity * product.get_price(ref),
-                })
+            for ref, quantity in entry["refs"].items():
+                products.append(
+                    {
+                        "quantity": quantity,
+                        "reference": ref,
+                        "product": product,
+                        "total": quantity * product.get_price(ref),
+                    }
+                )
 
         return products
 
     @property
     def total_quantity(self):
-        return sum([item['quantity'] for item in self.get_items()])
+        return sum([item["quantity"] for item in self.get_items()])
 
     @property
     def response(self):
         return {
-            'items': self.get_items(),
-            'total': self.total,
-            'amount': self.amount,
-            'shipping_cost': self.shipping_cost,
-            'tax_cost': self.tax_cost,
+            "items": self.get_items(),
+            "total": self.total,
+            "amount": self.amount,
+            "shipping_cost": self.shipping_cost,
+            "tax_cost": self.tax_cost,
         }
 
     @property
@@ -154,19 +153,21 @@ class Cart(object):
         order_items = []
 
         for product_id, result in self._products.items():
-            product = result['obj']
+            product = result["obj"]
 
-            for ref, quantity in result['refs'].items():
+            for ref, quantity in result["refs"].items():
                 shipping_cost = quantity * product.shipping_cost
                 tax_cost = quantity * product.tax_cost
 
-                order_item = OrderItem(order=order,
-                                       quantity=quantity,
-                                       amount=quantity * product.get_price(ref),
-                                       product_reference=ref,
-                                       shipping_cost=shipping_cost,
-                                       tax_cost=tax_cost,
-                                       product=product)
+                order_item = OrderItem(
+                    order=order,
+                    quantity=quantity,
+                    amount=quantity * product.get_price(ref),
+                    product_reference=ref,
+                    shipping_cost=shipping_cost,
+                    tax_cost=tax_cost,
+                    product=product,
+                )
                 order_items.append(order_item)
 
         if commit is True:

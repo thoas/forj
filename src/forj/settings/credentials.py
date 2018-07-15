@@ -1,2 +1,2 @@
-STRIPE_PUBLISHABLE_KEY = 'pk_test_dUSiOQQp3PCD0wzdXneXURZy'
-STRIPE_SECRET_KEY = 'sk_test_Mfl1vdmO4sfu1GnkxziKwzlK'
+STRIPE_PUBLISHABLE_KEY = "pk_test_dUSiOQQp3PCD0wzdXneXURZy"
+STRIPE_SECRET_KEY = "sk_test_Mfl1vdmO4sfu1GnkxziKwzlK"

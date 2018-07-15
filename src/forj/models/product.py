@@ -15,7 +15,9 @@ class ProductQuerySet(base.QuerySet):
             if product.handle_reference(reference):
                 return product
 
-        raise exceptions.InvalidProductRef('Product ref {} is not available'.format(reference))
+        raise exceptions.InvalidProductRef(
+            "Product ref {} is not available".format(reference)
+        )
 
 
 class ProductManager(base.Manager):
@@ -23,28 +25,30 @@ class ProductManager(base.Manager):
         return ProductQuerySet(self.model)
 
     def from_reference(self, reference):
-        return self.order_by('price', '-condition').from_reference(reference)
+        return self.order_by("price", "-condition").from_reference(reference)
 
 
 class Product(base.Model):
-    name = models.CharField(max_length=100, verbose_name='Name')
-    reference = models.CharField(max_length=100, verbose_name='Reference',
-                                 db_index=True)
-    description = models.TextField(null=True, verbose_name='Description',
-                                   blank=True)
-    price = AmountField(verbose_name='Price', null=True, blank=True)
-    formula = models.CharField(max_length=100, verbose_name='Formula',
-                               null=True, blank=True)
-    condition = models.CharField(max_length=100, verbose_name='Condition',
-                                 null=True, blank=True)
-    currency = models.CharField(max_length=3,
-                                choices=constants.CURRENCY_CHOICES,
-                                default=settings.DEFAULT_CURRENCY)
-    shipping_cost = AmountField(null=True, verbose_name='Shipping cost',
-                                default=0)
+    name = models.CharField(max_length=100, verbose_name="Name")
+    reference = models.CharField(
+        max_length=100, verbose_name="Reference", db_index=True
+    )
+    description = models.TextField(null=True, verbose_name="Description", blank=True)
+    price = AmountField(verbose_name="Price", null=True, blank=True)
+    formula = models.CharField(
+        max_length=100, verbose_name="Formula", null=True, blank=True
+    )
+    condition = models.CharField(
+        max_length=100, verbose_name="Condition", null=True, blank=True
+    )
+    currency = models.CharField(
+        max_length=3,
+        choices=constants.CURRENCY_CHOICES,
+        default=settings.DEFAULT_CURRENCY,
+    )
+    shipping_cost = AmountField(null=True, verbose_name="Shipping cost", default=0)
 
-    tax_cost = AmountField(null=True, verbose_name='Tax cost',
-                           default=0)
+    tax_cost = AmountField(null=True, verbose_name="Tax cost", default=0)
 
     objects = ProductManager()
 
@@ -52,17 +56,18 @@ class Product(base.Model):
         super().__init__(*args, **kwargs)
 
     class Meta:
-        db_table = 'forj_product'
+        db_table = "forj_product"
         abstract = False
 
     def __str__(self):
-        return '{}: {}'.format(self.name, self.reference)
+        return "{}: {}".format(self.name, self.reference)
 
     def handle_reference(self, reference):
         criteria_set = CriteriaSet.from_reference(reference)
 
-        if (criteria_set in self.criteria_set and
-                len(criteria_set) == len(self.criteria_set)):
+        if criteria_set in self.criteria_set and len(criteria_set) == len(
+            self.criteria_set
+        ):
 
             if not self.condition:
                 return True
@@ -99,17 +104,17 @@ class Product(base.Model):
         description = self.description
 
         for criteria in CriteriaSet.from_reference(reference):
-            description = description.replace('{%s}' % criteria.name, criteria.value)
+            description = description.replace("{%s}" % criteria.name, criteria.value)
 
         return description
 
     @property
     def serialized_data(self):
         return {
-            'id': self.pk,
-            'price': self.price,
-            'shipping_cost': self.shipping_cost,
-            'description': self.description,
-            'name': self.name,
-            'currency': self.currency
+            "id": self.pk,
+            "price": self.price,
+            "shipping_cost": self.shipping_cost,
+            "description": self.description,
+            "name": self.name,
+            "currency": self.currency,
         }

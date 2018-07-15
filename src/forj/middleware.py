@@ -12,10 +12,13 @@ class MinifyHTMLMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
 
-        if response.has_header('Content-Type') and 'text/html' in response['Content-Type']:
+        if (
+            response.has_header("Content-Type")
+            and "text/html" in response["Content-Type"]
+        ):
             try:
                 response.content = minify_html(response.content.strip())
-                response['Content-Length'] = str(len(response.content))
+                response["Content-Length"] = str(len(response.content))
             except DjangoUnicodeDecodeError:
                 pass
 
@@ -48,19 +51,18 @@ class SetRemoteAddrFromForwardedFor(object):
     def __call__(self, request):
         ips = []
 
-        if 'HTTP_X_FORWARDED_FOR' in request.META:
-            xff = [i.strip() for i in
-                   request.META['HTTP_X_FORWARDED_FOR'].split(',')]
+        if "HTTP_X_FORWARDED_FOR" in request.META:
+            xff = [i.strip() for i in request.META["HTTP_X_FORWARDED_FOR"].split(",")]
             ips = [ip for ip in xff if is_valid(ip)]
         else:
             return self.get_response(request)
 
-        ips.append(request.META['REMOTE_ADDR'])
+        ips.append(request.META["REMOTE_ADDR"])
 
-        known = getattr(settings, 'KNOWN_PROXIES', [])
+        known = getattr(settings, "KNOWN_PROXIES", [])
         ips.reverse()
         for ip in ips:
-            request.META['REMOTE_ADDR'] = ip
+            request.META["REMOTE_ADDR"] = ip
             if ip not in known:
                 break
 
