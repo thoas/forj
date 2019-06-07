@@ -3,6 +3,7 @@
     name: "{{ item }}"
     state: latest
   with_items:
+    - libffi-dev
     - zlib1g-dev
     - virtualenv
     - python-pip
