@@ -1,4 +1,5 @@
 import socket
+import re
 
 from django.conf import settings
 from django.utils.encoding import DjangoUnicodeDecodeError
@@ -17,7 +18,10 @@ class MinifyHTMLMiddleware:
             and "text/html" in response["Content-Type"]
         ):
             try:
-                response.content = minify_html(response.content.strip())
+                match = re.search(r'charset=([^;\s]+)', response['Content-Type'])
+                encoding = match.group(1) if match else 'utf-8'
+
+                response.content = str(minify_html(response.content.strip().decode(encoding)))
                 response["Content-Length"] = str(len(response.content))
             except DjangoUnicodeDecodeError:
                 pass
