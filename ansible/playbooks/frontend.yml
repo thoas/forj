@@ -13,4 +13,4 @@
       pyenv_python_versions:
         - "{{ pyenv.python_version }}"
       pyenv_virtualenvs:
-        - { venv_name: "py-363", py_version: "{{ pyenv.python_version }}" }
+        - { venv_name: "py-373", py_version: "{{ pyenv.python_version }}" }

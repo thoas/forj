@@ -6,7 +6,7 @@ letsencrypt:
 pyenv:
   path: "/var/www/pyenv"
   owner: "www-data"
-  python_version: "3.6.3"
+  python_version: "3.7.3"
 
 nodejs_version: "8.x"
 
