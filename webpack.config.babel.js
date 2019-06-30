@@ -69,7 +69,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "build/css/[name].css",
+      filename: "stylesheet/main.css",
       chunkFilename: "[id].css"
     }),
     new OptimizeCssAssetsPlugin({
