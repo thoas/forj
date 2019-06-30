@@ -8,7 +8,7 @@ pyenv:
   owner: "www-data"
   python_version: "3.7.3"
 
-nodejs_version: "8.x"
+nodejs_version: "10.x"
 
 deploy:
   root_path: "/var/www/forj"
