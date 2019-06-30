@@ -1,11 +1,15 @@
 import path from 'path';
 import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const cssnano = require("cssnano");
 
 const baseDir = path.resolve(__dirname, 'src/forj/static/site');
 
 
 module.exports = {
+  mode: process.env.NODE_ENV || "development",
   context: `${baseDir}/src`,
   entry: {
     collection: [
@@ -50,19 +54,29 @@ module.exports = {
         ]
       },
       {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract([
-          'css-loader?sourceMap',
-          'postcss-loader?sourceMap',
-          'sass-loader?sourceMap',
-        ]),
-      },
+        test: /\.(sass|scss)$/,
+        use: [
+          "style-loader",
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          "css-loader",
+          "postcss-loader",
+          "sass-loader"
+        ]
+      }
     ],
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: 'stylesheet/main.css',
-      allChunks: true,
+    new MiniCssExtractPlugin({
+      filename: "build/css/[name].css",
+      chunkFilename: "[id].css"
+    }),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/g,
+      cssProcessor: cssnano,
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true
     }),
   ],
 }

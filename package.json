@@ -2,7 +2,7 @@
   "name": "forj",
   "version": "0.2.0",
   "scripts": {
-    "build": "webpack --progress --config webpack.config.babel.js --optimize-minimize",
+    "build": "NODE_ENV=production webpack -p --progress --config webpack.config.babel.js --optimize-minimize",
     "watch": "webpack --progress --colors --watch --config webpack.config.babel.js"
   },
   "prettier": {
@@ -18,20 +18,26 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-0": "6.24.1",
     "css-loader": "0.28.7",
+    "cssnano": "^4.1.10",
     "extract-text-webpack-plugin": "3.0.2",
-    "file-loader": "^0.11.1",
-    "gsap": "^1.20.2",
+    "file-loader": "^4.0.0",
+    "gsap": "1.20.4",
+    "mini-css-extract-plugin": "^0.7.0",
     "node-sass": "^4.5.0",
     "normalize-wheel": "^1.0.1",
     "numeral": "2.0.6",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "sass-loader": "^6.0.2",
     "style-loader": "0.19.0",
     "three": "0.84.0",
-    "webpack": "3.8.1",
+    "uglify-js": "^3.4.3",
+    "webpack": "^4.35.0",
     "when": "^3.7.8"
   },
   "paths": {},
   "devDependencies": {
-    "postcss-loader": "^2.0.5"
+    "postcss-loader": "^2.0.5",
+    "uglifyjs-webpack-plugin": "^1.3.0",
+    "webpack-cli": "^3.3.5"
   }
 }
