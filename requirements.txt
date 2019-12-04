@@ -24,7 +24,7 @@ django-hosts==3.0
 raven==6.10.0
 Babel==2.7.0
 
-django==2.2.6
+django==2.2.8
 
 django-mail-factory==0.21
 phonenumberslite==8.10.20
