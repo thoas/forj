@@ -4,7 +4,7 @@ services:
 before_script:
   - make setup-db
 python:
-  - "3.6"
+  - "3.8"
 install:
   - make dependencies
 script:
