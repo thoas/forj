@@ -1,7 +1,8 @@
 import importlib
 
+from functools import lru_cache
+
 from django import test
-from django.utils.lru_cache import lru_cache
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.test import RequestFactory

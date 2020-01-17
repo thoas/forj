@@ -171,6 +171,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 LANGUAGE_CODE = "fr-fr"
+LANGUAGES = (
+    ("fr-fr", "French"),
+)
 
 TIME_ZONE = "UTC"
 
