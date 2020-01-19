@@ -34,3 +34,5 @@ django-dotenv==1.4.2
 
 -e git://github.com/ulule/django-jinja@d25d07cfdf2367338f6b2bd217e29fc313b20c1f#egg=django_jinja
 -e git://github.com/ulule/django-hosts@31acace14b86a08f9c686ab378c70c7e50ae6d16#egg=django-hosts
+
+sentry-sdk==0.14.0

@@ -3,6 +3,10 @@ import os
 
 from .base import *  # noqa
 
+import sentry_sdk
+
+from sentry_sdk.integrations.django import DjangoIntegration
+
 dotenv.read_dotenv("/var/www/forj/.env")
 
 DEBUG = False
@@ -26,3 +30,15 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 SERVER_EMAIL = "noreply@forj.shop"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+sentry_dsn = os.getenv("SENTRY_DSN")
+
+if sentry_dsn:
+    sentry_sdk.init(
+        dsn=sentry_dsn,
+        integrations=[DjangoIntegration()],
+
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )
