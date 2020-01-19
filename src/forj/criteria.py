@@ -23,9 +23,9 @@ class CriteriaSet(object):
 
         segments = reference.split(separator)
 
-        criterias = [
+        criterias = filter(lambda value: value is not None, [
             get_criteria_class(segment).from_segment(segment) for segment in segments
-        ]
+        ])
 
         return cls(criterias)
 

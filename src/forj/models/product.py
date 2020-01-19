@@ -63,6 +63,9 @@ class Product(base.Model):
         return "{}: {}".format(self.name, self.reference)
 
     def handle_reference(self, reference):
+        if self.reference == reference:
+            return True
+
         criteria_set = CriteriaSet.from_reference(reference)
 
         if criteria_set in self.criteria_set and len(criteria_set) == len(
