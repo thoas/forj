@@ -8,9 +8,9 @@
     - role: avanov.pyenv
       pyenv_path: "{{ pyenv.path }}"
       pyenv_owner: "{{ pyenv.owner }}"
-      pyenv_update_git_install: no
+      pyenv_update_git_install: yes
       pyenv_enable_autocompletion: no
       pyenv_python_versions:
         - "{{ pyenv.python_version }}"
       pyenv_virtualenvs:
-        - { venv_name: "py-373", py_version: "{{ pyenv.python_version }}" }
+        - { venv_name: "py-381", py_version: "{{ pyenv.python_version }}" }

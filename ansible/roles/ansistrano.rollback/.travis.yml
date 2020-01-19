@@ -1,0 +1,28 @@
+---
+sudo: required
+dist: trusty
+
+matrix:
+  include:
+    - env: ANSIBLE_VERSION=2.4.6
+    - env: ANSIBLE_VERSION=2.5.10
+    - env: ANSIBLE_VERSION=2.6.6
+    - env: ANSIBLE_VERSION=2.7.1
+
+before_install:
+ - sudo apt-get -y install software-properties-common
+ - sudo apt-get -y install python-pip
+ - sudo pip install ansible==$ANSIBLE_VERSION
+ - ansible --version
+ # We download the latest deploy stable tag
+ - sudo ansible-galaxy install -c ansistrano.deploy
+
+script:
+ - echo localhost > inventory
+ - ansible-playbook -i inventory test/test.yml --syntax-check
+ - ansible-playbook -i inventory --connection=local --become -v test/deploy.yml
+ - ansible-playbook -i inventory --connection=local --become -v test/deploy.yml
+ - ansible-playbook -i inventory --connection=local --become -v test/test.yml
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
