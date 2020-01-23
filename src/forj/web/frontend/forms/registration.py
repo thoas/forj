@@ -1,7 +1,6 @@
 from django import forms
 
 from .address import RequiredAddressForm, OptionalAddressForm
-from .user import UserForm
 
 
 class RegistrationForm(forms.Form):
@@ -9,7 +8,6 @@ class RegistrationForm(forms.Form):
     cgu = forms.BooleanField(required=False)
 
     def __init__(self, *args, **kwargs):
-        self._user = kwargs.pop("user", None)
         self._order = kwargs.pop("order", None)
 
         country = kwargs.pop("country", None)
@@ -43,14 +41,6 @@ class RegistrationForm(forms.Form):
 
         self.forms = {}
 
-        self.forms["user"] = UserForm(
-            self.data or None,
-            self.files or None,
-            initial=self.initial,
-            instance=self._user,
-            prefix="user",
-        )
-
         self.forms["shipping_address"] = RequiredAddressForm(
             self.data or None,
             self.files or None,
@@ -79,13 +69,14 @@ class RegistrationForm(forms.Form):
             all([form.is_valid() for form in self.forms.values()]) & super().is_valid()
         )
 
-    def save(self, *args, **kwargs):
-        user = self.forms["user"].save()
-        self.shipping_address = self.forms["shipping_address"].save(user=user)
+    def save(self, order, *args, **kwargs):
+        order.shipping_address = self.forms["shipping_address"].save()
 
         if self.cleaned_data.get("diff"):
-            self.billing_address = self.forms["billing_address"].save(user=user)
+            order.billing_address = self.forms["billing_address"].save()
         else:
-            self.billing_address = None
+            order.billing_address = None
 
-        return user
+        order.save(update_fields=("shipping_address", "billing_address",))
+
+        return order

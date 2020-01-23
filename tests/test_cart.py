@@ -61,7 +61,7 @@ class CartTest(TestCase):
         self.cart.add_product("LA(37)-LO(122)-H(67)", 1)
         self.cart.add_product("LA(37)-LO(50)-H(50)", 1)
 
-        order = self.cart.save(self.user)
+        order = self.cart.save()
 
         assert order.items.count() == 2
 

@@ -135,13 +135,13 @@ class Cart(object):
         session.save()
 
     @transaction.atomic
-    def save(self, user, commit=True, order=None, defaults=None):
+    def save(self, commit=True, order=None, defaults=None):
         defaults = defaults or {}
 
         self.update()
 
         if order is None:
-            order = Order(user=user)
+            order = Order()
 
         order.amount = self.amount
         order.shipping_cost = self.shipping_cost

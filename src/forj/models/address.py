@@ -10,6 +10,8 @@ from django_countries.fields import CountryField
 class Address(base.Model):
     TYPE_CHOICES = constants.ADDRESS_TYPE_CHOICES
 
+    email = models.EmailField(verbose_name="Email", null=True)
+
     type = models.PositiveSmallIntegerField(
         choices=TYPE_CHOICES, default=TYPE_CHOICES.INDIVIDUAL, null=True
     )
@@ -37,7 +39,7 @@ class Address(base.Model):
     )
 
     user = models.ForeignKey(
-        "forj.User", related_name="addresses", on_delete=models.PROTECT
+        "forj.User", related_name="addresses", on_delete=models.PROTECT, null=True,
     )
 
     class Meta:

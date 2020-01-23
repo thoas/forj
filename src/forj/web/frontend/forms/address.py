@@ -13,6 +13,7 @@ class AddressForm(forms.ModelForm):
         model = Address
         fields = (
             "type",
+            "email",
             "first_name",
             "last_name",
             "business_name",
@@ -102,6 +103,7 @@ class OptionalAddressForm(AddressForm):
         super().__init__(*args, **kwargs)
 
         self.fields["type"].required = False
+        self.fields["email"].required = False
         self.fields["first_name"].required = False
         self.fields["last_name"].required = False
         self.fields["business_name"].required = False

@@ -32,7 +32,7 @@ class StripeBackend(Backend):
                     for item in order.get_items()
                 ],
                 locale=settings.STRIPE_LANGUAGE_CODE,
-                customer_email=order.user.email,
+                customer_email=order.shipping_address.email,
                 payment_method_types=["card"],
                 mode="payment",
                 success_url=success_url,

@@ -7,8 +7,10 @@ from forj.web.frontend.forms import (
     RegistrationForm,
     RequiredAddressForm,
 )
-from forj.models import Address, User
+from forj.models import Address, User, Order
 from forj import constants
+
+from exam import fixture
 
 
 class UserFormTestCase(TestCase):
@@ -46,6 +48,7 @@ class AddressFormTestCase(TestCase):
             data={
                 "line1": "8 rue saint fiacre",
                 "postal_code": "75002",
+                "email": "florent@forj.com",
                 "city": "Paris",
                 "phone_number": "0183629075",
                 "type": Address.TYPE_CHOICES.BUSINESS,
@@ -66,6 +69,7 @@ class AddressFormTestCase(TestCase):
             data={
                 "line1": "8 rue saint fiacre",
                 "postal_code": "75002",
+                "email": "florent@forj.com",
                 "city": "Paris",
                 "phone_number": "00000000",
                 "type": Address.TYPE_CHOICES.BUSINESS,
@@ -84,6 +88,7 @@ class RequiredAddressFormTestCase(TestCase):
             data={
                 "line1": "8 rue saint fiacre",
                 "postal_code": "75002",
+                "email": "florent@forj.com",
                 "city": "Paris",
                 "country": "FR",
                 "phone_number": "0183629075",
@@ -101,6 +106,7 @@ class RequiredAddressFormTestCase(TestCase):
         form = RequiredAddressForm(
             data={
                 "line1": "8 rue saint fiacre",
+                "email": "florent@forj.com",
                 "postal_code": "75002",
                 "city": "Paris",
                 "first_name": "Florent",
@@ -116,6 +122,13 @@ class RequiredAddressFormTestCase(TestCase):
 
 
 class RegistrationFormTestCase(TestCase):
+    @fixture
+    def order(self):
+        self.cart.add_product("LA(37)-LO(122)-H(67)", 1)
+        self.cart.add_product("LA(37)-LO(50)-H(50)", 1)
+
+        return self.cart.save()
+
     def test_simple(self):
         form = RegistrationForm(data={"foo": "bar"})
         assert form.is_valid() is False
@@ -125,6 +138,7 @@ class RegistrationFormTestCase(TestCase):
         return {
             "type": constants.ADDRESS_TYPE_CHOICES.INDIVIDUAL,
             "first_name": "Florent",
+            "email": "florent@forj.com",
             "last_name": "Messa",
             "city": "Paris",
             "phone_number": "0183629075",
@@ -150,13 +164,13 @@ class RegistrationFormTestCase(TestCase):
 
         assert form.is_valid() is True
 
-        user = form.save()
+        order = self.order
+        order = form.save(order)
 
-        assert user.pk is not None
-        assert User.objects.filter(email=self.data["user-email"]).count() == 1
-        assert user.addresses.count() == 1
+        assert order.pk is not None
+        assert order.shipping_address_id is not None
 
-        shipping_address = user.addresses.first()
+        shipping_address = order.shipping_address
 
         for k, v in self.address_data.items():
             assert getattr(shipping_address, k) == v
@@ -176,8 +190,9 @@ class RegistrationFormTestCase(TestCase):
 
         assert form.is_valid() is True
 
-        user = form.save()
+        order = self.order
+        order = form.save(order)
 
-        assert user.pk is not None
-        assert User.objects.filter(email=self.data["user-email"]).count() == 1
-        assert user.addresses.count() == 2
+        assert order.pk is not None
+        assert order.shipping_address_id is not None
+        assert order.billing_address_id is not None

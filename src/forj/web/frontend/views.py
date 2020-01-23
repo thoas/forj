@@ -124,10 +124,6 @@ class CheckoutView(CheckoutMixin, generic.FormView):
         kwargs["country"] = settings.DEFAULT_COUNTRY
         kwargs["order"] = self.order
 
-        user = self.request.user
-        if user.is_authenticated:
-            kwargs["user"] = user
-
         return kwargs
 
     def dispatch(self, *args, **kwargs):
@@ -138,10 +134,7 @@ class CheckoutView(CheckoutMixin, generic.FormView):
 
     def form_valid(self, form):
         with transaction.atomic():
-            user = form.save()
-
             self.order = self.cart.save(
-                user,
                 order=self.order,
                 defaults={
                     "shipping_address": form.shipping_address,
@@ -149,12 +142,9 @@ class CheckoutView(CheckoutMixin, generic.FormView):
                 },
             )
 
-        if not self.request.user.is_authenticated:
-            user.backend = settings.DEFAULT_AUTHENTICATION_BACKEND
+            form.save(self.order)
 
-            login(self.request, user)
-
-            self.cart.to_request(self.request)
+            self.request.session["_order_id"] = self.order.pk
 
         return super().form_valid(form)
 
@@ -168,7 +158,7 @@ class OrderView(generic.DetailView):
     slug_url_kwarg = "reference"
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user)
+        return Order.objects.all()
 
 
 class PaymentView(OrderView):

@@ -1,6 +1,6 @@
 from forj.utils.test import TestCase
 from forj import constants
-from forj.models import User, Order
+from forj.models import Order
 
 from django.urls import reverse
 from django.core import mail
@@ -43,25 +43,21 @@ class CheckoutTest(TestCase):
             "shipping-address-type": constants.ADDRESS_TYPE_CHOICES.INDIVIDUAL,
             "shipping-address-first_name": "Florent",
             "shipping-address-last_name": "Messa",
+            "shipping-address-email": "florent@forj.com",
             "shipping-address-city": "Paris",
             "shipping-address-phone_number": "0183629075",
             "shipping-address-line1": "8 rue saint fiacre",
             "shipping-address-postal_code": "75002",
-            "user-email": "flo@ulule.com",
         }
 
         response = self.client.post(self.path, data=data)
 
         assert response.status_code == 302
-        assert "_auth_user_id" in self.client.session
 
-        user = User.objects.filter(email="flo@ulule.com").first()
-        assert user is not None
-        assert user.orders.count() == 1
-        assert int(self.client.session["_auth_user_id"]) == user.pk
+        assert "_order_id" in self.client.session
 
-        order = user.orders.first()
-        assert order.items.count() == 2
+        order = Order.objects.filter(pk=self.client.session["_order_id"]).first()
+        assert order is not None
         assert response["Location"] == order.get_payment_url()
         assert order.shipping_address_id is not None
 
@@ -72,7 +68,9 @@ class CheckoutUpdateTest(TestCase):
         self.cart.add_product("LA(37)-LO(122)-H(67)", 1)
         self.cart.add_product("LA(37)-LO(50)-H(50)", 1)
 
-        return self.cart.save(self.user)
+        order = self.cart.save()
+
+        return order
 
     @property
     def path(self):
@@ -95,11 +93,12 @@ class CheckoutUpdateTest(TestCase):
             "shipping-address-phone_number": "0183629075",
             "shipping-address-line1": "8 rue saint fiacre",
             "shipping-address-postal_code": "75002",
-            "user-email": "flo@ulule.com",
+            "shipping-address-email": "flo@ulule.com",
             "diff": 1,
             "billing-address-type": constants.ADDRESS_TYPE_CHOICES.BUSINESS,
             "billing-address-first_name": "Florent",
             "billing-address-last_name": "Messa",
+            "billing-address-email": "flo@ulule.com",
             "billing-address-business_name": "Ulule",
             "billing-address-city": "Paris",
             "billing-address-phone_number": "0183629075",
@@ -110,10 +109,8 @@ class CheckoutUpdateTest(TestCase):
         response = self.client.post(self.path, data=data)
 
         assert response.status_code == 302
-        assert "_auth_user_id" in self.client.session
-        assert int(self.client.session["_auth_user_id"]) == self.user.pk
-
-        order = Order.objects.get(pk=self.order.pk)
+        assert "_order_id" in self.client.session
+        order = Order.objects.get(pk=self.client.session["_order_id"])
 
         assert order.billing_address_id is not None
         assert order.shipping_address_id is not None
@@ -127,7 +124,7 @@ class CheckoutUpdateTest(TestCase):
             "shipping-address-phone_number": "0183629075",
             "shipping-address-line1": "8 rue saint fiacre",
             "shipping-address-postal_code": "75002",
-            "user-email": "flo@ulule.com",
+            "shipping-address-email": "flo@ulule.com",
         }
 
         response = self.client.post(self.path, data=data)
@@ -137,7 +134,7 @@ class CheckoutUpdateTest(TestCase):
         order = Order.objects.get(pk=self.order.pk)
 
         assert order.billing_address_id is None
-        assert order.shipping_address_id is not None
+        assert order.shipping_address_id is None
 
     def test_update(self):
         self.cart.to_request(self.client)
@@ -151,14 +148,14 @@ class CheckoutUpdateTest(TestCase):
             "shipping-address-phone_number": "0183629075",
             "shipping-address-line1": "8 rue saint fiacre",
             "shipping-address-postal_code": "75002",
-            "user-email": "flo@ulule.com",
+            "shipping-address-email": "flo@ulule.com",
         }
 
         response = self.client.post(self.path, data=data)
 
         assert response.status_code == 302
-        assert "_auth_user_id" in self.client.session
-        assert int(self.client.session["_auth_user_id"]) == self.user.pk
+        assert "_order_id" in self.client.session
+        order = Order.objects.get(pk=self.client.session["_order_id"])
 
         data = {
             "shipping-address-type": constants.ADDRESS_TYPE_CHOICES.INDIVIDUAL,
@@ -168,18 +165,13 @@ class CheckoutUpdateTest(TestCase):
             "shipping-address-phone_number": "0183629075",
             "shipping-address-line1": "10 rue de montmorency",
             "shipping-address-postal_code": "75002",
-            "user-email": "benoit@ulule.com",
+            "shipping-address-email": "benoit@ulule.com",
         }
 
         response = self.client.post(self.path, data=data)
 
         assert response.status_code == 302
 
-        user = User.objects.filter(email="benoit@ulule.com").first()
-        assert user is not None
-        assert user.orders.count() == 1
-
-        order = user.orders.first()
         shipping_address = order.shipping_address
 
         assert shipping_address.line1 == "10 rue de montmorency"

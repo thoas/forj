@@ -1,5 +1,4 @@
 from django.conf.urls import url
-from django.contrib.auth.decorators import login_required
 from django.views import generic
 
 from . import views
@@ -23,17 +22,17 @@ urlpatterns = urlpatterns + [
     ),
     url(
         r"^checkout/(?P<reference>\w+)/payment/$",
-        login_required(views.PaymentView.as_view()),
+        views.PaymentView.as_view(),
         name="payment",
     ),
     url(
         r"^checkout/(?P<reference>\w+)/success/$",
-        login_required(views.SuccessView.as_view()),
+        views.SuccessView.as_view(),
         name="success",
     ),
     url(
         r"^checkout/(?P<reference>\w+)/invoice/$",
-        login_required(views.InvoiceView.as_view()),
+        views.InvoiceView.as_view(),
         name="invoice",
     ),
     url(r"^cart/$", views.cart, name="cart"),

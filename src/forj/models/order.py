@@ -48,7 +48,7 @@ class Order(base.Model):
     shipping_cost = AmountField(verbose_name="Shipping cost", default=0)
     tax_cost = AmountField(verbose_name="Tax cost", default=0)
     user = models.ForeignKey(
-        "forj.User", on_delete=models.PROTECT, related_name="orders"
+        "forj.User", on_delete=models.PROTECT, related_name="orders", null=True,
     )
 
     shipping_address = models.ForeignKey(
@@ -143,7 +143,7 @@ class Order(base.Model):
             self.send_confirmation_mail()
 
     def send_confirmation_mail(self):
-        factory.mail("confirmation", [self.user.email], {"order": self})
+        factory.mail("confirmation", [self.shipping_address.email], {"order": self})
 
     @property
     def invoice_number(self):
