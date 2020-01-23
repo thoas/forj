@@ -7,6 +7,7 @@
     forj-nginx-conf
 
 - name: enable forj nginx site
+  notify: reload nginx
   file:
     src: "/etc/nginx/sites-available/forj"
     dest: "/etc/nginx/sites-enabled/forj"

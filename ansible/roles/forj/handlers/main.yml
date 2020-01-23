@@ -1,0 +1,5 @@
+- name: restart nginx
+  shell: "nginx -t && systemctl restart nginx"
+
+- name: reload nginx
+  shell: "nginx -t && systemctl reload nginx"
