@@ -170,6 +170,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+STRIPE_LANGUAGE_CODE = "fr"
 LANGUAGE_CODE = "fr-fr"
 LANGUAGES = (
     ("fr-fr", "French"),

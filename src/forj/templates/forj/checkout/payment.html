@@ -1,7 +1,5 @@
 {% extends "forj/checkout/base.html" %}
 
-{% import 'forj/forms.html' as forms %}
-
 {% block title %}Paiement{% endblock %}
 {% block body_class %}payment{% endblock %}
 
@@ -12,51 +10,17 @@
 {% endblock %}
 
 {% block extend_js %}
+    <script src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript">
         window.FJ = {
+            stripe_session_id: '{{ order.stripe_session_id }}',
             stripe_publishable_key: '{{ STRIPE_PUBLISHABLE_KEY }}'
         }
     </script>
-    <script src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript" src="{{ static('site/build/javascript/payment.js') }}"></script>
 {% endblock %}
 
 {% block main %}
-    <form class="main" method="post" action="" id="payment-form">
-        {% csrf_token %}
-
-        {{ form.token }}
-
-        <h1>Mes informations de paiement</h1>
-        <h2>(tous les champs sont obligatoires)</h2>
-        <p class="intro">Les cartes banquaires suivantes sont autorisées&nbsp; 
-            <img src="{{ static("site/build/assets/images/visa.jpg") }}" width="45px" alt="">
-            <img src="{{ static("site/build/assets/images/mastercard.jpg") }}" width="45px" alt="">
-            <img src="{{ static("site/build/assets/images/maestro.jpg") }}" width="45px" alt="">
-        </p>
-
-        <div class="inputs-container">
-            {{ forms.input(form.number, label="Numéro") }}
-
-            <div class="select-date-wrapper" id="expiry-wrapper">
-                <div class="select-wrapper">
-                    <span>Date de validité</span>
-                    <div class="select">
-                        <p class="expiry_year-label">Année</p>
-                        {{ form.expire_year }}
-                    </div>
-                    <div style="margin-right: 100px" class="select">
-                        <p class="expiry_month-label">Mois</p>
-                        {{ form.expire_month }}
-                    </div>
-                </div>
-            </div>
-
-            {{ forms.input(form.cvc, label="Cryptogramme") }}
-        </div>
-
-        {% with cart=order %}
-            {% include "forj/checkout/_cart.html" %}
-        {% endwith %}
-    </form>
+    <h1 class="loading-dots">En cours de traitement</h1>
+    <p>Vous allez être redirigé vers notre prestataire de paiement.</p>
 {% endblock %}

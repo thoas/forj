@@ -27,11 +27,6 @@ urlpatterns = urlpatterns + [
         name="payment",
     ),
     url(
-        r"^checkout/(?P<reference>\w+)/payment/processing/$",
-        login_required(views.PaymentProcessingView.as_view()),
-        name="payment_processing",
-    ),
-    url(
         r"^checkout/(?P<reference>\w+)/success/$",
         login_required(views.SuccessView.as_view()),
         name="success",

@@ -28,10 +28,6 @@ class OrderManager(base.Manager):
         return self.filter(status=self.model.STATUS_CHOICES.SUCCEEDED)
 
 
-def retrieve_source(instance, source_id, field):
-    return instance.user.stripe_customer.sources.retrieve(source_id)
-
-
 class Order(base.Model):
     STATUS_CHOICES = constants.ORDER_STATUS_CHOICES
     SHIPPING_STATUS_CHOICES = constants.ORDER_SHIPPING_STATUS_CHOICES
@@ -68,12 +64,9 @@ class Order(base.Model):
         null=True,
     )
 
-    stripe_card = ResourceField(
-        stripe.Source, null=True, methods={"get": retrieve_source}
+    stripe_session = ResourceField(
+        stripe.checkout.Session, null=True
     )
-
-    stripe_source = ResourceField(stripe.Source, null=True)
-    stripe_charge = ResourceField(stripe.Charge, null=True)
 
     objects = OrderManager()
 
@@ -117,11 +110,8 @@ class Order(base.Model):
         return self.status == self.STATUS_CHOICES.FAILED
 
     def get_payment_url(self):
-        return reverse("payment", args=[self.reference])
-
-    def get_payment_processing_url(self):
         return reverse_full(
-            "payment_processing",
+            "payment",
             args=[self.reference],
             scheme=settings.DEFAULT_SCHEME,
             host=settings.DEFAULT_HOST,

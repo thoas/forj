@@ -3,25 +3,21 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest, JsonResponse
-from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from django.conf import settings
 from django.contrib.auth import login
 from django.db import transaction
 from django.utils.functional import cached_property
 from django.urls import NoReverseMatch
-from django.views.generic.edit import FormMixin
-from django.contrib import messages
 from django.utils.module_loading import import_string
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.utils import timezone
 
-from forj.web.frontend.forms import RegistrationForm, PaymentForm
+from forj.web.frontend.forms import RegistrationForm
 from forj.models import Order, ContentNode
 from forj.cart import Cart
 from forj import exceptions
 from forj.encoders import JSONEncoder
-from forj.payment.exceptions import CardError, PaymentError
 from forj.payment import backend
 
 
@@ -175,35 +171,16 @@ class OrderView(generic.DetailView):
         return Order.objects.filter(user=self.request.user)
 
 
-class PaymentProcessingView(OrderView):
+class PaymentView(OrderView):
+    template_name = "forj/checkout/payment.html"
+
     def get(self, request, *args, **kwargs):
         order = self.get_object()
 
         if order.is_status_succeeded():
             return redirect(order.get_success_url())
 
-        try:
-            order = backend.handle_order(order)
-        except CardError:
-            messages.error(
-                self.request,
-                _(
-                    "Your card has been declined by your bank, we can't process the transaction"
-                ),
-                fail_silently=True,
-            )
-
-            return redirect(order.get_payment_url())
-        except PaymentError:
-            messages.error(
-                self.request,
-                _(
-                    "An error occurred with our payment provider, we can't process the transaction"
-                ),
-                fail_silently=True,
-            )
-
-            return redirect(order.get_payment_url())
+        order = backend.handle_order(order)
 
         if order.redirect_url:
             return redirect(order.redirect_url)
@@ -211,70 +188,7 @@ class PaymentProcessingView(OrderView):
         if order.is_status_succeeded():
             return redirect(order.get_success_url())
 
-        return order.get_payment_url()
-
-
-class PaymentView(FormMixin, OrderView):
-    template_name = "forj/checkout/payment.html"
-    form_class = PaymentForm
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["order"] = self.object
-
-        return kwargs
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-
-        if self.object.is_status_succeeded():
-            return redirect(self.object.get_success_url())
-
-        context = self.get_context_data(object=self.object)
-
-        return self.render_to_response(context)
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-
-        form = self.get_form()
-
-        if form.is_valid():
-            return self.form_valid(form)
-
-        return self.form_invalid(form)
-
-    def form_valid(self, form):
-        try:
-            order = form.save()
-        except CardError:
-            messages.error(
-                self.request,
-                _(
-                    "Your card has been declined by your bank, we can't process the transaction"
-                ),
-                fail_silently=True,
-            )
-
-            return redirect(self.object.get_payment_url())
-        except PaymentError:
-            messages.error(
-                self.request,
-                _(
-                    "An error occurred with our payment provider, we can't process the transaction"
-                ),
-                fail_silently=True,
-            )
-
-            return redirect(self.object.get_payment_url())
-
-        if order.redirect_url:
-            return redirect(order.redirect_url)
-
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return self.object.get_success_url()
+        return super().get(request, *args, **kwargs)
 
 
 class SuccessView(OrderView):
