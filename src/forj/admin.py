@@ -134,6 +134,7 @@ class OrderItemInline(admin.TabularInline):
 class OrderAdminForm(forms.ModelForm):
     shipping_first_name = forms.CharField(required=False)
     shipping_last_name = forms.CharField(required=False)
+    shipping_email = forms.CharField(required=False)
     shipping_business_name = forms.CharField(required=False)
     shipping_line1 = forms.CharField(required=False, widget=forms.Textarea)
     shipping_line2 = forms.CharField(required=False, widget=forms.Textarea)
@@ -166,6 +167,7 @@ class OrderAdminForm(forms.ModelForm):
 
                     self.fields["%s_first_name" % field].initial = instance.first_name
                     self.fields["%s_last_name" % field].initial = instance.last_name
+                    self.fields["%s_email" % field].initial = instance.email
                     self.fields[
                         "%s_business_name" % field
                     ].initial = instance.business_name
@@ -185,7 +187,7 @@ class OrderAdmin(admin.ModelAdmin):
         "_amount",
         "_status",
         "shipping_status",
-        "user",
+        "_user",
         "created_at",
         "updated_at",
     )
@@ -203,7 +205,7 @@ class OrderAdmin(admin.ModelAdmin):
     form = OrderAdminForm
 
     fieldsets = (
-        (None, {"fields": ("amount", "currency", "status", "user")}),
+        (None, {"fields": ("amount", "currency", "status")}),
         ("Shipping", {"fields": ("shipping_cost", "shipping_status")}),
         (
             "Shipping address",
@@ -211,6 +213,7 @@ class OrderAdmin(admin.ModelAdmin):
                 "fields": (
                     "shipping_first_name",
                     "shipping_last_name",
+                    "shipping_email",
                     "shipping_business_name",
                     "shipping_line1",
                     "shipping_line2",
@@ -241,6 +244,18 @@ class OrderAdmin(admin.ModelAdmin):
         ),
         ("Information", {"fields": ("created_at", "updated_at")}),
     )
+
+    def get_queryset(self, request):
+        return Order.objects.prefetch_related("user", "shipping_address")
+
+    def _user(self, instance):
+        if instance.user_id:
+            return instance.user.email
+
+        if instance.shipping_address_id:
+            return instance.shipping_address.email
+
+        return ""
 
     def _status(self, instance):
         color = "blue"
