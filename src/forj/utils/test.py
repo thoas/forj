@@ -9,7 +9,7 @@ from django.test import RequestFactory
 
 from exam import Exam, fixture, before
 
-from forj.models import Product, User
+from forj.models import Product, User, Address
 from forj.cart import Cart
 
 
@@ -147,4 +147,8 @@ class TestCase(Exam, test.TestCase):
         self.cart.add_product("LA(37)-LO(122)-H(67)", 1)
         self.cart.add_product("LA(37)-LO(50)-H(50)", 1)
 
-        return self.cart.save(self.user)
+        order = self.cart.save()
+        order.shipping_address = Address.objects.create(email="florent@forj.shop")
+        order.save(update_fields=("shipping_address",))
+
+        return order

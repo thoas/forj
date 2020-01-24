@@ -101,10 +101,8 @@ class CheckoutMixin(object):
     def order(self):
         reference = self.kwargs.get("reference")
 
-        if reference and self.request.user.is_authenticated:
-            return Order.objects.filter(
-                user=self.request.user, reference=reference
-            ).first()
+        if reference:
+            return Order.objects.filter(reference=reference).first()
 
         return None
 
@@ -142,7 +140,7 @@ class CheckoutView(CheckoutMixin, generic.FormView):
                 },
             )
 
-            form.save(self.order)
+            order = form.save(self.order)
 
             self.request.session["_order_id"] = self.order.pk
 

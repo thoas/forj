@@ -1,11 +1,11 @@
 from forj.utils.test import TestCase
 from forj import constants
-from forj.models import Order
+from forj.models import Order, Address
 
 from django.urls import reverse
 from django.core import mail
 
-from exam import fixture
+from exam import fixture, before
 
 
 class HomeTest(TestCase):
@@ -83,7 +83,6 @@ class CheckoutUpdateTest(TestCase):
 
     def test_update_remove_billing(self):
         self.cart.to_request(self.client)
-        self.client.force_login(self.user)
 
         data = {
             "shipping-address-type": constants.ADDRESS_TYPE_CHOICES.INDIVIDUAL,
@@ -134,11 +133,10 @@ class CheckoutUpdateTest(TestCase):
         order = Order.objects.get(pk=self.order.pk)
 
         assert order.billing_address_id is None
-        assert order.shipping_address_id is None
+        assert order.shipping_address_id is not None
 
     def test_update(self):
         self.cart.to_request(self.client)
-        self.client.force_login(self.user)
 
         data = {
             "shipping-address-type": constants.ADDRESS_TYPE_CHOICES.INDIVIDUAL,
@@ -182,21 +180,7 @@ class PaymentTest(TestCase):
     def path(self):
         return reverse("payment", args=[self.order.reference])
 
-    def test_permission(self):
-        response = self.client.get(self.path)
-
-        assert response.status_code == 302
-
-    def test_view(self):
-        self.client.force_login(self.user)
-
-        response = self.client.get(self.path)
-
-        assert response.status_code == 200
-
     def test_redirect(self):
-        self.client.force_login(self.user)
-
         self.order.mark_as_succeeded()
 
         response = self.client.get(self.path)
@@ -213,15 +197,9 @@ class SuccessTest(TestCase):
     def test_permission(self):
         response = self.client.get(self.path)
 
-        assert response.status_code == 302
-
-    def test_view(self):
-        self.client.force_login(self.user)
-
-        response = self.client.get(self.path)
-
         assert response.status_code == 404
 
+    def test_view(self):
         self.order.mark_as_succeeded()
 
         response = self.client.get(self.path)
@@ -328,7 +306,8 @@ class InvoiceTest(TestCase):
     def order(self):
         self.cart.add_product("LA(37)-LO(122)-H(67)", 1)
 
-        order = self.cart.save(self.user)
+        order = self.cart.save()
+        order.shipping_address = Address.objects.create(email="florent@forj.shop")
         order.mark_as_succeeded()
 
         return order
@@ -338,8 +317,6 @@ class InvoiceTest(TestCase):
         return self.order.get_invoice_url()
 
     def test_view(self):
-        self.client.force_login(self.user)
-
         response = self.client.get(self.path)
 
         assert response.status_code == 200
