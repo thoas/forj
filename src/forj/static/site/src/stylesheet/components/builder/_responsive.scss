@@ -47,9 +47,10 @@
     }
 
     section.infos {
-        position: relative !important;
-        z-index: 0 !important;
+        position: fixed !important;
+        z-index: 10 !important;
         overflow: hidden;
+        
         .contact, .recap {
             display: none !important;
         }
