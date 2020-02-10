@@ -1,31 +1,31 @@
 psycopg2-binary==2.8.4
 Pillow==7.0.0
-django-debug-toolbar==2.1
-pytest==5.3.2
+django-debug-toolbar==2.2
+pytest==5.3.5
 pytest-django==3.8.0
 pytz==2019.3
 gunicorn==20.0.4
 boto==2.49.0
-Jinja2==2.10.3
-django-extensions==2.2.6
+Jinja2==2.11.1
+django-extensions==2.2.8
 simplejson==3.17.0
 six==1.14.0
-ipython==7.11.1
-alembic==1.3.2
+ipython==7.12.0
+alembic==1.4.0
 easy-thumbnails==2.7
 exam==0.10.6
 django-extended-choices==1.3.3
 responses==0.10.9
 requests==2.22.0
-SQLAlchemy==1.3.12
+SQLAlchemy==1.3.13
 django-countries==5.5
 raven==6.10.0
 Babel==2.8.0
 
-django==3.0.2
+django==3.0.3
 
-django-mail-factory==0.21
-phonenumberslite==8.11.2
+django-mail-factory==0.22
+phonenumberslite==8.11.3
 
 stripe==2.42.0
 
@@ -35,4 +35,4 @@ django-dotenv==1.4.2
 -e git://github.com/ulule/django-jinja@d25d07cfdf2367338f6b2bd217e29fc313b20c1f#egg=django_jinja
 -e git://github.com/ulule/django-hosts@31acace14b86a08f9c686ab378c70c7e50ae6d16#egg=django-hosts
 
-sentry-sdk==0.14.0
+sentry-sdk==0.14.1
