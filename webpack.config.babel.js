@@ -3,9 +3,11 @@ import webpack from 'webpack';
 
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 const cssnano = require("cssnano");
 
 const baseDir = path.resolve(__dirname, 'src/forj/static/site');
+const buildDir = path.resolve(baseDir, 'build')
 
 
 module.exports = {
@@ -78,5 +80,9 @@ module.exports = {
       cssProcessorOptions: { discardComments: { removeAll: true } },
       canPrint: true
     }),
+    new CopyPlugin([{
+      from: '*.html',
+      to: buildDir,
+    }]),
   ],
 }

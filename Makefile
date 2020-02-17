@@ -60,3 +60,6 @@ destruct-db:
 	psql -d postgres -c "create database forj with owner forj;"
 
 rebuild: destruct-db bootstrap
+
+serve-integration:
+	cd $(BUILD_DIR) && python3 -m http.server
