@@ -1,0 +1,24 @@
+@media (max-width: 1200px) {
+    body.landing{
+        nav{
+            padding: 60px 60px 0;
+        }
+
+        .slider{
+            .wrapper{
+                padding: 20px 60px;
+            }
+        }
+    }
+
+    .text-landing{
+        padding: 60px 60px 45px;
+    }
+
+    .footer-landing{
+        .bottom, .top{
+            padding-left: 60px;
+            padding-right: 60px;
+        }
+    }
+}
