@@ -68,3 +68,36 @@ body.landing{
         opacity: 1;
     }
 }
+
+.content-landing{
+    display: flex;
+    padding-bottom: 90px;
+
+    > div{
+        width: 50%;
+        box-sizing: border-box;
+        min-height: calc(100vh - 90px);
+    }
+
+    .buttons-wrapper{
+        margin-top: 20px;
+    }
+}
+
+.text-landing{
+    padding: 120px 120px 45px;
+    color: #282828;
+
+    h2{
+        font-family: "Avenir Black", Arial, sans-serif;
+        font-size: 50px;
+        line-height: 1.6;
+    }
+
+    p, li{
+        line-height: 1.75;
+        font-size: 20px;
+        margin: 0;
+        text-align: justify;
+    }
+}
