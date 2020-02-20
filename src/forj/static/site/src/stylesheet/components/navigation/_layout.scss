@@ -26,15 +26,16 @@ nav {
     box-sizing: border-box;
     color: white;
 
-    ul {
+    > ul {
         display: block;
         margin-top: 15px;
-        li {
+        > li {
             display: inline-block;
             margin: 0 15px;
             vertical-align: top;
+            position: relative;
 
-            a {
+            > a {
                 color: white;
                 text-decoration: none;
                 text-transform: uppercase;
@@ -46,8 +47,9 @@ nav {
                 display: inline-block;
             }
 
-            a.link {
+            > a.link {
                 margin-top: 16px;
+
                 &:after {
                     content: "";
                     display: block;
@@ -67,6 +69,22 @@ nav {
                       transform: translate3d(0, 0, 0);
                       opacity: 1;
                     }
+                }
+            }
+
+            &:hover, &:focus{
+                > ul{
+                    display: block;
+                }
+            }
+
+            > ul{
+                position: absolute;
+                z-index: 10;
+                display: none;
+
+                a{
+                    text-decoration: none;
                 }
             }
         }

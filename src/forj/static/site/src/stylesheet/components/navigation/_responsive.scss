@@ -131,7 +131,6 @@
     }
 
     nav {
-
         position: fixed;
         top: 0;
         left: 0;
@@ -152,22 +151,37 @@
           display: none;
         }
 
-        ul {
+        > ul {
             position: absolute;
             top: 50%;
             left: 60px;
             width: 100%;
             transform: translate(0, -50%);
 
-            li {
+            > li {
                 display: block;
                 margin-bottom: 10px;
                 font-size: 1.3em;
+
+                > ul{
+                    display: block;
+                    position: relative;
+                    padding-left: 20px;
+                    margin-top: 13px;
+
+                    > li{
+                        + li{
+                            margin-top: 10px;
+                        }
+
+                        a{
+                            color: #fff;
+                        }
+                    }
+                }
             }
         }
-
-
     }
-  }
+}
 
 }

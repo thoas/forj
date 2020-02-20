@@ -47,6 +47,27 @@
                 }
             }
         }
+
+        .breadcrumb{
+            display: none;
+        }
+
+        nav{
+            padding: 30px;
+
+            > ul{
+                left: 30px;
+
+                > li{
+                    margin-left: 0;
+                    margin-right: 0;
+
+                    &:last-child{
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }
     }
 
     .text-landing{
