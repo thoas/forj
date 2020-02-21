@@ -166,8 +166,17 @@
                 > ul{
                     display: block;
                     position: relative;
-                    padding-left: 20px;
+                    padding: 0 0 0 20px;
                     margin-top: 13px;
+                    width: auto;
+                    transform: none;
+                    background: none;
+                    left: inherit;
+                    top: inherit;
+
+                    &::before{
+                        display: none;
+                    }
 
                     > li{
                         + li{
