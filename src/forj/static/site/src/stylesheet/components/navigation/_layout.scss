@@ -26,15 +26,16 @@ nav {
     box-sizing: border-box;
     color: white;
 
-    ul {
+    > ul {
         display: block;
         margin-top: 15px;
-        li {
+        > li {
             display: inline-block;
             margin: 0 15px;
             vertical-align: top;
+            position: relative;
 
-            a {
+            > a {
                 color: white;
                 text-decoration: none;
                 text-transform: uppercase;
@@ -46,8 +47,9 @@ nav {
                 display: inline-block;
             }
 
-            a.link {
+            > a.link {
                 margin-top: 16px;
+
                 &:after {
                     content: "";
                     display: block;
@@ -66,6 +68,64 @@ nav {
                     &:after {
                       transform: translate3d(0, 0, 0);
                       opacity: 1;
+                    }
+                }
+            }
+
+            &:hover, &:focus{
+                > ul{
+                    display: block;
+                }
+            }
+
+            > ul{
+                position: absolute;
+                z-index: 10;
+                display: none;
+                background: #fff;
+                padding: 45px 40px;
+                transform: translateX(-50%);
+                left: 50%;
+                width: 315px;
+                box-sizing: border-box;
+                top: 55px;
+
+                > li{
+                    + li{
+                        margin-top: 8px;
+                    }
+                }
+
+                &::before{
+                    content: '';
+                    position: absolute;
+                    top: -9px;
+                    width: 30px;
+                    height: 30px;
+                    transform: rotate(-45deg);
+                    left: 50%;
+                    margin-left: -15px;
+                    background: #fff;
+                }
+
+                a{
+                    text-decoration: none;
+                    color: #000;
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+
+                    &::after{
+                        content:'>';
+                        margin-left: auto;
+                        opacity: 0;
+                        transition: all 0.35s ease;
+                    }
+
+                    &:hover, &:focus{
+                        &::after{
+                            opacity: 1;
+                        }
                     }
                 }
             }

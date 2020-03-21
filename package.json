@@ -12,6 +12,7 @@
     "singleQuote": true
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^18.0.0",
     "axios": "^0.19.0",
     "babel-core": "^6.23.1",
     "babel-loader": "7.1.2",

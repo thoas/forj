@@ -2,10 +2,13 @@ from datetime import datetime
 
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import (
+    HttpResponseBadRequest,
+    JsonResponse,
+    HttpResponsePermanentRedirect,
+)
 from django.views import generic
 from django.conf import settings
-from django.contrib.auth import login
 from django.db import transaction
 from django.utils.functional import cached_property
 from django.urls import NoReverseMatch
@@ -14,7 +17,7 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.utils import timezone
 
 from forj.web.frontend.forms import RegistrationForm
-from forj.models import Order, ContentNode
+from forj.models import Order, ContentNode, Page
 from forj.cart import Cart
 from forj import exceptions
 from forj.encoders import JSONEncoder
@@ -31,6 +34,24 @@ headers = (
     "QUERY_STRING",
     "X-Real-Ip",
 )
+
+
+class PageDetailView(generic.DetailView):
+    template_name = "forj/page/detail.html"
+    model = Page
+    context_object_name = "page"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["section"] = "page"
+
+        return context
+
+    def render_to_response(self, context):
+        if self.object.slug != self.kwargs["slug"]:
+            return HttpResponsePermanentRedirect(self.object.get_absolute_url())
+
+        return super().render_to_response(context)
 
 
 @csrf_exempt
@@ -142,7 +163,7 @@ class CheckoutView(CheckoutMixin, generic.FormView):
 
             order = form.save(self.order)
 
-            self.request.session["_order_id"] = self.order.pk
+            self.request.session["_order_id"] = order.pk
 
         return super().form_valid(form)
 
