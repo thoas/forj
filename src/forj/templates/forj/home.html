@@ -10,8 +10,18 @@
     <nav>
         <a href="{{ url("home") }}" class="logo">Forj</a>
         <ul>
-            {# <li><a class="link{% if section == "home" %} active{% endif %}" href="{{ url("home") }}">Table sur-mesure</a></li> #}
-            {# <li><a class="link{% if section == "collection" %} active{% endif %}" href="{{ url("collection") }}">Collection</a></li> #}
+            <li><a class="link{% if section == "home" %} active{% endif %}" href="{{ url("home") }}">Table sur-mesure</a></li>
+            <li><a class="link{% if section == "collection" %} active{% endif %}" href="{{ url("collection") }}">Collection</a></li>
+            {% if page_list %}
+                <li>
+                    <a class="link{% if section == "page" %} active{% endif %}" href="">Information</a>
+                    <ul>
+                        {% for page in page_list %}
+                            <li><a href="{{ page.get_absolute_url() }}">{{ page }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
             <li>
                 <a class="button disabled checkout" href="{{ url("checkout") }}">
                     Panier <span id="items-numbers" class="cart-counter">({{ cart.total_quantity }})</span>
@@ -30,7 +40,7 @@
         <a href="{{ url("checkout") }}" class="basket-icon"><span class="cart-counter">({{ cart.total_quantity }})</span></a>
     </div>
 
-    <header class="slider">
+    <header class="{% block header_class %}slider{% endblock %}">
         {% block header %}
             <div class="wrapper">
                 <h1>Forj, 4 pieds et 1 cadre entièrement sur-mesure</h1>

@@ -3,10 +3,72 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 from django.utils.html import format_html
 
-from forj.models import Order, Product, User, OrderItem, ContentNode, ContentNodeCover
+from forj.models import (
+    Order,
+    Product,
+    User,
+    OrderItem,
+    ContentNode,
+    ContentNodeCover,
+    Page,
+)
 from forj.forms.fields import AmountField
 
 from django_countries import countries
+
+
+class PageAdmin(admin.ModelAdmin):
+    list_display = ("title", "rank", "created_at")
+    prepopulated_fields = {"slug": ("title",)}
+    change_form_template = "forj/admin/page/change_form.html"
+
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "title",
+                    "slug",
+                    "subtitle",
+                    "content",
+                    "rank",
+                )
+            },
+        ),
+        (
+            "Images",
+            {
+                "fields": (
+                    "cover",
+                    "side_image",
+                )
+            },
+        ),
+        (
+            "Button",
+            {
+                "fields": (
+                    "button_label",
+                    "button_link",
+                )
+            },
+        ),
+    )
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+
+        return form
+
+    def render_change_form(self, request, context, *args, **kwargs):
+        res = super().render_change_form(request, context, *args, **kwargs)
+
+        context['adminform'].form.fields['content'].widget.attrs['class'] += ' ckeditor'
+
+        return res
+
+
+admin.site.register(Page, PageAdmin)
 
 
 class ContentNodeCoverInline(admin.TabularInline):

@@ -49,4 +49,9 @@ urlpatterns = urlpatterns + [
     ),
     url(r"^handler500/", generic.TemplateView.as_view(template_name="500.html")),
     url(r"^collection/$", views.collection, name="collection"),
+    url(
+        r"^page/(?P<pk>\d+)/(?P<slug>[\-\w]+)/$",
+        views.PageDetailView.as_view(),
+        name="page_detail",
+    ),
 ]

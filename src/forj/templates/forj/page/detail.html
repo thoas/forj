@@ -1,0 +1,47 @@
+{% extends "forj/home.html" %}
+
+{% block header_class %}header-landing slider{% endblock %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block body_class %}landing{% endblock %}
+
+{% block header %}
+    <div class="wrapper">
+        <h1>{{ page.title }}</h1>
+        {% if page.subtitle %}
+            <p>{{ page.subtitle }}</p>
+        {% endif %}
+
+        <div class="buttons-wrapper">
+            {% if page.button_link and page.button_label %}
+                <a href="{{ page.button_link }}" class="button-container">
+                    <span class="button inverted">{{ page.button_label }}</span>
+                </a>
+            {% endif %}
+            <a href="{{ url("home") }}" title="Voir tous nos produits">Voir tous nos produits</a>
+        </div>
+    </div>
+    <div class="cover" style="background-image: url({{ page.cover.url }})"></div>
+{% endblock %}
+
+{% block main %}
+    <section class="content-landing">
+        <div class="text-landing">
+            <h2>{{ page.title }}</h2>
+
+            {{ page.content|safe }}
+
+            <div class="buttons-wrapper">
+                {% if page.button_link and page.button_label %}
+                    <a href="{{ page.button_link }}">
+                        <span class="button inverted">{{ page.button_label }}</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="image-landing" style="background-image: url({{ page.side_image.url }})">
+        </div>
+    </section>
+{% endblock %}
