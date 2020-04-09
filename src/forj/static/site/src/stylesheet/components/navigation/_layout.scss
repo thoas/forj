@@ -73,58 +73,67 @@ nav {
             }
 
             &:hover, &:focus{
-                > ul{
+                .page-links-container {
                     display: block;
                 }
             }
 
-            > ul{
-                position: absolute;
-                z-index: 10;
+            .page-links-container {
                 display: none;
-                background: #fff;
-                padding: 45px 40px;
-                transform: translateX(-50%);
-                left: 50%;
-                width: 315px;
-                box-sizing: border-box;
-                top: 55px;
+                height: 100px;
 
-                > li{
-                    + li{
-                        margin-top: 8px;
-                    }
+                &:hover {
+                    display: block;
                 }
 
-                &::before{
-                    content: '';
+                ul{
                     position: absolute;
-                    top: -9px;
-                    width: 30px;
-                    height: 30px;
-                    transform: rotate(-45deg);
-                    left: 50%;
-                    margin-left: -15px;
+                    z-index: 10;
                     background: #fff;
-                }
-
-                a{
-                    text-decoration: none;
-                    color: #000;
-                    display: flex;
-                    align-items: center;
-                    width: 100%;
-
-                    &::after{
-                        content:'>';
-                        margin-left: auto;
-                        opacity: 0;
-                        transition: all 0.35s ease;
+                    padding: 45px 40px;
+                    transform: translateX(-50%);
+                    left: 50%;
+                    width: 315px;
+                    box-sizing: border-box;
+                    top: 55px;
+    
+                    > li{
+                        + li{
+                            margin-top: 8px;
+                        }
                     }
-
-                    &:hover, &:focus{
+    
+                    &::before{
+                        content: '';
+                        position: absolute;
+                        top: -9px;
+                        width: 30px;
+                        height: 30px;
+                        transform: rotate(-45deg);
+                        left: 50%;
+                        margin-left: -15px;
+                        background: #fff;
+                    }
+    
+                    a{
+                        text-decoration: none;
+                        color: #000;
+                        width: 100%;
+    
                         &::after{
-                            opacity: 1;
+                            margin-left: auto;
+                            opacity: 0;
+                            transition: all 0.35s ease;
+                        }
+    
+                        &:hover {
+                            border-bottom: 1px solid #000;
+                        }
+    
+                        &:hover, &:focus{
+                            &::after{
+                                opacity: 1;
+                            }
                         }
                     }
                 }

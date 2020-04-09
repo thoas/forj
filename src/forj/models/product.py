@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.functional import cached_property
 from django.conf import settings
 
+from forj.decorators import cache_for_request
 from forj.db.models import base
 from forj.criteria import CriteriaSet
 from forj.db.models.fields import AmountField
@@ -23,6 +24,21 @@ class ProductQuerySet(base.QuerySet):
 class ProductManager(base.Manager):
     def get_queryset(self):
         return ProductQuerySet(self.model)
+
+    @cache_for_request
+    def cache(self):
+        return list(self.order_by("price", "-condition"))
+
+    def cached_from_reference(self, reference):
+        products = self.cache()
+
+        for product in products:
+            if product.handle_reference(reference):
+                return product
+
+        raise exceptions.InvalidProductRef(
+            "Product ref {} is not available".format(reference)
+        )
 
     def from_reference(self, reference):
         return self.order_by("price", "-condition").from_reference(reference)
@@ -66,14 +82,14 @@ class Product(base.Model):
         if self.reference == reference:
             return True
 
+        if not self.condition:
+            return False
+
         criteria_set = CriteriaSet.from_reference(reference)
 
         if criteria_set in self.criteria_set and len(criteria_set) == len(
             self.criteria_set
         ):
-
-            if not self.condition:
-                return True
 
             cond = self.condition
 

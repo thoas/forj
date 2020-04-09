@@ -15,11 +15,13 @@
             {% if page_list %}
                 <li>
                     <a class="link{% if section == "page" %} active{% endif %}" href="">Information</a>
-                    <ul>
-                        {% for page in page_list %}
-                            <li><a href="{{ page.get_absolute_url() }}">{{ page }}</a></li>
-                        {% endfor %}
-                    </ul>
+                    <div class="page-links-container">
+                        <ul>
+                            {% for page in page_list %}
+                                <li><a href="{{ page.get_absolute_url() }}">{{ page }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </li>
             {% endif %}
             <li>

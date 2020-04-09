@@ -24,6 +24,7 @@ body.landing{
         box-sizing: border-box;
         display: flex;
         align-items: center;
+        height: 60vh;
 
         .wrapper{
             position: relative;
@@ -70,7 +71,7 @@ body.landing{
 
 .header-landing{
     .cover{
-        opacity: 1;
+        opacity: .8;
     }
 }
 

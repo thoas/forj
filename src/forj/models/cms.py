@@ -93,7 +93,7 @@ class ContentNode(base.Model):
         from forj.models import Product
 
         if self.product_reference:
-            product = Product.objects.from_reference(self.product_reference)
+            product = Product.objects.cached_from_reference(self.product_reference)
 
             return product
 
