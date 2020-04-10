@@ -68,8 +68,14 @@ class CartTest(TestCase):
         items = order.items.all()
 
         assert sum([item.quantity for item in items]) == 2
-        assert items[0].product_reference == "LA(37)-LO(50)-H(50)"
-        assert items[0].quantity == 1
 
-        assert items[1].product_reference == "LA(37)-LO(122)-H(67)"
-        assert items[1].quantity == 1
+        references = (
+            "LA(37)-LO(50)-H(50)",
+            "LA(37)-LO(122)-H(67)"
+        )
+
+        items = dict((item.product_reference, item) for item in items)
+
+        for reference in references:
+            assert reference in items
+            assert items[reference].quantity == 1

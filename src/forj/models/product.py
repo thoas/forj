@@ -82,14 +82,13 @@ class Product(base.Model):
         if self.reference == reference:
             return True
 
-        if not self.condition:
-            return False
-
         criteria_set = CriteriaSet.from_reference(reference)
 
         if criteria_set in self.criteria_set and len(criteria_set) == len(
             self.criteria_set
         ):
+            if not self.condition:
+                return True
 
             cond = self.condition
 
