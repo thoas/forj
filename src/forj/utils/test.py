@@ -142,6 +142,18 @@ class TestCase(Exam, test.TestCase):
             price=36200 * 1.5,
         )
 
+        self.p4_fixed = Product.objects.create(
+            name="Table Design",
+            reference="TABLE-DESIGN",
+            price=90000
+        )
+
+        self.p5_fixed = Product.objects.create(
+            name="Tabouret Design",
+            reference="TABOURET-DESIGN",
+            price=40000
+        )
+
     @fixture
     def order(self):
         self.cart.add_product("LA(37)-LO(122)-H(67)", 1)

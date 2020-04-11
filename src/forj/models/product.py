@@ -84,6 +84,9 @@ class Product(base.Model):
 
         criteria_set = CriteriaSet.from_reference(reference)
 
+        if criteria_set.is_empty() and self.criteria_set.is_empty():
+            return False
+
         if criteria_set in self.criteria_set and len(criteria_set) == len(
             self.criteria_set
         ):

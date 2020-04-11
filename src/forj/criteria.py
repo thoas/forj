@@ -32,6 +32,9 @@ class CriteriaSet(object):
     def __len__(self):
         return len(self.criterias)
 
+    def is_empty(self):
+        return len(self) == 0
+
     def __iter__(self):
         for criteria in self.criterias:
             yield criteria
