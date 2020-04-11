@@ -1,9 +1,9 @@
-const carousel = target => {
-  const resetActive = el => {
-    el.querySelectorAll('li').forEach(node => node.classList.remove('active'))
+const carousel = (target) => {
+  const resetActive = (el) => {
+    el.querySelectorAll('li').forEach((node) => node.classList.remove('active'))
   }
 
-  const init = el => {
+  const init = (el) => {
     const arrowRight = el.querySelector('.arrow.right')
     const arrowLeft = el.querySelector('.arrow.left')
     const children = el.querySelectorAll('li')
@@ -14,9 +14,9 @@ const carousel = target => {
 
     children[0].classList.add('active')
 
-    let timer = setTimeout(function() {}, 0)
+    let timer = setTimeout(function () {}, 0)
 
-    arrowLeft.addEventListener('click', evt => {
+    arrowLeft.addEventListener('click', (evt) => {
       resetActive(el)
       activeElement <= 0 ? (activeElement = children.length - 1) : activeElement--
       children[activeElement].classList.add('active')
@@ -30,7 +30,7 @@ const carousel = target => {
       }, 5000)
     })
 
-    arrowRight.addEventListener('click', evt => {
+    arrowRight.addEventListener('click', (evt) => {
       resetActive(el)
       activeElement >= children.length - 1 ? (activeElement = 0) : activeElement++
       children[activeElement].classList.add('active')
@@ -44,14 +44,14 @@ const carousel = target => {
       }, 5000)
     })
 
-    setInterval(function() {
+    setInterval(function () {
       if (!pause) {
         arrowRight.click()
       }
     }, 3000 + Math.round(Math.random() * 2000))
   }
 
-  target.forEach(node => init(node))
+  target.forEach((node) => init(node))
 }
 
 export default carousel

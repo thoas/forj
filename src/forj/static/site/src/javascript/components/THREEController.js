@@ -41,7 +41,7 @@ class THREEController {
   }
 
   anim_in() {
-    this.drag_rotation.x = 2 * Math.PI / 3
+    this.drag_rotation.x = (2 * Math.PI) / 3
 
     if (window.innerWidth < 960) {
       this.mouse.z = -0.5
@@ -67,7 +67,7 @@ class THREEController {
     this.assets.hdr.mapping = THREE.SphericalReflectionMapping
 
     this.manager.onProgress = (item, loaded, total) => {
-      let progress = Math.round(loaded / total * 100)
+      let progress = Math.round((loaded / total) * 100)
       if (progress == 100) {
         this.init()
       }
@@ -83,7 +83,7 @@ class THREEController {
       staticfiles: this.staticfiles,
       onChange: () => {
         this.cursor.triggerChange()
-      }
+      },
     })
 
     this.cursor.init(this)
@@ -97,38 +97,40 @@ class THREEController {
     const materials = document.querySelectorAll('section.module .material')
     const metalMaterial = document.querySelector('section.module .metal-material')
 
-    materials.forEach(material => {
+    materials.forEach((material) => {
       if (material.classList.contains('active')) {
         activeMaterial = material.dataset.material
       }
     })
 
-    checkbox.addEventListener('click', () => {
-      if (checkbox.checked) {
-        this.table.change_material('metal')
-        this.bancs.forEach(banc => banc.change_material('metal'))
-        this.table.outside = true
-        activeMaterial = this.table.active_desk
+    if (checkbox) {
+      checkbox.addEventListener('click', () => {
+        if (checkbox.checked) {
+          this.table.change_material('metal')
+          this.bancs.forEach((banc) => banc.change_material('metal'))
+          this.table.outside = true
+          activeMaterial = this.table.active_desk
 
-        materials.forEach(material => material.classList.remove('active'))
-        metalMaterial.classList.add('active')
-      } else {
-        this.table.outside = false
-        this.table.change_material(activeMaterial)
-        this.bancs.forEach(banc => {
-          banc.outside = false
-          banc.change_material(activeMaterial)
-        })
+          materials.forEach((material) => material.classList.remove('active'))
+          metalMaterial.classList.add('active')
+        } else {
+          this.table.outside = false
+          this.table.change_material(activeMaterial)
+          this.bancs.forEach((banc) => {
+            banc.outside = false
+            banc.change_material(activeMaterial)
+          })
 
-        metalMaterial.classList.remove('active')
+          metalMaterial.classList.remove('active')
 
-        materials.forEach(material => {
-          if (material.dataset.material == activeMaterial) {
-            material.classList.add('active')
-          }
-        })
-      }
-    })
+          materials.forEach((material) => {
+            if (material.dataset.material == activeMaterial) {
+              material.classList.add('active')
+            }
+          })
+        }
+      })
+    }
   }
 
   add_banc() {
@@ -153,7 +155,7 @@ class THREEController {
       onChange: () => {
         this.cursor.triggerChange()
       },
-      onLoad: banc => {
+      onLoad: (banc) => {
         banc.changeSize(this.table.width / 2 - 25, 32, 45)
         banc.active_desk = this.table.active_desk
         banc.load_desk_material(1)
@@ -165,7 +167,7 @@ class THREEController {
         if (window.innerWidth > 960) {
           this.mouse.z = -0.3
         }
-      }
+      },
     })
   }
 
@@ -207,7 +209,7 @@ class THREEController {
 
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
-      alpha: true
+      alpha: true,
     })
 
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
@@ -232,7 +234,7 @@ class THREEController {
 
     let last_mouse = { x: 0, y: 0 }
 
-    this.container.addEventListener('mousemove', function(event) {
+    this.container.addEventListener('mousemove', function (event) {
       that.mouse.x = (event.clientX / that.width - 0.5) * 2
       that.mouse.y = (event.clientY / that.height - 0.5) * 2
 
@@ -262,26 +264,26 @@ class THREEController {
 
   initMaterialEvents() {
     const materials = document.querySelectorAll('section.module .material')
-    materials.forEach(elem =>
+    materials.forEach((elem) =>
       elem.addEventListener('click', () => {
         if (elem.dataset.material != 'metal' && this.table.outside) {
           this.table.outside = false
           document.querySelector('#vernis').checked = false
-          this.bancs.forEach(banc => (banc.outside = false))
+          this.bancs.forEach((banc) => (banc.outside = false))
         }
         this.table.change_material(elem.dataset.material)
-        this.bancs.forEach(banc => banc.change_material(elem.dataset.material))
-        materials.forEach(material => material.classList.remove('active'))
+        this.bancs.forEach((banc) => banc.change_material(elem.dataset.material))
+        materials.forEach((material) => material.classList.remove('active'))
         elem.classList.add('active')
       })
     )
 
     const colors = document.querySelectorAll('section.module .color-param')
-    colors.forEach(elem =>
+    colors.forEach((elem) =>
       elem.addEventListener('click', () => {
         this.table.change_color(elem.dataset.color)
-        this.bancs.forEach(banc => banc.change_color(elem.dataset.color))
-        colors.forEach(node => node.classList.remove('active'))
+        this.bancs.forEach((banc) => banc.change_color(elem.dataset.color))
+        colors.forEach((node) => node.classList.remove('active'))
         elem.classList.add('active')
       })
     )
