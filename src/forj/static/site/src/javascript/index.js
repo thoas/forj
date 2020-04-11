@@ -10,7 +10,7 @@ import numeral from './format'
 
 // formatProductReference formats the current selection in a product reference
 // readable by the server
-const formatProductReference = cursor => {
+const formatProductReference = (cursor) => {
   let criterias = []
 
   if (cursor.table.outside) {
@@ -29,9 +29,9 @@ const formatProductReference = cursor => {
 
   return [
     [...criterias, `LO(${cursor.width})`, `LA(${cursor.depth})`, `H(${cursor.height})`].join('-'),
-    ...cursor.controller.bancs.map(banc =>
+    ...cursor.controller.bancs.map((banc) =>
       ['T(BANC)', `LO(${cursor.width - 25 <= 25 ? 25 : cursor.width - 25})`, ...criterias, 'LA(28)', 'H(45)'].join('-')
-    )
+    ),
   ]
 }
 
@@ -42,15 +42,15 @@ const cursor = new Range({
 
     var params = new FormData()
     params.append('action', 'detail')
-    referenceList.forEach(reference => params.append('reference', reference))
+    referenceList.forEach((reference) => params.append('reference', reference))
 
-    axios.post(window.SETTINGS.urls.cart, params).then(res => {
+    axios.post(window.SETTINGS.urls.cart, params).then((res) => {
       const total = parseFloat(parseInt(res.data.total, 10) / 100.0)
       const priceNode = document.querySelector('#price-value')
 
       let price = {
         dom: priceNode,
-        value: parseFloat(priceNode.textContent).toFixed(2)
+        value: parseFloat(priceNode.textContent).toFixed(2),
       }
 
       let tweenPrice = TweenMax.to(price, 1, {
@@ -60,24 +60,27 @@ const cursor = new Range({
           if (tweenPrice.target.value.toFixed) {
             price.dom.textContent = numeral(tweenPrice.target.value).format('0.00')
           }
-        }
+        },
       })
     })
 
     const ops = [
-      [document.querySelectorAll('section.infos .depth, .basket .depth'), elem => (elem.textContent = cursor.depth)],
-      [document.querySelectorAll('section.infos .width, .basket .width'), elem => (elem.textContent = cursor.width)],
-      [document.querySelectorAll('section.infos .height, .basket .height'), elem => (elem.textContent = cursor.height)],
+      [document.querySelectorAll('section.infos .depth, .basket .depth'), (elem) => (elem.textContent = cursor.depth)],
+      [document.querySelectorAll('section.infos .width, .basket .width'), (elem) => (elem.textContent = cursor.width)],
+      [
+        document.querySelectorAll('section.infos .height, .basket .height'),
+        (elem) => (elem.textContent = cursor.height),
+      ],
       [
         document.querySelectorAll('section.infos .desk, .basket .desk'),
-        elem => (elem.textContent = cursor.table.active_desk)
+        (elem) => (elem.textContent = cursor.table.active_desk),
       ],
       [
         document.querySelectorAll('section.infos .color, .basket .color'),
-        elem => (elem.textContent = cursor.table.active_color)
-      ]
+        (elem) => (elem.textContent = cursor.table.active_color),
+      ],
     ]
-    ops.forEach(entry => entry[0].forEach(elem => entry[1](elem)))
+    ops.forEach((entry) => entry[0].forEach((elem) => entry[1](elem)))
 
     let outside = document.querySelector('section.infos .outside')
     if (cursor.table.outside) {
@@ -106,43 +109,59 @@ const cursor = new Range({
     } else {
       bancs_popin.textContent = '(0)'
     }
-  }
+  },
 })
 
-const three = new THREEController({
-  container: document.querySelector('.webgl'),
-  cursor: cursor,
-  staticfiles: window.SETTINGS.staticfiles
-})
+const container = document.querySelector('.webgl')
+let three
 
-new StickyBar(document.querySelector('section.infos'))
-const popins = new Popins(['more_color', 'gallery', 'basket'])
-
-document.querySelector('#add-to-basket').addEventListener('click', e => {
-  e.preventDefault()
-
-  const referenceList = formatProductReference(cursor)
-
-  var params = new FormData()
-  params.append('action', 'add')
-  referenceList.forEach(reference => params.append('reference', reference))
-
-  axios.post(window.SETTINGS.urls.cart, params).then(res => {
-    popins.display('basket')
-
-    const sum = res.data.items.map(entry => entry.quantity).reduce((a, b) => a + b, 0)
-
-    document.querySelectorAll('.cart-counter').forEach(elem => (elem.textContent = `(${sum})`))
+if (container) {
+  three = new THREEController({
+    container: container,
+    cursor: cursor,
+    staticfiles: window.SETTINGS.staticfiles,
   })
-})
+}
 
-document.querySelectorAll('.slider').forEach(node => new Slider(node))
+const stickybar = document.querySelector('section.infos')
+if (stickybar) {
+  new StickyBar(stickybar)
+}
+
+const popin = document.querySelector('.popin-background')
+let popins
+if (popin) {
+  popins = new Popins(popin, ['more_color', 'gallery', 'basket'])
+}
+
+const basketBtn = document.querySelector('#add-to-basket')
+if (basketBtn) {
+  basketBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    const referenceList = formatProductReference(cursor)
+
+    var params = new FormData()
+    params.append('action', 'add')
+    referenceList.forEach((reference) => params.append('reference', reference))
+
+    axios.post(window.SETTINGS.urls.cart, params).then((res) => {
+      popins.display('basket')
+
+      const sum = res.data.items.map((entry) => entry.quantity).reduce((a, b) => a + b, 0)
+
+      document.querySelectorAll('.cart-counter').forEach((elem) => (elem.textContent = `(${sum})`))
+    })
+  })
+}
+
+document.querySelectorAll('.slider').forEach((node) => new Slider(node))
 
 const animate = () => {
   requestAnimationFrame(animate)
 
   // Updating components
-  if (three.renderer != undefined) {
+  if (three && three.renderer != undefined) {
     three.update()
   }
 }

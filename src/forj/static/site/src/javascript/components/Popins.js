@@ -1,6 +1,6 @@
 class Popins {
-  constructor(list) {
-    this.background = document.querySelector('.popin-background')
+  constructor(container, list) {
+    this.background = container
     this.activated = list
 
     for (var i = 0; i < this.activated.length; i++) {
@@ -32,7 +32,7 @@ class Popins {
     let popin_basket = document.querySelector('.popin.basket')
     this.popin_basket = popin_basket
 
-    popin_basket.querySelector('.return').addEventListener('click', e => {
+    popin_basket.querySelector('.return').addEventListener('click', (e) => {
       this.hide('basket')
     })
   }
@@ -50,7 +50,7 @@ class Popins {
     let popin_more_color = document.querySelector('.more')
     let more_color_open = false
 
-    popin_more_color.addEventListener('click', function() {
+    popin_more_color.addEventListener('click', function () {
       setTimeout(() => {
         if (more_color_open) {
           this.classList.remove('active')
@@ -61,7 +61,7 @@ class Popins {
         }
       }, 10)
     })
-    document.querySelector('section.module .params').addEventListener('click', function() {
+    document.querySelector('section.module .params').addEventListener('click', function () {
       if (more_color_open) {
         popin_more_color.classList.remove('active')
         setTimeout(() => {
@@ -78,7 +78,7 @@ class Popins {
     let gallery_left = document.querySelector('section.gallery .left')
     let active_gallery_index = 0
 
-    gallery_launcher.addEventListener('click', function() {
+    gallery_launcher.addEventListener('click', function () {
       gallery.classList.add('active')
     })
     let photos_gallery = document.querySelectorAll('section.gallery li')
@@ -87,7 +87,7 @@ class Popins {
     }
     photos_gallery[active_gallery_index].classList.add('active')
 
-    gallery_right.addEventListener('click', function() {
+    gallery_right.addEventListener('click', function () {
       for (var i = 0; i < photos_gallery.length; i++) {
         photos_gallery[i].classList.remove('active')
       }
@@ -99,7 +99,7 @@ class Popins {
       photos_gallery[active_gallery_index].classList.add('active')
     })
 
-    gallery_left.addEventListener('click', function() {
+    gallery_left.addEventListener('click', function () {
       for (var i = 0; i < photos_gallery.length; i++) {
         photos_gallery[i].classList.remove('active')
       }
@@ -113,7 +113,7 @@ class Popins {
 
     gallery.querySelector('.background').addEventListener(
       'click',
-      function() {
+      function () {
         gallery.classList.remove('active')
       },
       false
