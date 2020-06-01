@@ -1,5 +1,7 @@
 {% extends "forj/checkout/success.html" %}
 
+{% block body_class %}success about{% endblock %}
+
 {% block wrapper_class %}wrapper wrapper--centered{% endblock %}
 
 {% block title %}A propos de Forj, créateur de tables sur mesure{% endblock %}
@@ -27,8 +29,15 @@
     <h2> Qui sommes-nous ?</h2>
     <img src="{{ static("site/build/assets/images/prod/a_propos.jpg") }}" alt="A propos Forj">
     <p>
-        Forj est une marque de mobilier créée par deux frères, Jean-Charles et Benoît respectivement métallier et graphiste. 
-Nous produisons nos meubles uniquement sur-mesure et sommes très heureux de l'intérêt que vous portez à notre travail. N'hésitez pas à nous contacter <a href="mailto:forj.info@gmail.com"> par mail </a> ou appelez-nous au 06.42.03.80.50 et dites nous tout ! Nous vous recontacterons dans les plus brefs délais.
-
+        Forj est un atelier de création de table sur mesure situé en région parisienne.<br />
+        Nous faisons la conception et la réalisation dans notre métallerie et notre menuiserie.<br />
+        Tout est produit chez nous et envoyé depuis l’atelier.
+    </p>
+    <p>
+        Notre métallerie répond à des commandes dans divers secteurs comme l’art contemporain, le luxe, la restauration ou les startups. Nous réalisons des objets sur mesure, des verrières, des gardes corps, des escaliers…
+    </p>
+    <p>
+        Aujourd’hui, Forj.shop nous permet également de répondre à des demandes pour les particuliers.
+        Vous pouvez nous contacter sur <a href="mailto:forj.info@gmail.com">forj.info@gmail.com</a> pour une demande spécifique.
     </p>
 {% endblock %}
