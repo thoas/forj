@@ -72,12 +72,18 @@ class Cart(object):
             product = entry["obj"]
 
             for ref, quantity in entry["refs"].items():
+                total = quantity * product.get_price(ref)
+                if product.shipping_cost:
+                    total += product.shipping_cost
+                if product.tax_cost:
+                    total += product.tax_cost
+
                 products.append(
                     {
                         "quantity": quantity,
                         "reference": ref,
                         "product": product,
-                        "total": quantity * product.get_price(ref),
+                        "total": total,
                     }
                 )
 
