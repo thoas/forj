@@ -158,7 +158,7 @@ class Order(base.Model):
                     "quantity": item.quantity,
                     "reference": item.product_reference,
                     "product": item.product,
-                    "total": item.amount,
+                    "total": item.total,
                 }
             )
 
@@ -184,3 +184,7 @@ class OrderItem(base.Model):
     class Meta:
         abstract = False
         db_table = "forj_orderitem"
+
+    @property
+    def total(self):
+        return self.amount + self.shipping_cost + self.tax_cost

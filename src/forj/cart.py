@@ -47,8 +47,10 @@ class Cart(object):
         for product_id, result in self._products.items():
             for ref, quantity in result["refs"].items():
                 amount = quantity * result["obj"].get_price(ref)
-                shipping_cost = quantity * result["obj"].shipping_cost
-                tax_cost = quantity * result["obj"].tax_cost
+                shipping_cost = result["obj"].shipping_cost or 0
+                shipping_cost = quantity * shipping_cost
+                tax_cost = result["obj"].tax_cost or 0
+                tax_cost = quantity * tax_cost
 
                 self.amount += amount
                 self.shipping_cost += shipping_cost
