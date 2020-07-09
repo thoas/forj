@@ -21,7 +21,7 @@ MEDIA_URL = "/media/"
 
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
-PARENT_HOST = "forj.shop"
+PARENT_HOST = "table-forj.fr"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "in.mailjet.com"
@@ -30,6 +30,8 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 SERVER_EMAIL = "noreply@forj.shop"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+SESSION_COOKIE_DOMAIN = ".table-forj.fr"
+CSRF_COOKIE_DOMAIN = ".table-forj.fr"
 
 sentry_dsn = os.getenv("SENTRY_DSN")
 

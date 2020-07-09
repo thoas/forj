@@ -2,6 +2,9 @@ nginx_user: "www-data"
 letsencrypt:
   domains:
     - www.forj.shop
+    - www.table-forj.fr
+    - table-forj.com
+    - www.table-forj.com
 
 pyenv:
   path: "/var/www/pyenv"
