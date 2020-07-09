@@ -13,7 +13,7 @@ SECRET_KEY = "pn442e6ha)cvkme3mz^$5e(3f0y=8@cdlg-k&0onv2$t@i*68j"
 
 DEBUG = True
 
-ALLOWED_HOSTS = [".forj.com", ".forj.shop"]
+ALLOWED_HOSTS = [".forj.shop", ".table-forj.fr"]
 
 AUTH_USER_MODEL = "forj.User"
 DEFAULT_COUNTRY = "FR"
