@@ -9,6 +9,18 @@
 {% block extend_js %}
 {% endblock %}
 
+{% block extend_meta %}
+    {% if page.metadata_description %}
+        <meta name="description" content="{{ page.metadata_description }}">
+    {% endif %}
+    {% if page.metadata_keywords %}
+        <meta name="keywords" content="{{ page.metadata_keywords }}">
+    {% endif %}
+    {% if page.metadata_author %}
+        <meta name="author" content="{{ page.metadata_author }}">
+    {% endif %}
+{% endblock %}
+
 {% block header %}
     <div class="wrapper">
         <h1>{{ page.title }}</h1>

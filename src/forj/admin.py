@@ -36,6 +36,17 @@ class PageAdmin(admin.ModelAdmin):
             },
         ),
         (
+            "Metadata",
+            {
+                "fields": (
+                    "metadata_author",
+                    "metadata_keywords",
+                    "metadata_description",
+                ),
+                "classes": ("collapse",)
+            },
+        ),
+        (
             "Images",
             {
                 "fields": (
@@ -71,11 +82,11 @@ class PageAdmin(admin.ModelAdmin):
 admin.site.register(Page, PageAdmin)
 
 
-class ContentNodeCoverInline(admin.TabularInline):
+class ContentNodeCoverInline(admin.StackedInline):
     model = ContentNodeCover
     extra = 1
 
-    fields = ("image", "rank")
+    fields = ("image", "rank", "alt_text")
 
 
 class ContentNodeAdmin(admin.ModelAdmin):

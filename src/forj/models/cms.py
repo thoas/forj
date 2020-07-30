@@ -20,11 +20,18 @@ class Page(base.Model):
     button_label = models.CharField(
         max_length=250, verbose_name="Button label", null=True, blank=True
     )
-    button_link = models.URLField(
-        verbose_name="Button link", null=True, blank=True
-    )
+    button_link = models.URLField(verbose_name="Button link", null=True, blank=True)
     cover = ThumbnailerImageField(verbose_name="Cover image")
     side_image = ThumbnailerImageField(verbose_name="Side image")
+    metadata_keywords = models.TextField(
+        null=True, blank=True, verbose_name="Metadata keywords"
+    )
+    metadata_description = models.TextField(
+        null=True, blank=True, verbose_name="Metadata description"
+    )
+    metadata_author = models.TextField(
+        null=True, blank=True, verbose_name="Metadata author"
+    )
 
     class Meta:
         abstract = False
@@ -106,6 +113,9 @@ class ContentNodeCover(base.Model):
     )
     image = ThumbnailerImageField(null=True, blank=True, verbose_name="Cover image")
     rank = models.IntegerField(verbose_name="Rang", default=0)
+    alt_text = models.TextField(
+        null=True, blank=True, verbose_name="Cover alternative text"
+    )
 
     class Meta:
         abstract = False

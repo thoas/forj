@@ -47,7 +47,7 @@
                 <ul>
                     {% for cover in node.covers.all() %}
                         {% if cover.image %}
-                            <li><img src="{{ cover.image.url }}" alt="#"></li>
+                            <li><img src="{{ cover.image.url }}" alt="{{ cover.alt_text }}"></li>
                         {% endif %}
                     {% endfor %}
                 </ul>
