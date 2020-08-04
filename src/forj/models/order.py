@@ -32,7 +32,7 @@ class Order(base.Model):
     STATUS_CHOICES = constants.ORDER_STATUS_CHOICES
     SHIPPING_STATUS_CHOICES = constants.ORDER_SHIPPING_STATUS_CHOICES
 
-    amount = AmountField(verbose_name="Total amount")
+    amount = AmountField(verbose_name="Amount")
     currency = models.CharField(
         max_length=3,
         choices=constants.CURRENCY_CHOICES,
@@ -83,7 +83,7 @@ class Order(base.Model):
         return "{} - {}{}/{}".format(
             self.reference,
             self.get_currency_display(),
-            self.amount_converted,
+            self.total_converted,
             self.get_status_display(),
         )
 
@@ -99,6 +99,10 @@ class Order(base.Model):
     @property
     def total(self):
         return self.amount + self.shipping_cost + self.tax_cost
+
+    @property
+    def total_converted(self):
+        return round(self.total / 100.0, 2)
 
     def is_status_succeeded(self):
         return self.status == self.STATUS_CHOICES.SUCCEEDED

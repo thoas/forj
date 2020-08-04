@@ -205,6 +205,7 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderAdminForm(forms.ModelForm):
+    total = forms.CharField(required=False)
     shipping_first_name = forms.CharField(required=False)
     shipping_last_name = forms.CharField(required=False)
     shipping_email = forms.CharField(required=False)
@@ -234,6 +235,9 @@ class OrderAdminForm(forms.ModelForm):
         super(OrderAdminForm, self).__init__(*args, **kwargs)
 
         if self.instance:
+            self.fields["total"].initial = self.instance.total_converted
+            self.fields["total"].widget.attrs["disabled"] = True
+
             for field in ("shipping", "billing"):
                 if getattr(self.instance, "%s_address_id" % field):
                     instance = getattr(self.instance, "%s_address" % field)
@@ -278,7 +282,7 @@ class OrderAdmin(admin.ModelAdmin):
     form = OrderAdminForm
 
     fieldsets = (
-        (None, {"fields": ("amount", "currency", "status")}),
+        (None, {"fields": ("total", "amount", "currency", "status")}),
         ("Shipping", {"fields": ("shipping_cost", "shipping_status")}),
         (
             "Shipping address",
@@ -345,7 +349,7 @@ class OrderAdmin(admin.ModelAdmin):
         )
 
     def _amount(self, instance):
-        return "{}{}".format(instance.get_currency_display(), instance.amount_converted)
+        return "{}{}".format(instance.get_currency_display(), instance.total_converted)
 
 
 admin.site.register(Order, OrderAdmin)
