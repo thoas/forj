@@ -22,7 +22,7 @@ django-countries==6.1.2
 raven==6.10.0
 Babel==2.8.0
 
-django==3.0.9
+django==3.1
 
 django-mail-factory==0.22
 phonenumberslite==8.12.7
@@ -32,7 +32,7 @@ stripe==2.49.0
 shortuuid==1.0.1
 django-dotenv==1.4.2
 
--e git://github.com/ulule/django-jinja@d25d07cfdf2367338f6b2bd217e29fc313b20c1f#egg=django_jinja
 -e git://github.com/ulule/django-hosts@31acace14b86a08f9c686ab378c70c7e50ae6d16#egg=django-hosts
+-e git://github.com/niwinz/django-jinja@7d08e5d5d7cad5c00b65fd7c4b4f095f209a4162#egg=django-jinja
 
 sentry-sdk==0.16.3

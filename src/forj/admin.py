@@ -219,6 +219,7 @@ class OrderAdminForm(forms.ModelForm):
 
     billing_first_name = forms.CharField(required=False)
     billing_last_name = forms.CharField(required=False)
+    billing_email = forms.CharField(required=False)
     billing_business_name = forms.CharField(required=False)
     billing_line1 = forms.CharField(required=False, widget=forms.Textarea)
     billing_line2 = forms.CharField(required=False, widget=forms.Textarea)
