@@ -6,7 +6,7 @@ pytest-django==3.9.0
 pytz==2020.1
 gunicorn==20.0.4
 boto==2.49.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 django-extensions==3.0.3
 simplejson==3.17.2
 six==1.15.0
