@@ -33,6 +33,6 @@ shortuuid==1.0.1
 django-dotenv==1.4.2
 
 -e git://github.com/ulule/django-hosts@31acace14b86a08f9c686ab378c70c7e50ae6d16#egg=django-hosts
--e git://github.com/niwinz/django-jinja@7d08e5d5d7cad5c00b65fd7c4b4f095f209a4162#egg=django-jinja
+-e git://github.com/niwinz/django-jinja@84941abdf3768055009cf95b5ea40a51d2db09d3#egg=django-jinja
 
 sentry-sdk==1.0.0
