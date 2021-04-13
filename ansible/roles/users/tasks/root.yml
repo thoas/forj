@@ -1,6 +1,6 @@
 - name: configure ssh keys
   template:
-    src: "home/ssh/{{ item }}.j2"
+    src: "home/ssh/{{ item }}"
     dest: "~/.ssh/{{ item }}"
     mode: 0600
     backup: true

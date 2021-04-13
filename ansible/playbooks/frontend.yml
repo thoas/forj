@@ -1,9 +1,9 @@
 - hosts: front
   roles:
     - jdauphant.nginx
-    - letsencrypt
     - role: forj
       use_ssl: true
+    - letsencrypt
     - nodejs
     - role: avanov.pyenv
       pyenv_path: "{{ pyenv.path }}"
