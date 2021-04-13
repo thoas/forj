@@ -263,3 +263,5 @@ LOGGING = {
 }
 
 FORJ_PAYMENT_BACKEND_CLASS = "forj.payment.backends.stripe.StripeBackend"
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
