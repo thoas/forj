@@ -22,7 +22,7 @@ django-countries==7.1
 raven==6.10.0
 Babel==2.9.0
 
-django==3.1.7
+django==3.1.8
 
 django-mail-factory==0.22
 phonenumberslite==8.12.21
