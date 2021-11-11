@@ -30,7 +30,7 @@ server {
 {% if use_ssl is defined %}
 server {
    listen 80;
-   server_name www.forj.shop forj.shop table-forj.fr www.table-forj.com table-forj.com;
+   server_name www.forj.shop forj.shop www.table-forj.fr table-forj.fr www.table-forj.com table-forj.com;
    return 301 https://www.table-forj.fr$request_uri;
 }
 {% endif %}
