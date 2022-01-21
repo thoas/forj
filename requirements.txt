@@ -10,7 +10,7 @@ Jinja2==3.0.3
 django-extensions==3.1.5
 simplejson==3.17.5
 six==1.16.0
-ipython==7.29.0
+ipython==7.31.1
 alembic==1.7.4
 easy-thumbnails==2.7.1
 exam==0.10.6
