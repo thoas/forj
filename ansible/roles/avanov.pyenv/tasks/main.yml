@@ -1,23 +1,23 @@
 ---
-- include: Debian.yml
+- import_tasks: Debian.yml
   when: ansible_os_family == "Debian"
   tags:
     - pyenv
   
-- include: RedHat.yml
+- import_tasks: RedHat.yml
   when: ansible_os_family == "RedHat"
   tags:
     - pyenv
 
 
-- include: install.yml
+- import_tasks: install.yml
   become: true
   become_user: "{{ pyenv_owner }}"
   when: pyenv_env == "user"
   tags:
     - pyenv
   
-- include: install.yml
+- import_tasks: install.yml
   become: true
   when: pyenv_env == "system"
   tags:
