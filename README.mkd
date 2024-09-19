@@ -1,7 +1,5 @@
 # forj
 
-![travis](https://travis-ci.org/thoas/forj.svg?branch=master)
-
 forj is the personal project of Michel Berard.
 
 ## Installation
