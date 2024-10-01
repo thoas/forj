@@ -32,6 +32,6 @@ class UserForm(forms.ModelForm):
 
     def save(self, *args, **kwargs):
         if not self.instance.password:
-            self.instance.set_password(get_random_string())
+            self.instance.set_password(get_random_string(length=20))
 
         return super().save(*args, **kwargs)

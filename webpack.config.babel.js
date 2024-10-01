@@ -1,5 +1,5 @@
-import path from 'path'
-import webpack from 'webpack'
+const path = require('path')
+const webpack = require('webpack')
 
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')

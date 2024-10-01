@@ -1,9 +1,9 @@
-psycopg[binary]==3.2.1 
+psycopg[binary]==3.2.2 
 Pillow==10.4.0
 django-debug-toolbar==4.4.6
-pytest==8.3.2
+pytest==8.3.3
 pytest-django==4.9.0
-pytz==2024.1
+pytz==2024.2
 gunicorn==23.0.0
 boto==2.49.0
 Jinja2==3.1.4
@@ -12,12 +12,12 @@ simplejson==3.19.3
 six==1.16.0
 ipython==8.27.0
 alembic==1.13.2
-easy-thumbnails==2.9
+easy-thumbnails==2.10
 exam==0.10.6
 -e git+https://github.com/ulule/django-extended-choices.git@852c236bff009dbcb0a23c9a0019d4bf8146858e#egg=django-extended-choices
 responses==0.25.3
 requests==2.32.3
-SQLAlchemy==2.0.34
+SQLAlchemy==2.0.35
 django-countries==7.6.1
 raven==6.10.0
 Babel==2.16.0
@@ -27,7 +27,7 @@ django==5.1.1
 django-mail-factory==0.24
 phonenumberslite==8.13.45
 
-stripe==10.10.0
+stripe==10.12.0
 
 shortuuid==1.0.13
 django-dotenv==1.4.2
@@ -35,4 +35,4 @@ django-dotenv==1.4.2
 django-hosts==6.0
 django-jinja==2.11.0
 
-sentry-sdk==2.13.0
+sentry-sdk==2.14.0
